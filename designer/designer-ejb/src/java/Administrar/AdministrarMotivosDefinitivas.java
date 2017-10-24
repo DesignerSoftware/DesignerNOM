@@ -24,114 +24,111 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefinitivasInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarMotivosDefinitivas.class);
+    private static Logger log = Logger.getLogger(AdministrarMotivosDefinitivas.class);
 
-   @EJB
-   PersistenciaMotivosDefinitivasInterface persistenciaMotivosDefinitivas;
-   /**
-    * Enterprise JavaBean.<br>
-    * Atributo que representa todo lo referente a la conexión del usuario que
-    * está usando el aplicativo.
-    */
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaMotivosDefinitivasInterface persistenciaMotivosDefinitivas;
+    /**
+     * Enterprise JavaBean.<br>
+     * Atributo que representa todo lo referente a la conexión del usuario que
+     * está usando el aplicativo.
+     */
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
 
-   private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
+            } else {
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
 
-   @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
-   public void modificarMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas) {
-      try {
-         for (int i = 0; i < listaMotivosDefinitivas.size(); i++) {
-            log.warn("Administrar Modificando...");
-            persistenciaMotivosDefinitivas.editar(getEm(), listaMotivosDefinitivas.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarMotivosDefinitivas() ERROR: " + e);
-      }
-   }
+    public String modificarMotivosDefinitivas(MotivosDefinitivas motivosDefinitiva) {
+        try {
+            return persistenciaMotivosDefinitivas.editar(getEm(), motivosDefinitiva);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarMotivosDefinitivas() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   public void borrarMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas) {
-      try {
-         for (int i = 0; i < listaMotivosDefinitivas.size(); i++) {
-            log.warn("Administrar Borrando...");
-            persistenciaMotivosDefinitivas.borrar(getEm(), listaMotivosDefinitivas.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarMotivosDefinitivas() ERROR: " + e);
-      }
-   }
+    public String borrarMotivosDefinitivas(MotivosDefinitivas motivosDefinitiva) {
+        try {
+            return persistenciaMotivosDefinitivas.borrar(getEm(), motivosDefinitiva);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarMotivosDefinitivas() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   public void crearMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas) {
-      try {
-         for (int i = 0; i < listaMotivosDefinitivas.size(); i++) {
-            log.warn("Administrar Crenando...");
-            persistenciaMotivosDefinitivas.crear(getEm(), listaMotivosDefinitivas.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearMotivosDefinitivas() ERROR: " + e);
-      }
-   }
+    public String crearMotivosDefinitivas(MotivosDefinitivas motivosDefinitiva) {
+        try {
+            return persistenciaMotivosDefinitivas.crear(getEm(), motivosDefinitiva);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearMotivosDefinitivas() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   public List<MotivosDefinitivas> mostrarMotivosDefinitivas() {
-      try {
-         return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".mostrarMotivosDefinitivas() ERROR: " + e);
-         return null;
-      }
-   }
+    public List<MotivosDefinitivas> mostrarMotivosDefinitivas() {
+        try {
+            return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".mostrarMotivosDefinitivas() ERROR: " + e);
+            return null;
+        }
+    }
 
-   public MotivosDefinitivas mostrarMotivoDefinitiva(BigInteger secMotivoPrestamo) {
-      try {
-         return persistenciaMotivosDefinitivas.buscarMotivoDefinitiva(getEm(), secMotivoPrestamo);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".mostrarMotivoDefinitiva() ERROR: " + e);
-         return null;
-      }
-   }
+    public MotivosDefinitivas mostrarMotivoDefinitiva(BigInteger secMotivoPrestamo) {
+        try {
+            return persistenciaMotivosDefinitivas.buscarMotivoDefinitiva(getEm(), secMotivoPrestamo);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".mostrarMotivoDefinitiva() ERROR: " + e);
+            return null;
+        }
+    }
 
-   public BigInteger contarNovedadesSistemasMotivoDefinitiva(BigInteger secuenciaMotivosCesantias) {
-      try {
-         return persistenciaMotivosDefinitivas.contadorNovedadesSistema(getEm(), secuenciaMotivosCesantias);
-      } catch (Exception e) {
-         log.error("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARNOVEDADESSISTEMA ERROR :" + e);
-         return null;
-      }
-   }
+    public BigInteger contarNovedadesSistemasMotivoDefinitiva(BigInteger secuenciaMotivosCesantias) {
+        try {
+            return persistenciaMotivosDefinitivas.contadorNovedadesSistema(getEm(), secuenciaMotivosCesantias);
+        } catch (Exception e) {
+            log.error("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARNOVEDADESSISTEMA ERROR :" + e);
+            return null;
+        }
+    }
 
-   public BigInteger contarParametrosCambiosMasivosMotivoDefinitiva(BigInteger secuenciaMotivosCesantias) {
-      try {
-         return persistenciaMotivosDefinitivas.contadorParametrosCambiosMasivos(getEm(), secuenciaMotivosCesantias);
-      } catch (Exception e) {
-         log.error("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARPARAMETROSCAMBIOSMASIVOS ERROR :" + e);
-         return null;
-      }
-   }
+    public BigInteger contarParametrosCambiosMasivosMotivoDefinitiva(BigInteger secuenciaMotivosCesantias) {
+        try {
+            return persistenciaMotivosDefinitivas.contadorParametrosCambiosMasivos(getEm(), secuenciaMotivosCesantias);
+        } catch (Exception e) {
+            log.error("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARPARAMETROSCAMBIOSMASIVOS ERROR :" + e);
+            return null;
+        }
+    }
 
 }

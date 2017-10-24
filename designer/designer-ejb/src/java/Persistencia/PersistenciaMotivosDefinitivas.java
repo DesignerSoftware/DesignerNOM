@@ -6,12 +6,15 @@ package Persistencia;
 import Entidades.MotivosDefinitivas;
 import InterfacePersistencia.PersistenciaMotivosDefinitivasInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless.<br>
@@ -23,7 +26,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefinitivasInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaMotivosDefinitivas.class);
+    private static Logger log = Logger.getLogger(PersistenciaMotivosDefinitivas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -31,51 +34,68 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
     @Override
-    public void crear(EntityManager em, MotivosDefinitivas motivosDefinitivas) {
+    public String crear(EntityManager em, MotivosDefinitivas motivosDefinitivas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(motivosDefinitivas);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosDefinitivas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaMotivosDefinitivas.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear el Motivo Definitiva";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, MotivosDefinitivas motivosDefinitivas) {
+    public String editar(EntityManager em, MotivosDefinitivas motivosDefinitivas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(motivosDefinitivas);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosDefinitivas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaMotivosDefinitivas.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar el Motivo Definitiva";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, MotivosDefinitivas motivosDefinitivas) {
+    public String borrar(EntityManager em, MotivosDefinitivas motivosDefinitivas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(motivosDefinitivas));
             tx.commit();
-
+            return "EXITO";
         } catch (Exception e) {
-        log.error("Error PersistenciaMotivosDefinitivas.borrar:  ", e);
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaMotivosDefinitivas.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Borrar el Motivo Definitiva";
+            }
         }
     }
 

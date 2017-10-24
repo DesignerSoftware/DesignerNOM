@@ -28,7 +28,7 @@ public interface AdministrarMotivosDefinitivasInterface {
      * @param listaMotivosDefinitivas Lista MotivosDefinitivas que se van a
      * modificar.
      */
-    public void modificarMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas);
+    public String modificarMotivosDefinitivas(MotivosDefinitivas motivosDefinitiva);
 
     /**
      * Método encargado de borrar MotivosDefinitivas.
@@ -36,7 +36,7 @@ public interface AdministrarMotivosDefinitivasInterface {
      * @param listaMotivosDefinitivas Lista MotivosDefinitivas que se van a
      * borrar.
      */
-    public void borrarMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas);
+    public String borrarMotivosDefinitivas(MotivosDefinitivas motivosDefinitiva);
 
     /**
      * Método encargado de crear MotivosDefinitivas.
@@ -44,7 +44,7 @@ public interface AdministrarMotivosDefinitivasInterface {
      * @param listaMotivosDefinitivas Lista MotivosDefinitivas que se van a
      * crear.
      */
-    public void crearMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas);
+    public String crearMotivosDefinitivas(MotivosDefinitivas motivosDefinitiva);
 
     /**
      * Método encargado de recuperar las MotivosDefinitivas para una tabla de la

@@ -104,7 +104,6 @@ public class ControlTiposCursos implements Serializable {
    
    @PostConstruct
    public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -529,11 +528,8 @@ public class ControlTiposCursos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      log.info("lol");
       if (tipoCursoSeleccionado != null) {
-         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(tipoCursoSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

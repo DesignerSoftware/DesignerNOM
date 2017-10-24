@@ -21,7 +21,7 @@ public interface PersistenciaClasesPensionesInterface {
      *
      * @param clasesPensiones ClasePension que se quiere crear.
      */
-    public void crear(EntityManager em,ClasesPensiones clasesPensiones);
+    public String crear(EntityManager em,ClasesPensiones clasesPensiones);
 
     /**
      * Método encargado de modificar una ClasePension de la base de datos. Este
@@ -31,7 +31,7 @@ public interface PersistenciaClasesPensionesInterface {
      * @param clasesPensiones ClasePension con los cambios que se van a
      * realizar.
      */
-    public void editar(EntityManager em,ClasesPensiones clasesPensiones);
+    public String editar(EntityManager em,ClasesPensiones clasesPensiones);
 
     /**
      * Método encargado de eliminar de la base de datos la ClasePension que
@@ -39,7 +39,7 @@ public interface PersistenciaClasesPensionesInterface {
      *
      * @param clasesPensiones ClasePension que se quiere eliminar.
      */
-    public void borrar(EntityManager em,ClasesPensiones clasesPensiones);
+    public String borrar(EntityManager em,ClasesPensiones clasesPensiones);
 
     /**
      * Método encargado de buscar todas las ClasesPensiones existentes en la

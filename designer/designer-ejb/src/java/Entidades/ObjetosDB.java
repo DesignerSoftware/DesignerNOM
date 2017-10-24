@@ -42,6 +42,10 @@ public class ObjetosDB implements Serializable {
     @JoinColumn(name = "MODULO", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Modulos modulo;
+    @Transient
+    private String estadoTipo;
+    @Transient
+    private String estadoClasificacion;
 
     public ObjetosDB() {
     }
@@ -65,7 +69,7 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getTipo() {
-        if(tipo == null){
+        if (tipo == null) {
             tipo = "";
         }
         return tipo;
@@ -76,7 +80,7 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getNombre() {
-        if(nombre == null){
+        if (nombre == null) {
             nombre = "";
         }
         return nombre;
@@ -87,7 +91,7 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getDescripcion() {
-        if(descripcion ==  null){
+        if (descripcion == null) {
             descripcion = "";
         }
         return descripcion;
@@ -98,7 +102,7 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getClasificacion() {
-        if(clasificacion == null){
+        if (clasificacion == null) {
             clasificacion = "";
         }
         return clasificacion;
@@ -130,6 +134,56 @@ public class ObjetosDB implements Serializable {
 
     public void setModulo(Modulos modulo) {
         this.modulo = modulo;
+    }
+
+    public String getEstadoTipo() {
+        if (estadoTipo == null) {
+            if (tipo == null) {
+                estadoTipo = "FUNCTION";
+            } else if (tipo.equalsIgnoreCase("FUNCTION")) {
+                estadoTipo = "FUNCTION";
+            } else if (tipo.equalsIgnoreCase("PACKAGE")) {
+                estadoTipo = "PACKAGE";
+            } else if (tipo.equalsIgnoreCase("PROCEDURE")) {
+                estadoTipo = "PROCEDURE";
+            } else if (tipo.equalsIgnoreCase("SEQUENCE")) {
+                estadoTipo = "SEQUENCE";
+            } else if (tipo.equalsIgnoreCase("TABLE")) {
+                estadoTipo = "TABLE";
+            } else if (tipo.equalsIgnoreCase("VIEW")) {
+                estadoTipo = "VIEW";
+            }
+        }
+        return estadoTipo;
+    }
+
+    public void setEstadoTipo(String estadoTipo) {
+        this.estadoTipo = estadoTipo;
+    }
+
+    public String getEstadoClasificacion() {
+        if (estadoClasificacion == null) {
+            if (clasificacion == null) {
+                estadoClasificacion = " ";
+            } else if (clasificacion.equalsIgnoreCase("POR ASIGNAR")) {
+                estadoClasificacion = "POR ASIGNAR";
+            } else if (clasificacion.equalsIgnoreCase("CONFIGURACION")) {
+                estadoClasificacion = "CONFIGURACION";
+            } else if (clasificacion.equalsIgnoreCase("CONSTRUCCION")) {
+                estadoClasificacion = "CONSTRUCCION";
+            } else if (clasificacion.equalsIgnoreCase("DATOS")) {
+                estadoClasificacion = "DATOS";
+            } else if (clasificacion.equalsIgnoreCase("SISTEMA")) {
+                estadoClasificacion = "SISTEMA";
+            } else if (clasificacion.equalsIgnoreCase("NULL")) {
+                estadoClasificacion = "NULL";
+            }
+        }
+        return estadoClasificacion;
+    }
+
+    public void setEstadoClasificacion(String estadoClasificacion) {
+        this.estadoClasificacion = estadoClasificacion;
     }
 
     @Override

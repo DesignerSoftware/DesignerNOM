@@ -1069,7 +1069,6 @@ public class ControlRemoto implements Serializable {
          if (pag != null) {
             pag = pag.toLowerCase();
             FacesContext fc = FacesContext.getCurrentInstance();
-            log.info("ControlRemoto.redireccion() pag : " + pag);
             pag = controlListaNavegacion.guardarNavegacion("nominaf", pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }

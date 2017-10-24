@@ -29,31 +29,31 @@ public class MotivosDefinitivas implements Serializable {
     private String retiro;
     @Column(name = "CAMBIOREGIMEN")
     private String cambioregimen;
-    @Column(name = "CATEDRATICOSEMESTRAL")
-    private String catedraticosemestral;
+//    @Column(name = "CATEDRATICOSEMESTRAL")
+//    private String catedraticosemestral;
     @Transient
     private String variableRetiro;
     @Transient
     private String variableCambioRegimen;
-    @Transient
-    private String variableCatedratico;
+//    @Transient
+//    private String variableCatedratico;
 
-    public String getVariableCatedratico() {
-        if (variableCatedratico == null) {
-            if (catedraticosemestral == null) {
-                variableCatedratico = " ";
-            } else if (catedraticosemestral.equalsIgnoreCase("S")) {
-                variableCatedratico = "SI";
-            } else if (catedraticosemestral.equalsIgnoreCase("N")) {
-                variableCatedratico = "NO";
-            }
-        }
-        return variableCatedratico;
-    }
-
-    public void setVariableCatedratico(String variableCatedratico) {
-        this.variableCatedratico = variableCatedratico;
-    }
+//    public String getVariableCatedratico() {
+//        if (variableCatedratico == null) {
+//            if (catedraticosemestral == null) {
+//                variableCatedratico = " ";
+//            } else if (catedraticosemestral.equalsIgnoreCase("S")) {
+//                variableCatedratico = "SI";
+//            } else if (catedraticosemestral.equalsIgnoreCase("N")) {
+//                variableCatedratico = "NO";
+//            }
+//        }
+//        return variableCatedratico;
+//    }
+//
+//    public void setVariableCatedratico(String variableCatedratico) {
+//        this.variableCatedratico = variableCatedratico;
+//    }
 
     public String getVariableCambioRegimen() {
         if (variableCambioRegimen == null) {
@@ -143,13 +143,13 @@ public class MotivosDefinitivas implements Serializable {
         this.cambioregimen = cambioregimen;
     }
 
-    public String getCatedraticosemestral() {
-        return catedraticosemestral;
-    }
-
-    public void setCatedraticosemestral(String catedraticosemestral) {
-        this.catedraticosemestral = catedraticosemestral;
-    }
+//    public String getCatedraticosemestral() {
+//        return catedraticosemestral;
+//    }
+//
+//    public void setCatedraticosemestral(String catedraticosemestral) {
+//        this.catedraticosemestral = catedraticosemestral;
+//    }
 
     @Override
     public int hashCode() {

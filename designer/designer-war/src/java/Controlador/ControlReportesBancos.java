@@ -1216,12 +1216,12 @@ public class ControlReportesBancos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
          log.info("pathReporteGenerado: " + pathReporteGenerado);
          if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error")) {
-            if (tipoReporte.equals("TXT") || tipoReporte.equals("XLS") || tipoReporte.equals("PDF") || tipoReporte.equals("DELIMITED")) {
+            if (tipoReporte.equals("TXT") || tipoReporte.equals("XLS") || tipoReporte.equals("PDF") || tipoReporte.equals("DELIMITED") || tipoReporte.equals("CSV")) {
                RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
             }
             log.info("userAgent: " + userAgent);
             if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
-               context.execute("PF('descargarReporte').show();");
+               context.execute("PF('descargarReporte').show()");
             }
 
          } else {

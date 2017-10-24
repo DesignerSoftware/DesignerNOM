@@ -21,6 +21,7 @@ import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -39,12 +40,13 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlMotivosDefinitivas implements Serializable {
 
-   private static Logger log = Logger.getLogger(ControlMotivosDefinitivas.class);
+    private static Logger log = Logger.getLogger(ControlMotivosDefinitivas.class);
 
     @EJB
     AdministrarMotivosDefinitivasInterface administrarMotivosDefinitivas;
     @EJB
     AdministrarRastrosInterface administrarRastros;
+
     private List<MotivosDefinitivas> listMotivosDefinitivas;
     private List<MotivosDefinitivas> filtrarMotivosDefinitivas;
     private List<MotivosDefinitivas> crearMotivosDefinitivas;
@@ -53,32 +55,34 @@ public class ControlMotivosDefinitivas implements Serializable {
     private MotivosDefinitivas nuevoMotivoDefinitiva;
     private MotivosDefinitivas duplicarMotivoDefinitiva;
     private MotivosDefinitivas editarMotivoDefinitiva;
+    private MotivosDefinitivas motivoDefinitivaSeleccionado;
     //otros
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
-    //AutoCompletar
-    private boolean permitirIndex;
-    //RASTRO
-    private BigInteger secRegistro;
-    private Column codigo, descripcion, retiro, cambioRegimen, catedratico;
+    private Column codigo, descripcion, retiro, cambioRegimen;
+    private String altoTabla;
     //borrado
     private int registrosBorrados;
+    private String infoRegistro;
     private String mensajeValidacion;
     private String paginaAnterior = "nominaf";
+    private BigInteger novedadesSistema;
+    private BigInteger verificarParametrosCambiosMasivos;
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String msgError;
 
     public ControlMotivosDefinitivas() {
         listMotivosDefinitivas = null;
         crearMotivosDefinitivas = new ArrayList<MotivosDefinitivas>();
         modificarMotivosDefinitivas = new ArrayList<MotivosDefinitivas>();
         borrarMotivosDefinitivas = new ArrayList<MotivosDefinitivas>();
-        permitirIndex = true;
         editarMotivoDefinitiva = new MotivosDefinitivas();
         nuevoMotivoDefinitiva = new MotivosDefinitivas();
         duplicarMotivoDefinitiva = new MotivosDefinitivas();
         guardado = true;
         mapParametros.put("paginaAnterior", paginaAnterior);
+        altoTabla = "335";
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -124,62 +128,43 @@ public class ControlMotivosDefinitivas implements Serializable {
     }
 
     @PreDestroy
-   public void destruyendoce() {
-      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
-   }
-   
-   @PostConstruct
+    public void destruyendose() {
+        log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+    }
+
+    @PostConstruct
     public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarMotivosDefinitivas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            listMotivosDefinitivas = null;
+            getListMotivosDefinitivas();
+            if (listMotivosDefinitivas != null) {
+                motivoDefinitivaSeleccionado = listMotivosDefinitivas.get(0);
+            }
+
         } catch (Exception e) {
             log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
 
-    public void eventoFiltrar() {
-        try {
-            log.info("\n ENTRE A CONTROLMOTIVOSDEFINITIVAS EVENTOFILTRAR \n");
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-        } catch (Exception e) {
-            log.error("ERROR CONTROLMOTIVOSDEFINITIVAS EVENTOFILTRAR  ERROR =" + e.getMessage());
-        }
-    }
+    public void cambiarIndice(MotivosDefinitivas motivo, int celda) {
 
-    public void cambiarIndice(int indice, int celda) {
-        log.error("TIPO LISTA = " + tipoLista);
+        motivoDefinitivaSeleccionado = motivo;
+        cualCelda = celda;
+        motivoDefinitivaSeleccionado.getSecuencia();
+        if (cualCelda == 0) {
+            motivoDefinitivaSeleccionado.getCodigo();
+        } else if (cualCelda == 1) {
+            motivoDefinitivaSeleccionado.getNombre();
 
-        if (permitirIndex == true) {
-            index = indice;
-            cualCelda = celda;
-            secRegistro = listMotivosDefinitivas.get(index).getSecuencia();
-
-        }
-        log.info("Indice: " + index + " Celda: " + cualCelda);
-    }
-
-    public void asignarIndex(Integer indice, int LND, int dig) {
-        try {
-            log.info("\n ENTRE A CONTROLMOTIVOSDEFINITIVAS ASIGNAR INDEX \n");
-            index = indice;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                log.info("TIPO ACTUALIZACION : " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            log.warn("Error CONTROLMOTIVOSDEFINITIVAS ASIGNAR INDEX ERROR =  ", e);
+        } else if (cualCelda == 2) {
+            motivoDefinitivaSeleccionado.getRetiro();
+//        } else if (cualCelda == 3) {
+//            motivoDefinitivaSeleccionado.getCatedraticosemestral();
         }
     }
 
@@ -187,293 +172,127 @@ public class ControlMotivosDefinitivas implements Serializable {
         aceptar = false;
     }
 
-    public void listaValoresBoton() {
-    }
-
     public void cancelarModificacion() {
         if (bandera == 1) {
             //CERRAR FILTRADO
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:retiro");
+            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:retiro");
             retiro.setFilterStyle("display: none; visibility: hidden;");
-            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:cambioRegimen");
+            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:cambioRegimen");
             cambioRegimen.setFilterStyle("display: none; visibility: hidden;");
-            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:catedratico");
-            catedratico.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+//            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:catedratico");
+//            catedratico.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
             bandera = 0;
             filtrarMotivosDefinitivas = null;
             tipoLista = 0;
+            altoTabla = "335";
         }
 
         borrarMotivosDefinitivas.clear();
         crearMotivosDefinitivas.clear();
         modificarMotivosDefinitivas.clear();
-        index = -1;
-        secRegistro = null;
+        motivoDefinitivaSeleccionado = null;
         k = 0;
         listMotivosDefinitivas = null;
         guardado = true;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistros();
     }
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            altoTabla = "315";
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:codigo");
             codigo.setFilterStyle("width: 85% !important;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
-            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:retiro");
+            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:retiro");
             retiro.setFilterStyle("width: 85% !important;");
-            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:cambioRegimen");
+            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:cambioRegimen");
             cambioRegimen.setFilterStyle("width: 85% !important;");
-            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:catedratico");
-            catedratico.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            log.info("Activar");
+//            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:catedratico");
+//            catedratico.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
             bandera = 1;
         } else if (bandera == 1) {
-            log.info("Desactivar");
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            altoTabla = "335";
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:retiro");
+            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:retiro");
             retiro.setFilterStyle("display: none; visibility: hidden;");
-            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:cambioRegimen");
+            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:cambioRegimen");
             cambioRegimen.setFilterStyle("display: none; visibility: hidden;");
-            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:catedratico");
-            catedratico.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+//            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:catedratico");
+//            catedratico.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
             bandera = 0;
             filtrarMotivosDefinitivas = null;
             tipoLista = 0;
         }
     }
 
-    public void mostrarInfo(int indice, int celda) {
-        if (permitirIndex == true) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
-            index = indice;
-            cualCelda = celda;
-            secRegistro = listMotivosDefinitivas.get(index).getSecuencia();
-            if (cualCelda == 2) {
-                if (listMotivosDefinitivas.get(indice).getVariableRetiro().equals("SI")) {
-                    listMotivosDefinitivas.get(indice).setRetiro("S");
-                } else if (listMotivosDefinitivas.get(indice).getVariableRetiro().equals("NO")) {
-                    listMotivosDefinitivas.get(indice).setRetiro("N");
-                }
-            } else if (cualCelda == 3) {
-                if (listMotivosDefinitivas.get(indice).getVariableCambioRegimen().equals("SI")) {
-                    listMotivosDefinitivas.get(indice).setCambioregimen("S");
-                } else if (listMotivosDefinitivas.get(indice).getVariableCambioRegimen().equals("NO")) {
-                    listMotivosDefinitivas.get(indice).setCambioregimen("N");
-                } else if (listMotivosDefinitivas.get(indice).getVariableCambioRegimen().equals(" ")) {
-                    listMotivosDefinitivas.get(indice).setCambioregimen(null);
-                }
-            } else if (cualCelda == 4) {
-                if (listMotivosDefinitivas.get(indice).getVariableCatedratico().equals("SI")) {
-                    listMotivosDefinitivas.get(indice).setCatedraticosemestral("S");
-                } else if (listMotivosDefinitivas.get(indice).getVariableCatedratico().equals("NO")) {
-                    listMotivosDefinitivas.get(indice).setCatedraticosemestral("N");
-                }
-            }
-            if (!crearMotivosDefinitivas.contains(listMotivosDefinitivas.get(indice))) {
-
-                if (modificarMotivosDefinitivas.isEmpty()) {
-                    modificarMotivosDefinitivas.add(listMotivosDefinitivas.get(indice));
-                } else if (!modificarMotivosDefinitivas.contains(listMotivosDefinitivas.get(indice))) {
-                    modificarMotivosDefinitivas.add(listMotivosDefinitivas.get(indice));
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-
+    public void mostrarInfo(MotivosDefinitivas motivo) {
+        motivoDefinitivaSeleccionado = motivo;
+        if (motivoDefinitivaSeleccionado.getVariableRetiro().equals("SI")) {
+            motivoDefinitivaSeleccionado.setRetiro("S");
+        } else if (motivoDefinitivaSeleccionado.getVariableRetiro().equals("NO")) {
+            motivoDefinitivaSeleccionado.setRetiro("N");
         }
-        log.info("Indice: " + index + " Celda: " + cualCelda);
+        if (motivoDefinitivaSeleccionado.getVariableCambioRegimen().equals("SI")) {
+            motivoDefinitivaSeleccionado.setCambioregimen("S");
+        } else if (motivoDefinitivaSeleccionado.getVariableCambioRegimen().equals("NO")) {
+            motivoDefinitivaSeleccionado.setCambioregimen("N");
+        } else if (motivoDefinitivaSeleccionado.getVariableCambioRegimen().equals(" ")) {
+            motivoDefinitivaSeleccionado.setCambioregimen(null);
+        }
+//        if (motivoDefinitivaSeleccionado.getVariableCatedratico().equals("SI")) {
+//            motivoDefinitivaSeleccionado.setCatedraticosemestral("S");
+//        } else if (motivoDefinitivaSeleccionado.getVariableCatedratico().equals("NO")) {
+//            motivoDefinitivaSeleccionado.setCatedraticosemestral("N");
+//        }
 
+        modificandoMotivoDefinitivas(motivoDefinitivaSeleccionado);
     }
 
-    public void modificandoMotivoDefinitivas(int indice, String confirmarCambio, String valorConfirmar) {
-        log.error("ENTRE A MODIFICAR MOTIVOSDEFINITIVAS");
-        index = indice;
-
-        int contador = 0;
-        int contadorGuardar = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        log.error("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            log.error("ENTRE A MODIFICAR MOTIVOSDEFINITIVAS, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearMotivosDefinitivas.contains(listMotivosDefinitivas.get(indice))) {
-                    if (listMotivosDefinitivas.get(indice).getCodigo() == a || listMotivosDefinitivas.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else {
-                        for (int j = 0; j < listMotivosDefinitivas.size(); j++) {
-                            if (j != indice) {
-                                if (listMotivosDefinitivas.get(indice).getCodigo().equals(listMotivosDefinitivas.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            contadorGuardar++;
-                        }
-
-                    }
-                    if (listMotivosDefinitivas.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else if (listMotivosDefinitivas.get(indice).getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else {
-                        contadorGuardar++;
-                    }
-                    if (listMotivosDefinitivas.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else if (listMotivosDefinitivas.get(indice).getNombre().equals("")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else {
-                        contadorGuardar++;
-                    }
-                    if (contadorGuardar == 3) {
-                        if (modificarMotivosDefinitivas.isEmpty()) {
-                            modificarMotivosDefinitivas.add(listMotivosDefinitivas.get(indice));
-                        } else if (!modificarMotivosDefinitivas.contains(listMotivosDefinitivas.get(indice))) {
-                            modificarMotivosDefinitivas.add(listMotivosDefinitivas.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        cancelarModificacion();
-                    }
-                    index = -1;
-                    secRegistro = null;
-                }
-            } else if (!crearMotivosDefinitivas.contains(filtrarMotivosDefinitivas.get(indice))) {
-                if (filtrarMotivosDefinitivas.get(indice).getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                } else {
-                    for (int j = 0; j < listMotivosDefinitivas.size(); j++) {
-                        if (j != indice) {
-                            if (filtrarMotivosDefinitivas.get(indice).getCodigo().equals(listMotivosDefinitivas.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-                    }
-
-                    for (int j = 0; j < filtrarMotivosDefinitivas.size(); j++) {
-                        if (j != indice) {
-                            if (filtrarMotivosDefinitivas.get(indice).getCodigo().equals(filtrarMotivosDefinitivas.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        banderita = false;
-                    } else {
-                        contadorGuardar++;
-                    }
-
-                }
-
-                if (filtrarMotivosDefinitivas.get(indice).getNombre().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                } else if (filtrarMotivosDefinitivas.get(indice).getNombre().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                } else {
-                    contadorGuardar++;
-                }
-                if (filtrarMotivosDefinitivas.get(indice).getNombre() == null) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                } else if (filtrarMotivosDefinitivas.get(indice).getNombre().equals("")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                } else {
-                    contadorGuardar++;
-                }
-                if (contadorGuardar == 3) {
-                    if (modificarMotivosDefinitivas.isEmpty()) {
-                        modificarMotivosDefinitivas.add(filtrarMotivosDefinitivas.get(indice));
-                    } else if (!modificarMotivosDefinitivas.contains(filtrarMotivosDefinitivas.get(indice))) {
-                        modificarMotivosDefinitivas.add(filtrarMotivosDefinitivas.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    cancelarModificacion();
-                }
-                index = -1;
-                secRegistro = null;
+    public void modificandoMotivoDefinitivas(MotivosDefinitivas motivo) {
+        motivoDefinitivaSeleccionado = motivo;
+        if (!crearMotivosDefinitivas.contains(motivoDefinitivaSeleccionado)) {
+            if (modificarMotivosDefinitivas.isEmpty()) {
+                modificarMotivosDefinitivas.add(motivoDefinitivaSeleccionado);
+            } else if (!modificarMotivosDefinitivas.contains(motivoDefinitivaSeleccionado)) {
+                modificarMotivosDefinitivas.add(motivoDefinitivaSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
+        RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
     }
-    private BigInteger novedadesSistema;
-    private BigInteger verificarParametrosCambiosMasivos;
 
     public void verificarBorrado() {
         try {
-            log.info("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-            log.info("secuencia borrado : " + listMotivosDefinitivas.get(index).getSecuencia());
-            if (tipoLista == 0) {
-                log.info("secuencia borrado : " + listMotivosDefinitivas.get(index).getSecuencia());
-                novedadesSistema = administrarMotivosDefinitivas.contarNovedadesSistemasMotivoDefinitiva(listMotivosDefinitivas.get(index).getSecuencia());
-                verificarParametrosCambiosMasivos = administrarMotivosDefinitivas.contarParametrosCambiosMasivosMotivoDefinitiva(listMotivosDefinitivas.get(index).getSecuencia());
-            } else {
-                log.info("secuencia borrado : " + filtrarMotivosDefinitivas.get(index).getSecuencia());
-                novedadesSistema = administrarMotivosDefinitivas.contarNovedadesSistemasMotivoDefinitiva(filtrarMotivosDefinitivas.get(index).getSecuencia());
-                verificarParametrosCambiosMasivos = administrarMotivosDefinitivas.contarParametrosCambiosMasivosMotivoDefinitiva(filtrarMotivosDefinitivas.get(index).getSecuencia());
-            }
+            novedadesSistema = administrarMotivosDefinitivas.contarNovedadesSistemasMotivoDefinitiva(motivoDefinitivaSeleccionado.getSecuencia());
+            verificarParametrosCambiosMasivos = administrarMotivosDefinitivas.contarParametrosCambiosMasivosMotivoDefinitiva(motivoDefinitivaSeleccionado.getSecuencia());
             if (!novedadesSistema.equals(new BigInteger("0")) || !verificarParametrosCambiosMasivos.equals(new BigInteger("0"))) {
-                log.info("Borrado>0");
-
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                index = -1;
-
                 novedadesSistema = new BigInteger("-1");
                 verificarParametrosCambiosMasivos = new BigInteger("-1");
-
             } else {
-                log.info("Borrado==0");
                 borrandoMotivosDefinitivas();
             }
         } catch (Exception e) {
@@ -483,106 +302,97 @@ public class ControlMotivosDefinitivas implements Serializable {
 
     public void borrandoMotivosDefinitivas() {
 
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                log.info("Entro a borrandoMotivosDefinitivas");
-                if (!modificarMotivosDefinitivas.isEmpty() && modificarMotivosDefinitivas.contains(listMotivosDefinitivas.get(index))) {
-                    int modIndex = modificarMotivosDefinitivas.indexOf(listMotivosDefinitivas.get(index));
-                    modificarMotivosDefinitivas.remove(modIndex);
-                    borrarMotivosDefinitivas.add(listMotivosDefinitivas.get(index));
-                } else if (!crearMotivosDefinitivas.isEmpty() && crearMotivosDefinitivas.contains(listMotivosDefinitivas.get(index))) {
-                    int crearIndex = crearMotivosDefinitivas.indexOf(listMotivosDefinitivas.get(index));
-                    crearMotivosDefinitivas.remove(crearIndex);
-                } else {
-                    borrarMotivosDefinitivas.add(listMotivosDefinitivas.get(index));
-                }
-                listMotivosDefinitivas.remove(index);
+        if (motivoDefinitivaSeleccionado != null) {
+            if (!modificarMotivosDefinitivas.isEmpty() && modificarMotivosDefinitivas.contains(motivoDefinitivaSeleccionado)) {
+                int modIndex = modificarMotivosDefinitivas.indexOf(motivoDefinitivaSeleccionado);
+                modificarMotivosDefinitivas.remove(modIndex);
+                borrarMotivosDefinitivas.add(motivoDefinitivaSeleccionado);
+            } else if (!crearMotivosDefinitivas.isEmpty() && crearMotivosDefinitivas.contains(motivoDefinitivaSeleccionado)) {
+                int crearIndex = crearMotivosDefinitivas.indexOf(motivoDefinitivaSeleccionado);
+                crearMotivosDefinitivas.remove(crearIndex);
+            } else {
+                borrarMotivosDefinitivas.add(motivoDefinitivaSeleccionado);
             }
+            listMotivosDefinitivas.remove(motivoDefinitivaSeleccionado);
             if (tipoLista == 1) {
-                log.info("borrandoMotivosDefinitivas");
-                if (!modificarMotivosDefinitivas.isEmpty() && modificarMotivosDefinitivas.contains(filtrarMotivosDefinitivas.get(index))) {
-                    int modIndex = modificarMotivosDefinitivas.indexOf(filtrarMotivosDefinitivas.get(index));
-                    modificarMotivosDefinitivas.remove(modIndex);
-                    borrarMotivosDefinitivas.add(filtrarMotivosDefinitivas.get(index));
-                } else if (!crearMotivosDefinitivas.isEmpty() && crearMotivosDefinitivas.contains(filtrarMotivosDefinitivas.get(index))) {
-                    int crearIndex = crearMotivosDefinitivas.indexOf(filtrarMotivosDefinitivas.get(index));
-                    crearMotivosDefinitivas.remove(crearIndex);
-                } else {
-                    borrarMotivosDefinitivas.add(filtrarMotivosDefinitivas.get(index));
-                }
-                int VCIndex = listMotivosDefinitivas.indexOf(filtrarMotivosDefinitivas.get(index));
-                listMotivosDefinitivas.remove(VCIndex);
-                filtrarMotivosDefinitivas.remove(index);
-
+                filtrarMotivosDefinitivas.remove(motivoDefinitivaSeleccionado);
             }
+            motivoDefinitivaSeleccionado = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            index = -1;
-            secRegistro = null;
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
 
-            if (guardado == true) {
-                guardado = false;
-            }
         }
 
     }
 
     public void revisarDialogoGuardar() {
-
         if (!borrarMotivosDefinitivas.isEmpty() || !crearMotivosDefinitivas.isEmpty() || !modificarMotivosDefinitivas.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
-
     }
 
     public void guardarMotivoDefinitivas() {
         RequestContext context = RequestContext.getCurrentInstance();
-
-        if (guardado == false) {
-            log.info("REALIZANDO MOTIVOSDEFINITIVAS");
-            if (!borrarMotivosDefinitivas.isEmpty()) {
-                administrarMotivosDefinitivas.borrarMotivosDefinitivas(borrarMotivosDefinitivas);
-
-                //mostrarBorrados
-                registrosBorrados = borrarMotivosDefinitivas.size();
-                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-                borrarMotivosDefinitivas.clear();
-            }
-            if (!crearMotivosDefinitivas.isEmpty()) {
-                administrarMotivosDefinitivas.crearMotivosDefinitivas(crearMotivosDefinitivas);
-
-                crearMotivosDefinitivas.clear();
-            }
-            if (!modificarMotivosDefinitivas.isEmpty()) {
-                administrarMotivosDefinitivas.modificarMotivosDefinitivas(modificarMotivosDefinitivas);
+        try {
+            if (guardado == false) {
+                msgError = "";
+                if (!borrarMotivosDefinitivas.isEmpty()) {
+                    for (int i = 0; i < borrarMotivosDefinitivas.size(); i++) {
+                        msgError = administrarMotivosDefinitivas.borrarMotivosDefinitivas(borrarMotivosDefinitivas.get(i));
+                    }
+                    registrosBorrados = borrarMotivosDefinitivas.size();
+                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+                    borrarMotivosDefinitivas.clear();
+                }
+                if (!crearMotivosDefinitivas.isEmpty()) {
+                    for (int i = 0; i < crearMotivosDefinitivas.size(); i++) {
+                        msgError = administrarMotivosDefinitivas.crearMotivosDefinitivas(crearMotivosDefinitivas.get(i));
+                    }
+                    crearMotivosDefinitivas.clear();
+                }
+                if (!modificarMotivosDefinitivas.isEmpty()) {
+                    for (int i = 0; i < modificarMotivosDefinitivas.size(); i++) {
+                        msgError = administrarMotivosDefinitivas.modificarMotivosDefinitivas(crearMotivosDefinitivas.get(i));
+                    }
+                }
                 modificarMotivosDefinitivas.clear();
+
+                if (msgError.equals("EXITO")) {
+                    listMotivosDefinitivas = null;
+                    getListMotivosDefinitivas();
+                    k = 0;
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    contarRegistros();
+                    guardado = true;
+                    motivoDefinitivaSeleccionado = null;
+                    RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
+                }
+
             }
-            log.info("Se guardaron los datos con exito");
-            listMotivosDefinitivas = null;
-            guardado = true;
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            k = 0;
+        } catch (Exception e) {
+            log.warn("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
         }
-        index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarMotivoDefinitiva = listMotivosDefinitivas.get(index);
-            }
-            if (tipoLista == 1) {
-                editarMotivoDefinitiva = filtrarMotivosDefinitivas.get(index);
-            }
-
+        if (motivoDefinitivaSeleccionado != null) {
+            editarMotivoDefinitiva = motivoDefinitivaSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
-            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -594,101 +404,77 @@ public class ControlMotivosDefinitivas implements Serializable {
 
             }
 
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public void agregarNuevoMotivosDefinitivas() {
-        log.info("agregarNuevoMotivosDefinitivas");
         int contador = 0;
         int duplicados = 0;
 
         Integer a = 0;
         a = null;
         mensajeValidacion = " ";
-        RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoMotivoDefinitiva.getCodigo() == a) {
-            mensajeValidacion = " *Debe Tener Un Codigo \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios\n";
         } else {
-            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivoDefinitiva.getCodigo());
-
             for (int x = 0; x < listMotivosDefinitivas.size(); x++) {
                 if (listMotivosDefinitivas.get(x).getCodigo() == nuevoMotivoDefinitiva.getCodigo()) {
                     duplicados++;
                 }
             }
-            log.info("Antes del if Duplicados eses igual  : " + duplicados);
-
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                log.info("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado ya está registrado. Por favor ingrese un código válido";
             } else {
-                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivoDefinitiva.getNombre() == (null)) {
-            mensajeValidacion = mensajeValidacion + " *Debe tener una descripción \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios\n";
         } else {
-            log.info("bandera");
             contador++;
         }
-        log.error("retiro = " + nuevoMotivoDefinitiva.getRetiro());
-        log.error("cambio regimen = " + nuevoMotivoDefinitiva.getCambioregimen());
-        log.error("Categratico = " + nuevoMotivoDefinitiva.getCatedraticosemestral());
         if (nuevoMotivoDefinitiva.getRetiro() == null) {
             nuevoMotivoDefinitiva.setRetiro("S");
         }
         if (nuevoMotivoDefinitiva.getCambioregimen() == null || nuevoMotivoDefinitiva.getCambioregimen().equals(" ")) {
             nuevoMotivoDefinitiva.setCambioregimen(null);
         }
-        if (nuevoMotivoDefinitiva.getCatedraticosemestral() == null) {
-            nuevoMotivoDefinitiva.setCatedraticosemestral("N");
-        }
-        log.info("contador " + contador);
+//        if (nuevoMotivoDefinitiva.getCatedraticosemestral() == null) {
+//            nuevoMotivoDefinitiva.setCatedraticosemestral("N");
+//        }
+//        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
-                //CERRAR FILTRADO
-                log.info("Desactivar");
-                codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:retiro");
+                retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:retiro");
                 retiro.setFilterStyle("display: none; visibility: hidden;");
-                cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:cambioRegimen");
+                cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:cambioRegimen");
                 cambioRegimen.setFilterStyle("display: none; visibility: hidden;");
-                catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:catedratico");
-                catedratico.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+//                catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:catedratico");
+//                catedratico.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
                 bandera = 0;
                 filtrarMotivosDefinitivas = null;
                 tipoLista = 0;
+                altoTabla = "335";
             }
-            log.info("Despues de la bandera");
-
             k++;
             l = BigInteger.valueOf(k);
             nuevoMotivoDefinitiva.setSecuencia(l);
-
             crearMotivosDefinitivas.add(nuevoMotivoDefinitiva);
-
-            listMotivosDefinitivas.add(nuevoMotivoDefinitiva);
+            listMotivosDefinitivas.add(0, nuevoMotivoDefinitiva);
+            motivoDefinitivaSeleccionado = nuevoMotivoDefinitiva;
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroMotivoDefinitiva').hide()");
             nuevoMotivoDefinitiva = new MotivosDefinitivas();
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposReemplazos').hide()");
-            index = -1;
-            secRegistro = null;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
@@ -698,49 +484,29 @@ public class ControlMotivosDefinitivas implements Serializable {
     }
 
     public void limpiarNuevoMotivosDefinitivas() {
-        log.info("limpiarNuevoMotivosDefinitivas");
         nuevoMotivoDefinitiva = new MotivosDefinitivas();
-        secRegistro = null;
-        index = -1;
-
     }
 
-    //------------------------------------------------------------------------------
     public void duplicandoMotivosDefinitivas() {
-        log.info("duplicandoMotivosDefinitivas");
-        if (index >= 0) {
+        if (motivoDefinitivaSeleccionado != null) {
             duplicarMotivoDefinitiva = new MotivosDefinitivas();
             k++;
             l = BigInteger.valueOf(k);
-
-            if (tipoLista == 0) {
-                duplicarMotivoDefinitiva.setSecuencia(l);
-                duplicarMotivoDefinitiva.setCodigo(listMotivosDefinitivas.get(index).getCodigo());
-                duplicarMotivoDefinitiva.setNombre(listMotivosDefinitivas.get(index).getNombre());
-                duplicarMotivoDefinitiva.setRetiro(listMotivosDefinitivas.get(index).getRetiro());
-                duplicarMotivoDefinitiva.setCambioregimen(listMotivosDefinitivas.get(index).getCambioregimen());
-                duplicarMotivoDefinitiva.setCatedraticosemestral(listMotivosDefinitivas.get(index).getCatedraticosemestral());
-            }
-            if (tipoLista == 1) {
-                duplicarMotivoDefinitiva.setSecuencia(l);
-                duplicarMotivoDefinitiva.setCodigo(filtrarMotivosDefinitivas.get(index).getCodigo());
-                duplicarMotivoDefinitiva.setNombre(filtrarMotivosDefinitivas.get(index).getNombre());
-                duplicarMotivoDefinitiva.setRetiro(filtrarMotivosDefinitivas.get(index).getRetiro());
-                duplicarMotivoDefinitiva.setCambioregimen(filtrarMotivosDefinitivas.get(index).getCambioregimen());
-                duplicarMotivoDefinitiva.setCatedraticosemestral(filtrarMotivosDefinitivas.get(index).getCatedraticosemestral());
-
-            }
-
+            duplicarMotivoDefinitiva.setSecuencia(l);
+            duplicarMotivoDefinitiva.setCodigo(motivoDefinitivaSeleccionado.getCodigo());
+            duplicarMotivoDefinitiva.setNombre(motivoDefinitivaSeleccionado.getNombre());
+            duplicarMotivoDefinitiva.setRetiro(motivoDefinitivaSeleccionado.getRetiro());
+            duplicarMotivoDefinitiva.setCambioregimen(motivoDefinitivaSeleccionado.getCambioregimen());
+//            duplicarMotivoDefinitiva.setCatedraticosemestral(motivoDefinitivaSeleccionado.getCatedraticosemestral());
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTTR");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').show()");
-            index = -1;
-            secRegistro = null;
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMotivosDefinitivas').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-        log.error("ESTOY EN CONFIRMAR DUPLICAR MOTIVOSDEFINITIVAS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
@@ -749,8 +515,7 @@ public class ControlMotivosDefinitivas implements Serializable {
         a = null;
 
         if (duplicarMotivoDefinitiva.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listMotivosDefinitivas.size(); x++) {
                 if (listMotivosDefinitivas.get(x).getCodigo() == duplicarMotivoDefinitiva.getCodigo()) {
@@ -758,8 +523,7 @@ public class ControlMotivosDefinitivas implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                log.info("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado ya está registrado. Por favor ingrese un código válido";
             } else {
                 log.info("bandera");
                 contador++;
@@ -767,54 +531,39 @@ public class ControlMotivosDefinitivas implements Serializable {
             }
         }
         if (duplicarMotivoDefinitiva.getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + "   * Una descripción \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            log.info("Bandera : ");
             contador++;
         }
-
-        log.error("duplicar retiro = " + duplicarMotivoDefinitiva.getRetiro());
-        log.error("duplicar cambio regimen = " + duplicarMotivoDefinitiva.getCambioregimen());
-        log.error("duplicar Categratico = " + duplicarMotivoDefinitiva.getCatedraticosemestral());
         if (duplicarMotivoDefinitiva.getCambioregimen() == null || duplicarMotivoDefinitiva.getCambioregimen().equals("") || duplicarMotivoDefinitiva.getCambioregimen().equals(" ")) {
             duplicarMotivoDefinitiva.setCambioregimen(null);
         }
         if (contador == 2) {
-
-            log.info("Datos Duplicando: " + duplicarMotivoDefinitiva.getSecuencia() + "  " + duplicarMotivoDefinitiva.getCodigo());
-            if (crearMotivosDefinitivas.contains(duplicarMotivoDefinitiva)) {
-                log.info("Ya lo contengo.");
-            }
-            listMotivosDefinitivas.add(duplicarMotivoDefinitiva);
+            listMotivosDefinitivas.add(0, duplicarMotivoDefinitiva);
             crearMotivosDefinitivas.add(duplicarMotivoDefinitiva);
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            index = -1;
-            secRegistro = null;
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            motivoDefinitivaSeleccionado = duplicarMotivoDefinitiva;
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
-                //CERRAR FILTRADO
-                codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:retiro");
+                retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:retiro");
                 retiro.setFilterStyle("display: none; visibility: hidden;");
-                cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:cambioRegimen");
+                cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:cambioRegimen");
                 cambioRegimen.setFilterStyle("display: none; visibility: hidden;");
-                catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:catedratico");
-                catedratico.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+//                catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:catedratico");
+//                catedratico.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
                 bandera = 0;
                 filtrarMotivosDefinitivas = null;
                 tipoLista = 0;
+                altoTabla = "270";
             }
             duplicarMotivoDefinitiva = new MotivosDefinitivas();
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMotivosDefinitivas').hide()");
 
         } else {
             contador = 0;
@@ -828,53 +577,75 @@ public class ControlMotivosDefinitivas implements Serializable {
     }
 
     public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosMotivosDefinitivaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "MOTIVOSDEFINITIVAS", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "MotivosDefinitivas", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosMotivosDefinitivaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "MOTIVOSDEFINITIVAS", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "MotivosDefinitivas", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void verificarRastro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        log.info("lol");
-        if (!listMotivosDefinitivas.isEmpty()) {
-            if (secRegistro != null) {
-                log.info("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "MOTIVOSDEFINITIVAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                log.info("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (motivoDefinitivaSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(motivoDefinitivaSeleccionado.getSecuencia(), "MOTIVOSDEFINITIVAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("MOTIVOSDEFINITIVAS")) { // igual acá
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
+    }
+
+    public void salir() {
+        limpiarListasValor();
+        if (bandera == 1) {
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:retiro");
+            retiro.setFilterStyle("display: none; visibility: hidden;");
+            cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:cambioRegimen");
+            cambioRegimen.setFilterStyle("display: none; visibility: hidden;");
+//            catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosMotivosDefinitiva:catedratico");
+//            catedratico.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
+            bandera = 0;
+            filtrarMotivosDefinitivas = null;
+            tipoLista = 0;
+            altoTabla = "335";
+        }
+        borrarMotivosDefinitivas.clear();
+        crearMotivosDefinitivas.clear();
+        modificarMotivosDefinitivas.clear();
+        motivoDefinitivaSeleccionado = null;
+        k = 0;
+        listMotivosDefinitivas = null;
+        guardado = true;
+        RequestContext.getCurrentInstance().update("form:datosMotivosDefinitiva");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     //--------///////////////////////---------------------*****//*/*/*/*/*/-****----
@@ -921,14 +692,6 @@ public class ControlMotivosDefinitivas implements Serializable {
         this.editarMotivoDefinitiva = editarMotivoDefinitiva;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
     public int getRegistrosBorrados() {
         return registrosBorrados;
     }
@@ -951,6 +714,49 @@ public class ControlMotivosDefinitivas implements Serializable {
 
     public void setGuardado(boolean guardado) {
         this.guardado = guardado;
+    }
+
+    public boolean isAceptar() {
+        return aceptar;
+    }
+
+    public void setAceptar(boolean aceptar) {
+        this.aceptar = aceptar;
+    }
+
+    public String getAltoTabla() {
+        return altoTabla;
+    }
+
+    public void setAltoTabla(String altoTabla) {
+        this.altoTabla = altoTabla;
+    }
+
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosMotivosDefinitiva");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
+
+    public MotivosDefinitivas getMotivoDefinitivaSeleccionado() {
+        return motivoDefinitivaSeleccionado;
+    }
+
+    public void setMotivoDefinitivaSeleccionado(MotivosDefinitivas motivoDefinitivaSeleccionado) {
+        this.motivoDefinitivaSeleccionado = motivoDefinitivaSeleccionado;
+    }
+
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
     }
 
 }

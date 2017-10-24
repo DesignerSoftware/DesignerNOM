@@ -21,7 +21,7 @@ public interface PersistenciaMotivosDefinitivasInterface {
      *
      * @param motivosDefinitivas MotivoDefinitiva que se quiere crear.
      */
-    public void crear(EntityManager em, MotivosDefinitivas motivosDefinitivas);
+    public String crear(EntityManager em, MotivosDefinitivas motivosDefinitivas);
 
     /**
      * Método encargado de modificar un MotivoDefinitiva de la base de datos.
@@ -31,7 +31,7 @@ public interface PersistenciaMotivosDefinitivasInterface {
      * @param motivosDefinitivas MotivoDefinitiva con los cambios que se van a
      * realizar.
      */
-    public void editar(EntityManager em, MotivosDefinitivas motivosDefinitivas);
+    public String editar(EntityManager em, MotivosDefinitivas motivosDefinitivas);
 
     /**
      * Método encargado de eliminar de la base de datos el MotivoDefinitiva que
@@ -39,7 +39,7 @@ public interface PersistenciaMotivosDefinitivasInterface {
      *
      * @param motivosDefinitivas MotivoDefinitiva que se quiere eliminar.
      */
-    public void borrar(EntityManager em, MotivosDefinitivas motivosDefinitivas);
+    public String borrar(EntityManager em, MotivosDefinitivas motivosDefinitivas);
 
     /**
      * Método encargado de buscar todos los Motivosdefinitivas existentes en la

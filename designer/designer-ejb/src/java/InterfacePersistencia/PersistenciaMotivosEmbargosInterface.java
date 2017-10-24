@@ -21,7 +21,7 @@ public interface PersistenciaMotivosEmbargosInterface {
      *
      * @param motivosEmbargos MotivoEmbargo que se quiere crear.
      */
-    public void crear(EntityManager em, MotivosEmbargos motivosEmbargos);
+    public String crear(EntityManager em, MotivosEmbargos motivosEmbargos);
 
     /**
      * Método encargado de modificar un MotivoEmbargo de la base de datos. Este
@@ -31,7 +31,7 @@ public interface PersistenciaMotivosEmbargosInterface {
      * @param motivosEmbargos MotivoEmbargo con los cambios que se van a
      * realizar.
      */
-    public void editar(EntityManager em, MotivosEmbargos motivosEmbargos);
+    public String editar(EntityManager em, MotivosEmbargos motivosEmbargos);
 
     /**
      * Método encargado de eliminar de la base de datos el MotivoEmbargo que
@@ -39,7 +39,7 @@ public interface PersistenciaMotivosEmbargosInterface {
      *
      * @param motivosEmbargos MotivoEmbargo que se quiere eliminar.
      */
-    public void borrar(EntityManager em, MotivosEmbargos motivosEmbargos);
+    public String borrar(EntityManager em, MotivosEmbargos motivosEmbargos);
 
     /**
      * Método encargado de buscar el MotivoEmbargo con la secMotivosEmbargos dada por

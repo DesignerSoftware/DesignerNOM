@@ -5,11 +5,15 @@ package Persistencia;
 
 import Entidades.ObjetosDB;
 import InterfacePersistencia.PersistenciaObjetosDBInterface;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import org.apache.log4j.Logger;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 /**
  * Clase Stateless.<br>
  * Clase encargada de realizar operaciones sobre la tabla 'ObjetosDB'
@@ -53,7 +57,7 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface {
     public List<ObjetosDB> consultarObjetoDB(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT ob FROM ObjetosDB ob ORDER BY ob.tipo ASC");
+            Query query = em.createQuery("SELECT ob FROM ObjetosDB ob ORDER BY ob.nombre ASC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<ObjetosDB> todosObjetos = query.getResultList();
             return todosObjetos;
@@ -63,6 +67,72 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface {
         }
         
         
+    }
+
+    @Override
+    public String crear(EntityManager em, ObjetosDB objeto) {
+       em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.persist(objeto);
+            tx.commit();
+            return "EXITO";
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaObjetosDB.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear el ObjetoDB";
+            }
+        }
+    }
+
+    @Override
+    public String editar(EntityManager em, ObjetosDB objeto) {
+       em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(objeto);
+            tx.commit();
+            return "EXITO";
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaObjetosDB.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar el ObjetoDB";
+            }
+        }
+    }
+
+    @Override
+    public String borrar(EntityManager em, ObjetosDB objeto) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(objeto));
+            tx.commit();
+            return "EXITO";
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaObjetosDB.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar el ObjetoDB";
+            }
+        }
     }
     
 }

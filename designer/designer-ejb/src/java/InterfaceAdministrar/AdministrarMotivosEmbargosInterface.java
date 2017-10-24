@@ -27,21 +27,21 @@ public interface AdministrarMotivosEmbargosInterface {
      *
      * @param listaMotivosEmbargos Lista MotivosEmbargos que se van a modificar.
      */
-    public void modificarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos);
+    public String modificarMotivosEmbargos(MotivosEmbargos motivo);
 
     /**
      * Método encargado de borrar MotivosEmbargos.
      *
      * @param listaMotivosEmbargos Lista MotivosEmbargos que se van a borrar.
      */
-    public void borrarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos);
+    public String borrarMotivosEmbargos(MotivosEmbargos motivo);
 
     /**
      * Método encargado de crear MotivosEmbargos.
      *
      * @param listaMotivosEmbargos Lista MotivosEmbargos que se van a crear.
      */
-    public void crearMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos);
+    public String crearMotivosEmbargos(MotivosEmbargos motivo);
 
     /**
      * Método encargado de recuperar las MotivosEmbargos para una tabla de la

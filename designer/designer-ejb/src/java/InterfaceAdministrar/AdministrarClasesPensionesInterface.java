@@ -22,21 +22,21 @@ public interface AdministrarClasesPensionesInterface {
      *
      * @param listaClasesPensiones Lista ClasesPensiones que se van a modificar.
      */
-    public void modificarClasesPensiones(List<ClasesPensiones> listaClasesPensiones);
+    public String modificarClasesPensiones(ClasesPensiones claseP);
 
     /**
      * Método encargado de borrar ClasesPensiones.
      *
      * @param listaClasesPensiones Lista ClasesPensiones que se van a borrar.
      */
-    public void borrarClasesPensiones(List<ClasesPensiones> listaClasesPensiones);
+    public String borrarClasesPensiones(ClasesPensiones claseP);
 
     /**
      * Método encargado de crear ClasesPensiones.
      *
      * @param listaClasesPensiones Lista ClasesPensiones que se van a crear.
      */
-    public void crearClasesPensiones(List<ClasesPensiones> listaClasesPensiones);
+    public String crearClasesPensiones(ClasesPensiones claseP);
 
     /**
      * Método encargado de recuperar las ClasesPensiones para un tabla de la

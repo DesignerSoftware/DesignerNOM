@@ -19,4 +19,9 @@ public interface PersistenciaObjetosDBInterface {
      */
     public ObjetosDB obtenerObjetoTabla(EntityManager em, String nombreTabla);
     public List<ObjetosDB> consultarObjetoDB(EntityManager em);
+     public String crear(EntityManager em, ObjetosDB objeto);
+
+    public String editar(EntityManager em, ObjetosDB objeto);
+
+    public String borrar(EntityManager em, ObjetosDB objeto);
 }

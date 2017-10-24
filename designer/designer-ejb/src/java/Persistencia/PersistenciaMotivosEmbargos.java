@@ -6,12 +6,15 @@ package Persistencia;
 import Entidades.MotivosEmbargos;
 import InterfacePersistencia.PersistenciaMotivosEmbargosInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless.<br>
@@ -23,7 +26,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaMotivosEmbargos.class);
+    private static Logger log = Logger.getLogger(PersistenciaMotivosEmbargos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -31,49 +34,67 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
     @Override
-    public void crear(EntityManager em, MotivosEmbargos motivosEmbargos) {
+    public String crear(EntityManager em, MotivosEmbargos motivosEmbargos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(motivosEmbargos);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosEmbargos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaMotivosEmbargos.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear el Motivo Embargo";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, MotivosEmbargos motivosEmbargos) {
+    public String editar(EntityManager em, MotivosEmbargos motivosEmbargos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(motivosEmbargos);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosEmbargos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaMotivosEmbargos.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar el Motivo Embargo";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, MotivosEmbargos motivosEmbargos) {
+    public String borrar(EntityManager em, MotivosEmbargos motivosEmbargos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(motivosEmbargos));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosEmbargos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaMotivosEmbargos.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Borrar el Motivo Embargo";
             }
         }
     }
@@ -91,11 +112,11 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
     @Override
     public List<MotivosEmbargos> buscarMotivosEmbargos(EntityManager em) {
         try {
-        em.clear();
-        Query query = em.createQuery("SELECT m FROM MotivosEmbargos m ORDER BY m.codigo ASC");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<MotivosEmbargos> listaMotivosEmbargos = query.getResultList();
-        return listaMotivosEmbargos;
+            em.clear();
+            Query query = em.createQuery("SELECT m FROM MotivosEmbargos m ORDER BY m.codigo ASC");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<MotivosEmbargos> listaMotivosEmbargos = query.getResultList();
+            return listaMotivosEmbargos;
         } catch (Exception e) {
             log.error("PersistenciaMotivosEmbargos.buscarMotivosEmbargos():  ", e);
             return null;
