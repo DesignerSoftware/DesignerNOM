@@ -8389,6 +8389,57 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>modulo</from-outcome>
+            <to-view-id>/modulo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/modulo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pantalla</from-outcome>
+            <to-view-id>/pantalla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pantalla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/pantalla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tabla</from-outcome>
+            <to-view-id>/tabla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tabla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pantalla</from-outcome>
+            <to-view-id>/pantalla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
 </faces-config>
 

@@ -172,6 +172,7 @@ public class ControlObjetosDB implements Serializable {
         if (dlg == 0) {
             lovModulos = null;
             getLovModulos();
+            contarRegistrosModulos();
             RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
             RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
         }
@@ -308,8 +309,7 @@ public class ControlObjetosDB implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosObjetosDB");
     }
 
-    public void borrarObjetosDB(ObjetosDB objeto) {
-
+    public void borrarObjetosDB() {
         if (objetoDBSeleccionado != null) {
             if (!listaObjetosDBModificar.isEmpty() && listaObjetosDBModificar.contains(objetoDBSeleccionado)) {
                 int modIndex = listaObjetosDBModificar.indexOf(objetoDBSeleccionado);

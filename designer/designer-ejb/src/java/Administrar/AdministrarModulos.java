@@ -5,14 +5,14 @@
  */
 package Administrar;
 
-import Entidades.MotivosAusentismos;
-import InterfaceAdministrar.AdministrarMotivosAusentismosInterface;
+import Entidades.Modulos;
+import InterfaceAdministrar.AdministrarModulosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
-import InterfacePersistencia.PersistenciaMotivosAusentismosInterface;
+import InterfacePersistencia.PersistenciaModulosInterface;
+import static java.lang.StrictMath.log;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
@@ -22,12 +22,12 @@ import org.apache.log4j.Logger;
  * @author user
  */
 @Stateful
-public class AdministrarMotivosAusentismos implements AdministrarMotivosAusentismosInterface {
+public class AdministrarModulos implements AdministrarModulosInterface {
 
-    private static Logger log = Logger.getLogger(AdministrarMotivosAusentismos.class);
+    private static Logger log = Logger.getLogger(AdministrarModulos.class);
 
     @EJB
-    PersistenciaMotivosAusentismosInterface persistenciaMotivosAusentismos;
+    PersistenciaModulosInterface persistenciaModulos;
     @EJB
     AdministrarSesionesInterface administrarSesiones;
 
@@ -64,42 +64,43 @@ public class AdministrarMotivosAusentismos implements AdministrarMotivosAusentis
     }
 
     @Override
-    public String modificarMotivosAusentismos(MotivosAusentismos motivoAusentismo) {
+    public String modificarModulos(Modulos modulo) {
         try {
-            return persistenciaMotivosAusentismos.editar(getEm(), motivoAusentismo);
+            return persistenciaModulos.editar(getEm(), modulo);
         } catch (Exception e) {
-            log.error("Error AdministrarMotivosAusentismos.modificarMotivosAusentismos : ", e);
+            log.error("Error AdministrarModulos.modificarModulos : ", e);
             return e.getMessage();
         }
     }
 
     @Override
-    public String crearMotivosAusentismos(MotivosAusentismos motivoAusentismo) {
+    public String crearModulos(Modulos modulo) {
         try {
-            return persistenciaMotivosAusentismos.crear(getEm(), motivoAusentismo);
+            return persistenciaModulos.crear(getEm(), modulo);
         } catch (Exception e) {
-            log.error("Error AdministrarMotivosAusentismos.crearMotivosAusentismos : ", e);
+            log.error("Error AdministrarModulos.crearModulos : ", e);
             return e.getMessage();
         }
     }
 
     @Override
-    public String borrarMotivosAusentismos(MotivosAusentismos motivoAusentismo) {
+    public String borrarModulos(Modulos modulo) {
         try {
-            return persistenciaMotivosAusentismos.borrar(getEm(), motivoAusentismo);
+            return persistenciaModulos.borrar(getEm(), modulo);
         } catch (Exception e) {
-            log.error("Error AdministrarMotivosAusentismos.borrarMotivosAusentismos : ", e);
+            log.error("Error AdministrarModulos.borrarModulos : ", e);
             return e.getMessage();
         }
     }
 
     @Override
-    public List<MotivosAusentismos> consultarMotivosAusentismos() {
+    public List<Modulos> consultarModulos() {
         try {
-            return persistenciaMotivosAusentismos.buscarMotivosAusentismo(getEm());
+            return persistenciaModulos.buscarModulos(getEm());
         } catch (Exception e) {
-            log.error("Error AdministrarMotivosAusentismos.ConsultarMotivosAusentismos : ", e);
+            log.error("Error AdministrarModulos.consultarModulos : ", e);
             return null;
         }
     }
+
 }

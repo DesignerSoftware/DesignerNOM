@@ -20,7 +20,7 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
    public List<Tablas> consultarTablas(EntityManager em) {
       try {
          em.clear();
-         Query query = em.createNativeQuery("SELECT * FROM Tablas t where EXISTS (SELECT p.secuencia FROM Pantallas p where t.secuencia = p.tabla) ORDER BY t.nombre", Tablas.class);
+         Query query = em.createNativeQuery("SELECT * FROM Tablas t ORDER BY t.nombre", Tablas.class);
          List<Tablas> lista = query.getResultList();
          return lista;
       } catch (Exception e) {

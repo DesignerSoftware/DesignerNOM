@@ -6,12 +6,14 @@ package Persistencia;
 import Entidades.Pantallas;
 import InterfacePersistencia.PersistenciaPantallasInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.*;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless.<br>
@@ -117,6 +119,75 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             }
         } finally {
             return intcontables;
+        }
+    }
+
+    @Override
+    public String crear(EntityManager em, Pantallas pantalla) {
+           em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(pantalla);
+            tx.commit();
+            return "EXITO";
+        } catch (Exception e) {
+            log.error("Error PersistenciaPantallas.crear:  ", e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaPantallas.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear la pantalla";
+            }
+        }
+    }
+
+    @Override
+    public String editar(EntityManager em, Pantallas pantalla) {
+            em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(pantalla);
+            tx.commit();
+            return "EXITO";
+        } catch (Exception e) {
+            log.error("Error PersistenciaPantallas.editar:  ", e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaPantallas.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al editar la pantalla";
+            }
+        }
+    }
+
+    @Override
+    public String borrar(EntityManager em, Pantallas pantalla) {
+            em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(pantalla));
+            tx.commit();
+            return "EXITO";
+        } catch (Exception e) {
+            log.error("Error PersistenciaPantallas.borrar:  ", e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaPantallas.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar la pantalla";
+            }
         }
     }
 

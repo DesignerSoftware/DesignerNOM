@@ -46,7 +46,7 @@
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroObjetosBD').show()" update=":formularioDialogos:nuevoObj" process="@this"/> 
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="Insertar Registro"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlObjetosDB.borrarObjetosDB(objeto)}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlObjetosDB.borrarObjetosDB()}" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="eliminar" value="Borrar Registro"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlObjetosDB.duplicandoObjetosDB()}" process="@this"/>  

@@ -2,6 +2,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,9 +24,9 @@ public class Pantallas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SECUENCIA")
-    private BigDecimal secuencia;
+    private BigInteger secuencia;
     @Column(name = "CODIGO")
-    private Short codigo;
+    private Integer codigo;
     @Column(name = "NOMBRE")
     private String nombre;
     @JoinColumn(name = "TABLA", referencedColumnName = "SECUENCIA")
@@ -48,6 +49,9 @@ public class Pantallas implements Serializable {
     }
 
     public Tablas getTabla() {
+        if (tabla == null) {
+            tabla = new Tablas();
+        }
         return tabla;
     }
 
@@ -55,35 +59,32 @@ public class Pantallas implements Serializable {
         this.tabla = tabla;
     }
 
-    public Pantallas(BigDecimal secuencia) {
+    public Pantallas(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
-    public Pantallas(BigDecimal secuencia, String nombre) {
+    public Pantallas(BigInteger secuencia, String nombre) {
         this.secuencia = secuencia;
         this.nombre = nombre;
     }
 
-    public BigDecimal getSecuencia() {
+    public BigInteger getSecuencia() {
         return secuencia;
     }
 
-    public void setSecuencia(BigDecimal secuencia) {
+    public void setSecuencia(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
-    public Short getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Short codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
     public String getNombre() {
-        if (nombre == null) {
-            nombre = " ";
-        }
         return nombre;
     }
 
@@ -92,9 +93,6 @@ public class Pantallas implements Serializable {
     }
 
     public String getLista() {
-        if (lista == null) {
-            lista = " ";
-        }
         return lista;
     }
 
