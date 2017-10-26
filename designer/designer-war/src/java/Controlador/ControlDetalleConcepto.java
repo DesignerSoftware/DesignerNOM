@@ -585,19 +585,6 @@ public class ControlDetalleConcepto implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
             cambiosVigenciaCuenta = true;
          }
-//            else {
-//                vigenciaCuentaSeleccionada.getTipocc().setNombre(auxVC_TipoCC);
-//                vigenciaCuentaSeleccionada.getCuentad().setDescripcion(auxVC_DescDeb);
-//                vigenciaCuentaSeleccionada.getCuentad().setCodigo(auxVC_Debito);
-//                vigenciaCuentaSeleccionada.getConsolidadord().setNombre(auxVC_ConsDeb);
-//                vigenciaCuentaSeleccionada.getCuentac().setDescripcion(auxVC_DescCre);
-//                vigenciaCuentaSeleccionada.getCuentac().setCodigo(auxVC_Credito);
-//                vigenciaCuentaSeleccionada.getConsolidadorc().setNombre(auxVC_ConsCre);
-//                vigenciaCuentaSeleccionada.setNombreProceso(auxVC_Proceso);
-//
-//                RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-//                RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
-//            }
       }
    }
 
@@ -609,7 +596,7 @@ public class ControlDetalleConcepto implements Serializable {
       vigenciaCuentaSeleccionada = cuenta;
 
       if (columnCambio.equalsIgnoreCase("TIPOCC")) {
-         vigenciaCuentaSeleccionada.getTipocc().setNombre(auxVC_TipoCC);
+         vigenciaCuentaSeleccionada.setNombreTipocc(auxVC_TipoCC);
 
          for (int i = 0; i < lovTiposCentrosCostos.size(); i++) {
             if (lovTiposCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
@@ -622,14 +609,13 @@ public class ControlDetalleConcepto implements Serializable {
             autocompletarTipoCC(vigenciaCuentaSeleccionada);
          } else {
             contarRegistrosLovTipoCentroCosto();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').show()");
             tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("CODDEBITO")) {
-         vigenciaCuentaSeleccionada.getCuentad().setCodigo(auxVC_Debito);
+         vigenciaCuentaSeleccionada.setCodCuentad(auxVC_Debito);
 
          for (int i = 0; i < lovCuentas.size(); i++) {
             if (lovCuentas.get(i).getCodigo().startsWith(valor.toUpperCase())) {
@@ -641,14 +627,13 @@ public class ControlDetalleConcepto implements Serializable {
             vigenciaCuentaSeleccionada.setCuentad(lovCuentas.get(indiceUnicoElemento));
          } else {
             contarRegistrosLovCuentaDebito();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
             RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
             tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("DESDEBITO")) {
-         vigenciaCuentaSeleccionada.getCuentad().setDescripcion(auxVC_DescDeb);
+         vigenciaCuentaSeleccionada.setDescripcionCuentad(auxVC_DescDeb);
 
          for (int i = 0; i < lovCuentas.size(); i++) {
             if (lovCuentas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
@@ -660,14 +645,13 @@ public class ControlDetalleConcepto implements Serializable {
             vigenciaCuentaSeleccionada.setCuentad(lovCuentas.get(indiceUnicoElemento));
          } else {
             contarRegistrosLovCuentaDebito();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
             RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
             tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("CONSOLIDADORDEBITO")) {
-         vigenciaCuentaSeleccionada.getConsolidadord().setNombre(auxVC_ConsDeb);
+         vigenciaCuentaSeleccionada.setNombreConsolidadord(auxVC_ConsDeb);
 
          for (int i = 0; i < lovCentrosCostos.size(); i++) {
             if (lovCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
@@ -679,15 +663,13 @@ public class ControlDetalleConcepto implements Serializable {
             vigenciaCuentaSeleccionada.setConsolidadord(lovCentrosCostos.get(indiceUnicoElemento));
          } else {
             contarRegistrosLovCentroCostoDebito();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
             tipoActualizacion = 0;
          }
       }
-
       if (columnCambio.equalsIgnoreCase("CODCREDITO")) {
-         vigenciaCuentaSeleccionada.getCuentac().setCodigo(auxVC_Credito);
+         vigenciaCuentaSeleccionada.setCodCuentac(auxVC_Credito);
 
          for (int i = 0; i < lovCuentas.size(); i++) {
             if (lovCuentas.get(i).getCodigo().startsWith(valor.toUpperCase())) {
@@ -699,14 +681,13 @@ public class ControlDetalleConcepto implements Serializable {
             vigenciaCuentaSeleccionada.setCuentac(lovCuentas.get(indiceUnicoElemento));
          } else {
             contarRegistrosLovCuentaCredito();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
             tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("DESCREDITO")) {
-         vigenciaCuentaSeleccionada.getCuentac().setDescripcion(auxVC_DescCre);
+         vigenciaCuentaSeleccionada.setDescripcionCuentac(auxVC_DescCre);
 
          for (int i = 0; i < lovCuentas.size(); i++) {
             if (lovCuentas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
@@ -718,7 +699,6 @@ public class ControlDetalleConcepto implements Serializable {
             vigenciaCuentaSeleccionada.setCuentac(lovCuentas.get(indiceUnicoElemento));
          } else {
             contarRegistrosLovCuentaCredito();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
             RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
             tipoActualizacion = 0;
@@ -743,7 +723,6 @@ public class ControlDetalleConcepto implements Serializable {
                vigenciaCuentaSeleccionada.setNombreProceso(lovProcesos.get(indiceUnicoElemento).getDescripcion());
             } else {
                contarRegistrosLovCuentaCredito();
-               permitirIndexVigenciaCuenta = false;
                RequestContext.getCurrentInstance().update("formlovProceso:ProcesosDialogo");
                RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
                tipoActualizacion = 0;
@@ -751,7 +730,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (columnCambio.equalsIgnoreCase("CONSOLIDADORCREDITO")) {
-         vigenciaCuentaSeleccionada.getConsolidadorc().setNombre(auxVC_ConsCre);
+         vigenciaCuentaSeleccionada.setNombreConsolidadorc(auxVC_ConsCre);
 
          for (int i = 0; i < lovCentrosCostos.size(); i++) {
             if (lovCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
@@ -763,7 +742,6 @@ public class ControlDetalleConcepto implements Serializable {
             vigenciaCuentaSeleccionada.setConsolidadorc(lovCentrosCostos.get(indiceUnicoElemento));
          } else {
             contarRegistrosLovCentroCostoCredito();
-            permitirIndexVigenciaCuenta = false;
             RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
             tipoActualizacion = 0;
@@ -1184,25 +1162,25 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = tipoNuevo;
       switch (campo) {
          case "TIPOCC":
-            auxVC_TipoCC = vigCuentaCrearSeleccionada.getTipocc().getNombre();
+            auxVC_TipoCC = vigCuentaCrearSeleccionada.getNombreTipocc();
             break;
          case "CODDEBITO":
-            auxVC_Debito = vigCuentaCrearSeleccionada.getCuentad().getCodigo();
+            auxVC_Debito = vigCuentaCrearSeleccionada.getCodCuentad();
             break;
          case "DESDEBITO":
-            auxVC_DescDeb = vigCuentaCrearSeleccionada.getCuentad().getDescripcion();
+            auxVC_DescDeb = vigCuentaCrearSeleccionada.getDescripcionCuentad();
             break;
          case "CONSOLIDADORDEBITO":
-            auxVC_ConsDeb = vigCuentaCrearSeleccionada.getConsolidadord().getNombre();
+            auxVC_ConsDeb = vigCuentaCrearSeleccionada.getNombreConsolidadord();
             break;
          case "CODCREDITO":
-            auxVC_Credito = vigCuentaCrearSeleccionada.getCuentac().getCodigo();
+            auxVC_Credito = vigCuentaCrearSeleccionada.getCodCuentac();
             break;
          case "DESCREDITO":
-            auxVC_DescCre = vigCuentaCrearSeleccionada.getCuentad().getDescripcion();
+            auxVC_DescCre = vigCuentaCrearSeleccionada.getDescripcionCuentac();
             break;
          case "CONSOLIDADORCREDITO":
-            auxVC_ConsCre = vigCuentaCrearSeleccionada.getConsolidadorc().getNombre();
+            auxVC_ConsCre = vigCuentaCrearSeleccionada.getNombreConsolidadorc();
             break;
          case "PROCESO":
             log.info("valoresBackupAutocompletarGeneral campo = 'PROCESO'");
@@ -1215,58 +1193,6 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void valoresBackupAutocompletarGeneral(int tipoNuevo, String campo, int tabla) {
       tipoActualizacion = tipoNuevo;
-//      if (tabla == 0) {
-//         if (campo.equals("TIPOCC")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_TipoCC = nuevaVigenciaCuenta.getTipocc().getNombre();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_TipoCC = duplicarVigenciaCuenta.getTipocc().getNombre();
-//            }
-//         } else if (campo.equals("CODDEBITO")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_Debito = nuevaVigenciaCuenta.getCuentad().getCodigo();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_Debito = duplicarVigenciaCuenta.getCuentad().getCodigo();
-//            }
-//         } else if (campo.equals("DESDEBITO")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_DescDeb = nuevaVigenciaCuenta.getCuentad().getDescripcion();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_DescDeb = duplicarVigenciaCuenta.getCuentad().getDescripcion();
-//            }
-//         } else if (campo.equals("CONSOLIDADORDEBITO")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_ConsDeb = nuevaVigenciaCuenta.getConsolidadord().getNombre();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_ConsDeb = duplicarVigenciaCuenta.getConsolidadord().getNombre();
-//            }
-//         } else if (campo.equals("CODCREDITO")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_Credito = nuevaVigenciaCuenta.getCuentac().getCodigo();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_Credito = duplicarVigenciaCuenta.getCuentac().getCodigo();
-//            }
-//         } else if (campo.equals("DESCREDITO")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_DescCre = nuevaVigenciaCuenta.getCuentad().getDescripcion();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_DescCre = duplicarVigenciaCuenta.getCuentad().getDescripcion();
-//            }
-//         } else if (campo.equals("CONSOLIDADORCREDITO")) {
-//            if (tipoNuevo == 1) {
-//               auxVC_ConsCre = nuevaVigenciaCuenta.getConsolidadorc().getNombre();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_ConsCre = duplicarVigenciaCuenta.getConsolidadorc().getNombre();
-//            }
-//         } else if (campo.equals("PROCESO")) {
-//            log.info("valoresBackupAutocompletarGeneral campo = 'PROCESO'");
-//            if (tipoNuevo == 1) {
-//               auxVC_Proceso = nuevaVigenciaCuenta.getNombreProceso();
-//            } else if (tipoNuevo == 2) {
-//               auxVC_Proceso = duplicarVigenciaCuenta.getNombreProceso();
-//            }
-//         }
-//      }
       if (tabla == 1) {
          if (campo.equals("CODIGO")) {
             if (tipoNuevo == 1) {
@@ -1332,32 +1258,32 @@ public class ControlDetalleConcepto implements Serializable {
       CentrosCostos ccLocalizacionTrabajador = null;
       CentrosCostos ccContabilidad = null;
       List<Cuentas> cuenta2505 = null;
-      log.info("ControlDetalleConcepto.autocompletarTipoCC() conceptoActual : " + conceptoActual);
-      log.info("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta : " + vigCuenta);
-      log.info("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
+      log.info("ControlParametrizacionContable.autocompletarTipoCC() conceptoActual : " + conceptoActual);
+      log.info("ControlParametrizacionContable.autocompletarTipoCC() vigCuenta : " + vigCuenta);
+      log.info("ControlParametrizacionContable.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
       if (vigCuenta.getConcepto() == null) {
-         vigCuenta.setConcepto(conceptoActual);
+         vigCuenta.setConcepto(conceptoActual.getSecuencia());
       }
       if (vigCuenta.getConcepto() != null) {
-         log.info("ControlDetalleConcepto.autocompletarTipoCC() 1");
-         int conteoVCuentas = administrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentac(vigCuenta.getTipocc().getSecuencia(), vigCuenta.getCuentac().getSecuencia(), vigCuenta.getConcepto().getSecuencia(), vigCuenta.getFechainicial());
+         log.info("ControlParametrizacionContable.autocompletarTipoCC() 1");
+         int conteoVCuentas = administrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentac(vigCuenta.getTipocc(), vigCuenta.getCuentac(), vigCuenta.getConcepto(), vigCuenta.getFechainicial());
          if (conteoVCuentas > 1) {
             mensajeError = "El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta";
             log.info("El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta 1");
             error++;
          } else {
-            conteoVCuentas = administrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentad(vigCuenta.getTipocc().getSecuencia(), vigCuenta.getCuentad().getSecuencia(), vigCuenta.getConcepto().getSecuencia(), vigCuenta.getFechainicial());
+            conteoVCuentas = administrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentad(vigCuenta.getTipocc(), vigCuenta.getCuentad(), vigCuenta.getConcepto(), vigCuenta.getFechainicial());
             if (conteoVCuentas > 1) {
                mensajeError = "El Tipo de Centro Costo que Ingresó ya está asignado a otro VigenciaCuenta";
                log.info("El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta 2");
                error++;
             }
          }
-         log.info("ControlDetalleConcepto.autocompletarTipoCC() error: " + error);
+         log.info("ControlParametrizacionContable.autocompletarTipoCC() error: " + error);
          if (error == 0) {
-            ccLocalizacionTrabajador = administrarDetalleConcepto.centroCostoLocalizacionTrabajador(vigCuenta.getConcepto().getEmpresa());
-            ccContabilidad = administrarDetalleConcepto.centroCostoContabilidad(vigCuenta.getConcepto().getEmpresa());
-            cuenta2505 = administrarDetalleConcepto.cuenta2505(vigCuenta.getConcepto().getEmpresa());
+            ccLocalizacionTrabajador = administrarDetalleConcepto.centroCostoLocalizacionTrabajador(vigCuenta.getEmpresa());
+            ccContabilidad = administrarDetalleConcepto.centroCostoContabilidad(vigCuenta.getEmpresa());
+            cuenta2505 = administrarDetalleConcepto.cuenta2505(vigCuenta.getEmpresa());
             log.info("ccLocalizacionTrabajador: " + ccLocalizacionTrabajador);
             log.info("ccContabilidad: " + ccContabilidad);
             log.info("cuenta2505: " + cuenta2505);
@@ -1384,20 +1310,20 @@ public class ControlDetalleConcepto implements Serializable {
             }
             log.warn("Error: " + error);
             if (error == 0) {
-               log.info("vigCuenta.getConcepto().getNaturaleza(): " + vigCuenta.getConcepto().getNaturaleza());
-               log.info("vigCuenta.getTipocc().getNombre(): " + vigCuenta.getTipocc().getNombre());
+               log.info("vigCuenta.getConcepto().getNaturaleza(): " + vigCuenta.getNaturaleza());
+               log.info("vigCuenta.getNombreTipocc(): " + vigCuenta.getNombreTipocc());
                log.info("vigCuenta.getConsolidadord(): " + vigCuenta.getConsolidadord());
                log.info("vigCuenta.getConsolidadorc(): " + vigCuenta.getConsolidadorc());
                log.info("vigCuenta.getTipocc(): " + vigCuenta.getTipocc());
                if (vigCuenta.getTipocc() != null) {
-                  log.info("vigCuenta.getTipocc().getNombre(): " + vigCuenta.getTipocc().getNombre());
+                  log.info("vigCuenta.getNombreTipocc(): " + vigCuenta.getNombreTipocc());
                }
-               if (vigCuenta.getConcepto().getNaturaleza().equals("P")) {
-                  log.info("vigCuenta.getTipocc().getNombre().contains(\"APLICA\")  :: ->" + (vigCuenta.getTipocc().getNombre().contains("APLICA")));
-                  if (!vigCuenta.getTipocc().getNombre().contains("APLICA")) {
+               if (vigCuenta.getNaturaleza().equals("P")) {
+                  log.info("vigCuenta.getNombreTipocc().contains(\"APLICA\")  :: ->" + (vigCuenta.getNombreTipocc().contains("APLICA")));
+                  if (!vigCuenta.getNombreTipocc().contains("APLICA")) {
                      if (vigCuenta.getConsolidadord() != null) {
-                        if (vigCuenta.getConsolidadord().getNombre() != null) {
-                           log.info("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
+                        if (vigCuenta.getNombreConsolidadord() != null) {
+                           log.info("vigCuenta.getNombreConsolidadord(): " + vigCuenta.getNombreConsolidadord());
                            mensajeError = "Atención: Se va a cambiar el centro de costo consolidador débito por la localizacion del trabajador. Revise por favor esta configuración.";
                            log.info(mensajeError);
                            error++;
@@ -1408,15 +1334,15 @@ public class ControlDetalleConcepto implements Serializable {
                   }
                   if (vigCuenta.getCuentac() == null) {
                      vigCuenta.setCuentac(cuenta2505.get(0));
-                  } else if (vigCuenta.getCuentac().getSecuencia() == null) {
+                  } else if (vigCuenta.getCuentac() == null) {
                      vigCuenta.setCuentac(cuenta2505.get(0));
                   }
                }
-               if (vigCuenta.getConcepto().getNaturaleza().equals("D")) {
-                  if (!vigCuenta.getTipocc().getNombre().contains("APLICA")) {
+               if (vigCuenta.getNaturaleza().equals("D")) {
+                  if (!vigCuenta.getNombreTipocc().contains("APLICA")) {
                      if (vigCuenta.getConsolidadorc() != null) {
-                        if (vigCuenta.getConsolidadorc().getNombre() != null) {
-                           log.info("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
+                        if (vigCuenta.getNombreConsolidadorc() != null) {
+                           log.info("vigCuenta.getNombreConsolidadord(): " + vigCuenta.getNombreConsolidadord());
                            mensajeError = "Atención: Se va a cambiar el centro de costo consolidador crédito por la localizacion del trabajador. Revise por favor esta configuración.";
                            log.info(mensajeError);
                            error++;
@@ -1431,15 +1357,15 @@ public class ControlDetalleConcepto implements Serializable {
                   }
                   if (vigCuenta.getCuentad() == null) {
                      vigCuenta.setCuentad(cuenta2505.get(0));
-                  } else if (vigCuenta.getCuentad().getSecuencia() == null) {
+                  } else if (vigCuenta.getCuentad() == null) {
                      vigCuenta.setCuentad(cuenta2505.get(0));
                   }
                }
-               if (vigCuenta.getConcepto().getNaturaleza().equals("N")) {
-                  if (!vigCuenta.getTipocc().getNombre().contains("APLICA")) {
+               if (vigCuenta.getNaturaleza().equals("N")) {
+                  if (!vigCuenta.getNombreTipocc().contains("APLICA")) {
                      if (vigCuenta.getConsolidadorc() != null) {
-                        if (vigCuenta.getConsolidadorc().getNombre() != null) {
-                           log.info("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
+                        if (vigCuenta.getNombreConsolidadorc() != null) {
+                           log.info("vigCuenta.getNombreConsolidadord(): " + vigCuenta.getNombreConsolidadord());
                            mensajeError = "Atención: Se va a cambiar el centro de costo consolidador crédito por la localizacion del trabajador. Revise por favor esta configuración.";
                            log.info(mensajeError);
                            error++;
@@ -1451,7 +1377,7 @@ public class ControlDetalleConcepto implements Serializable {
                   if (vigCuenta.getCuentad() == null) {
                      vigCuenta.setCuentad(cuenta2505.get(0));
                      vigCuenta.setCuentac(cuenta2505.get(0));
-                  } else if (vigCuenta.getCuentad().getSecuencia() == null) {
+                  } else if (vigCuenta.getCuentad() == null) {
                      vigCuenta.setCuentad(cuenta2505.get(0));
                      vigCuenta.setCuentac(cuenta2505.get(0));
                   }
@@ -1476,7 +1402,7 @@ public class ControlDetalleConcepto implements Serializable {
             return false;
          }
       } else {
-         log.info("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
+         log.info("ControlParametrizacionContable.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
          return false;
       }
    }
@@ -1489,7 +1415,7 @@ public class ControlDetalleConcepto implements Serializable {
       int indiceUnicoElemento = 0;
       switch (campo) {
          case "TIPOCC":
-            vigCuentaCrearSeleccionada.getTipocc().setNombre(auxVC_TipoCC);
+            vigCuentaCrearSeleccionada.setNombreTipocc(auxVC_TipoCC);
             for (int i = 0; i < lovTiposCentrosCostos.size(); i++) {
                if (lovTiposCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1506,7 +1432,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
             break;
          case "CODDEBITO":
-            vigCuentaCrearSeleccionada.getCuentad().setCodigo(auxVC_Debito);
+            vigCuentaCrearSeleccionada.setCodCuentad(auxVC_Debito);
             for (int i = 0; i < lovCuentas.size(); i++) {
                if (lovCuentas.get(i).getCodigo().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1527,7 +1453,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
             break;
          case "DESDEBITO":
-            vigCuentaCrearSeleccionada.getCuentad().setDescripcion(auxVC_DescDeb);
+            vigCuentaCrearSeleccionada.setDescripcionCuentad(auxVC_DescDeb);
             for (int i = 0; i < lovCuentas.size(); i++) {
                if (lovCuentas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1548,7 +1474,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
             break;
          case "CONSOLIDADORDEBITO":
-            vigCuentaCrearSeleccionada.getConsolidadord().setNombre(auxVC_ConsDeb);
+            vigCuentaCrearSeleccionada.setNombreConsolidadord(auxVC_ConsDeb);
             for (int i = 0; i < lovCentrosCostos.size(); i++) {
                if (lovCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1568,7 +1494,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
             break;
          case "CODCREDITO":
-            vigCuentaCrearSeleccionada.getCuentac().setCodigo(auxVC_Credito);
+            vigCuentaCrearSeleccionada.setCodCuentac(auxVC_Credito);
             for (int i = 0; i < lovCuentas.size(); i++) {
                if (lovCuentas.get(i).getCodigo().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1589,7 +1515,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
             break;
          case "DESCREDITO":
-            vigCuentaCrearSeleccionada.getCuentac().setDescripcion(auxVC_DescCre);
+            vigCuentaCrearSeleccionada.setDescripcionCuentac(auxVC_DescCre);
             for (int i = 0; i < lovCuentas.size(); i++) {
                if (lovCuentas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1610,7 +1536,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
             break;
          case "CONSOLIDADORCREDITO":
-            vigCuentaCrearSeleccionada.getConsolidadorc().setNombre(auxVC_ConsCre);
+            vigCuentaCrearSeleccionada.setNombreConsolidadorc(auxVC_ConsCre);
             for (int i = 0; i < lovCentrosCostos.size(); i++) {
                if (lovCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -1655,275 +1581,6 @@ public class ControlDetalleConcepto implements Serializable {
             break;
       }
    }
-//   
-//   public void autocompletarNuevoyDuplicadoVigenciaCuenta(String campo, String valor, int tipoNuevo) {
-//      tipoActualizacion = tipoNuevo;
-//      cargarLOVsVCuentas();
-//      int coincidencias = 0;
-//      int indiceUnicoElemento = 0;
-//      if (campo.equalsIgnoreCase("TIPOCC")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getTipocc().setNombre(auxVC_TipoCC);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getTipocc().setNombre(auxVC_TipoCC);
-//         }
-//         for (int i = 0; i < lovTiposCentrosCostos.size(); i++) {
-//            if (lovTiposCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setTipocc(lovTiposCentrosCostos.get(indiceUnicoElemento));
-//               autocompletarTipoCC(nuevaVigenciaCuenta);
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoCCVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setTipocc(lovTiposCentrosCostos.get(indiceUnicoElemento));
-//               autocompletarTipoCC(duplicarVigenciaCuenta);
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCCVC");
-//            }
-//         } else {
-//            contarRegistrosLovTipoCentroCosto();
-//            RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoCCVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCCVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("CODDEBITO")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getCuentad().setCodigo(auxVC_Debito);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getCuentad().setCodigo(auxVC_Debito);
-//         }
-//         for (int i = 0; i < lovCuentas.size(); i++) {
-//            if (lovCuentas.get(i).getCodigo().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setCuentad(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesDebitoVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setCuentad(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesDebitoVC");
-//            }
-//         } else {
-//            contarRegistrosLovCuentaDebito();
-//            RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesDebitoVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesDebitoVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("DESDEBITO")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getCuentad().setDescripcion(auxVC_DescDeb);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getCuentad().setDescripcion(auxVC_DescDeb);
-//         }
-//         for (int i = 0; i < lovCuentas.size(); i++) {
-//            if (lovCuentas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setCuentad(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesDebitoVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setCuentad(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesDebitoVC");
-//            }
-//         } else {
-//            contarRegistrosLovCuentaDebito();
-//            RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesDebitoVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDebitoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesDebitoVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("CONSOLIDADORDEBITO")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getConsolidadord().setNombre(auxVC_ConsDeb);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getConsolidadord().setNombre(auxVC_ConsDeb);
-//         }
-//         for (int i = 0; i < lovCentrosCostos.size(); i++) {
-//            if (lovCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setConsolidadord(lovCentrosCostos.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConsoliDebVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setConsolidadord(lovCentrosCostos.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaConsoliDebVC");
-//            }
-//         } else {
-//            contarRegistrosLovCentroCostoDebito();
-//            RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConsoliDebVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaConsoliDebVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("CODCREDITO")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getCuentac().setCodigo(auxVC_Credito);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getCuentac().setCodigo(auxVC_Credito);
-//         }
-//         for (int i = 0; i < lovCuentas.size(); i++) {
-//            if (lovCuentas.get(i).getCodigo().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setCuentac(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesCreditoVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setCuentac(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesCreditoVC");
-//            }
-//         } else {
-//            contarRegistrosLovCuentaCredito();
-//            RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesCreditoVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesCreditoVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("DESCREDITO")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getCuentac().setDescripcion(auxVC_DescCre);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getCuentac().setDescripcion(auxVC_DescCre);
-//         }
-//         for (int i = 0; i < lovCuentas.size(); i++) {
-//            if (lovCuentas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setCuentac(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesCreditoVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setCuentac(lovCuentas.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesCreditoVC");
-//            }
-//         } else {
-//            contarRegistrosLovCuentaCredito();
-//            RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDesCreditoVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaCreditoVC");
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaDesCreditoVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("CONSOLIDADORCREDITO")) {
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.getConsolidadorc().setNombre(auxVC_ConsCre);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.getConsolidadorc().setNombre(auxVC_ConsCre);
-//         }
-//         for (int i = 0; i < lovCentrosCostos.size(); i++) {
-//            if (lovCentrosCostos.get(i).getNombre().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setConsolidadorc(lovCentrosCostos.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConsoliCreVC");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setConsolidadorc(lovCentrosCostos.get(indiceUnicoElemento));
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaConsoliCreVC");
-//            }
-//         } else {
-//            contarRegistrosLovCentroCostoCredito();
-//            RequestContext.getCurrentInstance().update("formlovCentroCostoC:CentroCostoCDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('CentroCostoCDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConsoliCreVC");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicaConsoliCreVC");
-//            }
-//         }
-//      } else if (campo.equalsIgnoreCase("PROCESO")) {
-//         log.info("autocompletarNuevoyDuplicadoVigenciaCuenta campo = 'PROCESO'");
-//         if (tipoNuevo == 1) {
-//            nuevaVigenciaCuenta.setNombreProceso(auxVC_Proceso);
-//         } else if (tipoNuevo == 2) {
-//            duplicarVigenciaCuenta.setNombreProceso(auxVC_Proceso);
-//         }
-//         for (int i = 0; i < lovProcesos.size(); i++) {
-//            if (lovProcesos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
-//               indiceUnicoElemento = i;
-//               coincidencias++;
-//            }
-//         }
-//         if (coincidencias == 1) {
-//            if (tipoNuevo == 1) {
-//               nuevaVigenciaCuenta.setProceso(lovProcesos.get(indiceUnicoElemento).getSecuencia());
-//               nuevaVigenciaCuenta.setNombreProceso(lovProcesos.get(indiceUnicoElemento).getDescripcion());
-//               RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevoProceso");
-//            } else if (tipoNuevo == 2) {
-//               duplicarVigenciaCuenta.setProceso(lovProcesos.get(indiceUnicoElemento).getSecuencia());
-//               duplicarVigenciaCuenta.setNombreProceso(lovProcesos.get(indiceUnicoElemento).getDescripcion());
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoProceso");
-//            }
-//         } else {
-//            contarRegistrosLovCentroCostoCredito();
-//            RequestContext.getCurrentInstance().update("formlovProceso:ProcesosDialogo");
-//            RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
-//            if (tipoNuevo == 1) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevoProceso");
-//            } else if (tipoNuevo == 2) {
-//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoProceso");
-//            }
-//         }
-//      }
-//   }
 
    public void autocompletarNuevoyDuplicadoVigenciaGrupoConcepto(String campo, String valor, int tipoNuevo) {
       cargarLOVsVGrupoConcepto();
@@ -2201,13 +1858,13 @@ public class ControlDetalleConcepto implements Serializable {
          ///////// Captura Objetos Para campos NotNull ///////////
          auxVC_FechaIni = vigenciaCuentaSeleccionada.getFechainicial();
          auxVC_FechaFin = vigenciaCuentaSeleccionada.getFechafinal();
-         auxVC_TipoCC = vigenciaCuentaSeleccionada.getTipocc().getNombre();
-         auxVC_DescDeb = vigenciaCuentaSeleccionada.getCuentad().getDescripcion();
-         auxVC_Debito = vigenciaCuentaSeleccionada.getCuentad().getCodigo();
-         auxVC_ConsDeb = vigenciaCuentaSeleccionada.getConsolidadord().getNombre();
-         auxVC_DescCre = vigenciaCuentaSeleccionada.getCuentac().getDescripcion();
-         auxVC_Credito = vigenciaCuentaSeleccionada.getCuentac().getCodigo();
-         auxVC_ConsCre = vigenciaCuentaSeleccionada.getConsolidadorc().getNombre();
+         auxVC_TipoCC = vigenciaCuentaSeleccionada.getNombreTipocc();
+         auxVC_DescDeb = vigenciaCuentaSeleccionada.getDescripcionCuentad();
+         auxVC_Debito = vigenciaCuentaSeleccionada.getCodCuentad();
+         auxVC_ConsDeb = vigenciaCuentaSeleccionada.getNombreConsolidadord();
+         auxVC_DescCre = vigenciaCuentaSeleccionada.getDescripcionCuentac();
+         auxVC_Credito = vigenciaCuentaSeleccionada.getCodCuentac();
+         auxVC_ConsCre = vigenciaCuentaSeleccionada.getNombreConsolidadorc();
          auxVC_Proceso = vigenciaCuentaSeleccionada.getNombreProceso();
 
          vigenciaConceptoTCSeleccionada = null;
@@ -2995,7 +2652,7 @@ public class ControlDetalleConcepto implements Serializable {
       if (vigenciaCuentaSeleccionada != null) {
          cargarLOVsVCuentas();
          if (cualCeldaVigenciaCuenta == 2) {
-            contarRegistrosLovTipoContrato();
+            contarRegistrosLovTipoCentroCosto();
             RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').show()");
             tipoActualizacion = 0;
@@ -3107,7 +2764,7 @@ public class ControlDetalleConcepto implements Serializable {
       if (tabla == 0) {
          cargarLOVsVCuentas();
          if (campo == 0) {
-            contarRegistrosLovTipoContrato();
+            contarRegistrosLovTipoCentroCosto();
             RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').show()");
          } else if (campo == 1) {
@@ -3453,15 +3110,12 @@ public class ControlDetalleConcepto implements Serializable {
    //////////Validaciones de los campos de las tablas de la pagina///////////////
    public boolean validarActualizarVigenciaCuenta() {
       boolean retorno = false;
-      VigenciasCuentas aux = null;
-      aux = vigenciaCuentaSeleccionada;
-
-      if ((aux.getFechafinal() != null) && (aux.getFechainicial() != null)
-              && (aux.getConsolidadorc().getSecuencia() != null)
-              && (aux.getConsolidadord().getSecuencia() != null)
-              && (aux.getCuentac().getSecuencia() != null)
-              && (aux.getCuentad().getSecuencia() != null)
-              && (aux.getTipocc().getSecuencia() != null)) {
+      if ((vigenciaCuentaSeleccionada.getFechafinal() != null) && (vigenciaCuentaSeleccionada.getFechainicial() != null)
+              && (vigenciaCuentaSeleccionada.getConsolidadorc() != null)
+              && (vigenciaCuentaSeleccionada.getConsolidadord() != null)
+              && (vigenciaCuentaSeleccionada.getCuentac() != null)
+              && (vigenciaCuentaSeleccionada.getCuentad() != null)
+              && (vigenciaCuentaSeleccionada.getTipocc() != null)) {
          retorno = true;
       }
       return retorno;
@@ -3473,11 +3127,11 @@ public class ControlDetalleConcepto implements Serializable {
       for (VigenciasCuentas nuevaVigenciaCuenta : listVigCParaCrear) {
          if (nuevaVigenciaCuenta.getAcrear() && (nuevaVigenciaCuenta.getFechafinal() == null
                  || nuevaVigenciaCuenta.getFechainicial() == null
-                 || nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() == null
-                 || nuevaVigenciaCuenta.getConsolidadord().getSecuencia() == null
-                 || nuevaVigenciaCuenta.getCuentac().getSecuencia() == null
-                 || nuevaVigenciaCuenta.getCuentad().getSecuencia() == null
-                 || nuevaVigenciaCuenta.getTipocc().getSecuencia() == null)) {
+                 || nuevaVigenciaCuenta.getConsolidadorc() == null
+                 || nuevaVigenciaCuenta.getConsolidadord() == null
+                 || nuevaVigenciaCuenta.getCuentac() == null
+                 || nuevaVigenciaCuenta.getCuentad() == null
+                 || nuevaVigenciaCuenta.getTipocc() == null)) {
             retorno = false;
             break;
          }
@@ -3713,7 +3367,7 @@ public class ControlDetalleConcepto implements Serializable {
       log.info("ControlDetalleConcepto.modificarACrear() valor: " + valor);
       vc.setAcrear(valor);
    }
- 
+
    public void modificarACrear(VigenciasCuentas vc) {
       log.info("ControlDetalleConcepto.modificarACrear()");
       if (vc.getAcrear()) {
@@ -3960,17 +3614,18 @@ public class ControlDetalleConcepto implements Serializable {
    public void duplicarVigenciaCuentaM() {
       if (vigenciaCuentaSeleccionada != null) {
          for (VigenciasCuentas duplicarVigenciaCuenta : listVigCParaCrear) {
-            duplicarVigenciaCuenta.clear();
-            duplicarVigenciaCuenta.setConcepto(vigenciaCuentaSeleccionada.getConcepto());
-            duplicarVigenciaCuenta.setConsolidadorc(vigenciaCuentaSeleccionada.getConsolidadorc());
-            duplicarVigenciaCuenta.setConsolidadord(vigenciaCuentaSeleccionada.getConsolidadord());
-            duplicarVigenciaCuenta.setCuentac(vigenciaCuentaSeleccionada.getCuentac());
-            duplicarVigenciaCuenta.setCuentad(vigenciaCuentaSeleccionada.getCuentad());
-            duplicarVigenciaCuenta.setFechafinal(vigenciaCuentaSeleccionada.getFechafinal());
-            duplicarVigenciaCuenta.setFechainicial(vigenciaCuentaSeleccionada.getFechainicial());
-            duplicarVigenciaCuenta.setTipocc(vigenciaCuentaSeleccionada.getTipocc());
-            duplicarVigenciaCuenta.setProceso(vigenciaCuentaSeleccionada.getProceso());
-            duplicarVigenciaCuenta.setNombreProceso(vigenciaCuentaSeleccionada.getNombreProceso());
+            duplicarVigenciaCuenta.clonar(vigenciaCuentaSeleccionada);
+//            duplicarVigenciaCuenta.clear();
+//            duplicarVigenciaCuenta.setConcepto(vigenciaCuentaSeleccionada.getConcepto());
+//            duplicarVigenciaCuenta.setConsolidadorc(vigenciaCuentaSeleccionada.getConsolidadorc());
+//            duplicarVigenciaCuenta.setConsolidadord(vigenciaCuentaSeleccionada.getConsolidadord());
+//            duplicarVigenciaCuenta.setCuentac(vigenciaCuentaSeleccionada.getCuentac());
+//            duplicarVigenciaCuenta.setCuentad(vigenciaCuentaSeleccionada.getCuentad());
+//            duplicarVigenciaCuenta.setFechafinal(vigenciaCuentaSeleccionada.getFechafinal());
+//            duplicarVigenciaCuenta.setFechainicial(vigenciaCuentaSeleccionada.getFechainicial());
+//            duplicarVigenciaCuenta.setTipocc(vigenciaCuentaSeleccionada.getTipocc());
+//            duplicarVigenciaCuenta.setProceso(vigenciaCuentaSeleccionada.getProceso());
+//            duplicarVigenciaCuenta.setNombreProceso(vigenciaCuentaSeleccionada.getNombreProceso());
          }
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
          RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaCuenta");
@@ -4801,7 +4456,7 @@ public class ControlDetalleConcepto implements Serializable {
          permitirIndexVigenciaCuenta = true;
          cambiosVigenciaCuenta = true;
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+      } else if (tipoActualizacion == 1 || tipoActualizacion == 2) {
          vigCuentaCrearSeleccionada.setTipocc(tipoCentroCostoSeleccionadoLOV);
          autocompletarTipoCC(vigCuentaCrearSeleccionada);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
@@ -4821,23 +4476,23 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void siguienteListaIngreso() {
       if (tipoActualizacion == 1) {
-//         if (nuevaVigenciaCuenta.getCuentad().getCodigo() == null) {
+//         if (nuevaVigenciaCuenta.getCodCuentad() == null) {
 //            asignarIndex(1, 1, 0);
-//         } else if (nuevaVigenciaCuenta.getConsolidadord().getNombre() == null) {
+//         } else if (nuevaVigenciaCuenta.getNombreConsolidadord() == null) {
 //            asignarIndex(3, 1, 0);
-//         } else if (nuevaVigenciaCuenta.getCuentac().getCodigo() == null) {
+//         } else if (nuevaVigenciaCuenta.getCodCuentac() == null) {
 //            asignarIndex(4, 1, 0);
-//         } else if (nuevaVigenciaCuenta.getConsolidadorc().getNombre() == null) {
+//         } else if (nuevaVigenciaCuenta.getNombreConsolidadorc() == null) {
 //            asignarIndex(6, 1, 0);
 //         }
       } else if (tipoActualizacion == 2) {
-//         if (nuevaVigenciaCuenta.getCuentad().getCodigo() == null) {
+//         if (nuevaVigenciaCuenta.getCodCuentad() == null) {
 //            asignarIndex(1, 2, 0);
-//         } else if (nuevaVigenciaCuenta.getConsolidadord().getNombre() == null) {
+//         } else if (nuevaVigenciaCuenta.getNombreConsolidadord() == null) {
 //            asignarIndex(3, 2, 0);
-//         } else if (nuevaVigenciaCuenta.getCuentac().getCodigo() == null) {
+//         } else if (nuevaVigenciaCuenta.getCodCuentac() == null) {
 //            asignarIndex(4, 2, 0);
-//         } else if (nuevaVigenciaCuenta.getConsolidadorc().getNombre() == null) {
+//         } else if (nuevaVigenciaCuenta.getNombreConsolidadorc() == null) {
 //            asignarIndex(6, 2, 0);
 //         }
       }
@@ -4868,7 +4523,6 @@ public class ControlDetalleConcepto implements Serializable {
                listVigenciasCuentasModificar.add(vigenciaCuentaSeleccionada);
             }
          }
-
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -5490,28 +5144,25 @@ public class ControlDetalleConcepto implements Serializable {
       if (vigenciaCuentaSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasCuentas:datosVigenciaCuentasExportar";
          nombreXML = "VigenciasCuentas_XML";
-      }
-      if (vigenciaGrupoCoSeleccionada != null) {
+      } else if (vigenciaGrupoCoSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasGruposConceptos:datosVigenciaGrupoConceptoExportar";
          nombreXML = "VigenciasGruposConceptos_XML";
-      }
-      if (vigenciaConceptoTTSeleccionada != null) {
+      } else if (vigenciaConceptoTTSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosTT:datosVigenciaConceptoTTExportar";
          nombreXML = "VigenciasConceptosTT_XML";
-      }
-      if (vigenciaConceptoTCSeleccionada != null) {
+      } else if (vigenciaConceptoTCSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosTC:datosVigenciaConceptoTCExportar";
          nombreXML = "VigenciasConceptosTC_XML";
-      }
-      if (vigenciaConceptoRLSeleccionada != null) {
+      } else if (vigenciaConceptoRLSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosRL:datosVigenciaConceptoRLExportar";
          nombreXML = "VigenciasConceptosRL_XML";
-      }
-      if (vigFormulaConceptoSeleccionada != null) {
+      } else if (vigFormulaConceptoSeleccionada != null) {
          nombreTabla = ":formExportarFormulasConceptos:datosFormulasConceptosExportar";
          nombreXML = "FormulasConceptos_XML";
          formulaSeleccionada = true;
          RequestContext.getCurrentInstance().update("form:detalleFormula");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
       return nombreTabla;
    }
@@ -5526,33 +5177,30 @@ public class ControlDetalleConcepto implements Serializable {
          nombreTabla = ":formExportarVigenciasCuentas:datosVigenciaCuentasExportar";
          nombreExportar = "VigenciasCuentas_PDF";
          exportPDF_Tabla();
-      }
-      if (vigenciaGrupoCoSeleccionada != null) {
+      } else if (vigenciaGrupoCoSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasGruposConceptos:datosVigenciaGrupoConceptoExportar";
          nombreExportar = "VigenciasGruposConceptos_PDF";
          exportPDF_Tabla();
-      }
-      if (vigenciaConceptoTTSeleccionada != null) {
+      } else if (vigenciaConceptoTTSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosTT:datosVigenciaConceptoTTExportar";
          nombreExportar = "VigenciasConceptosTT_PDF";
          exportPDF_Tabla();
-      }
-      if (vigenciaConceptoTCSeleccionada != null) {
+      } else if (vigenciaConceptoTCSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosTC:datosVigenciaConceptoTCExportar";
          nombreExportar = "VigenciasConceptosTC_PDF";
          exportPDF_Tabla();
-      }
-      if (vigenciaConceptoRLSeleccionada != null) {
+      } else if (vigenciaConceptoRLSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosRL:datosVigenciaConceptoRLExportar";
          nombreExportar = "VigenciasConceptosRL_PDF";
          exportPDF_Tabla();
-      }
-      if (vigFormulaConceptoSeleccionada != null) {
+      } else if (vigFormulaConceptoSeleccionada != null) {
          nombreTabla = ":formExportarFormulasConceptos:datosFormulasConceptosExportar";
          nombreExportar = "FormulasConceptos_PDF";
          exportPDF_Tabla();
          formulaSeleccionada = true;
          RequestContext.getCurrentInstance().update("form:detalleFormula");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -5579,34 +5227,31 @@ public class ControlDetalleConcepto implements Serializable {
          nombreTabla = ":formExportarVigenciasCuentas:datosVigenciaCuentasExportar";
          nombreExportar = "VigenciasCuentas_XLS";
          exportXLS_Tabla();
-      }
-      if (vigenciaGrupoCoSeleccionada != null) {
+      } else if (vigenciaGrupoCoSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasGruposConceptos:datosVigenciaGrupoConceptoExportar";
          nombreExportar = "VigenciasGruposConceptos_XLS";
          exportXLS_Tabla();
-      }
-      if (vigenciaConceptoTTSeleccionada != null) {
+      } else if (vigenciaConceptoTTSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosTT:datosVigenciaConceptoTTExportar";
          nombreExportar = "VigenciasConceptosTT_XLS";
          exportXLS_Tabla();
-      }
-      if (vigenciaConceptoTCSeleccionada != null) {
+      } else if (vigenciaConceptoTCSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosTC:datosVigenciaConceptoTCExportar";
          nombreExportar = "VigenciasConceptosTC_XLS";
          exportXLS_Tabla();
-      }
-      if (vigenciaConceptoRLSeleccionada != null) {
+      } else if (vigenciaConceptoRLSeleccionada != null) {
          nombreTabla = ":formExportarVigenciasConceptosRL:datosVigenciaConceptoRLExportar";
          nombreExportar = "VigenciasConceptosRL_XLS";
          exportXLS_Tabla();
-      }
-      if (vigFormulaConceptoSeleccionada != null) {
+      } else if (vigFormulaConceptoSeleccionada != null) {
          nombreTabla = ":formExportarFormulasConceptos:datosFormulasConceptosExportar";
          nombreExportar = "FormulasConceptos_XLS";
          exportXLS_Tabla();
          formulaSeleccionada = true;
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:detalleFormula");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -5729,7 +5374,6 @@ public class ControlDetalleConcepto implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
-
    }
 
    public void verificarRastroVigenciaGrupoConcepto() {

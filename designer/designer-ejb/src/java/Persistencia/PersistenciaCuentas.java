@@ -195,8 +195,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
             Query query = em.createNativeQuery("SELECT CC.* FROM centroscostos CC\n"
                     + " WHERE cc.empresa = ? AND cc.nombre LIKE '%LOCALIZACION%TRABAJADOR%'", CentrosCostos.class);
             query.setParameter(1, secEmpresa);
-            CentrosCostos cc = (CentrosCostos) query.getSingleResult();
-            return cc;
+         return (CentrosCostos) query.getSingleResult();
         } catch (Exception e) {
             log.error("Error centroCostoLocalizacionTrabajador PersistenciaCuentas :  ", e);
             return null;

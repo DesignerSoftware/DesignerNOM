@@ -125,12 +125,12 @@
 
                                 <p:column sortBy="#{empleados.valor}" filterBy="#{empleados.valor}" class="cssColumnasNumericas"
                                           filterMatchMode="contains" id="nEEmpleadosValor" width="110" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:inputNumber value="#{empleados.valor}" decimalPlaces="2" readonly="true" symbol="$"
-                                                   onblur="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"
-                                                   onfocus="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"/>
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['valor']}"/>
                                     </f:facet>
+                                    <p:inputNumber value="#{empleados.valor}" decimalPlaces="2" readonly="true" symbol="$"
+                                                   onblur="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"
+                                                   onfocus="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"/>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>

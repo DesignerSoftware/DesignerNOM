@@ -4,6 +4,7 @@
 package InterfacePersistencia;
 
 import Entidades.Conceptos;
+import Entidades.ConceptosAux2;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +42,9 @@ public interface PersistenciaConceptosInterface {
     */
    public String borrar(EntityManager em, Conceptos concepto);
 
+   public List<ConceptosAux2> buscarConceptosAux2(EntityManager em);
+   
+   public int contarVigenciasCuentas(EntityManager em, BigInteger secuenciaConcepto);
    /**
     * Método encargado de buscar todos los Conceptos existentes en la base de
     * datos.

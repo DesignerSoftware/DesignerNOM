@@ -465,32 +465,7 @@ public class Conceptos implements Serializable {
    public void setStrNaturalezaDescripcion(String strNaturalezaDescripcion) {
       this.strNaturalezaDescripcion = strNaturalezaDescripcion;
    }
-
-   @Override
-   public int hashCode() {
-      int hash = 0;
-      hash += (secuencia != null ? secuencia.hashCode() : 0);
-      return hash;
-   }
-
-   @Override
-   public boolean equals(Object object) {
-      // TODO: Warning - this method won't work in the case the id fields are not set
-      if (!(object instanceof Conceptos)) {
-         return false;
-      }
-      Conceptos other = (Conceptos) object;
-      if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
-         return false;
-      }
-      return true;
-   }
-
-   @Override
-   public String toString() {
-      return "Entidades.Conceptos[ secuencia=" + secuencia + " ]";
-   }
-
+   
    public String getNaturalezaConcepto() {
       if (naturalezaConcepto == null) {
          if (naturaleza == null) {
@@ -623,4 +598,30 @@ public class Conceptos implements Serializable {
    public void setConjunto(Short conjunto) {
       this.conjunto = conjunto;
    }
+
+   @Override
+   public int hashCode() {
+      int hash = 0;
+      hash += (secuencia != null ? secuencia.hashCode() : 0);
+      return hash;
+   }
+
+   @Override
+   public boolean equals(Object object) {
+      // TODO: Warning - this method won't work in the case the id fields are not set
+      if (!(object instanceof Conceptos)) {
+         return false;
+      }
+      Conceptos other = (Conceptos) object;
+      if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public String toString() {
+      return "Entidades.Conceptos[ secuencia=" + secuencia + " ]";
+   }
+
 }

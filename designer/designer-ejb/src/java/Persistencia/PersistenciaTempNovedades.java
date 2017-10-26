@@ -112,7 +112,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-         log.error("PersistenciaTempNovedades.obtenerDocumentosSoporteCargados():  ", e);
+         log.error("PersistenciaTempNovedades.obtenerDocumentosSoporteCargados(): ", e);
          return null;
       }
    }

@@ -1,0 +1,1157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:head>
+      <title></title>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">  
+            <script type="text/javascript">
+               $(window).load(function () {
+                  foco('form:guardarRapido');
+               });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               }
+               ;
+            </script>
+            <div style="position: static;"></div>
+            <h:form id="form"> 
+
+               <f:loadBundle basename="Recursos.parametrizacioncontable" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
+
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left"> 
+
+                        <p:commandButton id="guardarRapido" value="" actionListener="#{controlParametrizacionContable.guardarCambiosVC()}" process="@this"
+                                         update=":form:datosConceptos:checkconcepto" style="background-image: url(Imagenes/Iconos/guardar.png);"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" actionListener="#{controlParametrizacionContable.editarCelda()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/editar.png);"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="listaValores" value="" actionListener="#{controlParametrizacionContable.listaValoresBoton()}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/lupa.png);"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" actionListener="#{controlParametrizacionContable.filtrar()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/embudo.png);"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="exportarXLS" value="" actionListener="#{controlParametrizacionContable.verificarExportXLS()}" ajax="false"
+                                         style="background-image: url(Imagenes/Iconos/excel.png);"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" ajax="false" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/xml.png);">
+                           <p:dataExporter type="xml" target="#{controlParametrizacionContable.exportXML()}" fileName="#{controlParametrizacionContable.nombreXML}" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                        <p:commandButton id="exportarPDF" value="" ajax="false" actionListener="#{controlParametrizacionContable.validarExportPDF()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/pdf.png);"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="insertar" value="" actionListener="#{controlParametrizacionContable.validarIngresoNuevaVigenciaCuenta()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton id="eliminar" value="" actionListener="#{controlParametrizacionContable.borrarVigenciaCuenta()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/delete.png);"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" actionListener="#{controlParametrizacionContable.duplicarVigenciaCuentaM()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="rastro" value="" actionListener="#{controlParametrizacionContable.verificarRastroVigenciaCuenta()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="refrescar" value="" actionListener="#{controlParametrizacionContable.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/refrescar.png);"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+                        <p:commandButton id="salir" value="" actionListener="#{controlParametrizacionContable.salir()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/salir.png);"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="left: 10px; position: absolute; top: 70px; width: 836px; height: 202px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                     <legend style="color: blue;"><strong>#{msg['concepto']}</strong></legend>
+
+                     <p:dataTable id="datosConceptos" widgetVar="datosConceptos" var="info" rowKey="#{info.secuencia}"
+                                  scrollWidth="828" value="#{controlParametrizacionContable.listaConceptos}"
+                                  selection="#{controlParametrizacionContable.conceptoSeleccionado}" selectionMode="single" scrollable="true" scrollHeight="#{controlParametrizacionContable.altoTabla}"
+                                  filteredValue="#{controlParametrizacionContable.filtrarlistaConceptos}" emptyMessage="#{msg['vacio']}"
+                                  style="width: 820px;">
+
+                        <p:ajax event="filter" listener="#{controlParametrizacionContable.eventoFiltrarConceptos()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.cambiarIndiceConceptos()}"
+                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                        <p:column sortBy="#{info.parametrizado}" filterBy="#{info.parametrizado}" width="24"
+                                  filterMatchMode="contains" id="checkconcepto" filterStyle="display: none; visibility: hidden;">
+                           <f:facet name="header">
+                              <h:outputText id="P" value="P"/>
+                              <p:tooltip for="P" value="#{msg['parametrizado']}"/>
+                           </f:facet>
+                           <h:outputText value="#{info.parametrizado}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" width="76"
+                                  filterMatchMode="contains" id="codigoconcepto" filterStyle="display: none; visibility: hidden;">                                  
+                           <h:outputText value="#{info.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}"
+                                  filterMatchMode="contains" id="descripcionconcepto" filterStyle="display: none; visibility: hidden;">                                  
+                           <h:outputText value="#{info.descripcion}"/>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 104%;" id="conceptos" actionListener="#{controlParametrizacionContable.limpiarListasValor()}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','concepto')}" value=""/>
+                              <p:tooltip for="conceptos" value="Conceptos"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column headerText="#{msg['naturaleza']}" sortBy="#{info.naturalezaConcepto}" filterBy="#{info.naturalezaConcepto}" width="78"
+                                  filterMatchMode="contains" id="naturalezaconcepto" filterStyle="display: none; visibility: hidden;">                                  
+                           <h:outputText value="#{info.naturalezaConcepto}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['activo']}" sortBy="#{info.estadoConcepto}" filterBy="#{info.estadoConcepto}" width="78"
+                                  filterMatchMode="contains" id="activoconcepto" filterStyle="display: none; visibility: hidden;">                                  
+                           <h:outputText value="#{info.estadoConcepto}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{info.conjunto}" filterBy="#{info.conjunto}" width="24"
+                                  filterMatchMode="contains" id="conjuntoconcepto" filterStyle="display: none; visibility: hidden;">      
+                           <f:facet name="header">
+                              <h:outputText id="C" value="Co."/>
+                              <p:tooltip for="C" value="#{msg['conjunto']}"/>
+                           </f:facet>
+                           <h:outputText value="#{info.conjunto}"/>
+                        </p:column>
+
+                     </p:dataTable>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroConceptos}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
+                  </fieldset>
+
+                  <fieldset style="left: 10px; position: absolute; top: 288px; width: 836px; height: 200px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                     <legend style="color: blue;"><strong>#{msg['cuentasytipocc']}</strong></legend>
+
+                     <p:dataTable id="datosVigenciaCuenta" widgetVar="datosVigenciaCuenta" var="infoVC" rowKey="#{infoVC.secuencia}" rowIndexVar="indiceVC"
+                                  value="#{controlParametrizacionContable.listaVigenciasCuentas}" scrollable="true" scrollHeight="#{controlParametrizacionContable.altoTabla}" scrollWidth="828"
+                                  filteredValue="#{controlParametrizacionContable.filtrarListVigenciasCuentasConcepto}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="10" selection="#{controlParametrizacionContable.vigenciaCuentaSeleccionada}">
+
+                        <p:ajax event="filter" listener="#{controlParametrizacionContable.eventoFiltrarCuenta()}"/>
+
+                        <p:column style="text-align: center;" headerText="#{msg['fechainicial']}" sortBy="#{infoVC.strFechaInicial}" filterBy="#{infoVC.strFechaInicial}"
+                                  filterMatchMode="contains" id="vigenciaCuentaFechaInicial" width="74" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoVC.fechainicial}" style="text-transform: uppercase;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoVC.fechainicial}"> 
+                                    <p:ajax event="select" listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC,0)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" listener="#{controlParametrizacionContable.modificacionesFechaVigenciaCuenta(infoVC,0)}" update="dateFechaInicial"/>
+                                    <p:ajax event="dateSelect" listener="#{controlParametrizacionContable.modificacionesFechaVigenciaCuenta(infoVC,0)}" update="dateFechaInicial"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="#{msg['fechafinal']}" sortBy="#{infoVC.strFechaFinal}" filterBy="#{infoVC.strFechaFinal}"
+                                  filterMatchMode="contains" id="vigenciaCuentaFechaFinal" width="74" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoVC.fechafinal}" style="text-transform: uppercase;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoVC.fechafinal}"> 
+                                    <p:ajax event="select" listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC,1)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" listener="#{controlParametrizacionContable.modificacionesFechaVigenciaCuenta(infoVC,1)}" update="dateFecha"/>
+                                    <p:ajax event="dateSelect" listener="#{controlParametrizacionContable.modificacionesFechaVigenciaCuenta(infoVC,1)}" update="dateFecha"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column headerText="#{msg['tipocc']}" sortBy="#{infoVC.nombreTipocc}" filterBy="#{infoVC.nombreTipocc}" 
+                                  filterMatchMode="contains" id="vigenciaCuentaTipoCC" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.nombreTipocc}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.nombreTipocc}"  id="editarTipoCCVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select"  listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 2)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarTipoCCVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'TIPOCC',infoVC.nombreTipocc)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(0,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 130px;" id="fooTipoCC" actionListener="#{controlParametrizacionContable.limpiarListasValor()}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','tipocentrocosto')}" value=""/>
+                              <p:tooltip for="fooTipoCC" value="Tipos Centros Costo"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="#{msg['debito']}" sortBy="#{infoVC.codCuentad}" filterBy="#{infoVC.codCuentad}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaDebitoCod" width="66" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.codCuentad}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.codCuentad}"  id="editarCodigoDebVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 3)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarCodigoDebVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'CODDEBITO',infoVC.codCuentad)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();" 
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 80px;" id="fooCodDebito" actionListener="#{controlParametrizacionContable.limpiarListasValor()}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','cuenta')}" value=""/>
+                              <p:tooltip for="fooCodDebito" value="Cuentas"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcion']} D" width="120" sortBy="#{infoVC.descripcionCuentad}" filterBy="#{infoVC.descripcionCuentad}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaDebitoDes" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.descripcionCuentad}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.descripcionCuentad}"  id="editarDescripcionDebVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 4)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarDescripcionDebVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'DESDEBITO',infoVC.descripcionCuentad)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();" 
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(2,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 130px;" id="fooDesDebito" actionListener="#{controlParametrizacionContable.limpiarListasValor()}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','cuenta')}" value=""/>
+                              <p:tooltip for="fooDesDebito" value="Cuentas"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column sortBy="#{infoVC.nombreConsolidadord}" filterBy="#{infoVC.nombreConsolidadord}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaCCConsolidadorD" width="120" filterStyle="display: none; visibility: hidden">                                  
+                           <f:facet name="header">
+                              <h:outputText id="headerconsolida0" value="#{msg['ccconsolidador']}"/>
+                              <p:tooltip for="headerconsolida0" value="#{msg['ccconsolidadorWM']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.nombreConsolidadord}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.nombreConsolidadord}"  id="editarCCConsolidadorDVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select"  listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 5)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarCCConsolidadorDVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'CONSOLIDADORDEBITO',infoVC.nombreConsolidadord)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();"
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(3,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 130px;" action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','centrocosto')}"
+                                               actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('detalleconcepto')}" id="fooConsolD" value=""/>
+                              <p:tooltip for="fooConsolD" value="Centros Costo"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="#{msg['credito']}" sortBy="#{infoVC.codCuentac}" filterBy="#{infoVC.codCuentac}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaCreditoCod" width="66" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.codCuentac}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.codCuentac}"  id="editarCodigoCreVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select"  listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 6)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarCodigoCreVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'CODCREDITO',infoVC.codCuentac)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();" 
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(4,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 80px;" id="fooCodCredito" actionListener="#{controlParametrizacionContable.limpiarListasValor()}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','cuenta')}" value=""/>
+                              <p:tooltip for="fooCodCredito" value="Cuentas"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcion']} C" sortBy="#{infoVC.descripcionCuentac}" filterBy="#{infoVC.descripcionCuentac}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaCreditoDes" width="120" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.descripcionCuentac}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.descripcionCuentac}"  id="editarDescripcionCreVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 7)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarDescripcionCreVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'DESCREDITO',infoVC.descripcionCuentac)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();" 
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(5,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 130px;" id="fooDesCredito" actionListener="#{controlParametrizacionContable.limpiarListasValor()}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','cuenta')}" value=""/>
+                              <p:tooltip for="fooDesCredito" value="Cuentas"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column sortBy="#{infoVC.nombreConsolidadorc}" filterBy="#{infoVC.nombreConsolidadorc}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaCCConsolidadorC" width="120" filterStyle="display: none; visibility: hidden">                                  
+                           <f:facet name="header">
+                              <h:outputText id="headerconsolida1" value="#{msg['ccconsolidador']}"/>
+                              <p:tooltip for="headerconsolida1" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.nombreConsolidadorc}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.nombreConsolidadorc}" id="editarCCConsolidadorCVC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select"  listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 8)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarCCConsolidadorCVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'CONSOLIDADORCREDITO',infoVC.nombreConsolidadorc)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();"
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(6,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 130px;" action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','centrocosto')}"
+                                               actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('detalleconcepto')}" id="fooccconsolidadador" value=""/>
+                              <p:tooltip for="fooccconsolidadador" value="Centros Costo"/>
+                           </f:facet>
+                        </p:column>
+
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{infoVC.nombreProceso}" filterBy="#{infoVC.nombreProceso}" filterMatchMode="contains" 
+                                  id="vigenciaCuentaCCProceso" width="120" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoVC.nombreProceso}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoVC.nombreProceso}" id="editarCCProceso" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlParametrizacionContable.cambiarIndiceVigenciaCuenta(infoVC, 9)}"
+                                            onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
+                                    <p:ajax event="change" update="editarCCProceso" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.modificarVigenciaCuenta(infoVC,'PROCESO',infoVC.nombreProceso)}"/>
+                                    <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show();"
+                                            oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(9,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 130px;" action="#{controlListaNavegacion.guardarNavegacion('parametrizacioncontable','proceso')}"
+                                               actionListener="#{controlParametrizacionContable.limpiarListasValor()}" id="fooProceso" value=""/>
+                              <p:tooltip for="fooProceso" value="Procesos"/>
+                           </f:facet>
+                        </p:column>
+                     </p:dataTable>
+                     <h:outputText id="infoRegistroVCuenta" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroVCuenta}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
+                  </fieldset>
+
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlParametrizacionContable.guardado}" onclick="PF('confirmarGuardar').show();"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlParametrizacionContable.salir()}"/>
+               </p:panel>
+
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="100" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['msnConfirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
+                                   actionListener="#{controlRastro.recibirDatosTabla('VigenciasCuentas' , 'detalleconcepto')}"
+                                   style="position: absolute; top: 65px; left: 210px;" onstart="#{ControlParametrizacionContable.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleconcepto','rastrotabla')}"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{ControlParametrizacionContable.limpiarMSNRastros()}"
+                                   style="position: absolute; top: 65px; left: 270px;"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="100" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['msnConfirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasCuentas' , 'detalleconcepto')}"
+                                   style="position: absolute; top: 65px; left: 210px;" onstart="#{ControlParametrizacionContable.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleconcepto','rastrotabla')}"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{ControlParametrizacionContable.limpiarMSNRastros()}" style="position: absolute; top: 65px; left: 270px;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="100" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();"
+                                   actionListener="#{controlRastro.recibirDatosTabla(ControlParametrizacionContable.vigenciaCuentaSeleccionada.secuencia, 'VigenciasCuentas' , 'detalleconcepto')}"
+                                   style="position: absolute; top: 70px; left: 210px;" onstart="#{ControlParametrizacionContable.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleconcepto','rastrotabla')}"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistroC" header="#{msg['error']}" widgetVar="seleccionarRegistroC"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['seleccionarRegistroC']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="alertaTCC" header="#{msg['atencion']}" widgetVar="alertaTCC"  resizable="false" draggable="true" modal="true" height="90" width="400" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlParametrizacionContable.mensajeError}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;text-align: center;"/>
+                  <p:commandButton value="#{msg['continuar']}" style="position: absolute; top: 70px; right: 18px;" onclick="PF('alertaTCC').hide()"
+                                   icon="ui-icon-check"/>
+               </p:dialog>
+
+               <p:dialog id="errorTCC" header="#{msg['error']}" widgetVar="errorTCC"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlParametrizacionContable.mensajeError}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegNuevo" header="#{msg['error']}" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorRegNuevo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechasVC" header="#{msg['error']}" widgetVar="errorFechasVC"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechasVC']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametrizacionContable.guardarYSalir()}"
+                                   style="position: absolute; top: 50px; left: 167px;" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametrizacionContable.salir()}"
+                                   style="position: absolute; top: 50px; left: 228px;" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 294px;"  icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
+
+            </h:form>
+
+            <h:form id="formlovTiposCC">
+
+               <p:dialog header="#{msg['tiposcentroscostosTCC']}" widgetVar="TipoCCDialogo" draggable="true" resizable="false" closable="false" id="TipoCCDialogo"
+                         showEffect="fade" hideEffect="fade" width="440" modal="true">
+
+                  <p:dataTable id="lovTiposCC" var="tiposCC" scrollWidth="420" value="#{controlParametrizacionContable.lovTiposCentrosCostos}" rowKey="#{tiposCC.secuencia}"
+                               selection="#{controlParametrizacionContable.tipoCentroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovTiposCC" scrollable="true" scrollHeight="210"
+                               filteredValue="#{controlParametrizacionContable.filtrarListTiposCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovTipoCentroCosto()}" process="@this"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovTiposCC:aceptarTCC" process="@this"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarTipoCentroCosto()}" process="@this"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarTCC']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposCC').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+
+                     <p:column filterBy="#{tiposCC.codigo}" filterMatchMode="contains" sortBy="#{tiposCC.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tiposCC.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{tiposCC.nombre}" filterMatchMode="contains" sortBy="#{tiposCC.nombre}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreTCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tiposCC.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovTipoCentroCosto" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovTipoCentroCosto}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarTCC" widgetVar="aceptarTCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarTipoCentroCosto()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTCC" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioTipoCentroCosto()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formlovDebito">
+               <p:dialog id="DebitoDialogo" widgetVar="DebitoDialogo" header="#{msg['cuentasdebitoCD']}" draggable="true" resizable="false" closable="false"  
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovDebito').clearFilters()">
+
+                  <p:dataTable id="lovDebito" var="debito" value="#{controlParametrizacionContable.lovCuentas}" rowKey="#{debito.secuencia}"
+                               selection="#{controlParametrizacionContable.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovDebito"
+                               scrollable="true" scrollHeight="210" scrollWidth="416"
+                               filteredValue="#{controlParametrizacionContable.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovCuentaDebito()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovDebito:aceptarCD"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarCuentaDebito()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarCD']}"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovDebito').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+
+                     <p:column filterBy="#{debito.codigo}" filterMatchMode="contains" sortBy="#{debito.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{debito.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{debito.descripcion}" filterMatchMode="contains" sortBy="#{debito.descripcion}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcionCD']}"/>
+                        </f:facet>
+                        <h:outputText value="#{debito.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovCuentaDebito" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovCuentaDebito}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check"  id="aceptarCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarCuentaDebito()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCD" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioCuentaDebito()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formlovCuentas">
+               <p:dialog id="CuentasDialogo" widgetVar="CuentasDialogo" header="#{msg['cuentas']}" draggable="true" resizable="false" closable="false"  
+                         showEffect="fade" hideEffect="fade" width="440" modal="true"  onShow="PF('lovCuentas').clearFilters()">
+
+                  <p:dataTable id="lovCuentas" var="cuenta" value="#{controlParametrizacionContable.lovCuentas2505}" rowKey="#{cuenta.secuencia}"
+                               selection="#{controlParametrizacionContable.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCuentas"
+                               scrollable="true" scrollHeight="210" scrollWidth="416"
+                               filteredValue="#{controlParametrizacionContable.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovCuentas()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovCuentas:aceptarCuentas"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarCuentaDebito()}"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarC']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCuentas').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+
+                     <p:column filterBy="#{cuenta.codigo}" filterMatchMode="contains" sortBy="#{cuenta.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cuenta.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{cuenta.descripcion}" filterMatchMode="contains" sortBy="#{cuenta.descripcion}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcionCD']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cuenta.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovCuentas" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovCuentaDebito}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarCuentas" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarCuentas2505()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCuentas" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioCuentas()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formlovCredito">
+               <p:dialog header="#{msg['cuentascreditoCC']}" widgetVar="CreditoDialogo" draggable="true" resizable="false" closable="false" 
+                         id="CreditoDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovCredito').clearFilters()">
+
+                  <p:dataTable id="lovCredito" var="credito" value="#{controlParametrizacionContable.lovCuentas}" rowKey="#{credito.secuencia}"
+                               selection="#{controlParametrizacionContable.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCredito"
+                               scrollable="true" scrollHeight="210" scrollWidth="416"
+                               filteredValue="#{controlParametrizacionContable.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovCuentaCredito()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovCredito:aceptarCC"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarCuentaCredito()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarCC']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCredito').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+
+                     <p:column filterBy="#{credito.codigo}" filterMatchMode="contains" sortBy="#{credito.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{credito.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{credito.descripcion}" filterMatchMode="contains" sortBy="#{credito.descripcion}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcionCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{credito.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovCuentaCredito" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovCuentaCredito}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarCuentaCredito()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCC" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioCuentaCredito()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formlovCentroCostoD">
+               <p:dialog header="#{msg['centrocostoconsolidadorCCC']}" widgetVar="CentroCostoDDialogo" draggable="true" resizable="false" closable="false" 
+                         id="CentroCostoDDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovCentroCostoD').clearFilters()">
+
+                  <p:dataTable id="lovCentroCostoD" var="centroD" value="#{controlParametrizacionContable.lovCentrosCostos}" rowKey="#{centroD.secuencia}"
+                               selection="#{controlParametrizacionContable.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoD"
+                               scrollable="true" scrollHeight="210" scrollWidth="416"
+                               filteredValue="#{controlParametrizacionContable.filtrarListCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovCentroCostoDebito()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovCentroCostoD:aceptarCCD"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarCentroCostoDebito()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarCCC']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostoD').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+
+                     <p:column filterBy="#{centroD.codigo}" filterMatchMode="contains" sortBy="#{centroD.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{centroD.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{centroD.nombre}"   filterMatchMode="contains" sortBy="#{centroD.nombre}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreCCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{centroD.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovCentroCostoDebito" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovCentroCostoDebito}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarCCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarCentroCostoDebito()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCCD" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioCentroCostoDebito()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formlovCentroCostoC">
+               <p:dialog header="#{msg['centrocostoconsolidadorCCC']}" widgetVar="CentroCostoCDialogo" draggable="true" resizable="false" closable="false" 
+                         id="CentroCostoCDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovCentroCostoC').clearFilters()">
+
+                  <p:dataTable id="lovCentroCostoC" var="centroC" value="#{controlParametrizacionContable.lovCentrosCostos}" rowKey="#{centroC.secuencia}"
+                               selection="#{controlParametrizacionContable.centroCostoSeleccionadoLOV}" selectionMode="single"
+                               widgetVar="lovCentroCostoC" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               filteredValue="#{controlParametrizacionContable.filtrarListCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovCentroCostoCredito()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovCentroCostoC:aceptarCCC"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarCentroCostoCredito()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarCCC']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostoC').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+
+                     <p:column filterBy="#{centroC.codigo}"  filterMatchMode="contains" sortBy="#{centroC.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{centroC.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{centroC.nombre}"   filterMatchMode="contains" sortBy="#{centroC.nombre}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreCCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{centroC.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovCentroCostoCredito" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovCentroCostoCredito}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarCCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarCentroCostoCredito()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCCC" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioCentroCostoCredito()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formlovProceso">
+               <p:dialog header="#{msg['proceso']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" 
+                         id="ProcesosDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovProceso').clearFilters()">
+
+                  <p:dataTable id="lovProceso" widgetVar="lovProceso" var="proceso" value="#{controlParametrizacionContable.lovProcesos}" rowKey="#{proceso.secuencia}"
+                               selection="#{controlParametrizacionContable.procesoSeleccionadoLOV}" selectionMode="single" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               filteredValue="#{controlParametrizacionContable.filtrarlovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="filter" listener="#{controlParametrizacionContable.contarRegistrosLovProcesos()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlParametrizacionContable.activarAceptar()}" update=":formlovProceso:aceptarPro"/>
+                     <p:ajax event="rowDblselect" listener="#{controlParametrizacionContable.actualizarProceso()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="Buscar #{msg['proceso']}:"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+
+                     <p:column filterBy="#{proceso.codigo}"  filterMatchMode="contains" sortBy="#{proceso.codigo}" filterStyle="width: 85% !important;" width="70">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoCCC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{proceso.codigo}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains" sortBy="#{proceso.descripcion}" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{proceso.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovProcesos" value="#{msg['infoRegistro']} #{controlParametrizacionContable.infoRegistroLovProcesos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarPro" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrizacionContable.aceptar}" 
+                                      actionListener="#{controlParametrizacionContable.actualizarProceso()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasPro" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlParametrizacionContable.cancelarCambioProceso()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formCambiar">
+               <!-- DIALOGO CAMBIO DE EMPLEADO -->
+               <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar" resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" oncomplete="PF('cambiar').hide();" update=":form:datosConceptos:checkconcepto"
+                                   actionListener="#{controlParametrizacionContable.guardarCambiosVC()}" style="position: absolute; top: 63px; left: 175px;" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" oncomplete="PF('cambiar').hide();"
+                                   actionListener="#{controlParametrizacionContable.limpiarListas()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formularioDialogos">
+               <style>
+                  .datosNuevaVigCuenta .ui-datatable-scrollable-footer  {
+                     display: none !important;
+                  }
+               </style>               
+
+               <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="operacionEnProcesoLovs" header="#{msg['informacion']}" widgetVar="operacionEnProcesoLovs"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['operacionProcesoLovs']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="NuevoRegistroVigenciaCuenta" header="#{msg['NuevoRegistroVigenciaCuenta']}" widgetVar="NuevoRegistroVigenciaCuenta" closable="false" resizable="false"
+                         draggable="true" modal="true" height="340" width="880" onShow="PF('datosNuevaVigCuenta').clearFilters()">
+                  <center><strong><h:outputText value="#{msg['ingresarnuevocuentas']}" style="color: blue; position: relative; top: 10px; font-weight: bold;"/></strong></center>
+                  <h:outputText value="#{msg['ingresarnuevocuentas2']}" style="position: relative; top: 30px; font-weight: bold;"/>
+                  <p:scrollPanel id="nuevaVC" widgetVar="nuevaVC" style="height: 210px; width: 860px; margin-top: 40px; border: none;">
+
+                     <p:dataTable id="datosNuevaVigCuenta" widgetVar="datosNuevaVigCuenta" var="infoCrear" rowKey="#{infoCrear.secuencia}" rowIndexVar="indexcrear"
+                                  value="#{controlParametrizacionContable.listVigCParaCrear}" scrollable="true" scrollWidth="1300"
+                                  emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="10" selection="#{controlParametrizacionContable.vigCuentaCrearSeleccionada}"
+                                  style="position: relative;" class="datosNuevaVigCuenta">
+
+                        <p:column width="16">
+                           <f:facet name="header">
+                              <h:outputText id="c" value="C"/>
+                              <p:tooltip for="c" value="¿Crear?"/>
+                           </f:facet>
+                           <p:selectBooleanCheckbox value="#{infoCrear.acrear}"
+                                                    onfocus="PF('datosNuevaVigCuenta').unselectAllRows(); PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                                    onblur="PF('datosNuevaVigCuenta').unselectAllRows(); PF('datosNuevaVigCuenta').selectRow(#{indexcrear});">
+                              <p:ajax listener="#{controlParametrizacionContable.modificarACrear(infoCrear, infoCrear.acrear)}" process="@this"/>  
+                           </p:selectBooleanCheckbox>
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechainicial']}" sortBy="#{infoCrear.strFechaInicial}" filterBy="#{infoCrear.strFechaInicial}"
+                                  filterMatchMode="contains" width="60" filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoCrear.fechainicial}" style="text-transform: uppercase;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{infoCrear.fechainicial}" id="nuevaDateFechaInicialVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"/>
+                                    <p:ajax event="change" update="@this"/>
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoCrear.strFechaFinal}" filterBy="#{infoCrear.strFechaFinal}"
+                                  filterMatchMode="contains" width="60" filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoCrear.fechafinal}" style="text-transform: uppercase;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{infoCrear.fechafinal}" id="nuevaDateFechaFinalVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"/>
+                                    <p:ajax event="change" update="@this"/>
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="#{msg['tipocc']}" sortBy="#{infoCrear.nombreTipocc}" filterBy="#{infoCrear.nombreTipocc}"
+                                  filterMatchMode="contains" width="110" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.nombreTipocc}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.nombreTipocc}" id="nuevaTipoCCVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'TIPOCC', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'TIPOCC',infoCrear.nombreTipocc, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(0,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="#{msg['debito']}" sortBy="#{infoCrear.codCuentad}"
+                                  filterBy="#{infoCrear.codCuentad}" filterMatchMode="contains" 
+                                  width="70" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.codCuentad}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.codCuentad}" id="nuevaDebitoVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CODDEBITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODDEBITO',infoCrear.codCuentad, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(1,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcion']} D" sortBy="#{infoCrear.descripcionCuentad}"
+                                  filterBy="#{infoCrear.descripcionCuentad}" filterMatchMode="contains" width="110" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.descripcionCuentad}" style="text-transform: uppercase;"/></f:facet>
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.descripcionCuentad}" id="nuevaDesDebitoVC">
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'DESDEBITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESDEBITO',infoCrear.descripcionCuentad, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(2,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column sortBy="#{infoCrear.nombreConsolidadord}" filterBy="#{infoCrear.nombreConsolidadord}" filterMatchMode="contains"
+                                  width="110" filterStyle="display: none; visibility: hidden">                                  
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['ccconsolidador']}" id="head2"/>
+                              <p:tooltip for="head2" value="#{msg['ccconsolidadorWM']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.nombreConsolidadord}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.nombreConsolidadord}" id="nuevaConsoliDebVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORDEBITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORDEBITO',infoCrear.nombreConsolidadord, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(3,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="#{msg['credito']}" sortBy="#{infoCrear.codCuentac}"
+                                  filterBy="#{infoCrear.codCuentac}" filterMatchMode="contains" 
+                                  width="70" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.codCuentac}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.codCuentac}" id="nuevaCreditoVC">
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CODCREDITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODCREDITO',infoCrear.codCuentac, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(4,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcion']} C" sortBy="#{infoCrear.descripcionCuentac}" filterBy="#{infoCrear.descripcionCuentac}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden" width="110">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.descripcionCuentac}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.descripcionCuentac}" id="nuevaDesCreditoVC">
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'DESCREDITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESCREDITO',infoCrear.descripcionCuentac, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(5,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column sortBy="#{infoCrear.nombreConsolidadorc}" filterBy="#{infoCrear.nombreConsolidadorc}"
+                                  filterMatchMode="contains" width="110" filterStyle="display: none; visibility: hidden">                                  
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['ccconsolidador']}" id="head3"/>
+                              <p:tooltip for="head3" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.nombreConsolidadorc}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.nombreConsolidadorc}" id="nuevaConsoliCreVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORCREDITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORCREDITO',infoCrear.nombreConsolidadorc, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(6,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{infoCrear.nombreProceso}" filterBy="#{infoCrear.nombreProceso}" filterMatchMode="contains" 
+                                  width="100" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.nombreProceso}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.nombreProceso}" id="nuevoProceso"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'PROCESO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'PROCESO',infoCrear.nombreProceso, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(9,1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+                     </p:dataTable>
+                  </p:scrollPanel>
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarNVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; margin-top: 20px;"
+                                   actionListener="#{controlParametrizacionContable.limpiarNuevoVigenciaCuenta()}" update=":formularioDialogos:datosNuevaVigCuenta" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="agregarNVC" value="#{msg['agregar']}" style="position: absolute; right: 120px; margin-top: 20px;"
+                                   actionListener="#{controlParametrizacionContable.agregarNuevoVigenciaCuenta()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarNVC" value="#{msg['cancelar']}" style="position: absolute; right: 20px; margin-top: 20px;"
+                                   actionListener="#{controlParametrizacionContable.limpiarNuevoVigenciaCuenta()}" update=":formularioDialogos:datosNuevaVigCuenta"
+                                   process="@this" onclick="PF('NuevoRegistroVigenciaCuenta').hide();"/>
+               </p:dialog>
+
+               <!-- EDITAR CELDAS TABLA VIGENCIA CUENTA -->
+
+               <p:dialog id="editarFechaInicialVCD" header="#{msg['editarFechaInicialVCD']}" widgetVar="editarFechaInicialVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.fechainicial}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaFinalVCD" header="#{msg['editarFechaFinalVCD']}" widgetVar="editarFechaFinalVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.fechafinal}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarTipoCCVCD" header="#{msg['editarTipoCCVCD']}" widgetVar="editarTipoCCVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.nombreTipocc}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editaCodDebitoVCD" header="#{msg['editaCodDebitoVCD']}" widgetVar="editaCodDebitoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.codCuentad}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editaDesDebitoVCD" header="#{msg['editaDesDebitoVCD']}" widgetVar="editaDesDebitoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.descripcionCuentad}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editaCCConsolidadorDVCD" header="#{msg['editaCCConsolidadorDVCD']}" widgetVar="editaCCConsolidadorDVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.nombreConsolidadord}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editaCodCreditoVCD" header="#{msg['editaCodCreditoVCD']}" widgetVar="editaCodCreditoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.codCuentac}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editaDesCreditoVCD" header="#{msg['editaDesCreditoVCD']}" widgetVar="editaDesCreditoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.descripcionCuentac}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editaCCConsolidadorCVCD" header="#{msg['editaCCConsolidadorCVCD']}" widgetVar="editaCCConsolidadorCVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlParametrizacionContable.vigCuentaEditar.nombreConsolidadorc}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formExportarVigenciasCuentas">
+               <p:dataTable id="datosVigenciaCuentasExportar" var="infoExpVC" style="visibility: hidden; display: none;"                           
+                            value="#{controlParametrizacionContable.listaVigenciasCuentas}">
+
+                  <p:column headerText="#{msg['fechainicialXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['fechainicialX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.fechainicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['fechafinalXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['fechafinalX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.fechafinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['tipoccXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['tipoccX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.nombreTipocc}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['debitoX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['debitoX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.codCuentad}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['descripcionX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.descripcionCuentad}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['ccconsolidadorXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['ccconsolidadorX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.nombreConsolidadord}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['creditoX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['creditoX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.codCuentac}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['descripcionX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.descripcionCuentac}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['ccconsolidadorXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['ccconsolidadorX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpVC.nombreConsolidadorc}"/>
+                  </p:column>
+
+               </p:dataTable>
+            </h:form>
+
+            <h:form id="formExportarDatosConceptos">
+               <p:dataTable id="datosConceptosExportar" var="infoExpC" style="visibility: hidden; display: none;"                           
+                            value="#{controlParametrizacionContable.listaConceptos}">
+
+                  <p:column headerText="#{msg['parametrizado']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['parametrizado']}"/> </f:facet> 
+                     <h:outputText value="#{infoExpC.parametrizado}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['codigoCD']}">                                  
+                     <h:outputText value="#{infoExpC.codigo}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['descripcionCD']}">                                  
+                     <h:outputText value="#{infoExpC.descripcion}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['naturaleza']}">                                  
+                     <h:outputText value="#{infoExpC.naturalezaConcepto}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['activo']}">                                  
+                     <h:outputText value="#{infoExpC.estadoConcepto}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['conjunto']}">                                  
+                     <h:outputText value="#{infoExpC.conjunto}"/>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+
+         </ui:define>
+      </ui:composition>
+   </h:body>
+</html>
+

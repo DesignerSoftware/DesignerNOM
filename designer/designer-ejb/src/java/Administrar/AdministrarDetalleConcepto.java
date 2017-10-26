@@ -5,6 +5,7 @@ package Administrar;
 
 import Entidades.CentrosCostos;
 import Entidades.Conceptos;
+import Entidades.ConceptosAux2;
 import Entidades.Cuentas;
 import Entidades.Formulas;
 import Entidades.FormulasConceptos;
@@ -193,15 +194,17 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -216,7 +219,8 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -400,6 +404,25 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       } catch (Exception e) {
          log.warn("Error listTiposTrabajadores Admi : " + e.toString());
          return null;
+      }
+   }
+
+   @Override
+   public List<ConceptosAux2> consultarConceptosAux2() {
+      try {
+         return persistenciaConceptos.buscarConceptosAux2(getEm());
+      } catch (Exception e) {
+         log.warn("Error consultarConceptosAux2 Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   public int contarVigenciasXConcepto(BigInteger secConcepto) {
+      try {
+         return persistenciaConceptos.contarVigenciasCuentas(getEm(), secConcepto);
+      } catch (Exception e) {
+         log.warn("Error contarVigenciasXConcepto Admi : " + e.toString());
+         return 0;
       }
    }
 

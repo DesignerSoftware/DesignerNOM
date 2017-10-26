@@ -5,6 +5,7 @@ package InterfaceAdministrar;
 
 import Entidades.CentrosCostos;
 import Entidades.Conceptos;
+import Entidades.ConceptosAux2;
 import Entidades.Cuentas;
 import Entidades.Formulas;
 import Entidades.FormulasConceptos;
@@ -22,7 +23,6 @@ import Entidades.VigenciasGruposConceptos;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Local;
 
 /**
  * Interface encargada de determinar las operaciones lógicas necesarias para la
@@ -293,6 +293,10 @@ public interface AdministrarDetalleConceptoInterface {
     * @return Retorna una lista de TiposTrabajadores.
     */
    public List<TiposTrabajadores> consultarLOVTiposTrabajadores();
+
+   public List<ConceptosAux2> consultarConceptosAux2();
+
+   public int contarVigenciasXConcepto(BigInteger secConcepto);
 
    /**
     * Método encargado de recuperar los TiposContratos necesarios para la lista

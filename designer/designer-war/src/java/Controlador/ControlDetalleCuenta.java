@@ -204,21 +204,6 @@ public class ControlDetalleCuenta implements Serializable {
       cualCeldaCredito = celda;
       cuentaCreditoTablaSeleccionada = cuentaC;
       cuentaCreditoTablaSeleccionada.getSecuencia();
-      if (cualCeldaCredito == 0) {
-         cuentaCreditoTablaSeleccionada.getFechainicial();
-      } else if (cualCeldaCredito == 1) {
-         cuentaCreditoTablaSeleccionada.getFechafinal();
-      } else if (cualCeldaCredito == 2) {
-         cuentaCreditoTablaSeleccionada.getConcepto().getCodigo();
-      } else if (cualCeldaCredito == 3) {
-         cuentaCreditoTablaSeleccionada.getConcepto().getDescripcion();
-      } else if (cualCeldaCredito == 4) {
-         cuentaCreditoTablaSeleccionada.getConsolidadorc().getNombre();
-      } else if (cualCeldaCredito == 5) {
-         cuentaCreditoTablaSeleccionada.getConsolidadorc().getCodigo();
-      } else if (cualCeldaCredito == 6) {
-         cuentaCreditoTablaSeleccionada.getTipocc().getNombre();
-      }
    }
 
    /**
@@ -232,21 +217,21 @@ public class ControlDetalleCuenta implements Serializable {
       cualCeldaDebito = celda;
       cuentaDebitoTablaSeleccionada = cuentaD;
       cuentaDebitoTablaSeleccionada.getSecuencia();
-      if (cualCeldaDebito == 0) {
-         cuentaDebitoTablaSeleccionada.getFechainicial();
-      } else if (cualCeldaDebito == 1) {
-         cuentaDebitoTablaSeleccionada.getFechafinal();
-      } else if (cualCeldaDebito == 2) {
-         cuentaDebitoTablaSeleccionada.getConcepto().getCodigo();
-      } else if (cualCeldaDebito == 3) {
-         cuentaDebitoTablaSeleccionada.getConcepto().getDescripcion();
-      } else if (cualCeldaDebito == 4) {
-         cuentaDebitoTablaSeleccionada.getConsolidadord().getNombre();
-      } else if (cualCeldaDebito == 5) {
-         cuentaDebitoTablaSeleccionada.getConsolidadord().getCodigo();
-      } else if (cualCeldaDebito == 6) {
-         cuentaDebitoTablaSeleccionada.getTipocc().getNombre();
-      }
+//      if (cualCeldaDebito == 0) {
+//         cuentaDebitoTablaSeleccionada.getFechainicial();
+//      } else if (cualCeldaDebito == 1) {
+//         cuentaDebitoTablaSeleccionada.getFechafinal();
+//      } else if (cualCeldaDebito == 2) {
+//         cuentaDebitoTablaSeleccionada.getCodigoConcepto();
+//      } else if (cualCeldaDebito == 3) {
+//         cuentaDebitoTablaSeleccionada.getDescripcionConcepto();
+//      } else if (cualCeldaDebito == 4) {
+//         cuentaDebitoTablaSeleccionada.getNombreConsolidadord();
+//      } else if (cualCeldaDebito == 5) {
+//         cuentaDebitoTablaSeleccionada.getCodConsolidadord();
+//      } else if (cualCeldaDebito == 6) {
+//         cuentaDebitoTablaSeleccionada.getNombreTipocc();
+//      }
    }
 
    public void editarCelda() {
