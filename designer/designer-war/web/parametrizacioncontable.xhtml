@@ -878,10 +878,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.nombreTipocc}" id="nuevaTipoCCVC"> 
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'TIPOCC', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'TIPOCC')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'TIPOCC',infoCrear.nombreTipocc, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(0,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'TIPOCC',infoCrear.nombreTipocc)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(0)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -895,10 +895,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.codCuentad}" id="nuevaDebitoVC"> 
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CODDEBITO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CODDEBITO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODDEBITO',infoCrear.codCuentad, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(1,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODDEBITO',infoCrear.codCuentad)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(1)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -911,10 +911,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.descripcionCuentad}" id="nuevaDesDebitoVC">
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'DESDEBITO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'DESDEBITO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESDEBITO',infoCrear.descripcionCuentad, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(2,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESDEBITO',infoCrear.descripcionCuentad)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(2)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -931,10 +931,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.nombreConsolidadord}" id="nuevaConsoliDebVC"> 
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORDEBITO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORDEBITO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORDEBITO',infoCrear.nombreConsolidadord, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(3,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORDEBITO',infoCrear.nombreConsolidadord)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(3)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -948,10 +948,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.codCuentac}" id="nuevaCreditoVC">
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CODCREDITO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CODCREDITO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODCREDITO',infoCrear.codCuentac, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(4,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODCREDITO',infoCrear.codCuentac)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(4)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -964,10 +964,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.descripcionCuentac}" id="nuevaDesCreditoVC">
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'DESCREDITO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'DESCREDITO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESCREDITO',infoCrear.descripcionCuentac, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(5,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESCREDITO',infoCrear.descripcionCuentac)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(5)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -984,10 +984,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.nombreConsolidadorc}" id="nuevaConsoliCreVC"> 
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORCREDITO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORCREDITO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORCREDITO',infoCrear.nombreConsolidadorc, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(6,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORCREDITO',infoCrear.nombreConsolidadorc)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(6)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -1000,10 +1000,10 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoCrear.nombreProceso}" id="nuevoProceso"> 
                                     <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
-                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'PROCESO', 1)}"/>
+                                            listener="#{controlParametrizacionContable.valoresBackupAutocompletarVCuenta(infoCrear, 'PROCESO')}"/>
                                     <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
-                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'PROCESO',infoCrear.nombreProceso, 1)}"/>
-                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(9,1)}"/>
+                                            listener="#{controlParametrizacionContable.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'PROCESO',infoCrear.nombreProceso)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlParametrizacionContable.asignarIndex(9)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>

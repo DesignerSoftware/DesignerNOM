@@ -236,7 +236,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovTipoCentroCosto();
             RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("CODDEBITO")) {
@@ -254,7 +253,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovCuentaDebito();
             RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
             RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("DESDEBITO")) {
@@ -272,7 +270,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovCuentaDebito();
             RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
             RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("CONSOLIDADORDEBITO")) {
@@ -290,7 +287,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovCentroCostoDebito();
             RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("CODCREDITO")) {
@@ -308,7 +304,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovCuentaCredito();
             RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("DESCREDITO")) {
@@ -326,7 +321,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovCuentaCredito();
             RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
             RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (columnCambio.equalsIgnoreCase("PROCESO")) {
@@ -350,7 +344,6 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCuentaCredito();
                RequestContext.getCurrentInstance().update("formlovProceso:ProcesosDialogo");
                RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
-               tipoActualizacion = 0;
             }
          }
       }
@@ -369,7 +362,6 @@ public class ControlParametrizacionContable implements Serializable {
             contarRegistrosLovCentroCostoCredito();
             RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
-            tipoActualizacion = 0;
          }
       }
       if (coincidencias == 1) {
@@ -493,7 +485,7 @@ public class ControlParametrizacionContable implements Serializable {
                      vigCuenta.setConsolidadord(ccLocalizacionTrabajador);
                      vigCuenta.setConsolidadorc(ccContabilidad);
 
-                  } else if (tipoActualizacion == 1 || tipoActualizacion == 2) {
+                  } else if (tipoActualizacion != 0) {
                      vigCuenta.setConsolidadorc(ccContabilidad);
                      vigCuenta.setConsolidadord(ccContabilidad);
                   }
@@ -549,8 +541,7 @@ public class ControlParametrizacionContable implements Serializable {
       }
    }
 
-   public void autocompletarNuevoyDuplicadoVigenciaCuenta(VigenciasCuentas vigencia, String campo, String valor, int tipoNuevo) {
-      tipoActualizacion = tipoNuevo;
+   public void autocompletarNuevoyDuplicadoVigenciaCuenta(VigenciasCuentas vigencia, String campo, String valor) {
       vigCuentaCrearSeleccionada = vigencia;
       cargarLOVsVCuentas();
       int coincidencias = 0;
@@ -587,7 +578,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCuentaDebito();
                RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
                RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-               if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta:::nuevaDebitoVC");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta:::nuevaDesDebitoVC");
@@ -608,7 +599,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCuentaDebito();
                RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
                RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
-               if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaDebitoVC");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta:::nuevaDesDebitoVC");
@@ -629,7 +620,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCentroCostoDebito();
                RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
                RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
-               if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaConsoliDebVC");
                }
@@ -649,7 +640,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCuentaCredito();
                RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
                RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
-               if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaCreditoVC");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaDesCreditoVC");
@@ -670,7 +661,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCuentaCredito();
                RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
                RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
-               if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaCreditoVC");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaDesCreditoVC");
@@ -691,7 +682,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCentroCostoCredito();
                RequestContext.getCurrentInstance().update("formlovCentroCostoC:CentroCostoCDialogo");
                RequestContext.getCurrentInstance().execute("PF('CentroCostoCDialogo').show()");
-               if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaConsoliCreVC");
                }
@@ -713,7 +704,7 @@ public class ControlParametrizacionContable implements Serializable {
                contarRegistrosLovCentroCostoCredito();
                RequestContext.getCurrentInstance().update("formlovProceso:ProcesosDialogo");
                RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
-               if (tipoNuevo == 1 || tipoNuevo == 2) {
+               if (tipoActualizacion != 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //                  RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevoProceso");
                }
@@ -739,9 +730,8 @@ public class ControlParametrizacionContable implements Serializable {
    }
 
    ///////////////////////////////////////////////////////////////////////////
-   public void valoresBackupAutocompletarVCuenta(VigenciasCuentas vigencia, String campo, int tipoNuevo) {
+   public void valoresBackupAutocompletarVCuenta(VigenciasCuentas vigencia, String campo) {
       vigCuentaCrearSeleccionada = vigencia;
-      tipoActualizacion = tipoNuevo;
       switch (campo) {
          case "TIPOCC":
             auxVC_TipoCC = vigCuentaCrearSeleccionada.getNombreTipocc();
@@ -842,6 +832,7 @@ public class ControlParametrizacionContable implements Serializable {
    public void cambiarIndiceVigenciaCuenta(VigenciasCuentas vcuenta, int celda) {
       cualCelda = celda;
       vigenciaCuentaSeleccionada = vcuenta;
+      tipoActualizacion = 0;
 //      vigCuentaEditar = vigenciaCuentaSeleccionada;
       ///////// Captura Objetos Para campos NotNull ///////////
       auxVC_FechaIni = vigenciaCuentaSeleccionada.getFechainicial();
@@ -1127,7 +1118,7 @@ public class ControlParametrizacionContable implements Serializable {
             }
          }
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 2) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setTipocc(tipoCentroCostoSeleccionadoLOV);
          autocompletarTipoCC(vigCuentaCrearSeleccionada);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
@@ -1136,7 +1127,6 @@ public class ControlParametrizacionContable implements Serializable {
       }
       tipoCentroCostoSeleccionadoLOV = null;
       aceptar = true;
-//      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
       RequestContext.getCurrentInstance().update("formlovTiposCC:lovTiposCC");
       RequestContext.getCurrentInstance().update("formlovTiposCC:aceptarTCC");
@@ -1162,7 +1152,7 @@ public class ControlParametrizacionContable implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setCuentad(cuentaSeleccionadaLOV);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //         RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaDebitoVC");
@@ -1171,7 +1161,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCuentas = null;
       cuentaSeleccionadaLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("formlovDebito:lovDebito");
       RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
       RequestContext.getCurrentInstance().update("formlovDebito:aceptarCD");
@@ -1197,7 +1186,7 @@ public class ControlParametrizacionContable implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setCuentad(cuentaSeleccionadaLOV);
          vigCuentaCrearSeleccionada.setCuentac(cuentaSeleccionadaLOV);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
@@ -1207,7 +1196,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCuentas = null;
       cuentaSeleccionadaLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("formlovCuentas:lovCuentas");
       RequestContext.getCurrentInstance().update("formlovCuentas:CuentasDialogo");
       RequestContext.getCurrentInstance().update("formlovCuentas:aceptarCuentas");
@@ -1220,7 +1208,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCuentas = null;
       cuentaSeleccionadaLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formlovDebito:lovDebito");
       RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
@@ -1234,7 +1221,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCuentas = null;
       cuentaSeleccionadaLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("formlovCuentas:lovCuentas");
       context.update("formlovCuentas:CuentasDialogo");
@@ -1260,7 +1246,7 @@ public class ControlParametrizacionContable implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setCuentac(cuentaSeleccionadaLOV);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //         RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaCreditoVC");
@@ -1269,7 +1255,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCuentas = null;
       cuentaSeleccionadaLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("formlovCredito:lovCredito");
       RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
       RequestContext.getCurrentInstance().update("formlovCredito:aceptarCC");
@@ -1282,7 +1267,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCuentas = null;
       cuentaSeleccionadaLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formlovCredito:lovCredito");
       RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
@@ -1308,7 +1292,7 @@ public class ControlParametrizacionContable implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setConsolidadord(centroCostoSeleccionadoLOV);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //         RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaConsoliDebVC");
@@ -1316,7 +1300,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCentrosCostos = null;
       centroCostoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("formlovCentroCostoD:lovCentroCostoD");
       RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
       RequestContext.getCurrentInstance().update("formlovCentroCostoD:aceptarCCD");
@@ -1329,7 +1312,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCentrosCostos = null;
       centroCostoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formlovCentroCostoD:lovCentroCostoD");
       RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
@@ -1356,7 +1338,7 @@ public class ControlParametrizacionContable implements Serializable {
          }
 
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 1) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setConsolidadorc(centroCostoSeleccionadoLOV);
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
 //         RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta::nuevaConsoliCreVC");
@@ -1364,7 +1346,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCentrosCostos = null;
       centroCostoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("formlovCentroCostoC:lovCentroCostoC");
       RequestContext.getCurrentInstance().update("formlovCentroCostoC:CentroCostoCDialogo");
       RequestContext.getCurrentInstance().update("formlovCentroCostoC:aceptarCCC");
@@ -1377,7 +1358,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarListCentrosCostos = null;
       centroCostoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formlovCentroCostoC:lovCentroCostoC");
       RequestContext.getCurrentInstance().update("formlovCentroCostoC:CentroCostoCDialogo");
@@ -1405,7 +1385,7 @@ public class ControlParametrizacionContable implements Serializable {
          }
 
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-      } else if (tipoActualizacion == 1 || tipoActualizacion == 2) {
+      } else if (tipoActualizacion != 0) {
          vigCuentaCrearSeleccionada.setProceso(procesoSeleccionadoLOV.getSecuencia());
          vigCuentaCrearSeleccionada.setNombreProceso(procesoSeleccionadoLOV.getDescripcion());
          RequestContext.getCurrentInstance().update("formularioDialogos:datosNuevaVigCuenta");
@@ -1418,7 +1398,6 @@ public class ControlParametrizacionContable implements Serializable {
       filtrarlovProcesos = null;
       procesoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formlovProceso:lovProceso");
       RequestContext.getCurrentInstance().update("formlovProceso:ProcesosDialogo");
@@ -1451,7 +1430,6 @@ public class ControlParametrizacionContable implements Serializable {
    public void cancelarCambioTipoCentroCosto() {
       tipoCentroCostoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formlovTiposCC:lovTiposCC");
       RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
@@ -1501,6 +1479,8 @@ public class ControlParametrizacionContable implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
+      } else { 
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -1534,9 +1514,8 @@ public class ControlParametrizacionContable implements Serializable {
                   guardado = false;
                   RequestContext.getCurrentInstance().update("form:ACEPTAR");
                }
-               if (tipoActualizacion == 2) {
-                  limpiarNuevoVigenciaCuenta();
-               }
+               limpiarNuevoVigenciaCuenta();
+               tipoActualizacion = 0;
             } else {
                RequestContext.getCurrentInstance().execute("PF('errorFechasVC').show()");
             }
@@ -1560,6 +1539,45 @@ public class ControlParametrizacionContable implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaCuenta').show()");
       } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void asignarIndex(int campo) {
+      cargarLOVsVCuentas();
+      if (campo == 0) {
+         contarRegistrosLovTipoCentroCosto();
+         RequestContext.getCurrentInstance().update("formlovTiposCC:TipoCCDialogo");
+         RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').show()");
+      } else if (campo == 1) {
+         contarRegistrosLovCuentaDebito();
+         RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
+         RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
+      } else if (campo == 2) {
+         contarRegistrosLovCuentaDebito();
+         RequestContext.getCurrentInstance().update("formlovDebito:DebitoDialogo");
+         RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').show()");
+      } else if (campo == 3) {
+         contarRegistrosLovCentroCostoDebito();
+         RequestContext.getCurrentInstance().update("formlovCentroCostoD:CentroCostoDDialogo");
+         RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').show()");
+      } else if (campo == 4) {
+         contarRegistrosLovCuentaCredito();
+         RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
+         RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
+      } else if (campo == 5) {
+         contarRegistrosLovCuentaCredito();
+         RequestContext.getCurrentInstance().update("formlovCredito:CreditoDialogo");
+         RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').show()");
+      } else if (campo == 6) {
+         contarRegistrosLovCentroCostoCredito();
+         RequestContext.getCurrentInstance().update("formlovCentroCostoC:CentroCostoCDialogo");
+         RequestContext.getCurrentInstance().execute("PF('CentroCostoCDialogo').show()");
+      } else if (campo == 9) {
+         log.info("asignarIndex (campo == 9)");
+         contarRegistrosLovProcesos();
+         RequestContext.getCurrentInstance().update("formlovProceso:ProcesosDialogo");
+         RequestContext.getCurrentInstance().update("formlovProceso:lovProceso");
+         RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
       }
    }
 

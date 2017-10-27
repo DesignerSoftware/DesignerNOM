@@ -461,7 +461,7 @@ public class VigenciasCuentas implements Serializable {
    }
 
    public void clonar(VigenciasCuentas vigenciac) {
-      this.concepto = vigenciac.getSecuencia();
+      this.concepto = vigenciac.getConcepto();
       this.descripcionConcepto = vigenciac.getDescripcionConcepto();
       this.codigoConcepto = vigenciac.getCodigoConcepto();
       this.empresa = vigenciac.getEmpresa();
