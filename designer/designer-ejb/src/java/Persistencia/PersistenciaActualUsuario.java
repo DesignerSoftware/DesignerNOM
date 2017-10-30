@@ -45,7 +45,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          actualUsuario = (ActualUsuario) query.getSingleResult();
          return actualUsuario;
       } catch (Exception e) {
-         log.fatal("PersistenciaActualUsuario.actualUsuarioBD() e:  ", e);
+         log.fatal("PersistenciaActualUsuario.actualUsuarioBD() e: ", e);
          e.printStackTrace();
          return null;
       }
@@ -63,7 +63,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          log.warn("alias: " + alias);
          return alias;
       } catch (Exception e) {
-         log.fatal("persistenciaActualUsuario .actualAliasBD  :    Sali con errores");
+         log.fatal("persistenciaActualUsuario .actualAliasBD : Sali con errores");
          return null;
       }
    }

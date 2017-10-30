@@ -39,6 +39,7 @@ public interface AdministrarNReportesNominaInterface {
      * @return
      */
     public ParametrosReportes parametrosDeReporte();
+    public String usuarioActual();
 
     /**
      *

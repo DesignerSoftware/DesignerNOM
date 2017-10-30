@@ -98,15 +98,17 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -118,11 +120,24 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
          log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public String usuarioActual() {
+      try {
+         if (usuarioActual == null) {
+            usuarioActual = persistenciaActualUsuario.actualAliasBD(getEm());
+         }
+         return usuarioActual;
+      } catch (Exception e) {
+         log.warn("Error usuarioActual() Administrar: " + e);
+         return null;
       }
    }
 
