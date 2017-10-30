@@ -26,11 +26,11 @@ public interface AdministrarFestivosInterface {
      */
     public void obtenerConexion(String idSesion);
 
-    public void modificarFestivos(List<Festivos> listaFestivos);
+    public String modificarFestivos(Festivos festivo);
 
-    public void borrarFestivos(List<Festivos> listaFestivos);
+    public String borrarFestivos(Festivos festivo);
 
-    public void crearFestivos(List<Festivos> listaFestivos);
+    public String crearFestivos(Festivos festivo);
 
     public List<Festivos> consultarFestivosPais(BigInteger secPais);
 

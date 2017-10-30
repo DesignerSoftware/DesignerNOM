@@ -48,6 +48,8 @@ public class Tablas implements Serializable {
     @Size(max = 1)
     @Column(name = "AUTORIZADA")
     private String autorizada;
+    @Transient
+    private String estadoTipo;
 
     public BigInteger getSecuencia() {
         return secuencia;
@@ -144,4 +146,28 @@ public class Tablas implements Serializable {
     public void setAutorizada(String autorizada) {
         this.autorizada = autorizada;
     }
+
+    public String getEstadoTipo() {
+        if (estadoTipo == null) {
+            if (tipo == null) {
+                estadoTipo = " ";
+            } else if (tipo.equalsIgnoreCase("CONFIGURACION")) {
+                estadoTipo = "CONFIGURACION";
+            } else if (tipo.equalsIgnoreCase("CONSTRUCCION")) {
+                estadoTipo = "CONSTRUCCION";
+            } else if (tipo.equalsIgnoreCase("DATOS")) {
+                estadoTipo = "DATOS";
+            } else if (tipo.equalsIgnoreCase("SISTEMA")) {
+                estadoTipo = "SISTEMA";
+            } else if (tipo.equalsIgnoreCase("POR ASIGNAR")) {
+                estadoTipo = "POR ASIGNAR";
+            }
+        }
+        return estadoTipo;
+    }
+
+    public void setEstadoTipo(String estadoTipo) {
+        this.estadoTipo = estadoTipo;
+    }
+
 }

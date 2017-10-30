@@ -62,10 +62,10 @@ public class ControlClasesPensiones implements Serializable {
     private int registrosBorrados;
     private String mensajeValidacion;
     private int tamano;
-    private Integer backUpCodigo;
-    private String backUpDescripcion;
     private String infoRegistro;
     private String msgError;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlClasesPensiones() {
         listClasesPensiones = null;
@@ -79,9 +79,6 @@ public class ControlClasesPensiones implements Serializable {
         tamano = 335;
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
-
-    private String paginaAnterior = "nominaf";
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public void limpiarListasValor() {
 
@@ -183,12 +180,7 @@ public class ControlClasesPensiones implements Serializable {
         guardado = true;
         getListClasesPensiones();
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listClasesPensiones == null || listClasesPensiones.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listClasesPensiones.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -260,7 +252,6 @@ public class ControlClasesPensiones implements Serializable {
     }
 
     public void borrandoClasesPensiones() {
-
         if (clasesPensionesSeleccionado != null) {
             if (!modificarClasesPensiones.isEmpty() && modificarClasesPensiones.contains(clasesPensionesSeleccionado)) {
                 int modIndex = modificarClasesPensiones.indexOf(clasesPensionesSeleccionado);
@@ -278,11 +269,12 @@ public class ControlClasesPensiones implements Serializable {
 
             }
             clasesPensionesSeleccionado = null;
-            RequestContext context = RequestContext.getCurrentInstance();
             contarRegistros();
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }

@@ -1,0 +1,1444 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">  
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    }
+                    ;
+                </script>
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.emplsolucionesnodos" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel id="PanelTotal" header="Soluciones Nodos" styleClass="panelTotal">    
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
+                                                 id="guardarRapido" value="" actionListener="#{controlEmplSolucionesNodos.guardarCambiosNovedades()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/editar.png);" 
+                                                 id="editar" value="" actionListener="#{controlEmplSolucionesNodos.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+                                <p:separator />
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
+                                                 id="listaValores" value="" onclick="PF('botonDesactivado').show()" process="@this" disabled="#{controlEmplSolucionesNodos.activarLOV}"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
+                                                 id="filtrar" value="" actionListener="#{controlEmplSolucionesNodos.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+                                <p:separator />
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png);" 
+                                                 id="exportarXLS" value="" ajax="false" actionListener="#{controlEmplSolucionesNodos.exportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/xml.png);" 
+                                                 id="exportarXML" value="" actionListener="#{controlEmplSolucionesNodos.limpiarNuevaSN()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosSolucionesNodosExportar" fileName="SolucionesNodosXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/pdf.png);" 
+                                                 id="exportarPDF" value="" actionListener="#{controlEmplSolucionesNodos.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator /> 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
+                                                 id="insertar" value="" oncomplete="PF('nuevoRegistroSolucion').show()" update=":formularioDialogos:nuevoSn"  process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/delete.png);" 
+                                                 id="eliminar" value="" actionListener="#{controlEmplSolucionesNodos.borrarNovedades()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png);" 
+                                                 id="duplicar" value="" actionListener="#{controlEmplSolucionesNodos.duplicarNV()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator /> 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);" 
+                                                 id="rastro" value="" actionListener="#{controlEmplSolucionesNodos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/> 
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
+                                                 id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlEmplSolucionesNodos.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png)"
+                                                 id="salir" value="" actionListener="#{controlEmplSolucionesNodos.salir()}"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 185px; width: 584px; border-radius: 10px; text-align: left;">
+                            <legend style="color: #14388B;"><strong>Empleados</strong></legend>
+
+                            <p:dataTable id="datosEmpleados" var="empleados" value="#{controlEmplSolucionesNodos.listaEmpleados}"
+                                         rowKey="#{empleados.secuencia}" style=" border: 1px; text-align: left; width: 560px;"                           
+                                         scrollable="true" scrollWidth="580" filteredValue="#{controlEmplSolucionesNodos.listaEmpleadosFiltrar}" 
+                                         emptyMessage="No se encontraron resultados para la búsqueda" selection="#{controlEmplSolucionesNodos.empleadoSeleccionado}"
+                                         scrollHeight="#{controlEmplSolucionesNodos.altoTablaAux}"  widgetVar="datosEmpleados"
+                                         editable="true" editMode="cell" selectionMode="single" >
+
+
+                                <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.cambiarEmpleado()}"/>
+
+                                <p:column headerText="Nombre" sortBy="#{empleados.nombreCompleto}" filterBy="#{empleados.nombreCompleto}" 
+                                          filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" width="420">                                  
+                                    <h:outputText value="#{empleados.nombreCompleto}"/>
+                                </p:column>
+
+<!--                                <p:column style="text-align: center;" headerText="Fecha Ingreso" sortBy="#{empleados.fechacreacion}" filterBy="#{empleados.fechacreacion}" 
+                                          filterMatchMode="contains"  id="nEFechasIngreso" filterStyle="display: none; visibility: hidden;">
+                                    <h:outputText value="#{empleados.fechacreacion}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                    <f:facet name="footer">
+                                        <h:outputText value =""/>  
+                                    </f:facet>  
+                                </p:column>-->
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroEmpleados}" style="position: relative; left: 1px; top: 2px; font-weight: bold;"/>
+                            <p:commandButton style="position: absolute; left: 650px; top: 50px;" class="cssBotonBuscarL" id="btnBuscarEmpleados" actionListener="#{controlEmplSolucionesNodos.abrirLista(0)}"
+                                             value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            <p:commandButton style="position: absolute; left: 650px; top: 85px;" class="cssBotonMostrarTodosL" id="btnMostrarTodos" widgetVar="btnMostrarTodos" value="" 
+                                             actionListener="#{controlEmplSolucionesNodos.mostrarTodos()}" disabled="#{controlEmplSolucionesNodos.activarMTodos}" process="@this"/>
+
+                        </fieldset>
+
+                        <fieldset style="position: relative; left: -4px; top: 244px; width: 830px; height: 200px; border-radius: 10px;">
+                            <legend style="color: #14388B"><strong>Soluciones Nodos</strong></legend>
+                            <p:dataTable id="datosSolucionesNodos" var="sn" value="#{controlEmplSolucionesNodos.listaSN}"
+                                         rowKey="#{sn.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"                             
+                                         scrollable="true" scrollWidth="830" widgetVar="datosSolucionesNodos"
+                                         filteredValue="#{controlEmplSolucionesNodos.listaSNFiltrar}" 
+                                         emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" scrollHeight="#{controlEmplSolucionesNodos.altoTablaEmp}"
+                                         selectionMode="single" selection="#{controlEmplSolucionesNodos.snSeleccionado}"
+                                         rows="#{controlEmplSolucionesNodos.altoTablaRegEmp}" paginator="true" 
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         currentPageReportTemplate="{totalPages}">
+
+                                <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.eventoFiltrar()}"/>
+
+                                <p:column style="text-align: center;" headerText="Concepto" sortBy="#{sn.codigoconcepto}" filterBy="#{sn.codigoconcepto}" 
+                                          filterMatchMode="contains" id="concepto" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.codigoconcepto}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.codigoconcepto}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(0, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="Nombre Concepto" sortBy="#{sn.nombreconcepto}" filterBy="#{sn.nombreconcepto}" 
+                                          filterMatchMode="contains" id="descripcion" width="270" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.tipo} POR> #{sn.nombreconcepto}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.nombreconcepto}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 1)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(0, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column style="text-align: center;"  sortBy="#{sn.fechadesde}" filterBy="#{sn.fechadesde}" 
+                                          filterMatchMode="contains" id="fechaI" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerFechaInicial" value="Inicial"/>
+                                        <p:tooltip  for="headerFechaInicial" value="Fecha Inicial de la Novedad"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.fechadesde}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{sn.fechadesde}"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" update="dateFechaInicial" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" update="dateFechaInicial" process="@this"/>
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" process="@this"
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 2)}" />
+                                            </p:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;"  sortBy="#{sn.fechahasta}" filterBy="#{sn.fechahasta}" 
+                                          filterMatchMode="contains" id="fechaF" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerFechaFinal" value="Final"/>
+                                        <p:tooltip  for="headerFechaFinal" value="Fecha Final de la Novedad"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.fechahasta}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{sn.fechahasta}"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" update="dateFechaFinal" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" update="dateFechaFinal" process="@this"/>
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" process="@this"
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 3)}" />
+                                            </p:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column id="valor" sortBy="#{sn.valor}" width="70" filterBy="#{sn.valor}"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                    
+                                    <f:facet name="header">
+                                        <h:outputText id="tvalor" value="Valor"/>
+                                        <p:tooltip for="tvalor" value="Valor total de la novedad"/>
+                                    </f:facet>
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.valor}" >
+                                                <f:convertNumber currencySymbol="$" currencyCode="COP" maxFractionDigits="1"/>
+                                            </h:outputText>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputNumber value="#{sn.valor}" autocomplete="off" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"
+                                                           decimalPlaces="1" symbol="$" >
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 4)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                            </p:inputNumber>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="saldo" sortBy="#{sn.saldo}" width="70" filterBy="#{sn.saldo}"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                    
+                                    <f:facet name="header">
+                                        <h:outputText id="tsaldo" value="Saldo"/>
+                                        <p:tooltip for="tsaldo" value="Saldo de la novedad"/>
+                                    </f:facet>
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.saldo}" >
+                                                <f:convertNumber currencySymbol="$" currencyCode="COP" maxFractionDigits="1"/>
+                                            </h:outputText>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputNumber value="#{sn.saldo}" autocomplete="off" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"
+                                                           decimalPlaces="1" symbol="$" >
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 5)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                            </p:inputNumber>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="unidades" sortBy="#{sn.unidades}" width="60" filterBy="#{sn.unidades}"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                    
+                                    <f:facet name="header">
+                                        <h:outputText  value="Unidades"/>
+                                    </f:facet>
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.unidades}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputNumber value="#{sn.unidades}" autocomplete="off" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 6)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                            </p:inputNumber>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="Estado" sortBy="#{sn.nombreconcepto}" filterBy="#{sn.nombreconcepto}" 
+                                          filterMatchMode="contains" id="estado" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.estado}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" readonly="true" value="#{sn.estado}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 7)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column style="text-align: center;"  sortBy="#{sn.fechapago}" filterBy="#{sn.fechapago}" 
+                                          filterMatchMode="contains" id="pago" width="60" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerPago" value="Pago"/>
+                                        <p:tooltip  for="headerPago" value="Fecha Pago de la Novedad"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.fechapago}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="datePago" value="#{sn.fechapago}"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" update="dateFechaFinal" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" update="dateFechaFinal" process="@this"/>
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" process="@this"
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 8)}" />
+                                            </p:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column style="text-align: center;" headerText="Nit" sortBy="#{sn.nittercero}" filterBy="#{sn.nittercero}" 
+                                          filterMatchMode="contains" id="nit" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.nittercero}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.nittercero}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 9)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(1, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="Nombre Tercero" sortBy="#{sn.nombretercero}" filterBy="#{sn.nombretercero}" 
+                                          filterMatchMode="contains" id="nombretercero" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.nombretercero}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.nombretercero}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 10)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(1, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column style="text-align: center;" headerText="C.C Débito" sortBy="#{sn.nombrecentrocostod}" filterBy="#{sn.nombrecentrocostod}" 
+                                          filterMatchMode="contains" id="ccdebito" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.nombrecentrocostod}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.nombrecentrocostod}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 11)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(2, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="C.C Crédito" sortBy="#{sn.nombrecentrocostoc}" filterBy="#{sn.nombrecentrocostoc}" 
+                                          filterMatchMode="contains" id="cccredito" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.nombrecentrocostoc}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.nombrecentrocostoc}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 12)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(3, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="Cuenta D" sortBy="#{sn.codigocuentad}" filterBy="#{sn.codigocuentad}" 
+                                          filterMatchMode="contains" id="cuentad" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.codigocuentad}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.codigocuentad}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 13)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(4, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="Cuenta C" sortBy="#{sn.codigocuentac}" filterBy="#{sn.codigocuentac}" 
+                                          filterMatchMode="contains" id="cuentac" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.codigocuentac}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.codigocuentac}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 14)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(5, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Tipo" sortBy="#{sn.nombretipo}" filterBy="#{sn.nombretipo}" filterMatchMode="contains" id="tipo" width="110" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{sn.nombretipo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu effect="fold" value="#{sn.nombretipo}" style="width: 82px"
+                                                             onfocus="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});"
+                                                             onblur="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});">  
+                                                <f:selectItem itemLabel="PAGO" itemValue="PAGO"/>  
+                                                <f:selectItem itemLabel="DESCUENTO" itemValue="DESCUENTO"/>  
+                                                <f:selectItem itemLabel="PASIVO" itemValue="PASIVO"/>  
+                                                <f:selectItem itemLabel="GASTO" itemValue="GASTO"/>  
+                                                <f:selectItem itemLabel="NETO" itemValue="NETO"/>  
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.seleccionarComboBox(sn, sn.nombretipo)}" update="tipo"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  id="fooRetiro" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="text-align: center;" headerText="Proceso" sortBy="#{sn.nombreproceso}" filterBy="#{sn.nombreproceso}" 
+                                          filterMatchMode="contains" id="proceso" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{sn.nombreproceso}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{sn.nombreproceso}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
+                                                <p:ajax event="select" onstart="PF('datosSolucionesNodos').unselectAllRows();PF('datosSolucionesNodos').selectRow(#{indice});" 
+                                                        listener="#{controlEmplSolucionesNodos.cambiarIndice(sn, 16)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplSolucionesNodos.modificarSn(sn)}" process="@this" update="@this"/>   
+                                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(6, 0)}" process="@this" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroNovedades" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroSoluciones}"
+                                          style="position: relative; left: 0px; top: 0px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <p:commandButton class="cssBotonAceptar" value="" id="ACEPTAR" disabled="#{controlEmplSolucionesNodos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosSolucionesNodos" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplSolucionesNodos.salir()}"/>
+
+                    </p:panel>
+                    <p:remoteCommand name="posicionOtro" actionListener="#{controlEmplSolucionesNodos.posicionOtro()}"/>
+                </h:form>
+
+                <h:form id="formLovConcepto">
+                    <p:dialog header="Conceptos" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVConceptos" style=" width: 410px;" var="concepto" value="#{controlEmplSolucionesNodos.lovConceptos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVConceptos" rowKey="#{concepto.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovConceptosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.conceptoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovConcepto:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarConcepto()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroConcepto()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Concepto: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVConceptos').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{concepto.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{concepto.codigo}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{concepto.codigo}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{concepto.descripcion}" filterStyle="width: 80% !important" filterBy="#{concepto.descripcion}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Descripción"/>
+                                </f:facet>
+                                <h:outputText value="#{concepto.descripcion}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{concepto.nombreEmpresa}" filterStyle="width: 80% !important" filterBy="#{concepto.nombreEmpresa}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Empresa"/>
+                                </f:facet>
+                                <h:outputText value="#{concepto.nombreEmpresa}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroConceptosLOV" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroConcepto} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarConcepto()}"  process="@this"/>
+                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioConcepto()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formLovTercero">
+                    <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVTerceros" style=" width: 410px;" var="tercero" value="#{controlEmplSolucionesNodos.lovTerceros}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVTerceros" rowKey="#{tercero.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovTercerosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.terceroSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovTercero:aceptarT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarTercero()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroTercero()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Tercero: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVTerceros').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{tercero.nit}" filterStyle="width: 80% !important" width="100" filterBy="#{tercero.nit}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nit"/>
+                                </f:facet>
+                                <h:outputText value="#{tercero.nit}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{tercero.nombre}" filterStyle="width: 80% !important" filterBy="#{tercero.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{tercero.nombre}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTercerosLOV" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroTercero} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarT" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarTercero()}"  process="@this"/>
+                            <p:commandButton id="atrasT" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioTercero()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formLovCC">
+                    <p:dialog header="Centros de Costo" widgetVar="ccDialogo" draggable="true" resizable="false" id="ccDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVCC" style=" width: 410px;" var="ccredito" value="#{controlEmplSolucionesNodos.lovCentrosCostos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCC" rowKey="#{ccredito.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovCentrosCostosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.centroCostoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovCC:aceptarCC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarCCCredito()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroCentroCosto()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Centro Costo: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCC').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{ccredito.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{ccredito.codigo}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código CC "/>
+                                </f:facet>
+                                <h:outputText value="#{ccredito.codigo}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{ccredito.nombre}" filterStyle="width: 80% !important" filterBy="#{ccredito.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre CC"/>
+                                </f:facet>
+                                <h:outputText value="#{ccredito.nombre}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{ccredito.empresa.nombre}" filterStyle="width: 80% !important" filterBy="#{ccredito.empresa.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Empresa CC"/>
+                                </f:facet>
+                                <h:outputText value="#{ccredito.empresa.nombre}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCCCLOV" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroCentroCosto} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCC" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarCCCredito()}"  process="@this"/>
+                            <p:commandButton id="atrasCC" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioCCCredito()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formLovCCD">
+                    <p:dialog header="Centros de Costo" widgetVar="ccdDialogo" draggable="true" resizable="false" id="ccdDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVCCD" style=" width: 410px;" var="ccdebito" value="#{controlEmplSolucionesNodos.lovCentrosCostos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCCD" rowKey="#{ccdebito.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovCentrosCostosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.centroCostoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovCCD:aceptarCCD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarCCDebito()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroCentroCostoD()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Centro Costo: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCC').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{ccdebito.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{ccdebito.codigo}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código CC "/>
+                                </f:facet>
+                                <h:outputText value="#{ccdebito.codigo}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{ccdebito.nombre}" filterStyle="width: 80% !important" filterBy="#{ccdebito.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre CC"/>
+                                </f:facet>
+                                <h:outputText value="#{ccdebito.nombre}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{ccdebito.empresa.nombre}" filterStyle="width: 80% !important" filterBy="#{ccdebito.empresa.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Empresa CC"/>
+                                </f:facet>
+                                <h:outputText value="#{ccdebito.empresa.nombre}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCCDLOV" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroCentroCostoD} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCCD" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarCCDebito()}"  process="@this"/>
+                            <p:commandButton id="atrasCCD" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioCCDebito()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formLovCuentaD">
+                    <p:dialog header="Cuentas" widgetVar="cuentadDialogo" draggable="true" resizable="false" id="cuentadDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVCuentaD" style=" width: 410px;" var="cuentad" value="#{controlEmplSolucionesNodos.lovCuentas}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCuentaD" rowKey="#{cuentad.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovCuentassFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.cuentaSeleccionada}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovCuentaD:aceptarCuentaD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarCuentaD()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroCuentaD()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Cuenta: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCuentaD').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{cuentad.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{cuentad.codigo}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{cuentad.codigo}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{cuentad.descripcion}" filterStyle="width: 80% !important" filterBy="#{cuentad.descripcion}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{cuentad.descripcion}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{cuentad.empresa.nombre}" filterStyle="width: 80% !important" filterBy="#{cuentad.empresa.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Empresa"/>
+                                </f:facet>
+                                <h:outputText value="#{cuentad.empresa.nombre}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCuentaD" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroCuentaD} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCuentaD" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarCuentaD()}"  process="@this"/>
+                            <p:commandButton id="atrasCuentaD" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioCuentaD()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+
+                <h:form id="formLovCuentaC">
+                    <p:dialog header="Cuentas" widgetVar="cuentacDialogo" draggable="true" resizable="false" id="cuentacDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVCuentaC" style=" width: 410px;" var="cuentac" value="#{controlEmplSolucionesNodos.lovCuentas}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCuentaC" rowKey="#{cuentac.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovCuentassFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.cuentaSeleccionada}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovCuentaC:aceptarCuentaC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarCuentaC()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroCuenta()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Cuenta: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCuentaC').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{cuentac.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{cuentac.codigo}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{cuentac.codigo}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{cuentac.descripcion}" filterStyle="width: 80% !important" filterBy="#{cuentac.descripcion}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{cuentac.descripcion}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{cuentac.empresa.nombre}" filterStyle="width: 80% !important" filterBy="#{cuentac.empresa.nombre}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Empresa"/>
+                                </f:facet>
+                                <h:outputText value="#{cuentac.empresa.nombre}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCuentaC" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroCuenta} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCuentaC" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarCuentaC()}"  process="@this"/>
+                            <p:commandButton id="atrasCuentaC" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioCuentaC()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formProceso">
+                    <p:dialog header="Procesos" widgetVar="procesoDialogo" draggable="true" resizable="false" id="procesoDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVProcesos" style=" width: 410px;" var="proceso" value="#{controlEmplSolucionesNodos.lovProcesos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVProcesos" rowKey="#{proceso.secuencia}"
+                                      filteredValue="#{controlEmplSolucionesNodos.lovProcesosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlEmplSolucionesNodos.procesoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formProceso:aceptarProceso"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarProceso()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroProceso()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Proceso: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVProcesos').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+
+                            <p:column style="text-align: center;" sortBy="#{proceso.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{proceso.codigo}" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{proceso.codigo}"/>  
+                            </p:column>
+                            <p:column style="text-align: center;" sortBy="#{proceso.descripcion}" filterStyle="width: 80% !important" filterBy="#{proceso.descripcion}"  filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{proceso.descripcion}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroProceso} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarProceso" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplSolucionesNodos.aceptar}" class="cssAceptarLOV"   actionListener="#{controlEmplSolucionesNodos.actualizarProceso()}"  process="@this"/>
+                            <p:commandButton id="atrasProceso" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlEmplSolucionesNodos.cancelarCambioProceso()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+
+
+                <h:form id="formLovEmpleado">
+
+                    <p:dialog header="Buscar Empleado." widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330">
+                        <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlEmplSolucionesNodos.lovEmpleados}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlEmplSolucionesNodos.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlEmplSolucionesNodos.empleadoLovSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.activarAceptar()}" update=":formLovEmpleado:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmplSolucionesNodos.actualizarEmpleadosNovedad()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlEmplSolucionesNodos.contarRegistroEmpleadosLOV()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Nombre: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column style="text-align: center;" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Codigo"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.codigoempleado}"/>  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.nombreCompleto}"/>  
+                            </p:column>
+
+                            <p:column style="text-align: center;" width="90" sortBy="#{emp.fechacreacion}" filterBy="#{emp.fechacreacion}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha Ingreso"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.fechacreacion}">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroEmpleadosLOV} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlEmplSolucionesNodos.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlEmplSolucionesNodos.aceptar}"/>
+                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlEmplSolucionesNodos.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="nuevoRegistroSolucion" header="Nuevo Registro" widgetVar="nuevoRegistroSolucion" closable="false" resizable="false" draggable="true" modal="true" height="420" width="650" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Solución Nodo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevoSn" style="border: none;">
+
+                            <strong><h:outputText value="*Concepto: " style=" position: absolute; top: 55px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.codigoconcepto}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 50px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(0, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 295px; top: 52px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(0, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*Desc. Concepto: " style=" position: absolute; top: 85px;"/></strong>
+                            <p:inputText autocomplete="off" readonly="true" value="#{controlEmplSolucionesNodos.nuevoSn.nombreconcepto}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 80px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Fecha Inicial: " style=" position: absolute; top: 115px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 110px; left: 160px" value="#{controlEmplSolucionesNodos.nuevoSn.fechadesde}">
+                                <p:ajax event="dateSelect" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="Fecha Final: " style=" position: absolute; top: 145px; left:34px"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 140px; left: 160px" value="#{controlEmplSolucionesNodos.nuevoSn.fechahasta}">
+                                <p:ajax event="dateSelect" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*Valor: " style=" position: absolute; top: 175px;"/></strong>
+                            <p:inputNumber autocomplete="off"  symbol="$" decimalPlaces="2" value="#{controlEmplSolucionesNodos.nuevoSn.valor}" 
+                                           style=" width: 122px; position: absolute; left: 160px; top: 170px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputNumber>
+
+                            <strong><h:outputText value="Saldo: " style=" position: absolute; top: 205px; left:34px"/></strong>
+                            <p:inputNumber autocomplete="off" symbol="$" decimalPlaces="2" value="#{controlEmplSolucionesNodos.nuevoSn.saldo}" 
+                                           style=" width: 122px; position: absolute; left: 160px; top: 200px; text-transform: uppercase;">
+                            </p:inputNumber>
+
+                            <strong><h:outputText value="Unidades: " style=" position: absolute; top: 235px; left:34px"/></strong>
+                            <p:inputText autocomplete="off" maxlength="4"  value="#{controlEmplSolucionesNodos.nuevoSn.unidades}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 230px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="Estado: " style=" position: absolute; top: 265px; left:34px"/></strong>
+                            <p:inputText autocomplete="off" readonly="true"  value="#{controlEmplSolucionesNodos.nuevoSn.estado}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 260px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Fecha Pago: " style=" position: absolute; top: 295px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 290px; left: 160px" value="#{controlEmplSolucionesNodos.nuevoSn.fechapago}">
+                                <p:ajax event="dateSelect" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:calendar>
+
+
+                            <strong><h:outputText value="Nit: " style=" position: absolute; top: 55px; left: 358px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.nittercero}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 50px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(1, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 52px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(1, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="Nombre Tercero: " style=" position: absolute; top: 85px; left: 358px"/></strong>
+                            <p:inputText autocomplete="off" readonly="true" value="#{controlEmplSolucionesNodos.nuevoSn.nombretercero}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 80px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="*C.C Débito: " style=" position: absolute; top: 115px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.nombrecentrocostod}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 110px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(3, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 112px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(3, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*C.C Crédito: " style=" position: absolute; top: 145px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.nombrecentrocostoc}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 140px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(2, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 142px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(2, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*Cuenta Débito: " style=" position: absolute; top: 175px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.codigocuentad}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 170px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(4, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 172px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(4, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*Cuenta Crédito: " style=" position: absolute; top: 205px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.codigocuentac}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 200px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(5, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 202px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(5, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="Tipo:" style="font-size: 12px; position: absolute; left: 358px; top: 235px"/></strong>
+                            <p:selectOneMenu  value="#{controlEmplSolucionesNodos.nuevoSn.nombretipo}" style="font-size: 12px; width: 100px; position: absolute;left: 480px; top: 230px; text-transform: uppercase;">  
+                                <f:selectItem itemLabel="PAGO" itemValue="PAGO"/>  
+                                <f:selectItem itemLabel="DESCUENTO" itemValue="DESCUENTO"/>  
+                                <f:selectItem itemLabel="PASIVO" itemValue="PASIVO"/>  
+                                <f:selectItem itemLabel="GASTO" itemValue="GASTO"/>  
+                                <f:selectItem itemLabel="NETO" itemValue="NETO"/>  
+                                <p:ajax update="@this"/>
+                            </p:selectOneMenu> 
+
+                            <strong><h:outputText value="Proceso: " style=" position: absolute; top: 265px; left: 358px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.nuevoSn.nombreproceso}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 260px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(6, 1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 262px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(6, 1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+
+                            <p:commandButton id="limpiar" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 390px;" actionListener="#{controlEmplSolucionesNodos.limpiarNuevaSN()}" update="nuevoSn" process="@this"/>
+                            <p:commandButton id="agregarNE" icon="ui-icon-check" value="#{msg['aceptar']}" style=" position: absolute; left: 410px; top: 390px;" 
+                                             actionListener="#{controlEmplSolucionesNodos.agregarNuevaSN()}" process="@this"/>
+                            <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" icon="ui-icon-close" style=" position: absolute; left: 510px; top: 390px;" actionListener="#{controlEmplSolucionesNodos.limpiarNuevaSN()}" 
+                                             update="nuevoSn" onclick="PF('nuevoRegistroSolucion').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroSolucion" header="Duplicar Registro" widgetVar="duplicarRegistroSolucion" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva novedad" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarSn" style="border: none;">
+
+                            <strong><h:outputText value="*Concepto: " style=" position: absolute; top: 55px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.codigoconcepto}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 50px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(0, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 295px; top: 52px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(0, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*Desc. Concepto: " style=" position: absolute; top: 85px;"/></strong>
+                            <p:inputText autocomplete="off" readonly="true" value="#{controlEmplSolucionesNodos.duplicarSn.nombreconcepto}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 80px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Fecha Inicial: " style=" position: absolute; top: 115px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 110px; left: 160px" value="#{controlEmplSolucionesNodos.duplicarSn.fechadesde}">
+                                <p:ajax event="dateSelect" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="Fecha Final: " style=" position: absolute; top: 145px; left:34px"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 140px; left: 160px" value="#{controlEmplSolucionesNodos.duplicarSn.fechahasta}">
+                                <p:ajax event="dateSelect" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*Valor: " style=" position: absolute; top: 175px;"/></strong>
+                            <p:inputNumber autocomplete="off"  symbol="$" decimalPlaces="2" value="#{controlEmplSolucionesNodos.duplicarSn.valor}" 
+                                           style=" width: 122px; position: absolute; left: 160px; top: 170px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputNumber>
+
+                            <strong><h:outputText value="Saldo: " style=" position: absolute; top: 205px; left:34px"/></strong>
+                            <p:inputNumber autocomplete="off" symbol="$" decimalPlaces="2" value="#{controlEmplSolucionesNodos.duplicarSn.saldo}" 
+                                           style=" width: 122px; position: absolute; left: 160px; top: 200px; text-transform: uppercase;">
+                            </p:inputNumber>
+
+                            <strong><h:outputText value="Unidades: " style=" position: absolute; top: 235px; left:34px"/></strong>
+                            <p:inputText autocomplete="off" maxlength="4"  value="#{controlEmplSolucionesNodos.duplicarSn.unidades}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 230px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="Estado: " style=" position: absolute; top: 265px; left:34px"/></strong>
+                            <p:inputText autocomplete="off" readonly="true"  value="#{controlEmplSolucionesNodos.duplicarSn.estado}" 
+                                         style=" width: 122px; position: absolute; left: 160px; top: 260px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Fecha Pago: " style=" position: absolute; top: 295px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 290px; left: 160px" value="#{controlEmplSolucionesNodos.duplicarSn.fechapago}">
+                                <p:ajax event="dateSelect" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:calendar>
+
+
+                            <strong><h:outputText value="Nit: " style=" position: absolute; top: 55px; left: 358px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.nittercero}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 50px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(1, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 52px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(1, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="Nombre Tercero: " style=" position: absolute; top: 85px; left: 358px"/></strong>
+                            <p:inputText autocomplete="off" readonly="true" value="#{controlEmplSolucionesNodos.duplicarSn.nombretercero}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 80px; text-transform: uppercase;">
+                            </p:inputText>
+
+                            <strong><h:outputText value="*C.C Débito: " style=" position: absolute; top: 115px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.nombrecentrocostod}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 110px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(3, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 112px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(3, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*C.C Crédito: " style=" position: absolute; top: 145px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.nombrecentrocostoc}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 140px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(2, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 142px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(2, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*Cuenta Débito: " style=" position: absolute; top: 175px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.codigocuentad}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 170px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(4, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 172px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(4, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="*Cuenta Crédito: " style=" position: absolute; top: 205px; left: 350px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.codigocuentac}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 200px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(5, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 202px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(5, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <strong><h:outputText value="Tipo:" style="font-size: 12px; position: absolute; left: 358px; top: 235px"/></strong>
+                            <p:selectOneMenu  value="#{controlEmplSolucionesNodos.duplicarSn.nombretipo}" style="font-size: 12px; width: 100px; position: absolute;left: 480px; top: 230px; text-transform: uppercase;">  
+                                <f:selectItem itemLabel="PAGO" itemValue="PAGO"/>  
+                                <f:selectItem itemLabel="DESCUENTO" itemValue="DESCUENTO"/>  
+                                <f:selectItem itemLabel="PASIVO" itemValue="PASIVO"/>  
+                                <f:selectItem itemLabel="GASTO" itemValue="GASTO"/>  
+                                <f:selectItem itemLabel="NETO" itemValue="NETO"/>  
+                                <p:ajax update="@this"/>
+                            </p:selectOneMenu> 
+
+                            <strong><h:outputText value="Proceso: " style=" position: absolute; top: 265px; left: 358px"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlEmplSolucionesNodos.duplicarSn.nombreproceso}" 
+                                         style=" width: 122px; position: absolute; left: 480px; top: 260px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlEmplSolucionesNodos.asignarIndex(6, 2)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 615px; top: 262px"  process="@this"  
+                                             actionListener="#{controlEmplSolucionesNodos.asignarIndex(6, 2)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+
+                            <p:commandButton id="limpiarDN" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 390px;" 
+                                             actionListener="#{controlEmplSolucionesNodos.limpiarduplicarSN()}" update="duplicarSn" process="@this"/>
+                            <p:commandButton id="agregarDN" icon="ui-icon-check" value="#{msg['aceptar']}" style=" position: absolute; left: 410px; top: 390px;"  actionListener="#{controlEmplSolucionesNodos.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="cancelarDN" icon="ui-icon-close" value="#{msg['cancelar']}" style=" position: absolute; left: 540px; top: 390px;" actionListener="#{controlEmplSolucionesNodos.limpiarduplicarSN()}" 
+                                             update="duplicarSn" onclick="PF('duplicarRegistroSolucion').hide();"  process="@this"/>
+
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplSolucionesNodos.guardarCambiosNovedades()}" style="position: absolute; top: 50px; left: 125px;" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplSolucionesNodos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this"/>
+                        <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editConcepto" header="Concepto" widgetVar="editConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.codigoconcepto}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editNombreConcepto" header="Descripción " widgetVar="editNombreConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.nombreconcepto}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editFechaInicial" header="Fecha Inicial" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.fechadesde}" style="overflow: auto;" readonly="true">                       
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    
+                    <p:dialog id="editFechaFinal" header="Fecha Final" widgetVar="editFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.fechahasta}" style="overflow: auto;" readonly="true">                       
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    
+                    
+                     <p:dialog id="editValor" header="Valor" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.valor}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editSaldo" header="Saldo " widgetVar="editSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.saldo}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editUnidades" header="Unidades " widgetVar="editUnidades" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.unidades}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editEstado" header="Estado " widgetVar="editEstado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.estado}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                      <p:dialog id="editFechaPago" header="Fecha Pago" widgetVar="editFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                          <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.fechapago}" style="overflow: auto;" readonly="true">                       
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editNit" header="NIT" widgetVar="editNit" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.nittercero}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editTercero" header="Tercero " widgetVar="editTercero" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.nombretercero}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editCCDebito" header="C.C Débito " widgetVar="editCCDebito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.nombrecentrocostod}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editCCCredito" header="C.C Crédito " widgetVar="editCCCredito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.nombrecentrocostoc}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+
+                      <p:dialog id="editCuentaD" header="C.C Débito " widgetVar="editCuentaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                          <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.codigocuentad}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editCuentaC" header="C.C Crédito " widgetVar="editCuentaC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.codigocuentac}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+                    
+                    <p:dialog id="editProceso" header="Proceso" widgetVar="editProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplSolucionesNodos.editarSn.nombreproceso}" style="overflow: auto;" readonly="true"/> 
+                    </p:dialog>
+
+
+                    <p:dialog id="validacionNuevoRegistro" header="#{msg['atencion']}" widgetVar="validacionNuevoRegistro"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                        <h:outputText value="#{controlEmplSolucionesNodos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevoRegistro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadvacaciones')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlEmplSolucionesNodos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadvacaciones', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlEmplSolucionesNodos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadvacaciones', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadvacaciones')}" style="position: absolute; top: 65px; left: 175px;" onstart="#{controlEmplSolucionesNodos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadvacaciones', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorGuardadoBD" header="#{msg['error']}" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlEmplSolucionesNodos.msgError}"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplSolucionesNodos.activarCtrlF11()}" process="@this"/> 
+
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosNovedadesExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlEmplSolucionesNodos.listaSN}"> 
+
+                        <p:column headerText="Concepto">                                  
+                            <f:facet name="header"><h:outputText value="Concepto"/> </f:facet> 
+                            <h:outputText value="#{info.codigoconcepto}"/>
+                        </p:column>
+
+                        <p:column headerText="DescripcionConcepto">                                  
+                            <f:facet name="header"><h:outputText value="DescripcionConcepto"/> </f:facet> 
+                            <h:outputText value="#{info.nombreconcepto}"/>
+                        </p:column>
+
+                        <p:column headerText="FechaInicial">  
+                            <f:facet name="header">
+                                <h:outputText value="FechaInicial"/>
+                            </f:facet>
+                            <h:outputText value="#{info.fechadesde}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="FechaFinal">  
+                            <f:facet name="header">
+                                <h:outputText value="FechaFinal"/>
+                            </f:facet>
+                            <h:outputText value="#{info.fechahasta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Valor">                                  
+                            <f:facet name="header"><h:outputText value="Valor"/> </f:facet> 
+                            <h:outputText value="#{info.valor}"/>
+                        </p:column>
+
+                        <p:column headerText="Saldo">                                  
+                            <f:facet name="header"><h:outputText value="Saldo"/> </f:facet> 
+                            <h:outputText value="#{info.saldo}"/>
+                        </p:column>
+
+                        <p:column headerText="Unidades">                                  
+                            <f:facet name="header"><h:outputText value="Unidades"/> </f:facet> 
+                            <h:outputText value="#{info.unidades}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado">                                  
+                            <f:facet name="header"><h:outputText value="Estado"/> </f:facet> 
+                            <h:outputText value="#{info.estado}"/>
+                        </p:column>
+
+                        <p:column headerText="FechaPago">  
+                            <f:facet name="header">
+                                <h:outputText value="FechaPago"/>
+                            </f:facet>
+                            <h:outputText value="#{info.fechapago}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="NitTercero">                                  
+                            <f:facet name="header"><h:outputText value="NitTercero"/> </f:facet> 
+                            <h:outputText value="#{info.nittercero}"/>
+                        </p:column>
+
+                        <p:column headerText="NombreTercero">                                  
+                            <f:facet name="header"><h:outputText value="NombreTercero"/> </f:facet> 
+                            <h:outputText value="#{info.nombretercero}"/>
+                        </p:column>
+
+                        <p:column headerText="CCDebito">                                  
+                            <f:facet name="header"><h:outputText value="CCDebito"/> </f:facet> 
+                            <h:outputText value="#{info.nombrecentrocostod}"/>
+                        </p:column>
+
+                        <p:column headerText="CCCredito">                                  
+                            <f:facet name="header"><h:outputText value="CCCredito"/> </f:facet> 
+                            <h:outputText value="#{info.nombrecentrocostoc}"/>
+                        </p:column>
+
+                        <p:column headerText="CuentaDebito">                                  
+                            <f:facet name="header"><h:outputText value="CuentaDebito"/> </f:facet> 
+                            <h:outputText value="#{info.codigocuentad}"/>
+                        </p:column>
+
+                        <p:column headerText="CuentaCredito">                                  
+                            <f:facet name="header"><h:outputText value="CuentaCredito"/> </f:facet> 
+                            <h:outputText value="#{info.codigocuentac}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Tipo">                                  
+                            <f:facet name="header"><h:outputText value="Tipo"/> </f:facet> 
+                            <h:outputText value="#{info.nombretipo}"/>
+                        </p:column>
+
+                        <p:column headerText="Proceso">                                  
+                            <f:facet name="header"><h:outputText value="Proceso"/> </f:facet> 
+                            <h:outputText value="#{info.nombreproceso}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

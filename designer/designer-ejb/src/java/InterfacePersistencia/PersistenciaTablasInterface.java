@@ -13,16 +13,22 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaTablasInterface {
 
-   /**
-    * Método encargado de buscar las tablas de tipo 'SISTEMA' y 'CONFIGURACION'
-    * que están asociadas a un Modulo específico y existen en la tabla
-    * Pantallas.
-    *
-    * @param secuenciaMod Secuencia del Modulo.
-    * @return Retorna una lista de Tablas.
-    */
-   public List<Tablas> consultarTablas(EntityManager em);
+    /**
+     * Método encargado de buscar las tablas de tipo 'SISTEMA' y 'CONFIGURACION'
+     * que están asociadas a un Modulo específico y existen en la tabla
+     * Pantallas.
+     *
+     * @param secuenciaMod Secuencia del Modulo.
+     * @return Retorna una lista de Tablas.
+     */
+    public List<Tablas> consultarTablas(EntityManager em);
 
-   public List<Tablas> buscarTablas(EntityManager em, BigInteger secuenciaMod);
+    public List<Tablas> buscarTablas(EntityManager em, BigInteger secuenciaMod);
+
+    public String crear(EntityManager em, Tablas pantalla);
+
+    public String editar(EntityManager em, Tablas pantalla);
+
+    public String borrar(EntityManager em, Tablas pantalla);
 
 }

@@ -18,13 +18,12 @@ import javax.persistence.EntityManager;
 @Local
 public interface PersistenciaFestivosInterface {
 
-    public void crear(EntityManager em,Festivos festivos);
+    public String crear(EntityManager em,Festivos festivos);
 
-    public void editar(EntityManager em,Festivos festivos);
+    public String editar(EntityManager em,Festivos festivos);
 
-    public void borrar(EntityManager em,Festivos festivos);
+    public String borrar(EntityManager em,Festivos festivos);
 
     public List<Festivos> consultarFestivosPais(EntityManager em,BigInteger secPais);
 
-    public Festivos consultarPais(EntityManager em,BigInteger secPais);
 }

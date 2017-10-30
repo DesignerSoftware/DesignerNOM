@@ -7969,366 +7969,595 @@
    </navigation-rule>
  
    <navigation-rule>
-      <from-view-id>/interfasecontablesapbo.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>interfasecontablehistorico</from-outcome>
-         <to-view-id>/interfasecontablehistorico.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontablesapbo</from-outcome>
+            <to-view-id>/interfasecontablesapbo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
  
-   <navigation-rule>
-      <from-view-id>/interfasecontablehistorico.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>interfasecontablesapbo</from-outcome>
-         <to-view-id>/interfasecontablesapbo.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   
-   <navigation-rule>
-      <from-view-id>/kioadmin.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   
-   <navigation-rule>
-      <from-view-id>/kiopreguntas.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>kioadmin</from-outcome>
-         <to-view-id>/kioadmin.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/interfasecontablesapbo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontablehistorico</from-outcome>
+            <to-view-id>/interfasecontablehistorico.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
  
-   <navigation-rule>
-      <from-view-id>/kioadmin.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>kiopreguntas</from-outcome>
-         <to-view-id>/kiopreguntas.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/interfasecontablehistorico.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontablesapbo</from-outcome>
+            <to-view-id>/interfasecontablesapbo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/opckiosko.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>kioadmin</from-outcome>
-         <to-view-id>/kioadmin.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>kioadmin</from-outcome>
+            <to-view-id>/kioadmin.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
  
-   <navigation-rule>
-      <from-view-id>/kioadmin.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>opckiosko</from-outcome>
-         <to-view-id>/opckiosko.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/kioadmin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/kioempresas.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>kioadmin</from-outcome>
-         <to-view-id>/kioadmin.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/kiopreguntas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>kioadmin</from-outcome>
+            <to-view-id>/kioadmin.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
  
-   <navigation-rule>
-      <from-view-id>/kioadmin.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>kioempresas</from-outcome>
-         <to-view-id>/kioempresas.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/kioadmin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>kiopreguntas</from-outcome>
+            <to-view-id>/kiopreguntas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>archivoplanocentrocosto</from-outcome>
-         <to-view-id>/archivoplanocentrocosto.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/archivoplanocentrocosto.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>emplvigencialocalizacion</from-outcome>
-         <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/opckiosko.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>kioadmin</from-outcome>
+            <to-view-id>/kioadmin.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+ 
+    <navigation-rule>
+        <from-view-id>/kioadmin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>opckiosko</from-outcome>
+            <to-view-id>/opckiosko.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+   
+    <navigation-rule>
+        <from-view-id>/kioempresas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>kioadmin</from-outcome>
+            <to-view-id>/kioadmin.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+ 
+    <navigation-rule>
+        <from-view-id>/kioadmin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>kioempresas</from-outcome>
+            <to-view-id>/kioempresas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+   
+    <navigation-rule>
+        <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>archivoplanocentrocosto</from-outcome>
+            <to-view-id>/archivoplanocentrocosto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/archivoplanocentrocosto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>emplvigencialocalizacion</from-outcome>
+            <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
         
-   <navigation-rule>
-      <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>archivoplanoproyecto</from-outcome>
-         <to-view-id>/archivoplanoproyecto.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/archivoplanoproyecto.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>emplvigencialocalizacion</from-outcome>
-         <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>archivoplanoproyecto</from-outcome>
+            <to-view-id>/archivoplanoproyecto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/archivoplanoproyecto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>emplvigencialocalizacion</from-outcome>
+            <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/emplvacapendiente.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>detallevacacion</from-outcome>
-         <to-view-id>/detallevacacion.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/detallevacacion.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>emplvacapendiente</from-outcome>
-         <to-view-id>/emplvacapendiente.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/emplvacapendiente.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>detallevacacion</from-outcome>
+            <to-view-id>/detallevacacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/detallevacacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>emplvacapendiente</from-outcome>
+            <to-view-id>/emplvacapendiente.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/vigenciasarps.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>riesgosprofesionales</from-outcome>
-         <to-view-id>/riesgosprofesionales.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/riesgosprofesionales.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>vigenciasarps</from-outcome>
-         <to-view-id>/vigenciasarps.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vigenciasarps.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>riesgosprofesionales</from-outcome>
+            <to-view-id>/riesgosprofesionales.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/riesgosprofesionales.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>vigenciasarps</from-outcome>
+            <to-view-id>/vigenciasarps.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/emplcambiocodigo.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>emplcambiocodigo</from-outcome>
+            <to-view-id>/emplcambiocodigo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/emplcambiocodigo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/usuariotiposueldo.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>usuariotiposueldo</from-outcome>
+            <to-view-id>/usuariotiposueldo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuariotiposueldo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/usuariocontrato.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>usuariocontrato</from-outcome>
+            <to-view-id>/usuariocontrato.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuariocontrato.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/usuarioinforeporte.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>usuarioinforeporte</from-outcome>
+            <to-view-id>/usuarioinforeporte.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuarioinforeporte.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/usuarioproceso.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>usuarioproceso</from-outcome>
+            <to-view-id>/usuarioproceso.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuarioproceso.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/tipotrabajadorplantilla.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>tipotrabajador</from-outcome>
-         <to-view-id>/tipotrabajador.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/tipotrabajador.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>tipotrabajadorplantilla</from-outcome>
-         <to-view-id>/tipotrabajadorplantilla.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipotrabajadorplantilla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipotrabajador</from-outcome>
+            <to-view-id>/tipotrabajador.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipotrabajador.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipotrabajadorplantilla</from-outcome>
+            <to-view-id>/tipotrabajadorplantilla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/adminreportes.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>usuarioinforeporte</from-outcome>
-         <to-view-id>/usuarioinforeporte.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/usuarioinforeporte.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>adminreportes</from-outcome>
-         <to-view-id>/adminreportes.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/adminreportes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>usuarioinforeporte</from-outcome>
+            <to-view-id>/usuarioinforeporte.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuarioinforeporte.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>adminreportes</from-outcome>
+            <to-view-id>/adminreportes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/interfasecontableinfor.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontableinfor</from-outcome>
+            <to-view-id>/interfasecontableinfor.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/interfasecontableinfor.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/salidasutl.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>salidasutl</from-outcome>
+            <to-view-id>/salidasutl.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/salidasutl.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/operador.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>operador</from-outcome>
+            <to-view-id>/operador.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/operador.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/empresaempleado.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>empresaempleado</from-outcome>
+            <to-view-id>/empresaempleado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/empresaempleado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/banco.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>banco</from-outcome>
+            <to-view-id>/banco.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/banco.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/moneda.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>moneda</from-outcome>
+            <to-view-id>/moneda.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/moneda.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
-   <navigation-rule>
-      <from-view-id>/motivodefinitiva.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivodefinitiva</from-outcome>
+            <to-view-id>/motivodefinitiva.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/motivodefinitiva.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/motivoausentismo.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivoausentismo</from-outcome>
+            <to-view-id>/motivoausentismo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/motivoausentismo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/motivoembargo.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivoembargo</from-outcome>
+            <to-view-id>/motivoembargo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/motivoembargo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/motivoevaluacion.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivoevaluacion</from-outcome>
+            <to-view-id>/motivoevaluacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/motivoevaluacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/objetosdb.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>objetosdb</from-outcome>
+            <to-view-id>/objetosdb.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/objetosdb.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/modulo.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>modulo</from-outcome>
+            <to-view-id>/modulo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/modulo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/pantalla.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>nominaf</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pantalla</from-outcome>
+            <to-view-id>/pantalla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pantalla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-   <navigation-rule>
-      <from-view-id>/pantalla.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>tabla</from-outcome>
-         <to-view-id>/tabla.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/tabla.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>pantalla</from-outcome>
-         <to-view-id>/pantalla.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   
+    <navigation-rule>
+        <from-view-id>/pantalla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tabla</from-outcome>
+            <to-view-id>/tabla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tabla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pantalla</from-outcome>
+            <to-view-id>/pantalla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tabla</from-outcome>
+            <to-view-id>/tabla.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tabla.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enfermedad</from-outcome>
+            <to-view-id>/enfermedad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enfermedad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+	
+	<navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>festivo</from-outcome>
+            <to-view-id>/festivo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/festivo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    	<navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>emplsolucionnodo</from-outcome>
+            <to-view-id>/emplsolucionnodo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/emplsolucionnodo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
 

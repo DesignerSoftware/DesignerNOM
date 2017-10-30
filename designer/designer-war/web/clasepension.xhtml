@@ -57,7 +57,8 @@
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlClasesPensiones.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlClasesPensiones.cancelarModificacion()}" process="@this"
+                                                  oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
                                 <p:separator style="position: relative; top: -9px;"/>
 

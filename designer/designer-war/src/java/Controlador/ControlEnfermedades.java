@@ -20,6 +20,7 @@ import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -38,813 +39,642 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlEnfermedades implements Serializable {
 
-   private static Logger log = Logger.getLogger(ControlEnfermedades.class);
+    private static Logger log = Logger.getLogger(ControlEnfermedades.class);
 
-   @EJB
-   AdministrarEnfermedadesInterface administrarEnfermedades;
-   @EJB
-   AdministrarRastrosInterface administrarRastros;
+    @EJB
+    AdministrarEnfermedadesInterface administrarEnfermedades;
+    @EJB
+    AdministrarRastrosInterface administrarRastros;
 
-   private List<Enfermedades> listEnfermedades;
-   private List<Enfermedades> filtrarEnfermedades;
-   private List<Enfermedades> crearEnfermedades;
-   private List<Enfermedades> modificarEnfermedades;
-   private List<Enfermedades> borrarEnfermedades;
-   private Enfermedades nuevaEnfermedad;
-   private Enfermedades duplicarEnfermedad;
-   private Enfermedades editarEnfermedad;
-   //otros
-   private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
-   private BigInteger l;
-   private boolean aceptar, guardado;
-   //AutoCompletar
-   private boolean permitirIndex;
-   //RASTRO
-   private BigInteger secRegistro;
-   private Column codigo, descripcion;
-   //borrado
-   private int registrosBorrados;
-   private String mensajeValidacion;
-   private Integer a;
-   private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private List<Enfermedades> listEnfermedades;
+    private List<Enfermedades> filtrarEnfermedades;
+    private List<Enfermedades> crearEnfermedades;
+    private List<Enfermedades> modificarEnfermedades;
+    private List<Enfermedades> borrarEnfermedades;
+    private Enfermedades nuevaEnfermedad;
+    private Enfermedades duplicarEnfermedad;
+    private Enfermedades editarEnfermedad;
+    private Enfermedades enfermedadSeleccionada;
+    //otros
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+    private BigInteger l;
+    private boolean aceptar, guardado;
+    private Column codigo, descripcion;
+    private int registrosBorrados;
+    private String mensajeValidacion;
+    private Integer a;
+    private int tamano;
+    private String infoRegistro;
+    private String msgError;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private BigInteger contadorAusentimos;
+    private BigInteger contadorDetallesLicencias;
+    private BigInteger contadorEnfermedadesPadecidas;
+    private BigInteger contadorSoausentismos;
+    private BigInteger contadorSorevisionessSistemas;
 
-   public ControlEnfermedades() {
-      listEnfermedades = null;
-      crearEnfermedades = new ArrayList<Enfermedades>();
-      modificarEnfermedades = new ArrayList<Enfermedades>();
-      borrarEnfermedades = new ArrayList<Enfermedades>();
-      permitirIndex = true;
-      editarEnfermedad = new Enfermedades();
-      nuevaEnfermedad = new Enfermedades();
-      duplicarEnfermedad = new Enfermedades();
-      a = null;
-      guardado = true;
-      mapParametros.put("paginaAnterior", paginaAnterior);
-   }
+    public ControlEnfermedades() {
+        listEnfermedades = null;
+        crearEnfermedades = new ArrayList<Enfermedades>();
+        modificarEnfermedades = new ArrayList<Enfermedades>();
+        borrarEnfermedades = new ArrayList<Enfermedades>();
+        editarEnfermedad = new Enfermedades();
+        nuevaEnfermedad = new Enfermedades();
+        duplicarEnfermedad = new Enfermedades();
+        guardado = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+        tamano = 335;
+    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-   public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      String pagActual = "enfermedad";
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
-      } else {
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
-         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-         //         if (pag.equals("rastrotabla")) {
-         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-      }
-      limpiarListasValor();
-   }
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        String pagActual = "enfermedad";
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        }
+        limpiarListasValor();
+    }
 
-   public void limpiarListasValor() {
-   }
+    public void limpiarListasValor() {
+    }
 
-   @PreDestroy
-   public void destruyendoce() {
-      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
-   }
-   
-   @PostConstruct
-   public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarEnfermedades.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
-         log.error("Causa: " + e.getCause());
-      }
-   }
+    @PreDestroy
+    public void destruyendose() {
+        log.info(this.getClass().getName() + ".destruyendose() @Destroy");
+    }
 
-   public void eventoFiltrar() {
-      try {
-         log.info("\n ENTRE A ControlEnfermedades.eventoFiltrar \n");
-         if (tipoLista == 0) {
+    @PostConstruct
+    public void inicializarAdministrador() {
+        log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarEnfermedades.obtenerConexion(ses.getId());
+            administrarRastros.obtenerConexion(ses.getId());
+            listEnfermedades = null;
+            getListEnfermedades();
+            if (listEnfermedades != null) {
+                enfermedadSeleccionada = listEnfermedades.get(0);
+            }
+        } catch (Exception e) {
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
+            log.error("Causa: " + e.getCause());
+        }
+    }
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
             tipoLista = 1;
-         }
-      } catch (Exception e) {
-         log.warn("Error ControlEnfermedades eventoFiltrar ERROR===" + e.getMessage());
-      }
-   }
+        }
+        contarRegistros();
+    }
 
-   public void cambiarIndice(int indice, int celda) {
-      log.error("TIPO LISTA = " + tipoLista);
+    public void cambiarIndice(Enfermedades enfermedad, int celda) {
 
-      if (permitirIndex == true) {
-         index = indice;
-         cualCelda = celda;
-         secRegistro = listEnfermedades.get(index).getSecuencia();
+        enfermedadSeleccionada = enfermedad;
+        cualCelda = celda;
+        enfermedadSeleccionada.getSecuencia();
+        if (cualCelda == 0) {
+            enfermedadSeleccionada.getCodigo();
+        } else if (cualCelda == 1) {
+            enfermedadSeleccionada.getDescripcion();
+        }
 
-      }
-      log.info("Indice: " + index + " Celda: " + cualCelda);
-   }
+    }
 
-   public void asignarIndex(Integer indice, int LND, int dig) {
-      try {
-         log.info("\n ENTRE A ControlEnfermedades.asignarIndex \n");
-         log.info("Tipo Actualizacion: " + tipoActualizacion);
-         index = indice;
-         if (LND == 0) {
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
+    public void activarAceptar() {
+        aceptar = false;
+    }
 
-      } catch (Exception e) {
-         log.warn("Error ControlEnfermedades.asignarIndex ERROR======" + e.getMessage());
-      }
-   }
+    public void cancelarModificacion() {
+        if (bandera == 1) {
+            //CERRAR FILTRADO
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+            bandera = 0;
+            filtrarEnfermedades = null;
+            tipoLista = 0;
+            tamano = 335;
+        }
 
-   public void activarAceptar() {
-      aceptar = false;
-   }
+        borrarEnfermedades.clear();
+        crearEnfermedades.clear();
+        modificarEnfermedades.clear();
+        enfermedadSeleccionada = null;
+        k = 0;
+        listEnfermedades = null;
+        getListEnfermedades();
+        contarRegistros();
+        guardado = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
 
-   public void listaValoresBoton() {
-   }
+    public void salir() {
+        if (bandera == 1) {
+            //CERRAR FILTRADO
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+            bandera = 0;
+            filtrarEnfermedades = null;
+            tipoLista = 0;
+            tamano = 335;
+        }
 
-   public void cancelarModificacion() {
-      if (bandera == 1) {
-         //CERRAR FILTRADO
-         codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
-         codigo.setFilterStyle("display: none; visibility: hidden;");
-         descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
-         descripcion.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         bandera = 0;
-         filtrarEnfermedades = null;
-         tipoLista = 0;
-      }
+        borrarEnfermedades.clear();
+        crearEnfermedades.clear();
+        modificarEnfermedades.clear();
+        enfermedadSeleccionada = null;
+        k = 0;
+        listEnfermedades = null;
+        guardado = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
+    }
 
-      borrarEnfermedades.clear();
-      crearEnfermedades.clear();
-      modificarEnfermedades.clear();
-      index = -1;
-      secRegistro = null;
-      k = 0;
-      listEnfermedades = null;
-      guardado = true;
-      permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-   }
+    public void activarCtrlF11() {
+        if (bandera == 0) {
+            tamano = 315;
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
+            codigo.setFilterStyle("width: 85% !important");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
+            descripcion.setFilterStyle("width: 85% !important");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+            bandera = 1;
+        } else if (bandera == 1) {
+            tamano = 335;
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+            bandera = 0;
+            filtrarEnfermedades = null;
+            tipoLista = 0;
+        }
+    }
 
-   public void activarCtrlF11() {
-      if (bandera == 0) {
-
-         codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
-         codigo.setFilterStyle("width: 85% !important");
-         descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
-         descripcion.setFilterStyle("width: 85% !important");
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         log.info("Activar");
-         bandera = 1;
-      } else if (bandera == 1) {
-         log.info("Desactivar");
-         codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
-         codigo.setFilterStyle("display: none; visibility: hidden;");
-         descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
-         descripcion.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         bandera = 0;
-         filtrarEnfermedades = null;
-         tipoLista = 0;
-      }
-   }
-
-   public void modificarEnfermedad(int indice, String confirmarCambio, String valorConfirmar) {
-      log.error("ENTRE A MODIFICAR Enfermedades");
-      index = indice;
-
-      int contador = 0;
-      boolean banderita = false;
-
-      RequestContext context = RequestContext.getCurrentInstance();
-      log.error("TIPO LISTA = " + tipoLista);
-      if (confirmarCambio.equalsIgnoreCase("N")) {
-         log.error("ENTRE A MODIFICAR Enfermedades, CONFIRMAR CAMBIO ES N");
-         if (tipoLista == 0) {
-            if (!crearEnfermedades.contains(listEnfermedades.get(indice))) {
-               if (listEnfermedades.get(indice).getCodigo() == a) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-               } else {
-                  for (int j = 0; j < listEnfermedades.size(); j++) {
-                     if (j != indice) {
-                        if (listEnfermedades.get(indice).getCodigo() == listEnfermedades.get(j).getCodigo()) {
-                           contador++;
-                        }
-                     }
-                  }
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     banderita = false;
-                  } else {
-                     banderita = true;
-                  }
-
-               }
-               if (listEnfermedades.get(indice).getDescripcion().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-               }
-               if (listEnfermedades.get(indice).getDescripcion().equals(" ")) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-               }
-
-               if (banderita == true) {
-                  if (modificarEnfermedades.isEmpty()) {
-                     modificarEnfermedades.add(listEnfermedades.get(indice));
-                  } else if (!modificarEnfermedades.contains(listEnfermedades.get(indice))) {
-                     modificarEnfermedades.add(listEnfermedades.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                  cancelarModificacion();
-               }
-               index = -1;
-               secRegistro = null;
+    public void modificarEnfermedad(Enfermedades enfermedad) {
+        enfermedadSeleccionada = enfermedad;
+        if (!crearEnfermedades.contains(enfermedadSeleccionada)) {
+            if (modificarEnfermedades.isEmpty()) {
+                modificarEnfermedades.add(enfermedadSeleccionada);
+            } else if (!modificarEnfermedades.contains(enfermedadSeleccionada)) {
+                modificarEnfermedades.add(enfermedadSeleccionada);
             }
-         } else if (!crearEnfermedades.contains(filtrarEnfermedades.get(indice))) {
-            if (filtrarEnfermedades.get(indice).getCodigo() == a) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            } else {
-               for (int j = 0; j < listEnfermedades.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarEnfermedades.get(indice).getCodigo() == listEnfermedades.get(j).getCodigo()) {
-                        contador++;
-                     }
-                  }
-               }
-               for (int j = 0; j < filtrarEnfermedades.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarEnfermedades.get(indice).getCodigo() == filtrarEnfermedades.get(j).getCodigo()) {
-                        contador++;
-                     }
-                  }
-               }
-               if (contador > 0) {
-                  mensajeValidacion = "CODIGOS REPETIDOS";
-                  banderita = false;
-               } else {
-                  banderita = true;
-               }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+        }
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
-            }
+    }
 
-            if (filtrarEnfermedades.get(indice).getDescripcion().isEmpty()) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            }
-            if (filtrarEnfermedades.get(indice).getDescripcion().equals(" ")) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            }
-
-            if (banderita == true) {
-               if (modificarEnfermedades.isEmpty()) {
-                  modificarEnfermedades.add(filtrarEnfermedades.get(indice));
-               } else if (!modificarEnfermedades.contains(filtrarEnfermedades.get(indice))) {
-                  modificarEnfermedades.add(filtrarEnfermedades.get(indice));
-               }
-               if (guardado == true) {
-                  guardado = false;
-               }
-
-            } else {
-               RequestContext.getCurrentInstance().update("form:validacionModificar");
-               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-               cancelarModificacion();
-            }
-            index = -1;
-            secRegistro = null;
-         }
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-
-   }
-
-   public void borrarEnfermedad() {
-
-      if (index >= 0) {
-
-         if (tipoLista == 0) {
+    public void borrarEnfermedad() {
+        if (enfermedadSeleccionada != null) {
             log.info("Entro a borrarEnfermedades");
-            if (!modificarEnfermedades.isEmpty() && modificarEnfermedades.contains(listEnfermedades.get(index))) {
-               int modIndex = modificarEnfermedades.indexOf(listEnfermedades.get(index));
-               modificarEnfermedades.remove(modIndex);
-               borrarEnfermedades.add(listEnfermedades.get(index));
-            } else if (!crearEnfermedades.isEmpty() && crearEnfermedades.contains(listEnfermedades.get(index))) {
-               int crearIndex = crearEnfermedades.indexOf(listEnfermedades.get(index));
-               crearEnfermedades.remove(crearIndex);
+            if (!modificarEnfermedades.isEmpty() && modificarEnfermedades.contains(enfermedadSeleccionada)) {
+                int modIndex = modificarEnfermedades.indexOf(enfermedadSeleccionada);
+                modificarEnfermedades.remove(modIndex);
+                borrarEnfermedades.add(enfermedadSeleccionada);
+            } else if (!crearEnfermedades.isEmpty() && crearEnfermedades.contains(enfermedadSeleccionada)) {
+                int crearIndex = crearEnfermedades.indexOf(enfermedadSeleccionada);
+                crearEnfermedades.remove(crearIndex);
             } else {
-               borrarEnfermedades.add(listEnfermedades.get(index));
+                borrarEnfermedades.add(enfermedadSeleccionada);
             }
-            listEnfermedades.remove(index);
-         }
-         if (tipoLista == 1) {
-            log.info("borrarEnfermedades ");
-            if (!modificarEnfermedades.isEmpty() && modificarEnfermedades.contains(filtrarEnfermedades.get(index))) {
-               int modIndex = modificarEnfermedades.indexOf(filtrarEnfermedades.get(index));
-               modificarEnfermedades.remove(modIndex);
-               borrarEnfermedades.add(filtrarEnfermedades.get(index));
-            } else if (!crearEnfermedades.isEmpty() && crearEnfermedades.contains(filtrarEnfermedades.get(index))) {
-               int crearIndex = crearEnfermedades.indexOf(filtrarEnfermedades.get(index));
-               crearEnfermedades.remove(crearIndex);
-            } else {
-               borrarEnfermedades.add(filtrarEnfermedades.get(index));
+            listEnfermedades.remove(enfermedadSeleccionada);
+            if (tipoLista == 1) {
+                filtrarEnfermedades.remove(enfermedadSeleccionada);
+
             }
-            int VCIndex = listEnfermedades.indexOf(filtrarEnfermedades.get(index));
-            listEnfermedades.remove(VCIndex);
-            filtrarEnfermedades.remove(index);
-
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         index = -1;
-         secRegistro = null;
-
-         if (guardado == true) {
+            enfermedadSeleccionada = null;
+            contarRegistros();
             guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-
-   }
-   private BigInteger contadorAusentimos;
-   private BigInteger contadorDetallesLicencias;
-   private BigInteger contadorEnfermedadesPadecidas;
-   private BigInteger contadorSoausentismos;
-   private BigInteger contadorSorevisionessSistemas;
-
-   public void verificarBorrado() {
-      try {
-         log.info("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-         log.info("secuencia borrado : " + listEnfermedades.get(index).getSecuencia());
-         if (tipoLista == 0) {
-            log.info("secuencia borrado : " + listEnfermedades.get(index).getSecuencia());
-            contadorAusentimos = administrarEnfermedades.verificarAusentimos(listEnfermedades.get(index).getSecuencia());
-            contadorDetallesLicencias = administrarEnfermedades.verificarDetallesLicencias(listEnfermedades.get(index).getSecuencia());
-            contadorEnfermedadesPadecidas = administrarEnfermedades.verificarEnfermedadesPadecidas(listEnfermedades.get(index).getSecuencia());
-            contadorSoausentismos = administrarEnfermedades.verificarSoAusentismos(listEnfermedades.get(index).getSecuencia());
-            contadorSorevisionessSistemas = administrarEnfermedades.verificarSoRevisionesSistemas(listEnfermedades.get(index).getSecuencia());
-         } else {
-            log.info("secuencia borrado : " + filtrarEnfermedades.get(index).getSecuencia());
-            contadorAusentimos = administrarEnfermedades.verificarAusentimos(filtrarEnfermedades.get(index).getSecuencia());
-            contadorDetallesLicencias = administrarEnfermedades.verificarDetallesLicencias(filtrarEnfermedades.get(index).getSecuencia());
-            contadorEnfermedadesPadecidas = administrarEnfermedades.verificarEnfermedadesPadecidas(filtrarEnfermedades.get(index).getSecuencia());
-            contadorSoausentismos = administrarEnfermedades.verificarSoAusentismos(filtrarEnfermedades.get(index).getSecuencia());
-            contadorSorevisionessSistemas = administrarEnfermedades.verificarSoRevisionesSistemas(filtrarEnfermedades.get(index).getSecuencia());
-         }
-         log.info("contadorSoAccidentes " + contadorAusentimos.toString());
-         log.info("contadorDetallesLicencias " + contadorDetallesLicencias.toString());
-         log.info("contadorEnfermedadesPadecidas " + contadorEnfermedadesPadecidas.toString());
-         if (!contadorAusentimos.equals(new BigInteger("0")) || !contadorDetallesLicencias.equals(new BigInteger("0")) || !contadorEnfermedadesPadecidas.equals(new BigInteger("0")) || !contadorSoausentismos.equals(new BigInteger("0")) || !contadorSorevisionessSistemas.equals(new BigInteger("0"))) {
-            log.info("Borrado>0");
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:validacionBorrar");
-            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-            index = -1;
-
-            contadorAusentimos = new BigInteger("-1");
-            contadorDetallesLicencias = new BigInteger("-1");
-            contadorEnfermedadesPadecidas = new BigInteger("-1");
-            contadorSoausentismos = new BigInteger("-1");
-            contadorSorevisionessSistemas = new BigInteger("-1");
-
-         } else {
-            log.info("Borrado==0");
-            borrarEnfermedad();
-         }
-      } catch (Exception e) {
-         log.error("ERROR CONTROLENFERMEDADES verificarBorrado ERROR  ", e);
-      }
-   }
-
-   public void revisarDialogoGuardar() {
-
-      if (!borrarEnfermedades.isEmpty() || !crearEnfermedades.isEmpty() || !modificarEnfermedades.isEmpty()) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-      }
-
-   }
-
-   public void guardarEnfermedad() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      if (guardado == false) {
-         log.info("Realizando Enfermedades");
-         if (!borrarEnfermedades.isEmpty()) {
-            administrarEnfermedades.borrarEnfermedades(borrarEnfermedades);
-
-            //mostrarBorrados
-            registrosBorrados = borrarEnfermedades.size();
-            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-            RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-            borrarEnfermedades.clear();
-         }
-         if (!crearEnfermedades.isEmpty()) {
-            administrarEnfermedades.crearEnfermedades(crearEnfermedades);
-
-            crearEnfermedades.clear();
-         }
-         if (!modificarEnfermedades.isEmpty()) {
-            administrarEnfermedades.modificarEnfermedades(modificarEnfermedades);
-            modificarEnfermedades.clear();
-         }
-         log.info("Se guardaron los datos con exito");
-         listEnfermedades = null;
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         k = 0;
-         guardado = true;
-      }
-      index = -1;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-   }
-
-   public void editarCelda() {
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            editarEnfermedad = listEnfermedades.get(index);
-         }
-         if (tipoLista == 1) {
-            editarEnfermedad = filtrarEnfermedades.get(index);
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         log.info("Entro a editar... valor celda: " + cualCelda);
-         if (cualCelda == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-            RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
-            cualCelda = -1;
-         } else if (cualCelda == 1) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-            RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
-            cualCelda = -1;
-         }
-
-      }
-      index = -1;
-      secRegistro = null;
-   }
-
-   public void agregarNuevoEnfermedades() {
-      log.info("Agregar Enfermedades");
-      int contador = 0;
-      int duplicados = 0;
-
-      mensajeValidacion = " ";
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (nuevaEnfermedad.getCodigo() == a) {
-         mensajeValidacion = " *Debe Tener Un Codigo \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-      } else {
-         log.info("codigo en Motivo Cambio Cargo: " + nuevaEnfermedad.getCodigo());
-
-         for (int x = 0; x < listEnfermedades.size(); x++) {
-            if (listEnfermedades.get(x).getCodigo() == nuevaEnfermedad.getCodigo()) {
-               duplicados++;
-            }
-         }
-         log.info("Antes del if Duplicados eses igual  : " + duplicados);
-
-         if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
-         } else {
-            log.info("bandera");
-            contador++;
-         }
-      }
-      if (nuevaEnfermedad.getDescripcion() == (null)) {
-         mensajeValidacion = mensajeValidacion + " *Debe Tener un Descripcion \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         log.info("bandera");
-         contador++;
-
-      }
-
-      log.info("contador " + contador);
-
-      if (contador == 2) {
-         if (bandera == 1) {
-            //CERRAR FILTRADO
-            log.info("Desactivar");
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-            bandera = 0;
-            filtrarEnfermedades = null;
-            tipoLista = 0;
-         }
-         log.info("Despues de la bandera");
-
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevaEnfermedad.setSecuencia(l);
-
-         crearEnfermedades.add(nuevaEnfermedad);
-
-         listEnfermedades.add(nuevaEnfermedad);
-         nuevaEnfermedad = new Enfermedades();
-
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         if (guardado == true) {
-            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-
-         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEnfermedades').hide()");
-         index = -1;
-         secRegistro = null;
-
-      } else {
-         RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-         contador = 0;
-      }
-   }
-
-   public void limpiarNuevoEnfermedades() {
-      log.info("limpiarNuevoEnfermedades");
-      nuevaEnfermedad = new Enfermedades();
-      secRegistro = null;
-      index = -1;
-
-   }
-
-   //------------------------------------------------------------------------------
-   public void duplicarEnfermedades() {
-      log.info("duplicarEnfermedades");
-      if (index >= 0) {
-         duplicarEnfermedad = new Enfermedades();
-         k++;
-         l = BigInteger.valueOf(k);
-
-         if (tipoLista == 0) {
-            duplicarEnfermedad.setSecuencia(l);
-            duplicarEnfermedad.setCodigo(listEnfermedades.get(index).getCodigo());
-            duplicarEnfermedad.setDescripcion(listEnfermedades.get(index).getDescripcion());
-         }
-         if (tipoLista == 1) {
-            duplicarEnfermedad.setSecuencia(l);
-            duplicarEnfermedad.setCodigo(filtrarEnfermedades.get(index).getCodigo());
-            duplicarEnfermedad.setDescripcion(filtrarEnfermedades.get(index).getDescripcion());
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEnfer");
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEnfermedad').show()");
-         index = -1;
-         secRegistro = null;
-      }
-   }
-
-   public void confirmarDuplicar() {
-      log.error("ESTOY EN CONFIRMAR DUPLICAR Enfermedades");
-      int contador = 0;
-      mensajeValidacion = " ";
-      int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      log.error("ConfirmarDuplicar codigo " + duplicarEnfermedad.getCodigo());
-      log.error("ConfirmarDuplicar Descripcion " + duplicarEnfermedad.getDescripcion());
-
-      if (duplicarEnfermedad.getCodigo() == a) {
-         mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-      } else {
-         for (int x = 0; x < listEnfermedades.size(); x++) {
-            if (listEnfermedades.get(x).getCodigo() == duplicarEnfermedad.getCodigo()) {
-               duplicados++;
-            }
-         }
-         if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
-         } else {
-            log.info("bandera");
-            contador++;
-            duplicados = 0;
-         }
-      }
-      if (duplicarEnfermedad.getDescripcion() == null) {
-         mensajeValidacion = mensajeValidacion + "   * Un Nombre \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         log.info("Bandera : ");
-         contador++;
-      }
-
-      if (contador == 2) {
-
-         log.info("Datos Duplicando: " + duplicarEnfermedad.getSecuencia() + "  " + duplicarEnfermedad.getCodigo());
-         if (crearEnfermedades.contains(duplicarEnfermedad)) {
-            log.info("Ya lo contengo.");
-         }
-         listEnfermedades.add(duplicarEnfermedad);
-         crearEnfermedades.add(duplicarEnfermedad);
-         RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-         index = -1;
-         secRegistro = null;
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         if (bandera == 1) {
-            //CERRAR FILTRADO
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
-            bandera = 0;
-            filtrarEnfermedades = null;
-            tipoLista = 0;
-         }
-         duplicarEnfermedad = new Enfermedades();
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEnfermedad').hide()");
-
-      } else {
-         contador = 0;
-         RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-         RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
-      }
-   }
-
-   public void limpiarDuplicarEnfermedades() {
-      duplicarEnfermedad = new Enfermedades();
-   }
-
-   public void exportPDF() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEnfermedadesExportar");
-      FacesContext context = FacesContext.getCurrentInstance();
-      Exporter exporter = new ExportarPDF();
-      exporter.export(context, tabla, "ENFERMEDADES", false, false, "UTF-8", null, null);
-      context.responseComplete();
-      index = -1;
-      secRegistro = null;
-   }
-
-   public void exportXLS() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEnfermedadesExportar");
-      FacesContext context = FacesContext.getCurrentInstance();
-      Exporter exporter = new ExportarXLS();
-      exporter.export(context, tabla, "ENFERMEDADES", false, false, "UTF-8", null, null);
-      context.responseComplete();
-      index = -1;
-      secRegistro = null;
-   }
-
-   public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      log.info("lol");
-      if (!listEnfermedades.isEmpty()) {
-         if (secRegistro != null) {
-            log.info("lol 2");
-            int resultado = administrarRastros.obtenerTabla(secRegistro, "ENFERMEDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            log.info("resultado: " + resultado);
-            if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-         } else {
+        } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-         }
-      } else if (administrarRastros.verificarHistoricosTabla("ENFERMEDADES")) { // igual acá
-         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-      }
-      index = -1;
-   }
+        }
 
-   public List<Enfermedades> getListEnfermedades() {
-      if (listEnfermedades == null) {
-         listEnfermedades = administrarEnfermedades.consultarEnfermedades();
-      }
-      return listEnfermedades;
-   }
+    }
 
-   public void setListEnfermedades(List<Enfermedades> listEnfermedades) {
-      this.listEnfermedades = listEnfermedades;
-   }
+    public void verificarBorrado() {
+        try {
+            contadorAusentimos = administrarEnfermedades.verificarAusentimos(enfermedadSeleccionada.getSecuencia());
+            contadorDetallesLicencias = administrarEnfermedades.verificarDetallesLicencias(enfermedadSeleccionada.getSecuencia());
+            contadorEnfermedadesPadecidas = administrarEnfermedades.verificarEnfermedadesPadecidas(enfermedadSeleccionada.getSecuencia());
+            contadorSoausentismos = administrarEnfermedades.verificarSoAusentismos(enfermedadSeleccionada.getSecuencia());
+            contadorSorevisionessSistemas = administrarEnfermedades.verificarSoRevisionesSistemas(enfermedadSeleccionada.getSecuencia());
+            if (!contadorAusentimos.equals(new BigInteger("0")) || !contadorDetallesLicencias.equals(new BigInteger("0")) || !contadorEnfermedadesPadecidas.equals(new BigInteger("0")) || !contadorSoausentismos.equals(new BigInteger("0")) || !contadorSorevisionessSistemas.equals(new BigInteger("0"))) {
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+                contadorAusentimos = new BigInteger("-1");
+                contadorDetallesLicencias = new BigInteger("-1");
+                contadorEnfermedadesPadecidas = new BigInteger("-1");
+                contadorSoausentismos = new BigInteger("-1");
+                contadorSorevisionessSistemas = new BigInteger("-1");
+            } else {
+                borrarEnfermedad();
+            }
+        } catch (Exception e) {
+            log.error("ERROR CONTROLENFERMEDADES verificarBorrado ERROR  ", e);
+        }
+    }
 
-   public List<Enfermedades> getFiltrarEnfermedades() {
-      return filtrarEnfermedades;
-   }
+    public void revisarDialogoGuardar() {
+        if (!borrarEnfermedades.isEmpty() || !crearEnfermedades.isEmpty() || !modificarEnfermedades.isEmpty()) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        }
+    }
 
-   public void setFiltrarEnfermedades(List<Enfermedades> filtrarEnfermedades) {
-      this.filtrarEnfermedades = filtrarEnfermedades;
-   }
+    public void guardarEnfermedad() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                msgError = "";
+                if (!borrarEnfermedades.isEmpty()) {
+                    for (int i = 0; i < borrarEnfermedades.size(); i++) {
+                        msgError = administrarEnfermedades.borrarEnfermedades(borrarEnfermedades.get(i));
+                    }
+                    registrosBorrados = borrarEnfermedades.size();
+                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+                    borrarEnfermedades.clear();
+                }
+                if (!crearEnfermedades.isEmpty()) {
+                    for (int i = 0; i < crearEnfermedades.size(); i++) {
+                        msgError = administrarEnfermedades.crearEnfermedades(crearEnfermedades.get(i));
+                    }
+                    crearEnfermedades.clear();
+                }
+                if (!modificarEnfermedades.isEmpty()) {
+                    for (int i = 0; i < modificarEnfermedades.size(); i++) {
+                        msgError = administrarEnfermedades.modificarEnfermedades(modificarEnfermedades.get(i));
+                    }
+                    modificarEnfermedades.clear();
+                }
+                if (msgError.equals("EXITO")) {
 
-   public Enfermedades getNuevaEnfermedad() {
-      return nuevaEnfermedad;
-   }
+                    listEnfermedades = null;
+                    getListEnfermedades();
+                    k = 0;
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    contarRegistros();
+                    guardado = true;
+                    enfermedadSeleccionada = null;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardadoBD");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardadoBD').show()");
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
 
-   public void setNuevaEnfermedad(Enfermedades nuevaEnfermedad) {
-      this.nuevaEnfermedad = nuevaEnfermedad;
-   }
+    public void editarCelda() {
+        if (enfermedadSeleccionada != null) {
+            editarEnfermedad = enfermedadSeleccionada;
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
+                cualCelda = -1;
+            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
 
-   public Enfermedades getDuplicarEnfermedad() {
-      return duplicarEnfermedad;
-   }
+    public void agregarNuevoEnfermedades() {
+        int contador = 0;
+        int duplicados = 0;
+        a = null;
+        mensajeValidacion = " ";
+        if (nuevaEnfermedad.getCodigo() == a) {
+            mensajeValidacion = " *Debe Tener Un Codigo \n";
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
+        } else {
+            for (int x = 0; x < listEnfermedades.size(); x++) {
+                if (listEnfermedades.get(x).getCodigo() == nuevaEnfermedad.getCodigo()) {
+                    duplicados++;
+                }
+            }
 
-   public void setDuplicarEnfermedad(Enfermedades duplicarEnfermedad) {
-      this.duplicarEnfermedad = duplicarEnfermedad;
-   }
+            if (duplicados > 0) {
+                mensajeValidacion = "El código ingresado ya está registrado. Por favor ingrese un código válido";
+            } else {
+                contador++;
+            }
+        }
+        if (nuevaEnfermedad.getDescripcion() == (null) || nuevaEnfermedad.getDescripcion().isEmpty()) {
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
+        } else {
+            contador++;
+        }
 
-   public Enfermedades getEditarEnfermedad() {
-      return editarEnfermedad;
-   }
+        if (contador == 2) {
+            if (bandera == 1) {
+                //CERRAR FILTRADO
+                log.info("Desactivar");
+                codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
+                codigo.setFilterStyle("display: none; visibility: hidden;");
+                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
+                descripcion.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+                bandera = 0;
+                filtrarEnfermedades = null;
+                tipoLista = 0;
+                tamano = 335;
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevaEnfermedad.setSecuencia(l);
+            crearEnfermedades.add(0, nuevaEnfermedad);
+            listEnfermedades.add(nuevaEnfermedad);
+            enfermedadSeleccionada = nuevaEnfermedad;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEnfermedades').hide()");
+            nuevaEnfermedad = new Enfermedades();
 
-   public void setEditarEnfermedad(Enfermedades editarEnfermedad) {
-      this.editarEnfermedad = editarEnfermedad;
-   }
+        } else {
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
+            contador = 0;
+        }
+    }
 
-   public BigInteger getSecRegistro() {
-      return secRegistro;
-   }
+    public void limpiarNuevoEnfermedades() {
+        nuevaEnfermedad = new Enfermedades();
+    }
 
-   public void setSecRegistro(BigInteger secRegistro) {
-      this.secRegistro = secRegistro;
-   }
+    //------------------------------------------------------------------------------
+    public void duplicarEnfermedades() {
+        if (enfermedadSeleccionada != null) {
+            duplicarEnfermedad = new Enfermedades();
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarEnfermedad.setSecuencia(l);
+            duplicarEnfermedad.setCodigo(enfermedadSeleccionada.getCodigo());
+            duplicarEnfermedad.setDescripcion(enfermedadSeleccionada.getDescripcion());
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEnfer");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEnfermedad').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
 
-   public int getRegistrosBorrados() {
-      return registrosBorrados;
-   }
+    public void confirmarDuplicar() {
+        int contador = 0;
+        mensajeValidacion = " ";
+        int duplicados = 0;
+        a = null;
+        if (duplicarEnfermedad.getCodigo() == a) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int x = 0; x < listEnfermedades.size(); x++) {
+                if (listEnfermedades.get(x).getCodigo() == duplicarEnfermedad.getCodigo()) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = "El código ingresado ya está registrado. Por favor ingrese un código válido";
+            } else {
+                contador++;
+                duplicados = 0;
+            }
+        }
+        if (duplicarEnfermedad.getDescripcion() == null || duplicarEnfermedad.getDescripcion().isEmpty()) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;
+        }
+        if (contador == 2) {
+            listEnfermedades.add(duplicarEnfermedad);
+            crearEnfermedades.add(duplicarEnfermedad);
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+            enfermedadSeleccionada = duplicarEnfermedad;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            if (bandera == 1) {
+                //CERRAR FILTRADO
+                codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
+                codigo.setFilterStyle("display: none; visibility: hidden;");
+                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
+                descripcion.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+                bandera = 0;
+                filtrarEnfermedades = null;
+                tipoLista = 0;
+                tamano = 335;
+            }
+            duplicarEnfermedad = new Enfermedades();
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEnfermedad').hide()");
+        } else {
+            contador = 0;
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+        }
+    }
 
-   public void setRegistrosBorrados(int registrosBorrados) {
-      this.registrosBorrados = registrosBorrados;
-   }
+    public void limpiarDuplicarEnfermedades() {
+        duplicarEnfermedad = new Enfermedades();
+    }
 
-   public String getMensajeValidacion() {
-      return mensajeValidacion;
-   }
+    public void exportPDF() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEnfermedadesExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "ENFERMEDADES", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
 
-   public void setMensajeValidacion(String mensajeValidacion) {
-      this.mensajeValidacion = mensajeValidacion;
-   }
+    public void exportXLS() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEnfermedadesExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "ENFERMEDADES", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
 
-   public boolean isGuardado() {
-      return guardado;
-   }
+    public void verificarRastro() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (enfermedadSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(enfermedadSeleccionada.getSecuencia(), "ENFERMEDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+            }
+        } else if (administrarRastros.verificarHistoricosTabla("ENFERMEDADES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+        }
+    }
 
-   public void setGuardado(boolean guardado) {
-      this.guardado = guardado;
-   }
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    ////////////GETS Y SETS//////////////////
+    public List<Enfermedades> getListEnfermedades() {
+        if (listEnfermedades == null) {
+            listEnfermedades = administrarEnfermedades.consultarEnfermedades();
+        }
+        return listEnfermedades;
+    }
+
+    public void setListEnfermedades(List<Enfermedades> listEnfermedades) {
+        this.listEnfermedades = listEnfermedades;
+    }
+
+    public List<Enfermedades> getFiltrarEnfermedades() {
+        return filtrarEnfermedades;
+    }
+
+    public void setFiltrarEnfermedades(List<Enfermedades> filtrarEnfermedades) {
+        this.filtrarEnfermedades = filtrarEnfermedades;
+    }
+
+    public Enfermedades getNuevaEnfermedad() {
+        return nuevaEnfermedad;
+    }
+
+    public void setNuevaEnfermedad(Enfermedades nuevaEnfermedad) {
+        this.nuevaEnfermedad = nuevaEnfermedad;
+    }
+
+    public Enfermedades getDuplicarEnfermedad() {
+        return duplicarEnfermedad;
+    }
+
+    public void setDuplicarEnfermedad(Enfermedades duplicarEnfermedad) {
+        this.duplicarEnfermedad = duplicarEnfermedad;
+    }
+
+    public Enfermedades getEditarEnfermedad() {
+        return editarEnfermedad;
+    }
+
+    public void setEditarEnfermedad(Enfermedades editarEnfermedad) {
+        this.editarEnfermedad = editarEnfermedad;
+    }
+
+    public int getRegistrosBorrados() {
+        return registrosBorrados;
+    }
+
+    public void setRegistrosBorrados(int registrosBorrados) {
+        this.registrosBorrados = registrosBorrados;
+    }
+
+    public String getMensajeValidacion() {
+        return mensajeValidacion;
+    }
+
+    public void setMensajeValidacion(String mensajeValidacion) {
+        this.mensajeValidacion = mensajeValidacion;
+    }
+
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
+
+    public Enfermedades getEnfermedadSeleccionada() {
+        return enfermedadSeleccionada;
+    }
+
+    public void setEnfermedadSeleccionada(Enfermedades enfermedadSeleccionada) {
+        this.enfermedadSeleccionada = enfermedadSeleccionada;
+    }
+
+    public boolean isAceptar() {
+        return aceptar;
+    }
+
+    public void setAceptar(boolean aceptar) {
+        this.aceptar = aceptar;
+    }
+
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEnfermedades");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
+
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
+
+    public int getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(int tamano) {
+        this.tamano = tamano;
+    }
 
 }

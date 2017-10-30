@@ -88,10 +88,12 @@ public class ControlPantallas implements Serializable {
         editarPantalla = new Pantallas();
         nuevaPantalla = new Pantallas();
         nuevaPantalla.setEmpresa(new Empresas());
+        nuevaPantalla.getEmpresa().setNombre(" ");
         nuevaPantalla.setTabla(new Tablas());
+        nuevaPantalla.getTabla().setNombre(" ");
         duplicarPantalla = new Pantallas();
         duplicarPantalla.setEmpresa(new Empresas());
-        duplicarPantalla.setTabla(new Tablas());
+        duplicarPantalla.getEmpresa().setNombre(" ");
         guardado = true;
         mapParametros.put("paginaAnterior", paginaAnterior);
         altoTabla = "335";
@@ -415,27 +417,29 @@ public class ControlPantallas implements Serializable {
             contador++;
         }
 
-        if (nuevaPantalla.getNombre().equals(null) || nuevaPantalla.getNombre().isEmpty()) {
+        if (nuevaPantalla.getNombre() == null || nuevaPantalla.getNombre().isEmpty()) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
         } else {
             contador++;
         }
 
-        if (nuevaPantalla.getTabla().equals(null)) {
+        if (nuevaPantalla.getTabla() == null || nuevaPantalla.getTabla().getNombre().equals(" ")) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
         } else {
             contador++;
         }
 
-        if (nuevaPantalla.getEmpresa().equals(null)) {
+        if (nuevaPantalla.getEmpresa() == null || nuevaPantalla.getEmpresa().getNombre().equals(" ")) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
         } else {
             contador++;
         }
 
         for (int i = 0; i < listaPantallas.size(); i++) {
-            if (nuevaPantalla.getEmpresa().equals(listaPantallas.get(i).getEmpresa())) {
-                duplicados++;
+            if (nuevaPantalla.getEmpresa() != null) {
+                if (listaPantallas.get(i).getEmpresa() == nuevaPantalla.getEmpresa()) {
+                    duplicados++;
+                }
             }
         }
 
@@ -480,6 +484,10 @@ public class ControlPantallas implements Serializable {
 
     public void limpiarNuevaPantalla() {
         nuevaPantalla = new Pantallas();
+        nuevaPantalla.setEmpresa(new Empresas());
+        nuevaPantalla.getEmpresa().setNombre(" ");
+        nuevaPantalla.setTabla(new Tablas());
+        nuevaPantalla.getTabla().setNombre(" ");
     }
 
     public void duplicandoPantallas() {
@@ -511,7 +519,7 @@ public class ControlPantallas implements Serializable {
             contador++;
         }
 
-        if (duplicarPantalla.getNombre().equals(null) || duplicarPantalla.getNombre().isEmpty()) {
+        if (duplicarPantalla.getNombre() == null || duplicarPantalla.getNombre().isEmpty()) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
         } else {
             contador++;
@@ -523,15 +531,17 @@ public class ControlPantallas implements Serializable {
             contador++;
         }
 
-        if (duplicarPantalla.getEmpresa() == null) {
+        if (duplicarPantalla.getEmpresa() == null || duplicarPantalla.getEmpresa().getNombre().equals(" ")) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
         } else {
             contador++;
         }
 
         for (int i = 0; i < listaPantallas.size(); i++) {
-            if (duplicarPantalla.getEmpresa().equals(listaPantallas.get(i).getEmpresa())) {
-                duplicados++;
+            if (duplicarPantalla.getEmpresa() != null) {
+                if (listaPantallas.get(i).getEmpresa() == duplicarPantalla.getEmpresa()) {
+                    duplicados++;
+                }
             }
         }
 
@@ -576,6 +586,8 @@ public class ControlPantallas implements Serializable {
 
     public void limpiarDuplicarPantallas() {
         duplicarPantalla = new Pantallas();
+        duplicarPantalla.setEmpresa(new Empresas());
+        duplicarPantalla.getEmpresa().setNombre(" ");
     }
 
     public void exportPDF() throws IOException {
@@ -733,7 +745,7 @@ public class ControlPantallas implements Serializable {
             nuevaPantalla.setEmpresa(empresaSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoObj");
         } else if (tipoActualizacion == 2) {
-            nuevaPantalla.setEmpresa(empresaSeleccionada);
+            duplicarPantalla.setEmpresa(empresaSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPantalla");
         }
         lovEmpresasFiltrar = null;

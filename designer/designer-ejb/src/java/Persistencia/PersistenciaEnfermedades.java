@@ -6,12 +6,15 @@ package Persistencia;
 import Entidades.Enfermedades;
 import InterfacePersistencia.PersistenciaEnfermedadesInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless Clase encargada de realizar operaciones sobre la tabla
@@ -22,7 +25,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaEnfermedades.class);
+    private static Logger log = Logger.getLogger(PersistenciaEnfermedades.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -30,53 +33,67 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     @Override
-    public void crear(EntityManager em, Enfermedades enfermedades) {
+    public String crear(EntityManager em, Enfermedades enfermedades) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(enfermedades);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaEnfermedades.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaEnfermedades.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear la Enfermedad";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, Enfermedades enfermedades) {
+    public String editar(EntityManager em, Enfermedades enfermedades) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(enfermedades);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaEnfermedades.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaEnfermedades.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar la Enfermedad";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, Enfermedades enfermedades) {
+    public String borrar(EntityManager em, Enfermedades enfermedades) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(enfermedades));
             tx.commit();
-
+            return "EXITO";
         } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
                 log.error("Error PersistenciaEnfermedades.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Borrar la Enfermedad";
             }
         }
     }
@@ -96,7 +113,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
     public List<Enfermedades> buscarEnfermedades(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT e FROM Enfermedades e ORDER BY e.codigo DESC");
+            Query query = em.createQuery("SELECT e FROM Enfermedades e ");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Enfermedades> enfermedades = query.getResultList();
             return enfermedades;
@@ -114,7 +131,6 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.warn("PERSISTENCIAENFERMEDADES contadorAusentimos = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorAusentimos  ERROR =  ", e);
@@ -131,7 +147,6 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.warn("PERSISTENCIAENFERMEDADES contadorDetallesLicencias = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorDetallesLicencias  ERROR =  ", e);
@@ -148,7 +163,6 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.warn("PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas  ERROR =  ", e);
@@ -165,7 +179,6 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.warn("PERSISTENCIAENFERMEDADES contadorSoausentismos = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorSoausentismos  ERROR =  ", e);
@@ -182,7 +195,6 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.warn("PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas  ERROR =  ", e);

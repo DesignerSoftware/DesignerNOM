@@ -11,7 +11,7 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                    <p:panel  id="PanelTotal" header="ObjetosDB" styleClass="panelTotal"> >  
+                    <p:panel  id="PanelTotal" header="Pantallas" styleClass="panelTotal"> >  
                         <p:growl id="growl" showDetail="true"/> 
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
@@ -70,7 +70,7 @@
                         <p:commandButton class="cssBotonCancelar" icon="" id="ATRAS" value=""  actionListener="#{controlPantallas.salir()}"   />
 
                         <fieldset style="position: absolute; left: 10px; top: 75px; font-size: 10px; width: 835px; height: 400px; border-radius: 10px;">
-                            <legend style="font-size: 13px; color: blue;"><strong>ObjetosDB</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Pantallas</strong></legend>
                             <p:dataTable id="datosPantallas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
                                          value="#{controlPantallas.listaPantallas}" scrollable="true" scrollHeight="#{controlPantallas.altoTabla}"  scrollWidth="830"
                                          filteredValue="#{controlPantallas.listaPantallasFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
@@ -125,7 +125,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value=" tabla"/>
+                                        <p:commandButton style="width: 120%;" id="fooDescripcion" onstart="#{controlTablas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pantalla', 'tabla')}" value=""/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Empresa" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}" filterMatchMode="contains" id="empresa" width="240" filterStyle="display: none; visibility: hidden;">                                  
@@ -332,14 +332,14 @@
 
                             <strong><h:outputText value="*Tabla: "  style="font-size: 12px; position: absolute; top: 125px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off"  value="#{controlPantallas.nuevaPantalla.tabla.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 120px;">
-                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 0, 1)}" update="@this"/>
+                                <p:ajax event="dblclick"  process="@this" listener="#{controlPantallas.asignarIndex(info, 0, 1)}"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 260px; top: 122px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPantallas.asignarIndex(info, 0, 1)}"/>   
 
-                            <strong><h:outputText value="Empresa: "  style="font-size: 12px; position: absolute; top: 155px; left: 18px;"/></strong>
+                            <strong><h:outputText value="*Empresa: "  style="font-size: 12px; position: absolute; top: 155px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off"  value="#{controlPantallas.nuevaPantalla.empresa.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 150px;">
-                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 1, 1)}" update="@this"/>
+                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 1, 1)}" process="@this"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 260px; top: 152px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPantallas.asignarIndex(info, 1, 1)}"/>   
@@ -368,14 +368,14 @@
 
                             <strong><h:outputText value="*Tabla: "  style="font-size: 12px; position: absolute; top: 125px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off"  value="#{controlPantallas.duplicarPantalla.tabla.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 120px;">
-                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 0, 2)}" update="@this"/>
+                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 0, 2)}" process="@this"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 260px; top: 122px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPantallas.asignarIndex(info, 0, 2)}"/>   
 
-                            <strong><h:outputText value="Empresa: "  style="font-size: 12px; position: absolute; top: 155px; left: 18px;"/></strong>
+                            <strong><h:outputText value="*Empresa: "  style="font-size: 12px; position: absolute; top: 155px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off"  value="#{controlPantallas.duplicarPantalla.empresa.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 150px;">
-                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 1, 2)}" update="@this"/>
+                                <p:ajax event="dblclick"  listener="#{controlPantallas.asignarIndex(info, 1, 2)}" process="@this"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 260px; top: 152px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPantallas.asignarIndex(info, 1, 2)}"/>  
