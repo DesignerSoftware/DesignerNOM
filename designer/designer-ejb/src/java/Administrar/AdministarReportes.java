@@ -127,6 +127,7 @@ public class AdministarReportes implements AdministarReportesInterface {
         }
     }
 
+    @Override
     public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) throws Exception {
         general = persistenciaGenerales.obtenerRutas(getEm());
         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(getEm());

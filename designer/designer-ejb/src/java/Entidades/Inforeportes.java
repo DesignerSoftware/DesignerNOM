@@ -431,6 +431,8 @@ public class Inforeportes implements Serializable {
                     estadoTipo = "XLS";
                 } else if (tipo.equalsIgnoreCase("DELIMITED")) {
                     estadoTipo = "PLANO";
+                } else if (tipo.equalsIgnoreCase("TXT")) {
+                    estadoTipo = "PLANO";
                 } else if (tipo.equalsIgnoreCase("XML")) {
                     estadoTipo = "XML";
                 } else if (tipo.equalsIgnoreCase("SPREADSHEET")) {

@@ -1070,7 +1070,7 @@ public class ControlNReportesSeguridad implements Serializable {
         reporteSeleccionado = reporte;
         cambiosReporte = false;
         if (reporteSeleccionado.getEstadoTipo().equals("PLANO")) {
-            reporteSeleccionado.setTipo("DELIMITED");
+            reporteSeleccionado.setTipo("TXT");
             tipoReporte = reporteSeleccionado.getTipo();
         } else if (reporteSeleccionado.getEstadoTipo().equals("CSV")) {
             reporteSeleccionado.setTipo("SPREADSHEET");
@@ -1104,7 +1104,7 @@ public class ControlNReportesSeguridad implements Serializable {
                 log.info("reporteSeleccionado.getEstadoTipo(): " + reporteSeleccionado.getEstadoTipo());
                 nombreReporte = reporteSeleccionado.getNombrereporte();
                 if (reporteSeleccionado.getEstadoTipo().equals("PLANO")) {
-                    reporteSeleccionado.setTipo("DELIMITED");
+                    reporteSeleccionado.setTipo("TXT");
                     tipoReporte = reporteSeleccionado.getTipo();
                 } else if (reporteSeleccionado.getEstadoTipo().equals("CSV")) {
                     reporteSeleccionado.setTipo("SPREADSHEET");

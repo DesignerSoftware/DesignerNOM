@@ -12,13 +12,13 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JExcelApiExporterParameter;
 import net.sf.jasperreports.engine.export.JExcelApiMetadataExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRCsvMetadataExporter;
 import net.sf.jasperreports.engine.export.JRCsvMetadataExporterParameter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.AsynchronousFillHandle;
@@ -53,9 +53,9 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             parametros.put("RutaReportes", rutaReporte);
             if (parametrosemp != null && !parametrosemp.isEmpty()) {
 //                if (parametrosemp.containsKey("envioMasivo")) {
-                    System.out.println("Buenas Ingrese a parametros.put");
-                    parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
-                    parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
+                System.out.println("Buenas Ingrese a parametros.put");
+                parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
+                parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
 //                }
             }
             System.out.println("parametros antes de generar: " + parametros);
@@ -123,29 +123,43 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     JRTextExporter txtexporter = new JRTextExporter();
                     txtexporter.setExporterInput(new SimpleExporterInput(imprimir));
                     txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+                    SimpleTextReportConfiguration context = new SimpleTextReportConfiguration();
+                    context.setCharHeight(new Float(11));
+                    context.setCharWidth(new Float(7));
                     SimpleTextExporterConfiguration c = new SimpleTextExporterConfiguration();
                     c.setTrimLineRight(Boolean.TRUE);
                     c.setLineSeparator("\r\n");
                     c.isOverrideHints();
                     txtexporter.setConfiguration(c);
-                    SimpleTextReportConfiguration conf = new SimpleTextReportConfiguration();
-                    conf.getCharHeight();
-                    conf.getCharWidth();
-                    txtexporter.setConfiguration(conf);
+                    txtexporter.setConfiguration(context);
                     txtexporter.exportReport();
                     break;
                 case "TXT":
 //                    exporter = new JRTextExporter();
-//                    exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(687).floatValue());
-//                    exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(15).floatValue());
-                    txtexporter = new JRTextExporter();
-                    txtexporter.setExporterInput(new SimpleExporterInput(imprimir));
-                    txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
-                    c = new SimpleTextExporterConfiguration();
-                    c.setTrimLineRight(Boolean.TRUE);
-                    c.setLineSeparator("\r\n");
-                    txtexporter.setConfiguration(c);                    
-                    txtexporter.exportReport();
+//                    exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(11).floatValue());
+//                    exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(7).floatValue());
+//                    txtexporter = new JRTextExporter();
+//                    txtexporter.setExporterInput(new SimpleExporterInput(imprimir));
+//                    txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+//                    SimpleTextReportConfiguration context = new SimpleTextReportConfiguration();
+//                    context.setCharHeight(new Float(11));
+//                    context.setCharWidth(new Float(7));
+//                    context.getPageHeightInChars();
+//                    context.getPageWidthInChars();
+//                    SimpleTextExporterConfiguration co = new SimpleTextExporterConfiguration();
+//                    co = new SimpleTextExporterConfiguration();
+////                    co.setTrimLineRight(Boolean.TRUE);
+//                    co.setLineSeparator("\r\n");
+//                    txtexporter.setConfiguration(co);
+//                    txtexporter.setConfiguration(context);
+//                    txtexporter.exportReport();
+                    JRCsvExporter csvExport = new JRCsvExporter();
+                    csvExport.setExporterInput(new SimpleExporterInput(imprimir));
+                    csvExport.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+                    SimpleCsvExporterConfiguration csvconfig = new SimpleCsvExporterConfiguration();
+                    csvconfig.setRecordDelimiter("\r\n");
+                    csvExport.setConfiguration(csvconfig);
+                    csvExport.exportReport();
                     break;
                 default:
                     break;
@@ -513,7 +527,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReportePlanta1(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-          
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -546,7 +560,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteSegUsuarios(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-            
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -580,7 +594,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteHistoricosUsuarios(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
         try {
-            
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -650,7 +664,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteObjetos(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-           
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
