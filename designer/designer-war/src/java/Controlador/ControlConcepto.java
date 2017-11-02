@@ -1673,7 +1673,7 @@ public class ControlConcepto implements Serializable {
 
     //EXPORTAR
     public void exportPDF() throws IOException {
-        DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosConceptosExportar");
+        DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar2:datosConceptosExportar2");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDFTablasAnchas();
         exporter.export(context, tablaE, "ConceptosPDF", false, false, "UTF-8", null, null);
@@ -1683,7 +1683,7 @@ public class ControlConcepto implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosConceptosExportar");
+        DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar2:datosConceptosExportar2");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tablaE, "ConceptosXLS", false, false, "UTF-8", null, null);

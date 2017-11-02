@@ -16,6 +16,7 @@ import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaGeneralesInterface;
 import InterfacePersistencia.PersistenciaTempProrrateosInterface;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -43,15 +44,17 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -63,7 +66,8 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -185,6 +189,26 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       } catch (Exception e) {
          log.warn("ERROR AdministrarArchivoPlanoCentroCosto.consultarRuta() e: " + e);
          return "C:\\DesignerRHN\\Reportes\\ArchivosPlanos\\";
+      }
+   }
+
+   @Override
+   public boolean verificarCentroCostoEmpresa(BigInteger codCC, BigInteger secEmpresa) {
+      try {
+         return persistenciaTempProrrateos.verificarCodigoCentroCosto_Empresa(getEm(), codCC, secEmpresa);
+      } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + ".verificarCentroCostoEmpresa() ERROR: " + e);
+         return false;
+      }
+   }
+
+   @Override
+   public boolean verificarProyectoEmpresa(String codProy, BigInteger secEmpresa) {
+      try {
+         return persistenciaTempProrrateos.verificarCodigoProyecto_Empresa(getEm(), codProy, secEmpresa);
+      } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + ".verificarProyectoEmpresa() ERROR: " + e);
+         return false;
       }
    }
 

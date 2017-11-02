@@ -12,8 +12,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -82,7 +80,7 @@ public class TempProrrateos implements Serializable {
    @Transient
    private String nombreCentrocosto;
    @Transient
-   private BigInteger codigoProyecto;
+   private String codigoProyecto;
    @Transient
    private BigInteger codigoEmpleado;
    @Transient
@@ -248,20 +246,20 @@ public class TempProrrateos implements Serializable {
       this.nombreCentrocosto = nombreCentrocosto;
    }
 
-   public BigInteger getCodigoProyecto() {
+   public String getCodigoProyecto() {
       if (this.proyecto != null && codigoProyecto == null) {
-         codigoProyecto = new BigInteger(proyecto);
+         codigoProyecto = new String(proyecto);
       }
       return codigoProyecto;
    }
 
-   public void setCodigoProyecto(BigInteger codigoProy) {
+   public void setCodigoProyecto(String codigoProy) {
       if (codigoProy != null) {
-         this.proyecto = codigoProy.toString();
+         this.proyecto = codigoProy;
       } else {
          this.proyecto = null;
       }
-      this.codigoProyecto = codigoProyecto;
+      this.codigoProyecto = codigoProy;
    }
 
    public BigInteger getCodigoEmpleado() {

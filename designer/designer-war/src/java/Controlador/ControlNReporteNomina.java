@@ -306,43 +306,59 @@ public class ControlNReporteNomina implements Serializable {
 
 //TOOLTIP
    public void guardarCambios() {
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (!cambiosReporte) {
             if (parametroDeReporte.getUsuario() != null) {
-
-               if (parametroDeReporte.getCodigoempleadodesde() == null) {
-                  parametroDeReporte.setCodigoempleadodesde(null);
+//               if (parametroDeReporte.getCodigoempleadodesde() == null) {
+//                  parametroDeReporte.setCodigoempleadodesde(null);
+//               }
+//               if (parametroDeReporte.getCodigoempleadohasta() == null) {
+//                  parametroDeReporte.setCodigoempleadohasta(null);
+//               }
+               if (parametroDeReporte.getGrupo() != null) {
+                  if (parametroDeReporte.getGrupo().getSecuencia() == null) {
+                     parametroDeReporte.setGrupo(null);
+                  }
                }
-               if (parametroDeReporte.getCodigoempleadohasta() == null) {
-                  parametroDeReporte.setCodigoempleadohasta(null);
+               if (parametroDeReporte.getUbicaciongeografica() != null) {
+                  if (parametroDeReporte.getUbicaciongeografica().getSecuencia() == null) {
+                     parametroDeReporte.setUbicaciongeografica(null);
+                  }
                }
-               if (parametroDeReporte.getGrupo().getSecuencia() == null) {
-                  parametroDeReporte.setGrupo(null);
+               if (parametroDeReporte.getEmpresa() != null) {
+                  if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
+                     parametroDeReporte.setEmpresa(null);
+                  }
                }
-               if (parametroDeReporte.getUbicaciongeografica().getSecuencia() == null) {
-                  parametroDeReporte.setUbicaciongeografica(null);
+               if (parametroDeReporte.getLocalizacion() != null) {
+                  if (parametroDeReporte.getLocalizacion().getSecuencia() == null) {
+                     parametroDeReporte.setLocalizacion(null);
+                  }
                }
-               if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
-                  parametroDeReporte.setEmpresa(null);
+               if (parametroDeReporte.getTipotrabajador() != null) {
+                  if (parametroDeReporte.getTipotrabajador().getSecuencia() == null) {
+                     parametroDeReporte.setTipotrabajador(null);
+                  }
                }
-               if (parametroDeReporte.getLocalizacion().getSecuencia() == null) {
-                  parametroDeReporte.setLocalizacion(null);
+               if (parametroDeReporte.getTercero() != null) {
+                  if (parametroDeReporte.getTercero().getSecuencia() == null) {
+                     parametroDeReporte.setTercero(null);
+                  }
                }
-               if (parametroDeReporte.getTipotrabajador().getSecuencia() == null) {
-                  parametroDeReporte.setTipotrabajador(null);
+               if (parametroDeReporte.getProceso() != null) {
+                  if (parametroDeReporte.getProceso().getSecuencia() == null) {
+                     parametroDeReporte.setProceso(null);
+                  }
                }
-               if (parametroDeReporte.getTercero().getSecuencia() == null) {
-                  parametroDeReporte.setTercero(null);
+               if (parametroDeReporte.getAsociacion() != null) {
+                  if (parametroDeReporte.getAsociacion().getSecuencia() == null) {
+                     parametroDeReporte.setAsociacion(null);
+                  }
                }
-               if (parametroDeReporte.getProceso().getSecuencia() == null) {
-                  parametroDeReporte.setProceso(null);
-               }
-               if (parametroDeReporte.getAsociacion().getSecuencia() == null) {
-                  parametroDeReporte.setAsociacion(null);
-               }
-               if (parametroDeReporte.getTipoasociacion().getSecuencia() == null) {
-                  parametroDeReporte.setTipoasociacion(null);
+               if (parametroDeReporte.getTipoasociacion() != null) {
+                  if (parametroDeReporte.getTipoasociacion().getSecuencia() == null) {
+                     parametroDeReporte.setTipoasociacion(null);
+                  }
                }
                administrarNReportesNomina.modificarParametrosReportes(parametroDeReporte);
             }
@@ -960,13 +976,11 @@ public class ControlNReporteNomina implements Serializable {
 
    public void mostrarDialogoBuscarReporte() {
       try {
-         if (cambiosReporte == true) {
+         if (cambiosReporte) {
             contarRegistrosLovReportes();
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioReportes:ReportesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').show()");
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
          }
       } catch (Exception e) {
@@ -975,7 +989,7 @@ public class ControlNReporteNomina implements Serializable {
    }
 
    public void mostrarTodos() {
-      if (cambiosReporte == true) {
+      if (cambiosReporte) {
          defaultPropiedadesParametrosReporte();
          listaIR.clear();
          for (int i = 0; i < lovInforeportes.size(); i++) {
@@ -983,7 +997,6 @@ public class ControlNReporteNomina implements Serializable {
          }
          reporteSeleccionado = null;
          contarRegistros();
-         RequestContext context = RequestContext.getCurrentInstance();
          activoBuscarReporte = false;
          activoMostrarTodos = true;
          RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
@@ -1361,15 +1374,18 @@ public class ControlNReporteNomina implements Serializable {
    }
 
    //AUTOCOMPLETAR
-   public void autocompletarGeneral(String campoConfirmar, String valorConfirmar) {
-      RequestContext context = RequestContext.getCurrentInstance();
+   public void autocompletarGeneral(String campoConfirmar, String valor) {
+      System.out.println("Controlador.ControlNReporteNomina.autocompletarGeneral() valor: (" + valor + ")");
       int indiceUnicoElemento = -1;
       int coincidencias = 0;
       if (campoConfirmar.equalsIgnoreCase("GRUPO")) {
-         if (!valorConfirmar.isEmpty()) {
+         cargarListaGruposConcepto();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getGrupo().setDescripcion(grupo);
             for (int i = 0; i < lovGruposConceptos.size(); i++) {
-               if (lovGruposConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+//               if (lovGruposConceptos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+               if (valor.toUpperCase().equals(lovGruposConceptos.get(i).getStrCodigo())
+                       || lovGruposConceptos.get(i).getDescripcion().contains(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1387,7 +1403,7 @@ public class ControlNReporteNomina implements Serializable {
                RequestContext.getCurrentInstance().execute("PF('GruposConceptosDialogo').show()");
             }
          } else {
-            parametroDeReporte.setGrupo(new GruposConceptos());
+            parametroDeReporte.setGrupo(null);
             parametroModificacion = parametroDeReporte;
             lovGruposConceptos.clear();
             getLovGruposConceptos();
@@ -1395,11 +1411,12 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
-      if (campoConfirmar.equalsIgnoreCase("UBIGEO")) {
-         if (!valorConfirmar.isEmpty()) {
+      if (campoConfirmar.equalsIgnoreCase("UBIGEO") || campoConfirmar.equalsIgnoreCase("UBIGEOGRAFICA")) {
+         cargarListaUbicacionesGeograficas();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getUbicaciongeografica().setDescripcion(ubiGeo);
             for (int i = 0; i < lovUbicacionesGeograficas.size(); i++) {
-               if (lovUbicacionesGeograficas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovUbicacionesGeograficas.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1426,10 +1443,10 @@ public class ControlNReporteNomina implements Serializable {
          }
       }
       if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
-         if (!valorConfirmar.isEmpty()) {
+         if (!valor.isEmpty()) {
             parametroDeReporte.getEmpresa().setNombre(empresa);
             for (int i = 0; i < lovEmpresas.size(); i++) {
-               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+               if (lovEmpresas.get(i).getNombre().startsWith(valor)) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1455,11 +1472,12 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
-      if (campoConfirmar.equalsIgnoreCase("TIPOASO")) {
-         if (!valorConfirmar.isEmpty()) {
+      if (campoConfirmar.equalsIgnoreCase("TIPOASO") || campoConfirmar.equalsIgnoreCase("TIPOASOCIACION")) {
+         getLovTiposAsociaciones();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getTipoasociacion().setDescripcion(tipoAso);
             for (int i = 0; i < lovTiposAsociaciones.size(); i++) {
-               if (lovTiposAsociaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovTiposAsociaciones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1486,10 +1504,11 @@ public class ControlNReporteNomina implements Serializable {
          }
       }
       if (campoConfirmar.equalsIgnoreCase("ESTRUCTURA")) {
-         if (!valorConfirmar.isEmpty()) {
+         cargarListaEstructuras();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getLocalizacion().setNombre(estructura);
             for (int i = 0; i < lovEstructuras.size(); i++) {
-               if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEstructuras.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1514,10 +1533,11 @@ public class ControlNReporteNomina implements Serializable {
          }
       }
       if (campoConfirmar.equalsIgnoreCase("TIPOTRABAJADOR")) {
-         if (!valorConfirmar.isEmpty()) {
+         cargarListaTiposTrabajadores();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
             for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
-               if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovTiposTrabajadores.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1542,10 +1562,11 @@ public class ControlNReporteNomina implements Serializable {
          }
       }
       if (campoConfirmar.equalsIgnoreCase("TERCERO")) {
-         if (!valorConfirmar.isEmpty()) {
+         cargarListaTerceros();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getTercero().setNombre(tercero);
             for (int i = 0; i < lovTerceros.size(); i++) {
-               if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovTerceros.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1572,10 +1593,11 @@ public class ControlNReporteNomina implements Serializable {
          }
       }
       if (campoConfirmar.equalsIgnoreCase("PROCESO")) {
-         if (!valorConfirmar.isEmpty()) {
+         cargarListaProcesos();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getProceso().setDescripcion(proceso);
             for (int i = 0; i < lovProcesos.size(); i++) {
-               if (lovProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovProcesos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1602,10 +1624,11 @@ public class ControlNReporteNomina implements Serializable {
          }
       }
       if (campoConfirmar.equalsIgnoreCase("ASOCIACION")) {
-         if (!valorConfirmar.isEmpty()) {
+         cargarListaAsociaciones();
+         if (!valor.isEmpty()) {
             parametroDeReporte.getAsociacion().setDescripcion(asociacion);
             for (int i = 0; i < lovAsociaciones.size(); i++) {
-               if (lovAsociaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovAsociaciones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1673,7 +1696,11 @@ public class ControlNReporteNomina implements Serializable {
                break;
             case 4:
                habilitarBotonLov();
-               grupo = parametroDeReporte.getGrupo().getStrCodigo() + parametroDeReporte.getGrupo().getDescripcion();
+               if (parametroDeReporte.getGrupo() != null) {
+                  grupo = parametroDeReporte.getGrupo().getStrCodigo() + parametroDeReporte.getGrupo().getDescripcion();
+               } else {
+                  grupo = "";
+               }
                break;
             case 5:
                habilitarBotonLov();
@@ -1852,7 +1879,6 @@ public class ControlNReporteNomina implements Serializable {
       if (parametroFecha.getFechahasta() == null) {
          contador++;
       }
-
       if (contador == 0) {
          parametroDeReporte.setFechadesde(parametroFecha.getFechadesde());
          parametroDeReporte.setFechahasta(parametroFecha.getFechahasta());
@@ -2035,33 +2061,33 @@ public class ControlNReporteNomina implements Serializable {
                parametroDeReporte.setFechacorte(new Date());
                log.info("Parametros creados");
             }
-         }
-         if (parametroDeReporte.getGrupo() == null) {
-            parametroDeReporte.setGrupo(new GruposConceptos());
-         }
-         if (parametroDeReporte.getUbicaciongeografica() == null) {
-            parametroDeReporte.setUbicaciongeografica(new UbicacionesGeograficas());
-         }
-         if (parametroDeReporte.getTipoasociacion() == null) {
-            parametroDeReporte.setTipoasociacion(new TiposAsociaciones());
-         }
-         if (parametroDeReporte.getLocalizacion() == null) {
-            parametroDeReporte.setLocalizacion(new Estructuras());
-         }
-         if (parametroDeReporte.getTipotrabajador() == null) {
-            parametroDeReporte.setTipotrabajador(new TiposTrabajadores());
-         }
-         if (parametroDeReporte.getTercero() == null) {
-            parametroDeReporte.setTercero(new Terceros());
-         }
-         if (parametroDeReporte.getProceso() == null) {
-            parametroDeReporte.setProceso(new Procesos());
-         }
-         if (parametroDeReporte.getAsociacion() == null) {
-            parametroDeReporte.setAsociacion(new Asociaciones());
-         }
-         if (parametroDeReporte.getEmpresa() == null) {
-            parametroDeReporte.setEmpresa(new Empresas());
+//            if (parametroDeReporte.getGrupo() == null) {
+//               parametroDeReporte.setGrupo(new GruposConceptos());
+//            }
+            if (parametroDeReporte.getUbicaciongeografica() == null) {
+               parametroDeReporte.setUbicaciongeografica(new UbicacionesGeograficas());
+            }
+            if (parametroDeReporte.getTipoasociacion() == null) {
+               parametroDeReporte.setTipoasociacion(new TiposAsociaciones());
+            }
+            if (parametroDeReporte.getLocalizacion() == null) {
+               parametroDeReporte.setLocalizacion(new Estructuras());
+            }
+            if (parametroDeReporte.getTipotrabajador() == null) {
+               parametroDeReporte.setTipotrabajador(new TiposTrabajadores());
+            }
+            if (parametroDeReporte.getTercero() == null) {
+               parametroDeReporte.setTercero(new Terceros());
+            }
+            if (parametroDeReporte.getProceso() == null) {
+               parametroDeReporte.setProceso(new Procesos());
+            }
+            if (parametroDeReporte.getAsociacion() == null) {
+               parametroDeReporte.setAsociacion(new Asociaciones());
+            }
+            if (parametroDeReporte.getEmpresa() == null) {
+               parametroDeReporte.setEmpresa(new Empresas());
+            }
          }
          return parametroDeReporte;
       } catch (Exception e) {
@@ -2776,12 +2802,20 @@ public class ControlNReporteNomina implements Serializable {
 
    public String getGrupoP() {
       if (parametroDeReporte != null) {
-         grupoP = parametroDeReporte.getGrupo().getStrCodigo() + ' ' + parametroDeReporte.getGrupo().getDescripcion();
+         if (parametroDeReporte.getGrupo() != null) {
+            grupoP = parametroDeReporte.getGrupo().getStrCodigo() + ' ' + parametroDeReporte.getGrupo().getDescripcion();
+         } else {
+            grupoP = "";
+         }
       }
       return grupoP;
    }
 
    public void setGrupoP(String grupoP) {
+      log.info("ControlNReporteNomina.setGrupoP() entro: (" + grupoP + ")");
+      this.parametroDeReporte.setGrupo(null);
+      aceptar = false;
+      cambiosReporte = false;
       this.grupoP = grupoP;
    }
 

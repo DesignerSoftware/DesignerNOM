@@ -6,6 +6,7 @@
 package InterfacePersistencia;
 
 import Entidades.TempProrrateos;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
@@ -33,4 +34,8 @@ public interface PersistenciaTempProrrateosInterface {
    public void cargarTempProrrateos(EntityManager em);
 
    public int reversarTempProrrateos(EntityManager em, String usuario, String documentoSoporte);
+
+   public boolean verificarCodigoCentroCosto_Empresa(EntityManager em, BigInteger codigoCC, BigInteger secEmpresa);
+   
+   public boolean verificarCodigoProyecto_Empresa(EntityManager em, String codigoProy, BigInteger secEmpresa);
 }

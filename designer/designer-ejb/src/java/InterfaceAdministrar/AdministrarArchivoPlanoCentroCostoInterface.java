@@ -8,10 +8,11 @@ package InterfaceAdministrar;
 import Entidades.ActualUsuario;
 import Entidades.NombresEmpleadosAux;
 import Entidades.TempProrrateos;
+import java.math.BigInteger;
 import java.util.List;
 
 public interface AdministrarArchivoPlanoCentroCostoInterface {
-   
+
    public void obtenerConexion(String idSesion);
 
    public void crear(List<TempProrrateos> listaTempPP);
@@ -23,7 +24,7 @@ public interface AdministrarArchivoPlanoCentroCostoInterface {
    public void borrarRegistrosTempProrrateos(String usuarioBD);
 
    public List<TempProrrateos> obtenerTempProrrateos(String usuarioBD);
-   
+
    public List<NombresEmpleadosAux> consultarNombresEmpleados();
 
    public List<String> obtenerDocumentosSoporteCargados();
@@ -37,4 +38,7 @@ public interface AdministrarArchivoPlanoCentroCostoInterface {
 
    public ActualUsuario actualUsuario();
 
+   public boolean verificarCentroCostoEmpresa(BigInteger codCC, BigInteger secEmpresa);
+
+   public boolean verificarProyectoEmpresa(String codProy, BigInteger secEmpresa);
 }

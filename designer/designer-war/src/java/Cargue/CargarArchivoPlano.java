@@ -736,7 +736,7 @@ public class CargarArchivoPlano implements Serializable {
             //VALIDACION EMPLEADO
             if (listTempNovedades.get(i).getEmpleado() != null) {
                validacion = administrarCargueArchivos.verificarEmpleadoEmpresa(listTempNovedades.get(i).getEmpleado(), secEmpresa);
-               if (validacion == false) {
+               if (!validacion) {
                   errores++;
                   erroresN.add("El código del empleado: " + listTempNovedades.get(i).getEmpleado() + ", no existe.");
                }
@@ -747,18 +747,18 @@ public class CargarArchivoPlano implements Serializable {
             //VALIDACION CONCEPTO
             if (listTempNovedades.get(i).getConcepto() != null) {
                validacion = administrarCargueArchivos.verificarConcepto(listTempNovedades.get(i).getConcepto());
-               if (validacion == false) {
+               if (!validacion) {
                   errores++;
                   erroresN.add("El concepto: " + listTempNovedades.get(i).getConcepto() + ", no existe.");
                }
             } else {
                errores++;
-               erroresN.add("La Concepto es necesario, campo Vacio.");
+               erroresN.add("El Concepto es necesario, campo Vacio.");
             }
             //VALIDACION PERIODICIDAD
             if (listTempNovedades.get(i).getPeriodicidad() != null) {
                validacion = administrarCargueArchivos.verificarPeriodicidad(listTempNovedades.get(i).getPeriodicidad());
-               if (validacion == false) {
+               if (!validacion) {
                   errores++;
                   erroresN.add("La periodicidad:" + listTempNovedades.get(i).getPeriodicidad() + ", no existe.");
                }
@@ -824,7 +824,7 @@ public class CargarArchivoPlano implements Serializable {
          //SEGUNDA ETAPA
          if (errores == 0) {
             validacion = administrarCargueArchivos.verificarTipoEmpleadoActivo(listTempNovedades.get(i).getEmpleado(), secEmpresa);
-            if (validacion == true) {
+            if (validacion) {
                Empleados empleado = administrarCargueArchivos.consultarEmpleadoEmpresa(listTempNovedades.get(i).getEmpleado(), secEmpresa);
                VWActualesTiposTrabajadores vwActualTipoTrabajador = administrarCargueArchivos.consultarActualTipoTrabajadorEmpleado(empleado.getSecuencia());
                VWActualesReformasLaborales vwActualReformaLaboral = administrarCargueArchivos.consultarActualReformaLaboralEmpleado(empleado.getSecuencia());
@@ -841,7 +841,7 @@ public class CargarArchivoPlano implements Serializable {
                            subTotal = subTotal.add(listTempNovedades.get(i).getValortotal());
                         }
                         validacion = administrarCargueArchivos.verificarZonaT(concepto.getSecuencia(), vwActualReformaLaboral.getReformaLaboral().getSecuencia(), vwActualTiposContratos.getTipoContrato().getSecuencia(), vwActualTipoTrabajador.getTipoTrabajador().getSecuencia());
-                        if (validacion == false) {
+                        if (!validacion) {
                            errores++;
                            erroresN.add("La Zona T del concepto no coicide con la del empleado (" + empleado.getCodigoempleado() + ").");
                         }
@@ -943,7 +943,7 @@ public class CargarArchivoPlano implements Serializable {
             //MARCAR EL REGISTRO EN LA BASE DE DATOS PARA ASBER QUE TIENE ERRORES
             errorNovedad.setNumeroErrores(errores);
             errorNovedad.setMensajeError(erroresN);
-            listTempNovedades.get(i).setEstadovalidacion("I");
+//            listTempNovedades.get(i).setEstadovalidacion("I");
             administrarCargueArchivos.modificarTempNovedades(listTempNovedades.get(i));
          }
          //TERCERA ETAPA

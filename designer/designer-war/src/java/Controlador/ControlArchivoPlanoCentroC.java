@@ -10,11 +10,17 @@ import ClasesAyuda.ResultadoBorrarTodoNovedades;
 import ControlNavegacion.ControlListaNavegacion;
 import ControlNavegacion.ListasRecurrentes;
 import Entidades.ActualUsuario;
+import Entidades.Conceptos;
+import Entidades.Empleados;
 import Entidades.NombresEmpleadosAux;
 import Entidades.TempProrrateos;
+import Entidades.VWActualesReformasLaborales;
+import Entidades.VWActualesTiposContratos;
+import Entidades.VWActualesTiposTrabajadores;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarArchivoPlanoCentroCostoInterface;
+import InterfaceAdministrar.AdministrarCargueArchivosInterface;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -64,6 +70,8 @@ public class ControlArchivoPlanoCentroC implements Serializable {
 
    @EJB
    AdministrarArchivoPlanoCentroCostoInterface AdministrarArchivoPlanoCentroCosto;
+   @EJB
+   AdministrarCargueArchivosInterface administrarCargueArchivos;
    private List<TempProrrateos> listTempProrrateos;
    private List<TempProrrateos> filtrarListTempProrrateos;
    private List<TempProrrateos> modificarTempProrrateos;
@@ -190,17 +198,6 @@ public class ControlArchivoPlanoCentroC implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-         //         if (pag.equals("rastrotabla")) {
-         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Proyectos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Proyectos", pagActual);
-         //   pag = "rastrotabla";
-         //}
       }
       limpiarListasValor();
    }
@@ -474,8 +471,8 @@ public class ControlArchivoPlanoCentroC implements Serializable {
             log.info("sProyecto: _" + sProyecto + "_");
             if (!sProyecto.equals("")) {
                try {
-                  BigInteger codProyecto = new BigInteger(sProyecto);
-                  tNovedades.setCodigoProyecto(codProyecto);
+//                  BigInteger codProyecto = new BigInteger(sProyecto);
+                  tNovedades.setCodigoProyecto(sProyecto);
                } catch (Exception e) {
                   log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codProyecto :  ", e);
                   context.update("form:errorArchivo");
@@ -582,6 +579,134 @@ public class ControlArchivoPlanoCentroC implements Serializable {
             context.update("form:erroresNovedad");
             context.execute("PF('erroresNovedad').show()");
          }
+      }
+   }
+
+   public void validarNovedades() {
+      log.info("Cargue.CargarArchivoPlano.validarNovedades()");
+      boolean validacion = false;
+      List<String> erroresN;
+      lovdocumentosSoporteCargados = AdministrarArchivoPlanoCentroCosto.obtenerDocumentosSoporteCargados();
+      BigInteger secEmpresa = administrarCargueArchivos.consultarParametrosEmpresa(UsuarioBD.getAlias());
+//      for (int i = 0; i < listTempProrrateos.size(); i++) {
+      for (TempProrrateos recTempPror : listTempProrrateos) {
+         ErroresNovedades errorNovedad = new ErroresNovedades();
+         //NUMERO DE ERRORES EN LA FILA
+         int errores = 0;
+         erroresN = new ArrayList<String>();
+         errorNovedad.setSecNovedad(recTempPror.getSecuencia());
+         errorNovedad.setMensajeError(erroresN);
+         //PRIMERA ETAPA
+         if (errores == 0) {
+            //PRIMERA FASE (EXISTENCIA)
+            //VALIDACION EMPLEADO
+            if (recTempPror.getEmpleado() != null) {
+               validacion = administrarCargueArchivos.verificarEmpleadoEmpresa(recTempPror.getCodigoEmpleado(), secEmpresa);
+               if (!validacion) {
+                  errores++;
+                  erroresN.add("El código del empleado: " + recTempPror.getEmpleado() + ", no existe.");
+               }
+            } else {
+               errores++;
+               erroresN.add("La Empleado es necesario, campo Vacio.");
+            }
+            //VALIDACION CONCEPTO
+            if (recTempPror.getCodigoCentrocosto() != null) {
+               validacion = AdministrarArchivoPlanoCentroCosto.verificarCentroCostoEmpresa(recTempPror.getCodigoCentrocosto(), secEmpresa);
+               if (!validacion) {
+                  errores++;
+                  erroresN.add("El código centro costo: " + recTempPror.getCodigoCentrocosto() + ", no existe.");
+               }
+            } else {
+               errores++;
+               erroresN.add("El Concepto es necesario, campo Vacio.");
+            }
+            //VALIDACION PERIODICIDAD
+            if (recTempPror.getCodigoProyecto() != null) {
+               validacion = AdministrarArchivoPlanoCentroCosto.verificarProyectoEmpresa(recTempPror.getCodigoProyecto(), secEmpresa);
+               if (!validacion) {
+                  errores++;
+                  erroresN.add("La codigo proyecto: " + recTempPror.getCodigoProyecto() + ", no existe.");
+               }
+            } else {
+               errores++;
+               erroresN.add("La periodicidad es necesaria, campo Vacio.");
+            }
+            //SEGUNDA FASE (CAMPOS NO NULOS)
+            //VALIDAR FECHA INICIAL
+            if (recTempPror.getFechaInicial() == null) {
+               errores++;
+               erroresN.add("La fecha inicial es necesaria, campo vacio.");
+            }
+            //VALIDAR FECHA REPORTE
+            if (recTempPror.getFechaSistema() == null) {
+               errores++;
+               erroresN.add("La fecha de sistema es necesaria, campo vacio.");
+            }
+            //VALIDAR DOCUMENTO SOPORTE
+            if (recTempPror.getFechaFinal() == null) {
+               errores++;
+               erroresN.add("La fecha final es necesaria, campo vacio.");
+            }
+            //VALIDAR UNIDAD PARTE ENTERA
+            if (recTempPror.getPorcentaje() == null) {
+               errores++;
+               erroresN.add("El porcentaje es necesaria, campo vacio.");
+            }
+            //TERCERA FASE (CAMPOS CONDICIONADOS)
+            //VALIDAD FECHA FINAL (NO PUEDE SER MENOR QUE LA INICIAL)
+            if (recTempPror.getFechaInicial() != null && recTempPror.getFechaFinal() != null && recTempPror.getFechaInicial().after(recTempPror.getFechaFinal())) {
+               errores++;
+               erroresN.add("La fecha inicial no puede ser mayor que la fecha Final.");
+            }
+         }
+         //SEGUNDA ETAPA
+         if (errores == 0) {
+            if (!administrarCargueArchivos.verificarTipoEmpleadoActivo(recTempPror.getCodigoEmpleado(), secEmpresa)) {
+               errores++;
+               erroresN.add("El Empleado: " + recTempPror.getEmpleado() + ", debe ser Activo.");
+            }
+         } else {
+            //MARCAR EL REGISTRO EN LA BASE DE DATOS PARA SABER QUE TIENE ERRORES
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            AdministrarArchivoPlanoCentroCosto.editar(recTempPror);
+         }
+         //TERCERA ETAPA
+         if (errores == 0) {
+            if (recTempPror.getArchivo().length() > 30) {
+               errores++;
+               erroresN.add("El archivo debe ser maximo de 30 caracteres.");
+            } else {
+               int duplicado = 0;
+               for (int j = 0; j < lovdocumentosSoporteCargados.size(); j++) {
+                  if (recTempPror.getArchivo().equalsIgnoreCase(lovdocumentosSoporteCargados.get(j))) {
+                     duplicado++;
+                  }
+               }
+               if (duplicado > 0) {
+                  errores++;
+                  erroresN.add("El documento soporte (" + recTempPror.getArchivo() + ") ya existe, cambie el nombre del mismo.");
+               }
+            }
+         } else {
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            AdministrarArchivoPlanoCentroCosto.editar(recTempPror);
+         }
+         //FINAL
+         if (errores == 0) {
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            AdministrarArchivoPlanoCentroCosto.editar(recTempPror);
+         } else {
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            AdministrarArchivoPlanoCentroCosto.editar(recTempPror);
+         }
+         listErrores.add(errorNovedad);
+         errorNovedad = null;
+         erroresN = null;
       }
    }
 

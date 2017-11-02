@@ -161,7 +161,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.CARGAR_PRORRATEOSPROY");
+         StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("PRODUCCION.TEMPPRORRATEOS_PKG.CARGAR_PRORRATEOSPROY");
          queryProcedure.execute();
          tx.commit();
       } catch (Exception e) {
@@ -187,7 +187,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          log.warn("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso1 Consulto fecha: " + fecha);
          if (fecha != null) {
             em.clear();
-            StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOSPROY");
+            StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("PRODUCCION.TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOSPROY");
             queryProcedure.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
             queryProcedure.registerStoredProcedureParameter(2, Date.class, ParameterMode.IN);
 

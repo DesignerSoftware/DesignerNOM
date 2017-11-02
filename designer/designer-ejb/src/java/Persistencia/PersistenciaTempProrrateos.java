@@ -8,6 +8,7 @@ package Persistencia;
 import Entidades.TempProrrateos;
 import Entidades.TempProrrateosAux;
 import InterfacePersistencia.PersistenciaTempProrrateosInterface;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -165,7 +166,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.CARGAR_PRORRATEOS");
+         StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("PRODUCCION.TEMPPRORRATEOS_PKG.CARGAR_PRORRATEOS");
          queryProcedure.execute();
          tx.commit();
       } catch (Exception e) {
@@ -191,7 +192,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          log.warn("PersistenciaTempProrrateos.reversarTempProrrateos() Paso1 Consulto fecha: " + fecha);
          if (fecha != null) {
             em.clear();
-            StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOS");
+            StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("PRODUCCION.TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOS");
             queryProcedure.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
             queryProcedure.registerStoredProcedureParameter(2, Date.class, ParameterMode.IN);
 
@@ -211,6 +212,36 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
             tx.rollback();
          }
          return 0;
+      }
+   }
+
+   @Override
+   public boolean verificarCodigoCentroCosto_Empresa(EntityManager em, BigInteger codigoCC, BigInteger secEmpresa) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT COUNT(*) FROM CENTROSCOSTOS C WHERE C.codigo = ? AND C.empresa = ?");
+         query.setParameter(1, codigoCC);
+         query.setParameter(2, secEmpresa);
+         Long resultado = (Long) query.getSingleResult();
+         return resultado > 0;
+      } catch (Exception e) {
+         log.error("PersistenciaEmpleados.verificarCodigoCentroCosto_Empresa() e:  ", e);
+         return false;
+      }
+   }
+
+   @Override
+   public boolean verificarCodigoProyecto_Empresa(EntityManager em, String codigoProy, BigInteger secEmpresa) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT COUNT(*) FROM PROYECTOS C WHERE C.codigo = ? AND C.empresa = ?");
+         query.setParameter(1, codigoProy);
+         query.setParameter(2, secEmpresa);
+         Long resultado = (Long) query.getSingleResult();
+         return resultado > 0;
+      } catch (Exception e) {
+         log.error("PersistenciaEmpleados.verificarCodigoProyecto_Empresa() e:  ", e);
+         return false;
       }
    }
 
