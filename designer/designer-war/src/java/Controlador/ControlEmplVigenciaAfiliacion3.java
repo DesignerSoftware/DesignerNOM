@@ -210,7 +210,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -237,7 +237,9 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       fechaContratacion = administrarVigenciasAfiliaciones3.fechaContratacion(empleado);
       getListVigenciasAfiliaciones();
       if (listVigenciasAfiliaciones != null) {
-         vigenciaSeleccionada = listVigenciasAfiliaciones.get(0);
+         if (!listVigenciasAfiliaciones.isEmpty()) {
+            vigenciaSeleccionada = listVigenciasAfiliaciones.get(0);
+         }
       }
    }
 

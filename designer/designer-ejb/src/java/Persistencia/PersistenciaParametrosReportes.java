@@ -48,7 +48,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
 
     @Override
     public void editar(EntityManager em, ParametrosReportes parametrosInformes) {
-        log.error("PersistenciaParametrosReportes.editar()");
+        log.info("PersistenciaParametrosReportes.editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
