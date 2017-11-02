@@ -12,88 +12,9 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
-                    <p:panel  id="PanelTotal" header="Tipos de Exàmenes"  styleClass="panelTotal">    
-                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 13px; color: blue;"><strong>Tipos de Examenes</strong></legend>
+                    <p:panel  id="PanelTotal" header="Tipos de Indices" styleClass="panelTotal">    
 
-                            <p:dataTable id="datosTipoExamen" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
-                                         value="#{controlTiposExamenes.listTiposExamenes}" 
-                                         scrollable="true"
-                                         scrollHeight="#{controlTiposExamenes.tamano}"
-                                         scrollWidth="830"
-                                         filteredValue="#{controlTiposExamenes.filtrarTiposExamenes}"
-                                         emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false" 
-                                         selection="#{controlTiposExamenes.tiposExamenesSeleccionado}"
-                                         selectionMode="single"
-                              >
-                                <p:ajax event="filter" listener="#{controlTiposExamenes.eventoFiltrar()}"/>
-
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.codigo)}"  update="codigo"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="200" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.nombre)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="Mìnimo Normal" sortBy="#{info.minimonormal}" filterBy="#{info.minimonormal}" filterMatchMode="contains" id="minimoNormal" width="70" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.minimonormal}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.minimonormal}" id="editarMinimoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 2)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.minimonormal)}" update="minimoNormal"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="Màximo Normal" sortBy="#{info.maximonormal}" filterBy="#{info.maximonormal}" filterMatchMode="contains" id="maximoNormal" width="70" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.maximonormal}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.maximonormal}" id="editarMaximoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 3)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.maximonormal)}" update="maximoNormal"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="Días Recurrencia" sortBy="#{info.diasrecurrencia}" filterBy="#{info.diasrecurrencia}" filterMatchMode="contains" id="diasRecurrencia" width="70" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.diasrecurrencia}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.diasrecurrencia}" id="editarDiasRecurrencia" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 4)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.diasrecurrencia)}" update="diasRecurrencia"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                            </p:dataTable>
-
-                        </fieldset>
-
-                        <p:toolbar style=" position: absolute; top: 40px; left: 20px;">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlTiposExamenes.guardarTiposExamenes()}" process="@this"/>
@@ -104,7 +25,7 @@
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlTiposExamenes.listaValoresBoton()}"   process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTiposExamenes.activarCtrlF11()}"  process="@this"/>
@@ -115,7 +36,7 @@
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlTiposExamenes.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png);" actionListener="#{controlTiposExamenes.limpiarNuevoTiposExamenes()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlTiposExamenes.limpiarNuevoTiposExamenes()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosTipoExamenExportar" fileName="TIPOSEXAMENES" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
@@ -123,23 +44,25 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlTiposExamenes.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px;"/> 
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroTiposExamenes').show()" update=":formularioDialogos:nuevaTipoExamen" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Tipo Examenes"/>
+                                <p:tooltip style="" for="insertar" value="Insertar Registro"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlTiposExamenes.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Tipo Examenes"/>
+                                <p:tooltip style="" for="eliminar" value="Borrar Registro"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlTiposExamenes.duplicandoTiposExamenes()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Tipo Examenes"/>
-                                <p:separator style="position: relative; top: -9px;"/> 
+                                <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTiposExamenes.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposExamenes.cancelarModificacion()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="refrescar"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposExamenes.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTiposExamenes.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
@@ -147,127 +70,215 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <h:outputText id="informacionRegistro" value="#{controlTiposExamenes.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
+
+
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Tipos de Exámenes</strong></legend>
+
+                            <p:dataTable id="datosTipoExamen" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
+                                         value="#{controlTiposExamenes.listTiposExamenes}"   scrollable="true"   scrollHeight="#{controlTiposExamenes.tamano}"
+                                         scrollWidth="830"    filteredValue="#{controlTiposExamenes.filtrarTiposExamenes}" widgetVar="datosTipoExamen"
+                                         emptyMessage="No se encontrarón resultados para la búsqueda"  editable="true" editMode="cell" paginator="false" 
+                                         selection="#{controlTiposExamenes.tiposExamenesSeleccionado}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTiposExamenes.eventoFiltrar()}"/>
+
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosTipoExamen').unselectAllRows();PF('datosTipoExamen').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlTiposExamenes.modificarTipoExamen(info)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosTipoExamen').unselectAllRows();PF('datosTipoExamen').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(info)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+                                <p:column headerText="Mìnimo Normal" sortBy="#{info.minimonormal}" filterBy="#{info.minimonormal}" filterMatchMode="contains" id="minimoNormal" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.minimonormal}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.minimonormal}" id="editarMinimoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosTipoExamen').unselectAllRows();PF('datosTipoExamen').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(info)}" update="minimoNormal"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Màximo Normal" sortBy="#{info.maximonormal}" filterBy="#{info.maximonormal}" filterMatchMode="contains" id="maximoNormal" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.maximonormal}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.maximonormal}" id="editarMaximoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(info, 3)}" process="@this"
+                                                        onstart="PF('datosTipoExamen').unselectAllRows();PF('datosTipoExamen').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(info)}" update="maximoNormal"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Días Recurrencia" sortBy="#{info.diasrecurrencia}" filterBy="#{info.diasrecurrencia}" filterMatchMode="contains" id="diasRecurrencia" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.diasrecurrencia}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.diasrecurrencia}" id="editarDiasRecurrencia" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(info, 4)}" process="@this"
+                                                        onstart="PF('datosTipoExamen').unselectAllRows();PF('datosTipoExamen').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(info)}" update="diasRecurrencia"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                        <h:outputText id="informacionRegistro" value="Registros: #{controlTiposExamenes.infoRegistro}" style="position: relative; left: 1px; top: 5px; font-weight: bold;"/>
+                        </fieldset>
+
                         <p:commandButton class="cssBotonCancelar" id="ACEPTAR" disabled="#{controlTiposExamenes.guardado}" value=""  actionListener="#{controlTiposExamenes.revisarDialogoGuardar()}"     process="@this"   />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTiposExamenes.salir()}"   />
 
-                        <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check">
-                                <f:actionListener binding="#{controlTiposExamenes.guardarTiposExamenes()}"/>
-                                <f:actionListener binding="#{controlTiposExamenes.salir()}"/>
-                            </p:commandButton>
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close">
-                                <f:actionListener binding="#{controlTiposExamenes.cancelarModificacion()}"/>
-                                <f:actionListener binding="#{controlTiposExamenes.salir()}"/>
-                            </p:commandButton>
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <p:dialog header="¡Precaución!" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
+                                  showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposExamenes.guardarTiposExamenes()}" style="position: absolute; top: 60px; left: 145px;" process="@this"
+                                             icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 205px;" process="@this"
+                                             icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                             icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
-                        <h:outputText value="Necesita : #{controlTiposExamenes.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
+                     <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlTiposExamenes.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{controlTiposExamenes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value=" #{controlTiposExamenes.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="Se han borrado #{controlTiposExamenes.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlTiposExamenes.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
+                    <p:dialog id="mostrarBorrados" header="¡Precaución!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Se han borrado #{controlTiposExamenes.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 170px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposExamenes.activarCtrlF11()}"/> 
                 </h:form>
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                   <p:dialog id="errorGuardadoBD" header="¡Error!" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlTiposExamenes.msgError}"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'TIPOSEXAMENES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposExamenes.secRegistro,'TiposExamenes', 'tipoexamen')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposExamenes.tiposExamenesSeleccionado.secuencia,'TiposExamenes','tipoexamen')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="¡Información!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla TIPOSEXAMENES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposExamenes', 'tipoexamen')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposExamenes','tipoexamen')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="¡Información!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposExamenes.secRegistro,'TiposExamenes', 'tipoexamen')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposExamenes.tiposExamenesSeleccionado.secuencia,'TiposExamenes','tipoexamen')}" 
+                                         icon="ui-icon-check" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="¡Error!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="La tabla 'TIPOSEXAMENES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                        <h:outputText value="La tabla 'TIPOSEXAMENES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
 
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlTiposExamenes.editarTipoExamen.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlTiposExamenes.editarTipoExamen.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editMinimoNormal" header="Minimo Normal" widgetVar="editMinimoNormal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editMinimoNormal" header="Mínimo Normal" widgetVar="editMinimoNormal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlTiposExamenes.editarTipoExamen.minimonormal}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editMaximoNormal" header="Maximo Normal" widgetVar="editMaximoNormal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editMaximoNormal" header="Máximo Normal" widgetVar="editMaximoNormal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlTiposExamenes.editarTipoExamen.maximonormal}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDiasRecurrencia" header="Dias Recurrencia" widgetVar="editDiasRecurrencia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editDiasRecurrencia" header="Días Recurrencia" widgetVar="editDiasRecurrencia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlTiposExamenes.editarTipoExamen.diasrecurrencia}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 
 
                     <p:dialog id="nuevoRegistroTiposExamenes" header="Nuevo Registro" widgetVar="nuevoRegistroTiposExamenes" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="320" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Tipo Examen" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Tipo Exámen" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevaTipoExamen" style="border: none;">
 
@@ -275,30 +286,24 @@
                             <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlTiposExamenes.nuevoTipoExamen.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigo" value="Código"/>
-
                             <strong><h:outputText value="*Descripción: "  style=" position: absolute; top: 90px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="30" value="#{controlTiposExamenes.nuevoTipoExamen.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoNombre" value="Descripción"/>
-                            <strong><h:outputText value="Minimo Normal:"  style=" position: absolute; top: 120px;"/></strong>
+                            <strong><h:outputText value="Mínimo Normal:"  style=" position: absolute; top: 120px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoMinimo" value="#{controlTiposExamenes.nuevoTipoExamen.minimonormal}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoMinimo" value="Minimo Normal"/>
-                            <strong><h:outputText value="Maximo Normal:"  style=" position: absolute; top: 150px;"/></strong>
+                            <strong><h:outputText value="Máximo Normal:"  style=" position: absolute; top: 150px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoMaximo" value="#{controlTiposExamenes.nuevoTipoExamen.maximonormal}" style=" width: 140px; position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoMaximo" value="Maximo Normal"/>
-                            <strong><h:outputText value="Dias Recurrencia: "  style=" position: absolute; top: 180px;"/></strong>
+                            <strong><h:outputText value="Días Recurrencia: "  style=" position: absolute; top: 180px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoDiasRecurrencia" value="#{controlTiposExamenes.nuevoTipoExamen.diasrecurrencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoDiasRecurrencia" value="Dias Recurrencia"/>
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 210px;"  actionListener="#{controlTiposExamenes.limpiarNuevoTiposExamenes()}" update="nuevaTipoExamen" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 210px;" actionListener="#{controlTiposExamenes.agregarNuevoTiposExamenes()}" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 210px;" actionListener="#{controlTiposExamenes.agregarNuevoTiposExamenes()}" process="@this"/>
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 210px;"  update="nuevaTipoExamen" onclick="PF('nuevoRegistroTiposExamenes').hide();"  actionListener="#{controlTiposExamenes.limpiarNuevoTiposExamenes()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -313,30 +318,24 @@
                             <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlTiposExamenes.duplicarTipoExamen.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigo" value="Código"/>
-
                             <strong><h:outputText value="*Descripción: "  style=" position: absolute; top: 90px;"/></strong>
                             <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlTiposExamenes.duplicarTipoExamen.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombre" value="Descripción"/>
-                            <strong><h:outputText value="Minimo Normal:"  style=" position: absolute; top: 120px;"/></strong>
+                            <strong><h:outputText value="Mínimo Normal:"  style=" position: absolute; top: 120px;"/></strong>
                             <p:inputText autocomplete="off"  id="duplicarMinimo" value="#{controlTiposExamenes.duplicarTipoExamen.minimonormal}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarMinimo" value="Minimo Normal"/>
-                            <strong><h:outputText value="Maximo Normal:"  style=" position: absolute; top: 150px;"/></strong>
+                            <strong><h:outputText value="Máximo Normal:"  style=" position: absolute; top: 150px;"/></strong>
                             <p:inputText autocomplete="off"  id="duplicarMaximo" value="#{controlTiposExamenes.duplicarTipoExamen.maximonormal}" style=" width: 140px; position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarMaximo" value="Maximo Normal"/>
-                            <strong><h:outputText value="Dias Recurrencia: "  style=" position: absolute; top: 180px;"/></strong>
+                            <strong><h:outputText value="Días Recurrencia: "  style=" position: absolute; top: 180px;"/></strong>
                             <p:inputText autocomplete="off"  id="duplicarDiasRecurrencia" value="#{controlTiposExamenes.duplicarTipoExamen.diasrecurrencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarDiasRecurrencia" value="Dias Recurrencia"/>
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 210px;"  actionListener="#{controlTiposExamenes.limpiarDuplicarTiposExamenes()}" update="duplicarTE"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 210px;" actionListener="#{controlTiposExamenes.confirmarDuplicar()}"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 210px;" actionListener="#{controlTiposExamenes.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 210px;"  update="duplicarTE" onclick="PF('duplicarRegistroTiposExamenes').hide();" actionListener="#{controlTiposExamenes.limpiarDuplicarTiposExamenes()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>

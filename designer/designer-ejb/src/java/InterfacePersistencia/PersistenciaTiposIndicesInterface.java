@@ -15,14 +15,13 @@ import javax.persistence.EntityManager;
  *
  * @author user
  */
-@Local
 public interface PersistenciaTiposIndicesInterface {
 
-    public void crear(EntityManager em, TiposIndices tiposIndices);
+    public String crear(EntityManager em, TiposIndices tiposIndices);
 
-    public void editar(EntityManager em, TiposIndices tiposIndices);
+    public String editar(EntityManager em, TiposIndices tiposIndices);
 
-    public void borrar(EntityManager em, TiposIndices tiposIndices);
+    public String borrar(EntityManager em, TiposIndices tiposIndices);
 
     public List<TiposIndices> consultarTiposIndices(EntityManager em );
 

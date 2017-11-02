@@ -14,7 +14,6 @@ import javax.ejb.Local;
  *
  * @author user
  */
-@Local
 public interface AdministrarTiposExamenesInterface {
 
     /**
@@ -29,21 +28,21 @@ public interface AdministrarTiposExamenesInterface {
      *
      * @param listaTiposExamenes Lista TiposExamenes que se van a modificar.
      */
-    public void modificarTiposExamenes(List<TiposExamenes> listaTiposExamenes);
+    public String modificarTiposExamenes(TiposExamenes tipoExamen);
 
     /**
      * Método encargado de borrar TiposExamenes.
      *
      * @param listaTiposExamenes Lista TiposExamenes que se van a borrar.
      */
-    public void borrarTiposExamenes(List<TiposExamenes> listaTiposExamenes);
+    public String borrarTiposExamenes(TiposExamenes tipoExamen);
 
     /**
      * Método encargado de crear TiposExamenes.
      *
      * @param listaTiposExamenes Lista TiposExamenes que se van a crear.
      */
-    public void crearTiposExamenes(List<TiposExamenes> listaTiposExamenes);
+    public String crearTiposExamenes(TiposExamenes tipoExamen);
 
     /**
      * Método encargado de recuperar las TiposExamenes para una tabla de la

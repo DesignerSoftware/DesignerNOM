@@ -14,7 +14,6 @@ import javax.ejb.Local;
  *
  * @author user
  */
-@Local
 public interface AdministrarTiposAuxiliosInterface {
 
     /**
@@ -29,21 +28,21 @@ public interface AdministrarTiposAuxiliosInterface {
      *
      * @param listaTiposAuxilios Lista TiposAuxilios que se van a modificar.
      */
-    public void modificarTiposAuxilios(List<TiposAuxilios> listaTiposAuxilios);
+    public String modificarTiposAuxilios(TiposAuxilios tipoAux);
 
     /**
      * Método encargado de borrar TiposAuxilios.
      *
      * @param listaTiposAuxilios Lista TiposAuxilios que se van a borrar.
      */
-    public void borrarTiposAuxilios(List<TiposAuxilios> listaTiposAuxilios);
+    public String borrarTiposAuxilios(TiposAuxilios tipoAux);
 
     /**
      * Método encargado de crear TiposAuxilios.
      *
      * @param listaTiposAuxilios Lista TiposAuxilios que se van a crear.
      */
-    public void crearTiposAuxilios(List<TiposAuxilios> listaTiposAuxilios);
+    public String crearTiposAuxilios(TiposAuxilios tipoAux);
 
     /**
      * Método encargado de recuperar un TipoAuxilio dada su secuencia.

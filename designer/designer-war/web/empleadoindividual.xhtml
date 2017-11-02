@@ -661,7 +661,7 @@
                <!-- ********************************************************************** -->
                <p:dialog id="CiudadesDocumentoDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDocumentoDialogo" draggable="true" resizable="false" closable="false" 
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
-                  <p:dataTable id="lovCiudadesDocumento" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.lovCiudadesDocumento}" rowKey="#{ciudad.secuencia}"
+                  <p:dataTable id="lovCiudadesDocumento" style="width: 400px;" var="ciudaddoc" value="#{controlEmpleadoIndividual.lovCiudadesDocumento}" rowKey="#{ciudaddoc.secuencia}"
                                selection="#{controlEmpleadoIndividual.seleccionLovCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" 
                                scrollRows="15">              
@@ -670,25 +670,25 @@
                      <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCiudadesDocumentos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadesDocumento').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{ciudaddoc.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.nombre}"/>
+                        <h:outputText value="#{ciudaddoc.nombre}"/>
                      </p:column>
-                     <p:column filterBy="#{ciudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{ciudaddoc.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['departamentoC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.departamento.nombre}"/>
+                        <h:outputText value="#{ciudaddoc.departamento.nombre}"/>
                      </p:column> 
-                     <p:column filterBy="#{ciudad.departamento.pais.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{ciudaddoc.departamento.pais.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['paisC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.departamento.pais.nombre}"/>
+                        <h:outputText value="#{ciudaddoc.departamento.pais.nombre}"/>
                      </p:column> 
                   </p:dataTable>
 

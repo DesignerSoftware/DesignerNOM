@@ -21,7 +21,7 @@ public interface PersistenciaTiposReemplazosInterface {
      *
      * @param tiposReemplazos TipoReemplazo que se quiere crear.
      */
-    public void crear(EntityManager em, TiposReemplazos tiposReemplazos);
+    public String crear(EntityManager em, TiposReemplazos tiposReemplazos);
 
     /**
      * Método encargado de modificar un TipoReemplazo de la base de datos. Este
@@ -31,7 +31,7 @@ public interface PersistenciaTiposReemplazosInterface {
      * @param tiposReemplazos TiposReemplazos con los cambios que se van a
      * realizar.
      */
-    public void editar(EntityManager em, TiposReemplazos tiposReemplazos);
+    public String editar(EntityManager em, TiposReemplazos tiposReemplazos);
 
     /**
      * Método encargado de eliminar de la base de datos un TipoReemplazo que
@@ -39,7 +39,7 @@ public interface PersistenciaTiposReemplazosInterface {
      *
      * @param tiposReemplazos TiposReemplazos que se quiere eliminar.
      */
-    public void borrar(EntityManager em, TiposReemplazos tiposReemplazos);
+    public String borrar(EntityManager em, TiposReemplazos tiposReemplazos);
 
     /**
      * Método encargado de buscar un TipoReemplazo con la secTiposReemplazos dada por

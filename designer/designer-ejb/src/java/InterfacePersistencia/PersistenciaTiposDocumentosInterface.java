@@ -21,7 +21,7 @@ public interface PersistenciaTiposDocumentosInterface {
      *
      * @param tiposDocumentos Moneda que se quiere crear.
      */
-    public void crear(EntityManager em, TiposDocumentos tiposDocumentos);
+    public String crear(EntityManager em, TiposDocumentos tiposDocumentos);
 
     /**
      * Método encargado de modificar un TipoDocumento de la base de datos. Este
@@ -31,7 +31,7 @@ public interface PersistenciaTiposDocumentosInterface {
      * @param tiposDocumentos TiposViajeros con los cambios que se van a
      * realizar.
      */
-    public void editar(EntityManager em, TiposDocumentos tiposDocumentos);
+    public String editar(EntityManager em, TiposDocumentos tiposDocumentos);
 
     /**
      * Método encargado de eliminar de la base de datos un TipoDocumento que
@@ -39,7 +39,7 @@ public interface PersistenciaTiposDocumentosInterface {
      *
      * @param tiposDocumentos TiposViajeros que se quiere eliminar.
      */
-    public void borrar(EntityManager em, TiposDocumentos tiposDocumentos);
+    public String borrar(EntityManager em, TiposDocumentos tiposDocumentos);
 
     /**
      * Método encargado de buscar todos los TiposDocumentos existentes en la

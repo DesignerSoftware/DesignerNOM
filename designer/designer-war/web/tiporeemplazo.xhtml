@@ -13,64 +13,6 @@
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Tipos Reemplazos"  styleClass="panelTotal">    
-                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 13px; color: blue;"><strong>Tipo Reemplazos</strong></legend>
-
-                            <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
-                                         value="#{controlTiposReemplazos.listTiposReemplazos}" scrollable="true"
-                                         scrollHeight="#{controlTiposReemplazos.tamano}"
-                                         scrollWidth="830"
-                                         filteredValue="#{controlTiposReemplazos.filtrarTiposReemplazos}"
-                                         emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false" 
-                                         selection="#{controlTiposReemplazos.tiposReemplazosSeleccionado}"
-                                         selectionMode="single"
-                              >
-                                <p:ajax event="filter" listener="#{controlTiposReemplazos.eventoFiltrar()}"/>
-
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(indice, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlTiposReemplazos.modificandoTipoReemplazo(indice, 'N', info.codigo)}"  update="codigo"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(indice, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposReemplazos.modificandoTipoReemplazo(indice, 'N', info.nombre)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="Factor" sortBy="#{info.factorreemplazado}" filterBy="#{info.factorreemplazado}" filterMatchMode="contains" id="factorReemplazado" width="275" filterStyle="display: none; visibility: hidden;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.factorreemplazado}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.factorreemplazado}" id="editarFactorReemplazado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(indice, 2)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposReemplazos.modificandoTipoReemplazo(indice, 'N', info.factorreemplazado)}" update="factorReemplazado"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-
-
-                            </p:dataTable>
-
-                        </fieldset>
-
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -82,7 +24,7 @@
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlTiposReemplazos.listaValoresBoton()}"   process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTiposReemplazos.activarCtrlF11()}"  process="@this"/>
@@ -93,7 +35,7 @@
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlTiposReemplazos.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png);" actionListener="#{controlTiposReemplazos.limpiarNuevoTiposReemplazos()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlTiposReemplazos.limpiarNuevoTiposReemplazos()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosTipoReemplazoExportar" fileName="TIPOSREEMPLAZOS" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
@@ -101,138 +43,194 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlTiposReemplazos.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px;"/> 
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroTiposReemplazos').show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Tipo Reemplazo"/>
+                                <p:tooltip style="" for="insertar" value="Insertar Registro"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlTiposReemplazos.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Tipo Reemplazo"/>
+                                <p:tooltip style="" for="eliminar" value="Borrar Registro"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlTiposReemplazos.duplicandoTiposReemplazos()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Tipo Reemplazo"/>
-                                <p:separator style="position: relative; top: -9px;"/> 
+                                <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTiposReemplazos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposReemplazos.cancelarModificacion()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="refrescar"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposReemplazos.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTiposReemplazos.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Tipo Reemplazos</strong></legend>
+                            <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
+                                         value="#{controlTiposReemplazos.listTiposReemplazos}" scrollable="true"  scrollHeight="#{controlTiposReemplazos.tamano}"
+                                         scrollWidth="830"  filteredValue="#{controlTiposReemplazos.filtrarTiposReemplazos}"
+                                         emptyMessage="No se encontrarón resultados para la búsqueda"  editable="true" editMode="cell" paginator="false" 
+                                         selection="#{controlTiposReemplazos.tiposReemplazosSeleccionado}" selectionMode="single" widgetVar="datosTipoReemplazo">
+                                <p:ajax event="filter" listener="#{controlTiposReemplazos.eventoFiltrar()}"/>
 
-                        <h:outputText id="informacionRegistro" value="#{controlTiposReemplazos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="60" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlTiposReemplazos.modificandoTipoReemplazo(info)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposReemplazos.modificandoTipoReemplazo(info)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Factor" sortBy="#{info.factorreemplazado}" filterBy="#{info.factorreemplazado}" filterMatchMode="contains" id="factorReemplazado" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.factorreemplazado}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.factorreemplazado}" id="editarFactorReemplazado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposReemplazos.modificandoTipoReemplazo(info)}" update="factorReemplazado"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlTiposReemplazos.infoRegistro}" style="position: relative; left: 1px; top: 5px; font-weight: bold;"/>
+                        </fieldset>
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlTiposReemplazos.guardado}" actionListener="#{controlTiposReemplazos.revisarDialogoGuardar()}" process="@this"/>
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTiposReemplazos.salir()}"/>
 
-                        <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check">
-                                <f:actionListener binding="#{controlTiposReemplazos.guardarTipoReemplazo()}"/>
-                                <f:actionListener binding="#{controlTiposReemplazos.navegar('atras')}"/>
-                            </p:commandButton>
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close">
-                                <f:actionListener binding="#{controlTiposReemplazos.cancelarModificacion()}"/>
-                                <f:actionListener binding="#{controlTiposReemplazos.navegar('atras')}"/>
-                            </p:commandButton>
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <p:dialog header="¡Precaución!" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
+                                  showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposReemplazos.guardarTipoReemplazo()}" style="position: absolute; top: 60px; left: 145px;" process="@this"
+                                             icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 205px;" process="@this"
+                                             icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                             icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
-                        <h:outputText value="Necesita : #{controlTiposReemplazos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
+                    <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlTiposReemplazos.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{controlTiposReemplazos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value=" #{controlTiposReemplazos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="Se han borrado #{controlTiposReemplazos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlTiposReemplazos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
+                    <p:dialog id="mostrarBorrados" header="¡Precaución!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Se han borrado #{controlTiposReemplazos.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 170px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposReemplazos.activarCtrlF11()}"/> 
                 </h:form>
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="errorGuardadoBD" header="¡Error!" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlTiposReemplazos.msgError}"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'TIPOSREEMPLAZOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposReemplazos.secRegistro,'TiposReemplazos', 'tiporeemplazo')}" style="position: absolute; top: 63px; left: 230px;" onstart="#{controlTiposReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiporeemplazo', 'rastrotabla')}" process="@this"/>
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposReemplazos.tiposReemplazosSeleccionado.secuencia,'TiposReemplazos','tiporeemplazo')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="¡Información!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla TIPOSREEMPLAZOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposReemplazos', 'tiporeemplazo')}" style="position: absolute; top: 60px; left: 230px;" onstart="#{controlTiposReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiporeemplazo', 'rastrotabla')}" process="@this"/>
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposReemplazos','tiporeemplazo')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="¡Información!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposReemplazos.secRegistro,'TiposReemplazos', 'tiporeemplazo')}" style="position: absolute; top: 60px; left: 230px;" onstart="#{controlTiposReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiporeemplazo', 'rastrotabla')}" process="@this"/>
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposReemplazos.tiposReemplazosSeleccionado.secuencia,'TiposReemplazos','tiporeemplazo')}" 
+                                         icon="ui-icon-check" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="¡Error!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="La tabla 'TIPOSREEMPLAZOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                        <h:outputText value="La tabla 'TIPOSREEMPLAZOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
-
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlTiposReemplazos.editarTipoReemplazo.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarFactorRiesgo" header="Factor" widgetVar="editarFactorRiesgo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editarFactorRiesgo" header="Factor" widgetVar="editarFactorRiesgo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlTiposReemplazos.editarTipoReemplazo.factorreemplazado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Factor" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+                    <p:dialog id="editDescripcion" header="Factor" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlTiposReemplazos.editarTipoReemplazo.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -243,24 +241,21 @@
 
                         <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
-                            <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
+                            <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlTiposReemplazos.nuevoTipoReemplazo.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigo" value="Código"/>
 
-                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 90px;"/></strong>
+                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 90px;left: 18px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="30" value="#{controlTiposReemplazos.nuevoTipoReemplazo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoNombre" value="Nombre"/>
                             <strong><h:outputText value="Factor: "  style=" position: absolute; top: 120px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoFactor" value="#{controlTiposReemplazos.nuevoTipoReemplazo.factorreemplazado}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoFactor" value="Factor"/>
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlTiposReemplazos.limpiarNuevoTiposReemplazos()}" update="nuevaTipoReemplazo" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 150px;" actionListener="#{controlTiposReemplazos.agregarNuevoTiposReemplazos()}" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlTiposReemplazos.agregarNuevoTiposReemplazos()}" process="@this"/>
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="nuevaTipoReemplazo" onclick="PF('nuevoRegistroTiposReemplazos').hide();"  actionListener="#{controlTiposReemplazos.limpiarNuevoTiposReemplazos()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -271,27 +266,24 @@
                         <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Reemplazo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarTTR" style="border: none;">
-                            <strong><h:outputText value="*Código "  style=" position: absolute; top: 60px;"/></strong>
+                            <strong><h:outputText value="*Código "  style=" position: absolute; top: 60px;left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlTiposReemplazos.duplicarTipoReemplazo.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigo" value="Código"/>
 
-                            <strong><h:outputText value="*Nombre:"  style=" position: absolute; top: 90px;"/></strong>
+                            <strong><h:outputText value="*Nombre:"  style=" position: absolute; top: 90px;left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarNombre" maxlength="30" value="#{controlTiposReemplazos.duplicarTipoReemplazo.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombre" value="Nombre"/>
 
                             <strong><h:outputText value="*Factor:"  style=" position: absolute; top: 120px;"/></strong>
                             <p:inputText autocomplete="off"  id="duplicarFactor" value="#{controlTiposReemplazos.duplicarTipoReemplazo.factorreemplazado}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarFactor" value="Factor"/>
 
 
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 20px; top: 150px;"  actionListener="#{controlTiposReemplazos.limpiarDuplicarTiposReemplazos()}" update="duplicarTTR"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 150px;" actionListener="#{controlTiposReemplazos.confirmarDuplicar()}"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlTiposReemplazos.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="duplicarTTR" onclick="PF('duplicarRegistroTiposReemplazos').hide();" actionListener="#{controlTiposReemplazos.limpiarDuplicarTiposReemplazos()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>

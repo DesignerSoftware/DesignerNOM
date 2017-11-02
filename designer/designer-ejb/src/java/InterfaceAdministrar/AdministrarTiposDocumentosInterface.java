@@ -14,7 +14,6 @@ import javax.ejb.Local;
  *
  * @author user
  */
-@Local
 public interface AdministrarTiposDocumentosInterface {
 
     /**
@@ -29,21 +28,21 @@ public interface AdministrarTiposDocumentosInterface {
      *
      * @param listaTiposDocumentos Lista TiposDocumentos que se van a modificar.
      */
-    public void modificarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos);
+    public String modificarTiposDocumentos(TiposDocumentos td);
 
     /**
      * Método encargado de borrar TiposDocumentos.
      *
      * @param listaTiposDocumentos Lista TiposDocumentos que se van a borrar.
      */
-    public void borrarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos);
+    public String borrarTiposDocumentos(TiposDocumentos td);
 
     /**
      * Método encargado de crear TiposDocumentos.
      *
      * @param listaTiposDocumentos Lista TiposDocumentos que se van a crear.
      */
-    public void crearTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos);
+    public String crearTiposDocumentos(TiposDocumentos td);
 
     /**
      * Método encargado de recuperar las TiposDocumentos para un tabla de la

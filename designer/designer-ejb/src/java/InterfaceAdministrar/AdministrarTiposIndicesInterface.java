@@ -24,11 +24,11 @@ public interface AdministrarTiposIndicesInterface {
      */
     public void obtenerConexion(String idSesion);
     
-    public void modificarTiposIndices(List<TiposIndices> listaTiposIndices);
+    public String modificarTiposIndices(TiposIndices tiposIndice);
 
-    public void borrarTiposIndices(List<TiposIndices> listaTiposIndices);
+    public String borrarTiposIndices(TiposIndices tiposIndice);
 
-    public void crearTiposIndices(List<TiposIndices> listaTiposIndices);
+    public String crearTiposIndices(TiposIndices tiposIndice);
 
     public List<TiposIndices> consultarTiposIndices();
 

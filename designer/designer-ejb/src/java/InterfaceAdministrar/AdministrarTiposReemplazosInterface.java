@@ -23,21 +23,21 @@ public interface AdministrarTiposReemplazosInterface {
      * @param listaTiposReemplazos Lista TiposReemplazos que se van a
      * modificar.
      */
-    public void modificarTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos);
+    public String modificarTiposReemplazos(TiposReemplazos tipoReemplazo);
 
     /**
      * Método encargado de borrar TiposReemplazos.
      *
      * @param listaTiposReemplazos Lista TiposReemplazos que se van a borrar.
      */
-    public void borrarTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos);
+    public String borrarTiposReemplazos(TiposReemplazos tipoReemplazo);
 
     /**
      * Método encargado de crear TiposReemplazos.
      *
      * @param listaTiposReemplazos Lista TiposReemplazos que se van a crear.
      */
-    public void crearTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos);
+    public String crearTiposReemplazos(TiposReemplazos tipoReemplazo);
 
     /**
      * Método encargado de recuperar las TiposReemplazos para una tabla de la

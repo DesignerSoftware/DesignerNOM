@@ -15,11 +15,11 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaUsuariosContratosInterface {
 
-    public void crear(EntityManager em, UsuariosContratos usuariots);
+    public String crear(EntityManager em, UsuariosContratos usuariots);
 
-    public void editar(EntityManager em, UsuariosContratos usuariots);
+    public String editar(EntityManager em, UsuariosContratos usuariots);
 
-    public void borrar(EntityManager em, UsuariosContratos usuariots);
+    public String borrar(EntityManager em, UsuariosContratos usuariots);
 
     public List<UsuariosContratos> buscarUsuariosContratos(EntityManager em);
 }

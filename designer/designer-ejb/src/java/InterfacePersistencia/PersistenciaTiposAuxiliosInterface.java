@@ -14,25 +14,24 @@ import javax.persistence.EntityManager;
  * de la base de datos.
  * @author betelgeuse
  */
-@Local
 public interface PersistenciaTiposAuxiliosInterface {
     /**
      * Método encargado de insertar un TipoAuxilio en la base de datos.
      * @param tiposAuxilios TipoAuxilio que se quiere crear.
      */
-    public void crear(EntityManager em, TiposAuxilios tiposAuxilios);
+    public String crear(EntityManager em, TiposAuxilios tiposAuxilios);
     /**
      * Método encargado de modificar un TipoAuxilio de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 
      * información de la base de datos.
      * @param tiposAuxilios TipoAuxilio con los cambios que se van a realizar.
      */
-    public void editar(EntityManager em, TiposAuxilios tiposAuxilios);
+    public String editar(EntityManager em, TiposAuxilios tiposAuxilios);
     /**
      * Método encargado de eliminar de la base de datos el TipoAuxilio que entra por parámetro.
      * @param tiposAuxilios TipoAuxilio con los cambios que se van a realizar.
      */
-    public void borrar(EntityManager em, TiposAuxilios tiposAuxilios);
+    public String borrar(EntityManager em, TiposAuxilios tiposAuxilios);
     /**
      * Método encargado de buscar el TipoAuxilio con la secuencia dada por parámetro.
      * @param secuencia Secuencia del TipoAuxilio que se quiere encontrar.

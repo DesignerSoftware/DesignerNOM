@@ -14,25 +14,24 @@ import javax.persistence.EntityManager;
  * de la base de datos.
  * @author John Pineda
  */
-@Local
 public interface PersistenciaTiposExamenesInterface {
     /**
      * Método encargado de insertar un TipoExamen en la base de datos.
      * @param tiposExamenes TipoExamen que se quiere crear.
      */
-    public void crear(EntityManager em, TiposExamenes tiposExamenes);
+    public String crear(EntityManager em, TiposExamenes tiposExamenes);
     /**
      * Método encargado de modificar un TipoExamen de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 
      * información de la base de datos.
      * @param tiposExamenes TipoExamen con los cambios que se van a realizar.
      */
-    public void editar(EntityManager em, TiposExamenes tiposExamenes);
+    public String editar(EntityManager em, TiposExamenes tiposExamenes);
     /**
      * Método encargado de eliminar de la base de datos el TipoExamen que entra por parámetro.
      * @param tiposExamenes TipoExamen que se quiere eliminar.
      */
-    public void borrar(EntityManager em, TiposExamenes tiposExamenes);
+    public String borrar(EntityManager em, TiposExamenes tiposExamenes);
     /**
      * Método encargado de buscar el TipoExamen con la secTipoExamen dada por parámetro.
      * @param secTipoExamen Secuencia del TipoExamen que se quiere encontrar.

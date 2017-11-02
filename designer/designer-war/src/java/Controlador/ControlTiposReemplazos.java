@@ -41,835 +41,143 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlTiposReemplazos implements Serializable {
 
-   private static Logger log = Logger.getLogger(ControlTiposReemplazos.class);
+    private static Logger log = Logger.getLogger(ControlTiposReemplazos.class);
 
-   @EJB
-   AdministrarTiposReemplazosInterface administrarTiposReemplazos;
-   @EJB
-   AdministrarRastrosInterface administrarRastros;
-   private List<TiposReemplazos> listTiposReemplazos;
-   private List<TiposReemplazos> filtrarTiposReemplazos;
-   private List<TiposReemplazos> crearTiposReemplazos;
-   private List<TiposReemplazos> modificarTiposReemplazos;
-   private List<TiposReemplazos> borrarTiposReemplazos;
-   private TiposReemplazos nuevoTipoReemplazo;
-   private TiposReemplazos duplicarTipoReemplazo;
-   private TiposReemplazos editarTipoReemplazo;
-   private TiposReemplazos tiposReemplazosSeleccionado;
-   //otros
-   private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
-   private BigInteger l;
-   private boolean aceptar, guardado;
-   //AutoCompletar
-   private boolean permitirIndex;
-   //RASTRO
-   private BigInteger secRegistro;
-   private Column codigo, descripcion, factorReemplazado;
-   //borrado
-   private int registrosBorrados;
-   private String mensajeValidacion;
-   BigDecimal verificarBorrandoEncargaturas;
-   BigDecimal verificarBorradoProgramacionesTiempos;
-   BigDecimal verificarBorradoReemplazos;
-   //Redireccionamiento de pantallas
-   private int tamano;
-   private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    @EJB
+    AdministrarTiposReemplazosInterface administrarTiposReemplazos;
+    @EJB
+    AdministrarRastrosInterface administrarRastros;
+    private List<TiposReemplazos> listTiposReemplazos;
+    private List<TiposReemplazos> filtrarTiposReemplazos;
+    private List<TiposReemplazos> crearTiposReemplazos;
+    private List<TiposReemplazos> modificarTiposReemplazos;
+    private List<TiposReemplazos> borrarTiposReemplazos;
+    private TiposReemplazos nuevoTipoReemplazo;
+    private TiposReemplazos duplicarTipoReemplazo;
+    private TiposReemplazos editarTipoReemplazo;
+    private TiposReemplazos tiposReemplazosSeleccionado;
+    //otros
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+    private BigInteger l;
+    private boolean aceptar, guardado;
+    private Column codigo, descripcion, factorReemplazado;
+    //borrado
+    private int registrosBorrados;
+    private String mensajeValidacion;
+    BigDecimal verificarBorrandoEncargaturas;
+    BigDecimal verificarBorradoProgramacionesTiempos;
+    BigDecimal verificarBorradoReemplazos;
+    private String infoRegistro;
+    private String msgError;
+    //Redireccionamiento de pantallas
+    private int tamano;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-   public ControlTiposReemplazos() {
-      listTiposReemplazos = null;
-      crearTiposReemplazos = new ArrayList<TiposReemplazos>();
-      modificarTiposReemplazos = new ArrayList<TiposReemplazos>();
-      borrarTiposReemplazos = new ArrayList<TiposReemplazos>();
-      permitirIndex = true;
-      editarTipoReemplazo = new TiposReemplazos();
-      nuevoTipoReemplazo = new TiposReemplazos();
-      duplicarTipoReemplazo = new TiposReemplazos();
-      guardado = true;
-      tamano = 270;
-      mapParametros.put("paginaAnterior", paginaAnterior);
-   }
+    public ControlTiposReemplazos() {
+        listTiposReemplazos = null;
+        crearTiposReemplazos = new ArrayList<TiposReemplazos>();
+        modificarTiposReemplazos = new ArrayList<TiposReemplazos>();
+        borrarTiposReemplazos = new ArrayList<TiposReemplazos>();
+        editarTipoReemplazo = new TiposReemplazos();
+        nuevoTipoReemplazo = new TiposReemplazos();
+        duplicarTipoReemplazo = new TiposReemplazos();
+        guardado = true;
+        tamano = 310;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PreDestroy
-   public void destruyendoce() {
-      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
-   }
-   
-   @PostConstruct
-   public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarTiposReemplazos.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
-         log.error("Causa: " + e.getCause());
-      }
-   }
+    @PreDestroy
+    public void destruyendoce() {
+        log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    @PostConstruct
+    public void inicializarAdministrador() {
+        log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarTiposReemplazos.obtenerConexion(ses.getId());
+            administrarRastros.obtenerConexion(ses.getId());
+            listTiposReemplazos = null;
+            getListTiposReemplazos();
+            if (listTiposReemplazos != null) {
+                if (!listTiposReemplazos.isEmpty()) {
+                    tiposReemplazosSeleccionado = listTiposReemplazos.get(0);
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
+            log.error("Causa: " + e.getCause());
+        }
+    }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-   public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      String pagActual = "tiporeemplazo";
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
-      } else {
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
-         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-         //         if (pag.equals("rastrotabla")) {
-         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-      }
-      limpiarListasValor();
-   }
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   public String redirigir() {
-      return paginaAnterior;
-   }
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        String pagActual = "tiporeemplazo";
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        }
+        limpiarListasValor();
+    }
 
-   public void eventoFiltrar() {
-      try {
-         log.info("\n ENTRE A CONTROLTIPOSREEMPLAZOS.eventoFiltrar \n");
-         if (tipoLista == 0) {
+    public String redirigir() {
+        return paginaAnterior;
+    }
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
             tipoLista = 1;
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         infoRegistro = "Cantidad de registros: " + filtrarTiposReemplazos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      } catch (Exception e) {
-         log.warn("Error CONTROLTIPOSREEMPLAZOS eventoFiltrar ERROR===" + e.getMessage());
-      }
-   }
-
-   private String infoRegistro;
-   private Integer backUpCodigo;
-   private String backUpDescripcion;
-
-   public void cambiarIndice(int indice, int celda) {
-      log.error("TIPO LISTA = " + tipoLista);
-
-      if (permitirIndex == true) {
-         index = indice;
-         cualCelda = celda;
-         secRegistro = listTiposReemplazos.get(index).getSecuencia();
-         if (cualCelda == 0) {
-            if (tipoLista == 0) {
-               backUpCodigo = listTiposReemplazos.get(index).getCodigo();
-            } else {
-               backUpCodigo = filtrarTiposReemplazos.get(index).getCodigo();
-            }
-         }
-         if (cualCelda == 1) {
-            if (tipoLista == 0) {
-               backUpDescripcion = listTiposReemplazos.get(index).getNombre();
-            } else {
-               backUpDescripcion = filtrarTiposReemplazos.get(index).getNombre();
-            }
-         }
-
-      }
-      log.info("Indice: " + index + " Celda: " + cualCelda);
-   }
-
-   public void asignarIndex(Integer indice, int LND, int dig) {
-      try {
-         log.info("\n ENTRE A CONTROLTIPOSREEMPLAZOS ASIGNAR INDEX \n");
-         index = indice;
-         if (LND == 0) {
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-            log.info("TIPO ACTUALIZACION : " + tipoActualizacion);
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
-
-      } catch (Exception e) {
-         log.warn("Error CONTROLTIPOSREEMPLAZOS ASIGNAR INDEX ERROR======" + e.getMessage());
-      }
-   }
-
-   public void activarAceptar() {
-      aceptar = false;
-   }
-
-   public void listaValoresBoton() {
-   }
-
-   public void cancelarModificacion() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 1) {
-         //CERRAR FILTRADO
-         codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-         codigo.setFilterStyle("display: none; visibility: hidden;");
-         descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-         descripcion.setFilterStyle("display: none; visibility: hidden;");
-         factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-         factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         bandera = 0;
-         filtrarTiposReemplazos = null;
-         tipoLista = 0;
-      }
-
-      borrarTiposReemplazos.clear();
-      crearTiposReemplazos.clear();
-      modificarTiposReemplazos.clear();
-      index = -1;
-      secRegistro = null;
-      k = 0;
-      listTiposReemplazos = null;
-      guardado = true;
-      permitirIndex = true;
-      getListTiposReemplazos();
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listTiposReemplazos == null || listTiposReemplazos.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listTiposReemplazos.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-   }
-
-   public void salir() {
-      limpiarListasValor();
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 1) {
-         //CERRAR FILTRADO
-         codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-         codigo.setFilterStyle("display: none; visibility: hidden;");
-         descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-         descripcion.setFilterStyle("display: none; visibility: hidden;");
-         factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-         factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         bandera = 0;
-         filtrarTiposReemplazos = null;
-         tipoLista = 0;
-      }
-      borrarTiposReemplazos.clear();
-      crearTiposReemplazos.clear();
-      modificarTiposReemplazos.clear();
-      index = -1;
-      secRegistro = null;
-      k = 0;
-      listTiposReemplazos = null;
-      guardado = true;
-      permitirIndex = true;
-      getListTiposReemplazos();
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listTiposReemplazos == null || listTiposReemplazos.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listTiposReemplazos.size();
-      }
-      context.update("form:informacionRegistro");
-      context.update("form:datosTipoReemplazo");
-      context.update("form:ACEPTAR");
-      navegar("atras");
-   }
-
-   public void activarCtrlF11() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 0) {
-         tamano = 250;
-         codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-         codigo.setFilterStyle("width: 85% !important;");
-         descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-         descripcion.setFilterStyle("width: 85% !important;");
-         factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-         factorReemplazado.setFilterStyle("width: 85% !important;");
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         log.info("Activar");
-         bandera = 1;
-      } else if (bandera == 1) {
-         tamano = 270;
-
-         log.info("Desactivar");
-         codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-         codigo.setFilterStyle("display: none; visibility: hidden;");
-         descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-         descripcion.setFilterStyle("display: none; visibility: hidden;");
-         factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-         factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         bandera = 0;
-         filtrarTiposReemplazos = null;
-         tipoLista = 0;
-      }
-   }
-
-   public void modificandoTipoReemplazo(int indice, String confirmarCambio, String valorConfirmar) {
-      log.error("ENTRE A MODIFICAR TIPO REEMPLAZO");
-      index = indice;
-
-      int contador = 0;
-      int contadorGuardar = 0;
-      boolean banderita = false;
-      Integer a;
-      a = null;
-      RequestContext context = RequestContext.getCurrentInstance();
-      log.error("TIPO LISTA = " + tipoLista);
-      if (confirmarCambio.equalsIgnoreCase("N")) {
-         log.error("ENTRE A MODIFICAR TIPO REEMPLAZO, CONFIRMAR CAMBIO ES N");
-         if (tipoLista == 0) {
-            if (!crearTiposReemplazos.contains(listTiposReemplazos.get(indice))) {
-               if (listTiposReemplazos.get(indice).getCodigo() == a) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  listTiposReemplazos.get(indice).setCodigo(backUpCodigo);
-               } else {
-                  for (int j = 0; j < listTiposReemplazos.size(); j++) {
-                     if (j != indice) {
-                        if (listTiposReemplazos.get(indice).getCodigo().equals(listTiposReemplazos.get(j).getCodigo())) {
-                           contador++;
-                        }
-                     }
-                  }
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     listTiposReemplazos.get(indice).setCodigo(backUpCodigo);
-                  } else {
-                     contadorGuardar++;
-                  }
-
-               }
-               if (listTiposReemplazos.get(indice).getNombre() == null || listTiposReemplazos.get(indice).getNombre().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-                  listTiposReemplazos.get(indice).setNombre(backUpDescripcion);
-               } else {
-                  contadorGuardar++;
-               }
-
-               if (contadorGuardar == 2) {
-                  if (modificarTiposReemplazos.isEmpty()) {
-                     modificarTiposReemplazos.add(listTiposReemplazos.get(indice));
-                  } else if (!modificarTiposReemplazos.contains(listTiposReemplazos.get(indice))) {
-                     modificarTiposReemplazos.add(listTiposReemplazos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-               }
-               index = -1;
-               secRegistro = null;
-            } else {
-               if (listTiposReemplazos.get(indice).getCodigo() == a) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  listTiposReemplazos.get(indice).setCodigo(backUpCodigo);
-               } else {
-                  for (int j = 0; j < listTiposReemplazos.size(); j++) {
-                     if (j != indice) {
-                        if (listTiposReemplazos.get(indice).getCodigo().equals(listTiposReemplazos.get(j).getCodigo())) {
-                           contador++;
-                        }
-                     }
-                  }
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     listTiposReemplazos.get(indice).setCodigo(backUpCodigo);
-                  } else {
-                     contadorGuardar++;
-                  }
-
-               }
-               if (listTiposReemplazos.get(indice).getNombre() == null || listTiposReemplazos.get(indice).getNombre().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-                  listTiposReemplazos.get(indice).setNombre(backUpDescripcion);
-               } else {
-                  contadorGuardar++;
-               }
-
-               if (contadorGuardar == 2) {
-
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         } else if (!crearTiposReemplazos.contains(filtrarTiposReemplazos.get(indice))) {
-            if (filtrarTiposReemplazos.get(indice).getCodigo() == a) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            } else {
-               for (int j = 0; j < filtrarTiposReemplazos.size(); j++) {
-                  log.error("indice filtrar indice : " + filtrarTiposReemplazos.get(j).getCodigo());
-                  if (j != indice) {
-                     if (filtrarTiposReemplazos.get(indice).getCodigo().equals(filtrarTiposReemplazos.get(j).getCodigo())) {
-                        contador++;
-                     }
-                  }
-               }
-               if (contador > 0) {
-                  mensajeValidacion = "CODIGOS REPETIDOS";
-                  banderita = false;
-               } else {
-                  contadorGuardar++;
-               }
-
-            }
-
-            if (filtrarTiposReemplazos.get(indice).getNombre() == null || filtrarTiposReemplazos.get(indice).getNombre().isEmpty()) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            } else {
-               contadorGuardar++;
-            }
-
-            if (contadorGuardar == 2) {
-               if (modificarTiposReemplazos.isEmpty()) {
-                  modificarTiposReemplazos.add(filtrarTiposReemplazos.get(indice));
-               } else if (!modificarTiposReemplazos.contains(filtrarTiposReemplazos.get(indice))) {
-                  modificarTiposReemplazos.add(filtrarTiposReemplazos.get(indice));
-               }
-               if (guardado == true) {
-                  guardado = false;
-               }
-
-            } else {
-               RequestContext.getCurrentInstance().update("form:validacionModificar");
-               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-            }
-            index = -1;
-            secRegistro = null;
-         } else {
-            if (filtrarTiposReemplazos.get(indice).getCodigo() == a) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            } else {
-               for (int j = 0; j < filtrarTiposReemplazos.size(); j++) {
-                  log.error("indice filtrar indice : " + filtrarTiposReemplazos.get(j).getCodigo());
-                  if (j != indice) {
-                     if (filtrarTiposReemplazos.get(indice).getCodigo().equals(filtrarTiposReemplazos.get(j).getCodigo())) {
-                        contador++;
-                     }
-                  }
-               }
-               if (contador > 0) {
-                  mensajeValidacion = "CODIGOS REPETIDOS";
-                  banderita = false;
-               } else {
-                  contadorGuardar++;
-               }
-
-            }
-
-            if (filtrarTiposReemplazos.get(indice).getNombre() == null || filtrarTiposReemplazos.get(indice).getNombre().isEmpty()) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-            } else {
-               contadorGuardar++;
-            }
-
-            if (contadorGuardar == 2) {
-
-               if (guardado == true) {
-                  guardado = false;
-               }
-
-            } else {
-               RequestContext.getCurrentInstance().update("form:validacionModificar");
-               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-            }
-            index = -1;
-            secRegistro = null;
-         }
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-
-   }
-
-   public void borrandoTiposReemplazos() {
-
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            log.info("Entro a borrarandoTiposReemplazos");
-            if (!modificarTiposReemplazos.isEmpty() && modificarTiposReemplazos.contains(listTiposReemplazos.get(index))) {
-               int modIndex = modificarTiposReemplazos.indexOf(listTiposReemplazos.get(index));
-               modificarTiposReemplazos.remove(modIndex);
-               borrarTiposReemplazos.add(listTiposReemplazos.get(index));
-            } else if (!crearTiposReemplazos.isEmpty() && crearTiposReemplazos.contains(listTiposReemplazos.get(index))) {
-               int crearIndex = crearTiposReemplazos.indexOf(listTiposReemplazos.get(index));
-               crearTiposReemplazos.remove(crearIndex);
-            } else {
-               borrarTiposReemplazos.add(listTiposReemplazos.get(index));
-            }
-            listTiposReemplazos.remove(index);
-         }
-         if (tipoLista == 1) {
-            log.info("borrarandoTiposReemplazos");
-            if (!modificarTiposReemplazos.isEmpty() && modificarTiposReemplazos.contains(filtrarTiposReemplazos.get(index))) {
-               int modIndex = modificarTiposReemplazos.indexOf(filtrarTiposReemplazos.get(index));
-               modificarTiposReemplazos.remove(modIndex);
-               borrarTiposReemplazos.add(filtrarTiposReemplazos.get(index));
-            } else if (!crearTiposReemplazos.isEmpty() && crearTiposReemplazos.contains(filtrarTiposReemplazos.get(index))) {
-               int crearIndex = crearTiposReemplazos.indexOf(filtrarTiposReemplazos.get(index));
-               crearTiposReemplazos.remove(crearIndex);
-            } else {
-               borrarTiposReemplazos.add(filtrarTiposReemplazos.get(index));
-            }
-            int VCIndex = listTiposReemplazos.indexOf(filtrarTiposReemplazos.get(index));
-            listTiposReemplazos.remove(VCIndex);
-            filtrarTiposReemplazos.remove(index);
-
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         if (listTiposReemplazos == null || listTiposReemplazos.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-         } else {
-            infoRegistro = "Cantidad de registros: " + listTiposReemplazos.size();
-         }
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         index = -1;
-         secRegistro = null;
-
-         if (guardado == true) {
-            guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-
-   }
-
-   public void verificarBorrado() {
-      log.info("ESTOY EN VERIFICAR BORRADO");
-      BigInteger verificarBorrandoEncargaturas;
-      BigInteger verificarBorradoProgramacionesTiempos;
-      BigInteger verificarBorradoReemplazos;
-      try {
-         if (tipoLista == 0) {
-            verificarBorrandoEncargaturas = administrarTiposReemplazos.contarEncargaturasTipoReemplazo(listTiposReemplazos.get(index).getSecuencia());
-            verificarBorradoProgramacionesTiempos = administrarTiposReemplazos.contarProgramacionesTiemposTipoReemplazo(listTiposReemplazos.get(index).getSecuencia());
-            verificarBorradoReemplazos = administrarTiposReemplazos.contarReemplazosTipoReemplazo(listTiposReemplazos.get(index).getSecuencia());
-         } else {
-            verificarBorrandoEncargaturas = administrarTiposReemplazos.contarEncargaturasTipoReemplazo(filtrarTiposReemplazos.get(index).getSecuencia());
-            verificarBorradoProgramacionesTiempos = administrarTiposReemplazos.contarProgramacionesTiemposTipoReemplazo(filtrarTiposReemplazos.get(index).getSecuencia());
-            verificarBorradoReemplazos = administrarTiposReemplazos.contarReemplazosTipoReemplazo(filtrarTiposReemplazos.get(index).getSecuencia());
-
-         }
-
-         if (verificarBorrandoEncargaturas.equals(new BigInteger("0")) && verificarBorradoProgramacionesTiempos.equals(new BigInteger("0")) && verificarBorradoReemplazos.equals(new BigInteger("0"))) {
-            log.info("Borrado==0");
-            borrandoTiposReemplazos();
-         } else {
-            log.info("Borrado>0");
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:validacionBorrar");
-            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-            index = -1;
-
-            verificarBorrandoEncargaturas = new BigInteger("-1");
-            verificarBorradoProgramacionesTiempos = new BigInteger("-1");
-            verificarBorradoReemplazos = new BigInteger("-1");
-         }
-      } catch (Exception e) {
-         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
-      }
-   }
-
-   public void revisarDialogoGuardar() {
-
-      if (!borrarTiposReemplazos.isEmpty() || !crearTiposReemplazos.isEmpty() || !modificarTiposReemplazos.isEmpty()) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-      }
-
-   }
-
-   public void guardarTipoReemplazo() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      if (guardado == false) {
-         log.info("Realizando TipoReemplazo");
-         if (!borrarTiposReemplazos.isEmpty()) {
-            administrarTiposReemplazos.borrarTiposReemplazos(borrarTiposReemplazos);
-            //mostrarBorrados
-            registrosBorrados = borrarTiposReemplazos.size();
-            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-            RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-            borrarTiposReemplazos.clear();
-         }
-         if (!crearTiposReemplazos.isEmpty()) {
-            administrarTiposReemplazos.crearTiposReemplazos(crearTiposReemplazos);
-            crearTiposReemplazos.clear();
-         }
-         if (!modificarTiposReemplazos.isEmpty()) {
-            administrarTiposReemplazos.modificarTiposReemplazos(modificarTiposReemplazos);
-            modificarTiposReemplazos.clear();
-         }
-         log.info("Se guardaron los datos con exito");
-         listTiposReemplazos = null;
-         guardado = true;
-         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-         RequestContext.getCurrentInstance().update("form:growl");
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-
-         k = 0;
-      }
-      index = -1;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-   }
-
-   public void editarCelda() {
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            editarTipoReemplazo = listTiposReemplazos.get(index);
-         }
-         if (tipoLista == 1) {
-            editarTipoReemplazo = filtrarTiposReemplazos.get(index);
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         log.info("Entro a editar... valor celda: " + cualCelda);
-         if (cualCelda == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-            RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
-            cualCelda = -1;
-         } else if (cualCelda == 1) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-            RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
-            cualCelda = -1;
-
-         } else if (cualCelda == 2) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editarFactorRiesgo");
-            RequestContext.getCurrentInstance().execute("PF('editarFactorRiesgo').show()");
-            cualCelda = -1;
-         }
-
-      }
-      index = -1;
-      secRegistro = null;
-   }
-
-   public void agregarNuevoTiposReemplazos() {
-      log.info("agregarNuevoTiposReemplazos");
-      int contador = 0;
-      int duplicados = 0;
-
-      Integer a = 0;
-      a = null;
-      mensajeValidacion = " ";
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (nuevoTipoReemplazo.getCodigo() == a) {
-         mensajeValidacion = " *Codigo \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-      } else {
-         log.info("codigo en Motivo Cambio Cargo: " + nuevoTipoReemplazo.getCodigo());
-
-         for (int x = 0; x < listTiposReemplazos.size(); x++) {
-            if (listTiposReemplazos.get(x).getCodigo() == nuevoTipoReemplazo.getCodigo()) {
-               duplicados++;
-            }
-         }
-         log.info("Antes del if Duplicados eses igual  : " + duplicados);
-
-         if (duplicados > 0) {
-            mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
-         } else {
-            log.info("bandera");
-            contador++;
-         }
-      }
-      if (nuevoTipoReemplazo.getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         log.info("bandera");
-         contador++;
-
-      }
-
-      log.info("contador " + contador);
-
-      if (contador == 2) {
-         if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            //CERRAR FILTRADO
-            log.info("Desactivar");
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-            factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            bandera = 0;
-            filtrarTiposReemplazos = null;
-            tipoLista = 0;
-         }
-         log.info("Despues de la bandera");
-
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoTipoReemplazo.setSecuencia(l);
-
-         crearTiposReemplazos.add(nuevoTipoReemplazo);
-
-         listTiposReemplazos.add(nuevoTipoReemplazo);
-         nuevoTipoReemplazo = new TiposReemplazos();
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-
-         infoRegistro = "Cantidad de registros: " + listTiposReemplazos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-
-         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposReemplazos').hide()");
-         index = -1;
-         secRegistro = null;
-
-      } else {
-         RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-         contador = 0;
-      }
-   }
-
-   public void limpiarNuevoTiposReemplazos() {
-      log.info("limpiarNuevoTiposReemplazos");
-      nuevoTipoReemplazo = new TiposReemplazos();
-      secRegistro = null;
-      index = -1;
-
-   }
-
-   //------------------------------------------------------------------------------
-   public void duplicandoTiposReemplazos() {
-      log.info("duplicandoTiposReemplazos");
-      if (index >= 0) {
-         duplicarTipoReemplazo = new TiposReemplazos();
-         k++;
-         l = BigInteger.valueOf(k);
-
-         if (tipoLista == 0) {
-            duplicarTipoReemplazo.setSecuencia(l);
-            duplicarTipoReemplazo.setCodigo(listTiposReemplazos.get(index).getCodigo());
-            duplicarTipoReemplazo.setNombre(listTiposReemplazos.get(index).getNombre());
-            duplicarTipoReemplazo.setFactorreemplazado(listTiposReemplazos.get(index).getFactorreemplazado());
-         }
-         if (tipoLista == 1) {
-            duplicarTipoReemplazo.setSecuencia(l);
-            duplicarTipoReemplazo.setCodigo(filtrarTiposReemplazos.get(index).getCodigo());
-            duplicarTipoReemplazo.setNombre(filtrarTiposReemplazos.get(index).getNombre());
-            duplicarTipoReemplazo.setFactorreemplazado(filtrarTiposReemplazos.get(index).getFactorreemplazado());
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTTR");
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').show()");
-         index = -1;
-         secRegistro = null;
-      }
-   }
-
-   public void confirmarDuplicar() {
-      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOSREEMPLAZOS");
-      int contador = 0;
-      mensajeValidacion = " ";
-      int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      Integer a = 0;
-      a = null;
-
-      if (duplicarTipoReemplazo.getCodigo() == a) {
-         mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-      } else {
-         for (int x = 0; x < listTiposReemplazos.size(); x++) {
-            if (listTiposReemplazos.get(x).getCodigo() == duplicarTipoReemplazo.getCodigo()) {
-               duplicados++;
-            }
-         }
-         if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            log.info("Mensaje validacion : " + mensajeValidacion);
-         } else {
-            log.info("bandera");
-            contador++;
-            duplicados = 0;
-         }
-      }
-      if (duplicarTipoReemplazo.getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Nombre \n";
-         log.info("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         log.info("Bandera : ");
-         contador++;
-      }
-
-      if (contador == 2) {
-         k++;
-         l = BigInteger.valueOf(k);
-         duplicarTipoReemplazo.setSecuencia(l);
-         log.info("Datos Duplicando: " + duplicarTipoReemplazo.getSecuencia() + "  " + duplicarTipoReemplazo.getCodigo());
-         if (crearTiposReemplazos.contains(duplicarTipoReemplazo)) {
-            log.info("Ya lo contengo.");
-         }
-         listTiposReemplazos.add(duplicarTipoReemplazo);
-         crearTiposReemplazos.add(duplicarTipoReemplazo);
-         RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-         infoRegistro = "Cantidad de registros: " + listTiposReemplazos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         index = -1;
-         secRegistro = null;
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
+        }
+        contarRegisros();
+    }
+
+    public void contarRegisros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    public void cambiarIndice(TiposReemplazos tipoR, int celda) {
+        tiposReemplazosSeleccionado = tipoR;
+        cualCelda = celda;
+        tiposReemplazosSeleccionado.getSecuencia();
+        if (cualCelda == 0) {
+            tiposReemplazosSeleccionado.getCodigo();
+        }
+        if (cualCelda == 1) {
+            tiposReemplazosSeleccionado.getNombre();
+        }
+    }
+
+    public void activarAceptar() {
+        aceptar = false;
+    }
+
+    public void cancelarModificacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
             //CERRAR FILTRADO
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -881,176 +189,514 @@ public class ControlTiposReemplazos implements Serializable {
             bandera = 0;
             filtrarTiposReemplazos = null;
             tipoLista = 0;
-         }
-         duplicarTipoReemplazo = new TiposReemplazos();
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').hide()");
+            tamano = 310;
+        }
 
-      } else {
-         contador = 0;
-         RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-         RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
-      }
-   }
+        borrarTiposReemplazos.clear();
+        crearTiposReemplazos.clear();
+        modificarTiposReemplazos.clear();
+        tiposReemplazosSeleccionado = null;
+        k = 0;
+        listTiposReemplazos = null;
+        guardado = true;
+        getListTiposReemplazos();
+        contarRegisros();
+        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
 
-   public void limpiarDuplicarTiposReemplazos() {
-      duplicarTipoReemplazo = new TiposReemplazos();
-   }
+    public void salir() {
+        limpiarListasValor();
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
+            //CERRAR FILTRADO
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
+            factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            bandera = 0;
+            filtrarTiposReemplazos = null;
+            tipoLista = 0;
+            tamano = 310;
+        }
+        borrarTiposReemplazos.clear();
+        crearTiposReemplazos.clear();
+        modificarTiposReemplazos.clear();
+        tiposReemplazosSeleccionado = null;
+        k = 0;
+        listTiposReemplazos = null;
+        guardado = true;
+        getListTiposReemplazos();
+        contarRegisros();
+        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
+    }
 
-   public void exportPDF() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
-      FacesContext context = FacesContext.getCurrentInstance();
-      Exporter exporter = new ExportarPDF();
-      exporter.export(context, tabla, "TIPOSREEMPLAZOS", false, false, "UTF-8", null, null);
-      context.responseComplete();
-      index = -1;
-      secRegistro = null;
-   }
+    public void activarCtrlF11() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 0) {
+            tamano = 290;
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo.setFilterStyle("width: 85% !important;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion.setFilterStyle("width: 85% !important;");
+            factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
+            factorReemplazado.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            bandera = 1;
+        } else if (bandera == 1) {
+            tamano = 310;
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
+            factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            bandera = 0;
+            filtrarTiposReemplazos = null;
+            tipoLista = 0;
+        }
+    }
 
-   public void exportXLS() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
-      FacesContext context = FacesContext.getCurrentInstance();
-      Exporter exporter = new ExportarXLS();
-      exporter.export(context, tabla, "TIPOSREEMPLAZOS", false, false, "UTF-8", null, null);
-      context.responseComplete();
-      index = -1;
-      secRegistro = null;
-   }
-
-   public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      log.info("lol");
-      if (!listTiposReemplazos.isEmpty()) {
-         if (secRegistro != null) {
-            log.info("lol 2");
-            int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSREEMPLAZOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            log.info("resultado: " + resultado);
-            if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+    public void modificandoTipoReemplazo(TiposReemplazos tipoR) {
+        tiposReemplazosSeleccionado = tipoR;
+        if (!crearTiposReemplazos.contains(tiposReemplazosSeleccionado)) {
+            if (modificarTiposReemplazos.isEmpty()) {
+                modificarTiposReemplazos.add(tiposReemplazosSeleccionado);
+            } else if (!modificarTiposReemplazos.contains(tiposReemplazosSeleccionado)) {
+                modificarTiposReemplazos.add(tiposReemplazosSeleccionado);
             }
-         } else {
+        }
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void borrandoTiposReemplazos() {
+        if (tiposReemplazosSeleccionado != null) {
+            if (!modificarTiposReemplazos.isEmpty() && modificarTiposReemplazos.contains(tiposReemplazosSeleccionado)) {
+                int modIndex = modificarTiposReemplazos.indexOf(tiposReemplazosSeleccionado);
+                modificarTiposReemplazos.remove(modIndex);
+                borrarTiposReemplazos.add(tiposReemplazosSeleccionado);
+            } else if (!crearTiposReemplazos.isEmpty() && crearTiposReemplazos.contains(tiposReemplazosSeleccionado)) {
+                int crearIndex = crearTiposReemplazos.indexOf(tiposReemplazosSeleccionado);
+                crearTiposReemplazos.remove(crearIndex);
+            } else {
+                borrarTiposReemplazos.add(tiposReemplazosSeleccionado);
+            }
+            listTiposReemplazos.remove(tiposReemplazosSeleccionado);
+            if (tipoLista == 1) {
+                filtrarTiposReemplazos.remove(tiposReemplazosSeleccionado);
+
+            }
+            contarRegisros();
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            tiposReemplazosSeleccionado = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-         }
-      } else if (administrarRastros.verificarHistoricosTabla("TIPOSREEMPLAZOS")) { // igual acá
-         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-      }
-      index = -1;
-   }
+        }
 
-   //--------///////////////////////---------------------*****//*/*/*/*/*/-****----
-   public List<TiposReemplazos> getListTiposReemplazos() {
-      if (listTiposReemplazos == null) {
-         listTiposReemplazos = administrarTiposReemplazos.consultarTiposReemplazos();
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listTiposReemplazos == null || listTiposReemplazos.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listTiposReemplazos.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      return listTiposReemplazos;
-   }
+    }
 
-   public void setListTiposReemplazos(List<TiposReemplazos> listTiposReemplazos) {
-      this.listTiposReemplazos = listTiposReemplazos;
-   }
+    public void verificarBorrado() {
+        BigInteger verificarBorrandoEncargaturas;
+        BigInteger verificarBorradoProgramacionesTiempos;
+        BigInteger verificarBorradoReemplazos;
+        try {
+            verificarBorrandoEncargaturas = administrarTiposReemplazos.contarEncargaturasTipoReemplazo(tiposReemplazosSeleccionado.getSecuencia());
+            verificarBorradoProgramacionesTiempos = administrarTiposReemplazos.contarProgramacionesTiemposTipoReemplazo(tiposReemplazosSeleccionado.getSecuencia());
+            verificarBorradoReemplazos = administrarTiposReemplazos.contarReemplazosTipoReemplazo(tiposReemplazosSeleccionado.getSecuencia());
+            if (verificarBorrandoEncargaturas.equals(new BigInteger("0")) && verificarBorradoProgramacionesTiempos.equals(new BigInteger("0")) && verificarBorradoReemplazos.equals(new BigInteger("0"))) {
+                borrandoTiposReemplazos();
+            } else {
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+                verificarBorrandoEncargaturas = new BigInteger("-1");
+                verificarBorradoProgramacionesTiempos = new BigInteger("-1");
+                verificarBorradoReemplazos = new BigInteger("-1");
+            }
+        } catch (Exception e) {
+            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
+        }
+    }
 
-   public List<TiposReemplazos> getFiltrarTiposReemplazos() {
-      return filtrarTiposReemplazos;
-   }
+    public void revisarDialogoGuardar() {
 
-   public void setFiltrarTiposReemplazos(List<TiposReemplazos> filtrarTiposReemplazos) {
-      this.filtrarTiposReemplazos = filtrarTiposReemplazos;
-   }
+        if (!borrarTiposReemplazos.isEmpty() || !crearTiposReemplazos.isEmpty() || !modificarTiposReemplazos.isEmpty()) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        }
 
-   public TiposReemplazos getNuevoTipoReemplazo() {
-      return nuevoTipoReemplazo;
-   }
+    }
 
-   public void setNuevoTipoReemplazo(TiposReemplazos nuevoTipoReemplazo) {
-      this.nuevoTipoReemplazo = nuevoTipoReemplazo;
-   }
+    public void guardarTipoReemplazo() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                msgError = "";
+                if (!borrarTiposReemplazos.isEmpty()) {
+                    for (int i = 0; i < borrarTiposReemplazos.size(); i++) {
+                        administrarTiposReemplazos.borrarTiposReemplazos(borrarTiposReemplazos.get(i));
+                    }
+                    //mostrarBorrados
+                    registrosBorrados = borrarTiposReemplazos.size();
+                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+                    borrarTiposReemplazos.clear();
+                }
+                if (!crearTiposReemplazos.isEmpty()) {
+                    for (int i = 0; i < borrarTiposReemplazos.size(); i++) {
+                        administrarTiposReemplazos.crearTiposReemplazos(crearTiposReemplazos.get(i));
+                    }
+                    crearTiposReemplazos.clear();
+                }
+                if (!modificarTiposReemplazos.isEmpty()) {
+                    for (int i = 0; i < borrarTiposReemplazos.size(); i++) {
+                        administrarTiposReemplazos.modificarTiposReemplazos(modificarTiposReemplazos.get(i));
+                    }
+                    modificarTiposReemplazos.clear();
+                }
+                if (msgError.equals("EXITO")) {
 
-   public TiposReemplazos getDuplicarTipoReemplazo() {
-      return duplicarTipoReemplazo;
-   }
+                    listTiposReemplazos = null;
+                    getListTiposReemplazos();
+                    contarRegisros();
+                    guardado = true;
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                    k = 0;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardadoBD");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardadoBD').show()");
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
 
-   public void setDuplicarTipoReemplazo(TiposReemplazos duplicarTipoReemplazo) {
-      this.duplicarTipoReemplazo = duplicarTipoReemplazo;
-   }
+    public void editarCelda() {
+        if (tiposReemplazosSeleccionado != null) {
+            editarTipoReemplazo = tiposReemplazosSeleccionado;
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
+                cualCelda = -1;
 
-   public TiposReemplazos getEditarTipoReemplazo() {
-      return editarTipoReemplazo;
-   }
+            } else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFactorRiesgo");
+                RequestContext.getCurrentInstance().execute("PF('editarFactorRiesgo').show()");
+                cualCelda = -1;
+            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
 
-   public void setEditarTipoReemplazo(TiposReemplazos editarTipoReemplazo) {
-      this.editarTipoReemplazo = editarTipoReemplazo;
-   }
+    public void agregarNuevoTiposReemplazos() {
+        int contador = 0;
+        int duplicados = 0;
+        Integer a = 0;
+        a = null;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (nuevoTipoReemplazo.getCodigo() == a) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int x = 0; x < listTiposReemplazos.size(); x++) {
+                if (listTiposReemplazos.get(x).getCodigo() == nuevoTipoReemplazo.getCodigo()) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
+            } else {
+                contador++;
+            }
+        }
+        if (nuevoTipoReemplazo.getNombre() == null || nuevoTipoReemplazo.getNombre().isEmpty()) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;
+        }
+        if (contador == 2) {
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo.setFilterStyle("display: none; visibility: hidden;");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion.setFilterStyle("display: none; visibility: hidden;");
+                factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
+                factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                bandera = 0;
+                filtrarTiposReemplazos = null;
+                tipoLista = 0;
+                tamano = 310;
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoTipoReemplazo.setSecuencia(l);
+            crearTiposReemplazos.add(nuevoTipoReemplazo);
+            listTiposReemplazos.add(0, nuevoTipoReemplazo);
+            tiposReemplazosSeleccionado = nuevoTipoReemplazo;
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            contarRegisros();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposReemplazos').hide()");
+            nuevoTipoReemplazo = new TiposReemplazos();
+        } else {
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
+            contador = 0;
+        }
+    }
 
-   public boolean isGuardado() {
-      return guardado;
-   }
+    public void limpiarNuevoTiposReemplazos() {
+        nuevoTipoReemplazo = new TiposReemplazos();
+    }
 
-   public void setGuardado(boolean guardado) {
-      this.guardado = guardado;
-   }
+    //------------------------------------------------------------------------------
+    public void duplicandoTiposReemplazos() {
+        if (tiposReemplazosSeleccionado != null) {
+            duplicarTipoReemplazo = new TiposReemplazos();
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarTipoReemplazo.setSecuencia(l);
+            duplicarTipoReemplazo.setCodigo(tiposReemplazosSeleccionado.getCodigo());
+            duplicarTipoReemplazo.setNombre(tiposReemplazosSeleccionado.getNombre());
+            duplicarTipoReemplazo.setFactorreemplazado(tiposReemplazosSeleccionado.getFactorreemplazado());
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTTR");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
 
-   public int getRegistrosBorrados() {
-      return registrosBorrados;
-   }
+    public void confirmarDuplicar() {
+        int contador = 0;
+        mensajeValidacion = " ";
+        int duplicados = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        Integer a = 0;
+        a = null;
+        if (duplicarTipoReemplazo.getCodigo() == a) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int x = 0; x < listTiposReemplazos.size(); x++) {
+                if (listTiposReemplazos.get(x).getCodigo() == duplicarTipoReemplazo.getCodigo()) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
+            } else {
+                contador++;
+                duplicados = 0;
+            }
+        }
+        if (duplicarTipoReemplazo.getNombre() == null || duplicarTipoReemplazo.getNombre().isEmpty()) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;
+        }
+        if (contador == 2) {
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarTipoReemplazo.setSecuencia(l);
+            crearTiposReemplazos.add(duplicarTipoReemplazo);
+            listTiposReemplazos.add(0, duplicarTipoReemplazo);
+            tiposReemplazosSeleccionado = duplicarTipoReemplazo;
+            contarRegisros();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                //CERRAR FILTRADO
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo.setFilterStyle("display: none; visibility: hidden;");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion.setFilterStyle("display: none; visibility: hidden;");
+                factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
+                factorReemplazado.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                bandera = 0;
+                filtrarTiposReemplazos = null;
+                tipoLista = 0;
+                tamano = 310;
+            }
+            duplicarTipoReemplazo = new TiposReemplazos();
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').hide()");
+        } else {
+            contador = 0;
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+        }
+    }
 
-   public void setRegistrosBorrados(int registrosBorrados) {
-      this.registrosBorrados = registrosBorrados;
-   }
+    public void limpiarDuplicarTiposReemplazos() {
+        duplicarTipoReemplazo = new TiposReemplazos();
+    }
 
-   public String getMensajeValidacion() {
-      return mensajeValidacion;
-   }
+    public void exportPDF() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "TIPOSREEMPLAZOS", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
 
-   public void setMensajeValidacion(String mensajeValidacion) {
-      this.mensajeValidacion = mensajeValidacion;
-   }
+    public void exportXLS() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "TIPOSREEMPLAZOS", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
 
-   public BigInteger getSecRegistro() {
-      return secRegistro;
-   }
+    public void verificarRastro() {
+        if (tiposReemplazosSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(tiposReemplazosSeleccionado.getSecuencia(), "TIPOSREEMPLAZOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+            }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSREEMPLAZOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+        }
+    }
 
-   public void setSecRegistro(BigInteger secRegistro) {
-      this.secRegistro = secRegistro;
-   }
+    //--------///////////////////////---------------------*****//*/*/*/*/*/-****----
+    public List<TiposReemplazos> getListTiposReemplazos() {
+        if (listTiposReemplazos == null) {
+            listTiposReemplazos = administrarTiposReemplazos.consultarTiposReemplazos();
+        }
+        return listTiposReemplazos;
+    }
 
-   public TiposReemplazos getTiposReemplazosSeleccionado() {
-      return tiposReemplazosSeleccionado;
-   }
+    public void setListTiposReemplazos(List<TiposReemplazos> listTiposReemplazos) {
+        this.listTiposReemplazos = listTiposReemplazos;
+    }
 
-   public void setTiposReemplazosSeleccionado(TiposReemplazos tiposReemplazosSeleccionado) {
-      this.tiposReemplazosSeleccionado = tiposReemplazosSeleccionado;
-   }
+    public List<TiposReemplazos> getFiltrarTiposReemplazos() {
+        return filtrarTiposReemplazos;
+    }
 
-   public int getTamano() {
-      return tamano;
-   }
+    public void setFiltrarTiposReemplazos(List<TiposReemplazos> filtrarTiposReemplazos) {
+        this.filtrarTiposReemplazos = filtrarTiposReemplazos;
+    }
 
-   public void setTamano(int tamano) {
-      this.tamano = tamano;
-   }
+    public TiposReemplazos getNuevoTipoReemplazo() {
+        return nuevoTipoReemplazo;
+    }
 
-   public String getInfoRegistro() {
-      return infoRegistro;
-   }
+    public void setNuevoTipoReemplazo(TiposReemplazos nuevoTipoReemplazo) {
+        this.nuevoTipoReemplazo = nuevoTipoReemplazo;
+    }
 
-   public void setInfoRegistro(String infoRegistro) {
-      this.infoRegistro = infoRegistro;
-   }
+    public TiposReemplazos getDuplicarTipoReemplazo() {
+        return duplicarTipoReemplazo;
+    }
 
+    public void setDuplicarTipoReemplazo(TiposReemplazos duplicarTipoReemplazo) {
+        this.duplicarTipoReemplazo = duplicarTipoReemplazo;
+    }
+
+    public TiposReemplazos getEditarTipoReemplazo() {
+        return editarTipoReemplazo;
+    }
+
+    public void setEditarTipoReemplazo(TiposReemplazos editarTipoReemplazo) {
+        this.editarTipoReemplazo = editarTipoReemplazo;
+    }
+
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
+
+    public int getRegistrosBorrados() {
+        return registrosBorrados;
+    }
+
+    public void setRegistrosBorrados(int registrosBorrados) {
+        this.registrosBorrados = registrosBorrados;
+    }
+
+    public String getMensajeValidacion() {
+        return mensajeValidacion;
+    }
+
+    public void setMensajeValidacion(String mensajeValidacion) {
+        this.mensajeValidacion = mensajeValidacion;
+    }
+
+    public TiposReemplazos getTiposReemplazosSeleccionado() {
+        return tiposReemplazosSeleccionado;
+    }
+
+    public void setTiposReemplazosSeleccionado(TiposReemplazos tiposReemplazosSeleccionado) {
+        this.tiposReemplazosSeleccionado = tiposReemplazosSeleccionado;
+    }
+
+    public int getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(int tamano) {
+        this.tamano = tamano;
+    }
+
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTipoReemplazo");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
+
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
 }

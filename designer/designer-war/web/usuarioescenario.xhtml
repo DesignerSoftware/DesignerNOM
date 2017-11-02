@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.usuariosescenarios" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
+                        <p:toolbar styleClass="cssToolbar">   
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlUsuariosEscenarios.guardarCambiosUsuario()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlUsuariosEscenarios.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlUsuariosEscenarios.listaValoresBoton()}" process="@this"
+                                                 disabled="#{controlUsuariosEscenarios.activarLov}"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlUsuariosEscenarios.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlUsuariosEscenarios.exportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlUsuariosEscenarios.limpiarNuevoUsuarioEscenario()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosUsuariosExportar" fileName="UsuariosEscenariosXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlUsuariosEscenarios.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('NuevoRegistroUsuario').show()"  update=":formularioDialogos:nuevaUsuario" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlUsuariosEscenarios.borrarUsuarioTS()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlUsuariosEscenarios.duplicarUsuario()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlUsuariosEscenarios.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlUsuariosEscenarios.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUsuariosEscenarios.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>#{msg['usuarios']}</strong></legend>
+
+                            <p:dataTable id="datosUsuarios" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"   value="#{controlUsuariosEscenarios.listUsuariosE}" scrollable="true"
+                                         filteredValue="#{controlUsuariosEscenarios.listUsuariosEFiltrar}" scrollHeight="#{controlUsuariosEscenarios.altoTabla}" scrollWidth="830"
+                                         style="border: 1px; width: 810px;" liveScroll="true" scrollRows="80" emptyMessage="#{msg['vacio']}" widgetVar="datosUsuarios"
+                                         editable="true" editMode="cell" selection="#{controlUsuariosEscenarios.usuarioEscenarioSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlUsuariosEscenarios.eventofiltrar()}"/>
+
+
+                                <p:column headerText="Usuario" width="120" sortBy="#{info.usuario.alias}" filterBy="#{info.usuario.alias}" filterMatchMode="contains" id="columnausuario" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.usuario.alias}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.usuario.alias}" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="change" listener="#{controlUsuariosEscenarios.modificarUsuariosTS(info)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlUsuariosEscenarios.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
+                                                <p:ajax event="dblclick" listener="#{controlUsuariosEscenarios.asignarIndex(info, 0, 0)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Escenario" sortBy="#{info.escenario.descripcion}" filterBy="#{info.escenario.descripcion}" filterMatchMode="contains" id="columnats" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.escenario.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.escenario.descripcion}" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlUsuariosEscenarios.cambiarIndice(info, 1)}"  process="@this"
+                                                        onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
+                                                <p:ajax event="change" listener="#{controlUsuariosEscenarios.modificarUsuariosTS(info)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlUsuariosEscenarios.asignarIndex(info, 1, 0)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlUsuariosEscenarios.infoRegistroUsuariosE}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlUsuariosEscenarios.revisarDialogoGuardar()}" disabled="#{controlUsuariosEscenarios.guardado}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlUsuariosEscenarios.salir()}" process="@this"/>
+
+                    </p:panel>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlUsuariosEscenarios.activarCtrlF11()}" process="@this"/> 
+                </h:form>
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="errorGuardadoBD" header="¡Error!" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlUsuariosEscenarios.msgError}"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaUsuario" header="#{msg['atencion']}" widgetVar="validacionNuevaUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="#{controlUsuariosEscenarios.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeRegistro" header="#{msg['error']}" widgetVar="existeRegistro"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="Existe un registro con el usuario y el escenario ingresados." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeRegistro').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroUsuario" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroUsuario" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="380" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
+                        <p:panel id="nuevaUsuario" style="border: none;">                           
+                            <strong><h:outputText value="*Usuario" style=" position: absolute; top: 65px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlUsuariosEscenarios.nuevoUsuarioE.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosEscenarios.asignarIndex(usuario, 0, 1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEscenarios.asignarIndex(usuario, 0, 1)}"/>
+
+                            <strong><h:outputText value="*Tipo Sueldo" style=" position: absolute; top: 95px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlUsuariosEscenarios.nuevoUsuarioE.escenario.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosEscenarios.asignarIndex(usuario, 1, 1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 317px; top: 90px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEscenarios.asignarIndex(usuario, 1, 1)}"/>
+
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 155px;" actionListener="#{controlUsuariosEscenarios.limpiarNuevoUsuarioEscenario()}" update="nuevaUsuario" process="@this"/>
+                            <p:commandButton id="agregarU" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 155px;"  actionListener="#{controlUsuariosEscenarios.agregarNuevaUsuario()}" process="@this"/>
+                            <p:commandButton id="cancelarU" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 155px;" actionListener="#{controlUsuariosEscenarios.limpiarNuevoUsuarioEscenario()}" update="nuevaUsuario" onclick="PF('NuevoRegistroUsuario').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroUsuario" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroUsuario" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="380" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarUsuario" style="border: none;">
+
+                            <strong><h:outputText value="*Usuario" style=" position: absolute; top: 65px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" id="duplicadoPersona" value="#{controlUsuariosEscenarios.duplicarUsuarioE.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosEscenarios.asignarIndex(usuario, 0, 2)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" id="btnDuplicarPersona" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuariosEscenarios.asignarIndex(usuario, 0, 2)}"/>
+
+                            <strong><h:outputText value="*Tipo Sueldo" style=" position: absolute; top: 95px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" id="duplicadoPerfil" value="#{controlUsuariosEscenarios.duplicarUsuarioE.escenario.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosEscenarios.asignarIndex(usuario, 1, 2)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 317px; top: 90px;" id="btnDuplicarPerfil" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuariosEscenarios.asignarIndex(usuario, 1, 2)}"/>
+
+                            <p:commandButton id="limpiarDuplicadoUsuario" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 155px;" actionListener="#{controlUsuariosEscenarios.limpiarDuplicarUsuarioEscenario()}" update="duplicarUsuario" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 155px;"  process="@this" actionListener="#{controlUsuariosEscenarios.confirmarDuplicar()}"/>
+                            <p:commandButton id="cancelarDuplicadoUsuario" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 155px;" actionListener="#{controlUsuariosEscenarios.limpiarDuplicarUsuarioEscenario()}" update="duplicarUsuario" onclick="PF('DuplicarRegistroUsuario').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>    
+
+                    <p:dialog header="Usuarios" widgetVar="usuariosDialogo" draggable="true" resizable="false" closable="false" id="usuariosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
+                        <p:dataTable id="lovUsuarios" style="width: 330px;" var="usu" value="#{controlUsuariosEscenarios.lovUsuarios}" rowKey="#{usu.secuencia}"
+                                     selection="#{controlUsuariosEscenarios.usuarioSeleccionado}" selectionMode="single" widgetVar="lovUsuarios" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosEscenarios.lovUsuariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlUsuariosEscenarios.activarAceptar()}" update=":formularioDialogos:aceptarU"/>
+                            <p:ajax event="rowDblselect" listener="#{controlUsuariosEscenarios.actualizarUsuarios()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlUsuariosEscenarios.contarRegistrosUsuarios()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Usuarios: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUsuarios').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{usu.alias}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Usuario"/>
+                                </f:facet>
+                                <h:outputText value="#{usu.alias}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroUsuarios" value="#{msg['infoRegistro']} #{controlUsuariosEscenarios.infoRegistroUsuario}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarU" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosEscenarios.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosEscenarios.actualizarUsuarios()}"  process="@this"/>
+                            <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosEscenarios.cancelarCambioUsuario()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+
+                    <p:dialog header="Escenarios" widgetVar="escenariosDialogo" draggable="true" resizable="false" closable="false" id="escenariosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
+                        <p:dataTable id="lovTS" style="width: 330px;" var="ts" value="#{controlUsuariosEscenarios.lovEscenarios}" rowKey="#{ts.secuencia}"
+                                     selection="#{controlUsuariosEscenarios.escenarioSeleccionado}" selectionMode="single" widgetVar="lovTS" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosEscenarios.lovEscenariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlUsuariosEscenarios.activarAceptar()}" update=":formularioDialogos:aceptarTS"/>
+                            <p:ajax event="rowDblselect" listener="#{controlUsuariosEscenarios.actualizarEscenarios()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlUsuariosEscenarios.contarRegistrosTS()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Escenarios: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTS').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{ts.descripcion}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{ts.descripcion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroC" value="#{msg['infoRegistro']} #{controlUsuariosEscenarios.infoRegistroEscenario}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTS" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosEscenarios.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosEscenarios.actualizarEscenarios()}"  process="@this"/>
+                            <p:commandButton id="cancelarTS" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosEscenarios.cancelarCambioEscenarios()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"
+                                         actionListener="#{controlUsuariosEscenarios.guardarYSalir()}"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"
+                                         actionListener="#{controlUsuariosEscenarios.salir()}"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosEscenarios.usuarioEscenarioSeleccionado.secuencia, 'UsuariosEscenarios', 'usuarioescenario')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" onstart="#{controlUsuariosEscenarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosEscenarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuarioescenario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosEscenarios.usuarioEscenarioSeleccionado.secuencia, 'UsuariosEscenarios', 'usuarioescenario')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosEscenarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>                    
+
+                    <p:dialog id="editarUsuario" header="Usuario" widgetVar="editarUsuario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlUsuariosEscenarios.editarUsuarioE.usuario.alias}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEscenario" header="Escenario" widgetVar="editarEscenario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlUsuariosEscenarios.editarUsuarioE.escenario.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosUsuariosExportar" var="exp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlUsuariosEscenarios.listUsuariosE}" widgetVar="datosUsuariosExportar"> 
+                        <p:column headerText="Usuario">                                  
+                            <f:facet name="header"><h:outputText value="Usuario"/> </f:facet> 
+                            <h:outputText value="#{exp.usuario.alias}"/>
+                        </p:column> 
+
+                        <p:column headerText="Escenario">                                  
+                            <f:facet name="header"><h:outputText value="Escenario"/> </f:facet> 
+                            <h:outputText value="#{exp.escenario.descripcion}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>    
+        </ui:composition>
+    </h:body>
+</html>
+

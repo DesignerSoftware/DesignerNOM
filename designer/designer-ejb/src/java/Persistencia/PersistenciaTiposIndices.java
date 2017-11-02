@@ -8,59 +8,80 @@ package Persistencia;
 import Entidades.TiposIndices;
 import InterfacePersistencia.PersistenciaTiposIndicesInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 @Stateless
 public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaTiposIndices.class);
+    private static Logger log = Logger.getLogger(PersistenciaTiposIndices.class);
 
-   public void crear(EntityManager em, TiposIndices tiposIndices) {
+    public String crear(EntityManager em, TiposIndices tiposIndices) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposIndices);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposIndices.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el Tipo Indice";
             }
         }
     }
 
-    public void editar(EntityManager em, TiposIndices tiposIndices) {
+    public String editar(EntityManager em, TiposIndices tiposIndices) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposIndices);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposIndices.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al editar el Tipo Indice";
             }
         }
     }
 
-    public void borrar(EntityManager em, TiposIndices tiposIndices) {
+    public String borrar(EntityManager em, TiposIndices tiposIndices) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(tiposIndices));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposIndices.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar el Tipo Indice";
             }
         }
     }

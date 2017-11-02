@@ -18,10 +18,10 @@ public interface AdministrarUsuariosContratosInterface {
 
     public List<UsuariosContratos> consultarUsuariosC();
 
-    public void modificarUsuarioC(List<UsuariosContratos> listaUsuarios);
+    public String modificarUsuarioC(UsuariosContratos usuarioC);
 
-    public void borrarUsuarioC(List<UsuariosContratos> listaUsuarios);
+    public String borrarUsuarioC(UsuariosContratos usuarioC);
 
-    public void crearUsuarioC(List<UsuariosContratos> listaUsuarios);
+    public String crearUsuarioC(UsuariosContratos usuarioC);
 
 }

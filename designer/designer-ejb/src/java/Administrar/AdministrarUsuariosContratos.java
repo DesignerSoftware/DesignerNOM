@@ -23,83 +23,83 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarUsuariosContratos implements AdministrarUsuariosContratosInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarUsuariosContratos.class);
+    private static Logger log = Logger.getLogger(AdministrarUsuariosContratos.class);
 
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
-   @EJB
-   PersistenciaUsuariosContratosInterface persistenciaUsuariosContratos;
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaUsuariosContratosInterface persistenciaUsuariosContratos;
 
-   private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
+            } else {
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
 
-   @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
-   @Override
-   public List<UsuariosContratos> consultarUsuariosC() {
-      try {
-         return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarUsuariosC() ERROR: " + e);
-         return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
-      }
-   }
+    @Override
+    public List<UsuariosContratos> consultarUsuariosC() {
+        try {
+            return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarUsuariosC() ERROR: " + e);
+            return null;
+        }
+    }
 
-   @Override
-   public void modificarUsuarioC(List<UsuariosContratos> listaUsuarios) {
-      try {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
-            persistenciaUsuariosContratos.editar(getEm(), listaUsuarios.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarUsuarioC() ERROR: " + e);
-      }
-   }
+    @Override
+    public String modificarUsuarioC(UsuariosContratos usuarioC) {
+        try {
+            return persistenciaUsuariosContratos.editar(getEm(), usuarioC);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarUsuarioC() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void borrarUsuarioC(List<UsuariosContratos> listaUsuarios) {
-      try {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
-            persistenciaUsuariosContratos.borrar(getEm(), listaUsuarios.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarUsuarioC() ERROR: " + e);
-      }
-   }
+    @Override
+    public String borrarUsuarioC(UsuariosContratos usuarioC) {
+        try {
+            return persistenciaUsuariosContratos.borrar(getEm(), usuarioC);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarUsuarioC() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void crearUsuarioC(List<UsuariosContratos> listaUsuarios) {
-      try {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
-            persistenciaUsuariosContratos.crear(getEm(), listaUsuarios.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearUsuarioC() ERROR: " + e);
-      }
-   }
+    @Override
+    public String crearUsuarioC(UsuariosContratos usuarioC) {
+        try {
+            return persistenciaUsuariosContratos.crear(getEm(), usuarioC);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearUsuarioC() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
 }

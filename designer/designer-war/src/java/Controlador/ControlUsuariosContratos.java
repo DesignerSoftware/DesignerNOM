@@ -44,7 +44,7 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlUsuariosContratos implements Serializable {
 
-   private static Logger log = Logger.getLogger(ControlUsuariosContratos.class);
+    private static Logger log = Logger.getLogger(ControlUsuariosContratos.class);
 
     @EJB
     AdministrarUsuariosContratosInterface administrarUsuariosContratos;
@@ -74,6 +74,7 @@ public class ControlUsuariosContratos implements Serializable {
     private Contratos contratoSeleccionado;
 //otros
     private String mensajeValidacion;
+    private String msgError;
     private String altoTabla;
     private String infoRegistroUsuariosC, infoRegistroUsuario, infoRegistroContrato;
     private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
@@ -101,13 +102,13 @@ public class ControlUsuariosContratos implements Serializable {
     }
 
     @PreDestroy
-   public void destruyendoce() {
-      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
-   }
-   
-   @PostConstruct
+    public void destruyendoce() {
+        log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+    }
+
+    @PostConstruct
     public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
+        log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -320,29 +321,41 @@ public class ControlUsuariosContratos implements Serializable {
     public void guardarCambiosUsuario() {
         try {
             if (guardado == false) {
+                msgError = "";
                 if (!listUsuariosCBorrar.isEmpty()) {
-                    administrarUsuariosContratos.borrarUsuarioC(listUsuariosCBorrar);
+                    for (int i = 0; i < listUsuariosCBorrar.size(); i++) {
+                        msgError = administrarUsuariosContratos.borrarUsuarioC(listUsuariosCBorrar.get(i));
+                    }
                     listUsuariosCBorrar.clear();
                 }
                 if (!listUsuariosCCrear.isEmpty()) {
-                    administrarUsuariosContratos.crearUsuarioC(listUsuariosCCrear);
+                    for (int i = 0; i < listUsuariosCCrear.size(); i++) {
+                        msgError = administrarUsuariosContratos.crearUsuarioC(listUsuariosCCrear.get(i));
+                    }
                     listUsuariosCCrear.clear();
                 }
                 if (!listUsuariosCModificar.isEmpty()) {
-                    administrarUsuariosContratos.modificarUsuarioC(listUsuariosCModificar);
+                    for (int i = 0; i < listUsuariosCModificar.size(); i++) {
+                        msgError = administrarUsuariosContratos.modificarUsuarioC(listUsuariosCModificar.get(i));
+                    }
                     listUsuariosCModificar.clear();
                 }
-                listUsuariosC = null;
-                getListUsuariosC();
-                contarRegistros();
-                RequestContext.getCurrentInstance().update("form:datosUsuarios");
-                guardado = true;
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                k = 0;
-                usuarioContratoSeleccionado = null;
+                if (msgError.equals("EXITO")) {
+                    listUsuariosC = null;
+                    getListUsuariosC();
+                    contarRegistros();
+                    RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                    guardado = true;
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    k = 0;
+                    usuarioContratoSeleccionado = null;
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardadoBD");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardadoBD').show()");
+                }
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
@@ -602,14 +615,14 @@ public class ControlUsuariosContratos implements Serializable {
         }
     }
 
-     public void revisarDialogoGuardar() {
+    public void revisarDialogoGuardar() {
         if (!listUsuariosCBorrar.isEmpty() || !listUsuariosCCrear.isEmpty() || !listUsuariosCModificar.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
-    
+
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (usuarioContratoSeleccionado != null) {
@@ -882,6 +895,14 @@ public class ControlUsuariosContratos implements Serializable {
 
     public void setActivarLov(boolean activarLov) {
         this.activarLov = activarLov;
+    }
+
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
     }
 
 }

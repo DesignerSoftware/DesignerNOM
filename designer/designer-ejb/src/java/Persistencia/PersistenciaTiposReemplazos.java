@@ -8,62 +8,83 @@ package Persistencia;
 import Entidades.TiposReemplazos;
 import InterfacePersistencia.PersistenciaTiposReemplazosInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 @Stateless
 public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaTiposReemplazos.class);
+    private static Logger log = Logger.getLogger(PersistenciaTiposReemplazos.class);
 
     @Override
-    public void crear(EntityManager em, TiposReemplazos tiposReemplazos) {
+    public String crear(EntityManager em, TiposReemplazos tiposReemplazos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposReemplazos);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposReemplazos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposReemplazos.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el Tipo Reemplazo";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, TiposReemplazos tiposReemplazos) {
+    public String editar(EntityManager em, TiposReemplazos tiposReemplazos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposReemplazos);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposReemplazos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposReemplazos.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el editar Reemplazo";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, TiposReemplazos tiposReemplazos) {
+    public String borrar(EntityManager em, TiposReemplazos tiposReemplazos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(tiposReemplazos));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposReemplazos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposReemplazos.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar el Tipo Reemplazo";
             }
         }
     }

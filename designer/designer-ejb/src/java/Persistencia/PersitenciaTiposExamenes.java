@@ -6,13 +6,16 @@ package Persistencia;
 import InterfacePersistencia.PersistenciaTiposExamenesInterface;
 import Entidades.TiposExamenes;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless.<br>
@@ -24,7 +27,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterface {
 
-   private static Logger log = Logger.getLogger(PersitenciaTiposExamenes.class);
+    private static Logger log = Logger.getLogger(PersitenciaTiposExamenes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -33,46 +36,64 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
      private EntityManager em;
      */
     @Override
-    public void crear(EntityManager em, TiposExamenes tiposExamenes) {
+    public String crear(EntityManager em, TiposExamenes tiposExamenes) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposExamenes);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersitenciaTiposExamenes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersitenciaTiposExamenes.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el Tipo Exámen";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, TiposExamenes tiposExamenes) {
+    public String editar(EntityManager em, TiposExamenes tiposExamenes) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposExamenes);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersitenciaTiposExamenes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersitenciaTiposExamenes.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al editar el Tipo Exámen";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, TiposExamenes tiposExamenes) {
+    public String borrar(EntityManager em, TiposExamenes tiposExamenes) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(tiposExamenes));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersitenciaTiposExamenes.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersitenciaTiposExamenes.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar el Tipo Exámen";
             }
         }
     }

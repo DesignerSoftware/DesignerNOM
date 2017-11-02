@@ -37,7 +37,7 @@
                                 <p:separator />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                                 id="listaValores" value="" onclick="PF('botonDesactivado').show()" process="@this" disabled="#{controlEmplSolucionesNodos.activarLOV}"/>
+                                                 id="listaValores" value="" process="@this" disabled="#{controlEmplSolucionesNodos.activarLOV}" actionListener="#{controlEmplSolucionesNodos.listaValoresBoton()}"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
@@ -69,7 +69,7 @@
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png);" 
-                                                 id="duplicar" value="" actionListener="#{controlEmplSolucionesNodos.duplicarNV()}"  process="@this"/>  
+                                                 id="duplicar" value="" actionListener="#{controlEmplSolucionesNodos.duplicarSN()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator /> 
@@ -80,7 +80,7 @@
                                 <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
-                                                 id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlEmplSolucionesNodos.cancelarModificacion()}" process="@this"/>  
+                                                 id="refrescar" value="" oncomplete="window.location.reload()" actionListener="#{controlEmplSolucionesNodos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
@@ -104,20 +104,19 @@
 
                                 <p:ajax event="rowSelect" listener="#{controlEmplSolucionesNodos.cambiarEmpleado()}"/>
 
+                                <p:column style="text-align: center;" headerText="Código" sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.codigoempleado}" 
+                                          filterMatchMode="contains"  id="nEFechasIngreso" filterStyle="display: none; visibility: hidden;">
+                                    <h:outputText value="#{empleados.codigoempleado}"/>
+                                    <f:facet name="footer">
+                                        <h:outputText value =""/>  
+                                    </f:facet>  
+                                </p:column>
+                                
                                 <p:column headerText="Nombre" sortBy="#{empleados.nombreCompleto}" filterBy="#{empleados.nombreCompleto}" 
                                           filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" width="420">                                  
                                     <h:outputText value="#{empleados.nombreCompleto}"/>
                                 </p:column>
 
-<!--                                <p:column style="text-align: center;" headerText="Fecha Ingreso" sortBy="#{empleados.fechacreacion}" filterBy="#{empleados.fechacreacion}" 
-                                          filterMatchMode="contains"  id="nEFechasIngreso" filterStyle="display: none; visibility: hidden;">
-                                    <h:outputText value="#{empleados.fechacreacion}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                    </h:outputText>
-                                    <f:facet name="footer">
-                                        <h:outputText value =""/>  
-                                    </f:facet>  
-                                </p:column>-->
                             </p:dataTable>
 
                             <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlEmplSolucionesNodos.infoRegistroEmpleados}" style="position: relative; left: 1px; top: 2px; font-weight: bold;"/>
@@ -527,9 +526,9 @@
 
                 <h:form id="formLovConcepto">
                     <p:dialog header="Conceptos" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-                        <p:dataTable  id="LOVConceptos" style=" width: 410px;" var="concepto" value="#{controlEmplSolucionesNodos.lovConceptos}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVConceptos" rowKey="#{concepto.secuencia}"
+                              showEffect="fade" hideEffect="fade" modal="true" width="720" height="350">
+                        <p:dataTable  id="LOVConceptos" style=" width: 680px;" var="concepto" value="#{controlEmplSolucionesNodos.lovConceptos}"
+                                      scrollable="true" scrollHeight="225" scrollWidth="680" widgetVar="LOVConceptos" rowKey="#{concepto.secuencia}"
                                       filteredValue="#{controlEmplSolucionesNodos.lovConceptosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                       selection="#{controlEmplSolucionesNodos.conceptoSeleccionado}" selectionMode="single">
 
@@ -576,7 +575,7 @@
                     <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"
                               showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
                         <p:dataTable  id="LOVTerceros" style=" width: 410px;" var="tercero" value="#{controlEmplSolucionesNodos.lovTerceros}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVTerceros" rowKey="#{tercero.secuencia}"
+                                      scrollable="true" scrollHeight="220" scrollWidth="420" widgetVar="LOVTerceros" rowKey="#{tercero.secuencia}"
                                       filteredValue="#{controlEmplSolucionesNodos.lovTercerosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                       selection="#{controlEmplSolucionesNodos.terceroSeleccionado}" selectionMode="single">
 
@@ -615,9 +614,9 @@
 
                 <h:form id="formLovCC">
                     <p:dialog header="Centros de Costo" widgetVar="ccDialogo" draggable="true" resizable="false" id="ccDialogo" closable="false"
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-                        <p:dataTable  id="LOVCC" style=" width: 410px;" var="ccredito" value="#{controlEmplSolucionesNodos.lovCentrosCostos}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCC" rowKey="#{ccredito.secuencia}"
+                              showEffect="fade" hideEffect="fade" modal="true" width="720" height="350">
+                        <p:dataTable  id="LOVCC" style=" width: 680px;" var="ccredito" value="#{controlEmplSolucionesNodos.lovCentrosCostos}"
+                                      scrollable="true" scrollHeight="225" scrollWidth="680" widgetVar="LOVCC" rowKey="#{ccredito.secuencia}"
                                       filteredValue="#{controlEmplSolucionesNodos.lovCentrosCostosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                       selection="#{controlEmplSolucionesNodos.centroCostoSeleccionado}" selectionMode="single">
 
@@ -633,19 +632,19 @@
 
                             <p:column style="text-align: center;" sortBy="#{ccredito.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{ccredito.codigo}" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="Código CC "/>
+                                    <h:outputText value="Código"/>
                                 </f:facet>
                                 <h:outputText value="#{ccredito.codigo}"/>  
                             </p:column>
                             <p:column style="text-align: center;" sortBy="#{ccredito.nombre}" filterStyle="width: 80% !important" filterBy="#{ccredito.nombre}"  filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre CC"/>
+                                    <h:outputText value="Nombre"/>
                                 </f:facet>
                                 <h:outputText value="#{ccredito.nombre}"/>  
                             </p:column>
                             <p:column style="text-align: center;" sortBy="#{ccredito.empresa.nombre}" filterStyle="width: 80% !important" filterBy="#{ccredito.empresa.nombre}"  filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="Empresa CC"/>
+                                    <h:outputText value="Empresa"/>
                                 </f:facet>
                                 <h:outputText value="#{ccredito.empresa.nombre}"/>  
                             </p:column>
@@ -662,9 +661,9 @@
 
                 <h:form id="formLovCCD">
                     <p:dialog header="Centros de Costo" widgetVar="ccdDialogo" draggable="true" resizable="false" id="ccdDialogo" closable="false"
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-                        <p:dataTable  id="LOVCCD" style=" width: 410px;" var="ccdebito" value="#{controlEmplSolucionesNodos.lovCentrosCostos}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCCD" rowKey="#{ccdebito.secuencia}"
+                              showEffect="fade" hideEffect="fade" modal="true" width="720" height="350">
+                        <p:dataTable  id="LOVCCD" style=" width: 680px;" var="ccdebito" value="#{controlEmplSolucionesNodos.lovCentrosCostos}"
+                                      scrollable="true" scrollHeight="225" scrollWidth="680" widgetVar="LOVCCD" rowKey="#{ccdebito.secuencia}"
                                       filteredValue="#{controlEmplSolucionesNodos.lovCentrosCostosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                       selection="#{controlEmplSolucionesNodos.centroCostoSeleccionado}" selectionMode="single">
 
@@ -680,19 +679,19 @@
 
                             <p:column style="text-align: center;" sortBy="#{ccdebito.codigo}" filterStyle="width: 80% !important" width="100" filterBy="#{ccdebito.codigo}" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="Código CC "/>
+                                    <h:outputText value="Código"/>
                                 </f:facet>
                                 <h:outputText value="#{ccdebito.codigo}"/>  
                             </p:column>
                             <p:column style="text-align: center;" sortBy="#{ccdebito.nombre}" filterStyle="width: 80% !important" filterBy="#{ccdebito.nombre}"  filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre CC"/>
+                                    <h:outputText value="Nombre"/>
                                 </f:facet>
                                 <h:outputText value="#{ccdebito.nombre}"/>  
                             </p:column>
                             <p:column style="text-align: center;" sortBy="#{ccdebito.empresa.nombre}" filterStyle="width: 80% !important" filterBy="#{ccdebito.empresa.nombre}"  filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="Empresa CC"/>
+                                    <h:outputText value="Empresa"/>
                                 </f:facet>
                                 <h:outputText value="#{ccdebito.empresa.nombre}"/>  
                             </p:column>
@@ -709,9 +708,9 @@
 
                 <h:form id="formLovCuentaD">
                     <p:dialog header="Cuentas" widgetVar="cuentadDialogo" draggable="true" resizable="false" id="cuentadDialogo" closable="false"
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-                        <p:dataTable  id="LOVCuentaD" style=" width: 410px;" var="cuentad" value="#{controlEmplSolucionesNodos.lovCuentas}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCuentaD" rowKey="#{cuentad.secuencia}"
+                              showEffect="fade" hideEffect="fade" modal="true" width="720" height="350">
+                        <p:dataTable  id="LOVCuentaD" style=" width: 680px;" var="cuentad" value="#{controlEmplSolucionesNodos.lovCuentas}"
+                                      scrollable="true" scrollHeight="225" scrollWidth="680" widgetVar="LOVCuentaD" rowKey="#{cuentad.secuencia}"
                                       filteredValue="#{controlEmplSolucionesNodos.lovCuentassFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                       selection="#{controlEmplSolucionesNodos.cuentaSeleccionada}" selectionMode="single">
 
@@ -757,9 +756,9 @@
 
                 <h:form id="formLovCuentaC">
                     <p:dialog header="Cuentas" widgetVar="cuentacDialogo" draggable="true" resizable="false" id="cuentacDialogo" closable="false"
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-                        <p:dataTable  id="LOVCuentaC" style=" width: 410px;" var="cuentac" value="#{controlEmplSolucionesNodos.lovCuentas}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVCuentaC" rowKey="#{cuentac.secuencia}"
+                              showEffect="fade" hideEffect="fade" modal="true" width="720" height="350">
+                        <p:dataTable  id="LOVCuentaC" style=" width: 680px;" var="cuentac" value="#{controlEmplSolucionesNodos.lovCuentas}"
+                                      scrollable="true" scrollHeight="225" scrollWidth="680" widgetVar="LOVCuentaC" rowKey="#{cuentac.secuencia}"
                                       filteredValue="#{controlEmplSolucionesNodos.lovCuentassFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                       selection="#{controlEmplSolucionesNodos.cuentaSeleccionada}" selectionMode="single">
 
@@ -1041,7 +1040,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="duplicarRegistroSolucion" header="Duplicar Registro" widgetVar="duplicarRegistroSolucion" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style=" padding: 0px">  
+                    <p:dialog id="duplicarRegistroSolucion" header="Duplicar Registro" widgetVar="duplicarRegistroSolucion" closable="false" resizable="false" draggable="true" modal="true" height="420" width="650" style=" padding: 0px">  
                         <center><strong><h:outputText value="Ingresar nueva novedad" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarSn" style="border: none;">
 
@@ -1179,7 +1178,7 @@
                             <p:commandButton id="limpiarDN" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 390px;" 
                                              actionListener="#{controlEmplSolucionesNodos.limpiarduplicarSN()}" update="duplicarSn" process="@this"/>
                             <p:commandButton id="agregarDN" icon="ui-icon-check" value="#{msg['aceptar']}" style=" position: absolute; left: 410px; top: 390px;"  actionListener="#{controlEmplSolucionesNodos.confirmarDuplicar()}" process="@this"/>
-                            <p:commandButton id="cancelarDN" icon="ui-icon-close" value="#{msg['cancelar']}" style=" position: absolute; left: 540px; top: 390px;" actionListener="#{controlEmplSolucionesNodos.limpiarduplicarSN()}" 
+                            <p:commandButton id="cancelarDN" icon="ui-icon-close" value="#{msg['cancelar']}" style=" position: absolute; left: 510px; top: 390px;" actionListener="#{controlEmplSolucionesNodos.limpiarduplicarSN()}" 
                                              update="duplicarSn" onclick="PF('duplicarRegistroSolucion').hide();"  process="@this"/>
 
                         </p:panel>
@@ -1335,7 +1334,7 @@
                 </h:form>
 
                 <h:form id="formExportar">
-                    <p:dataTable id="datosNovedadesExportar" var="info" style="visibility: hidden; display: none;"                           
+                    <p:dataTable id="datosSolucionesNodosExportar" var="info" style="visibility: hidden; display: none;"                           
                                  value="#{controlEmplSolucionesNodos.listaSN}"> 
 
                         <p:column headerText="Concepto">                                  

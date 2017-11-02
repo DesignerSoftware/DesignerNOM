@@ -6,12 +6,15 @@ package Persistencia;
 import Entidades.TiposDocumentos;
 import InterfacePersistencia.PersistenciaTiposDocumentosInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless.<br>
@@ -23,59 +26,76 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaTiposDocumentos.class);
+    private static Logger log = Logger.getLogger(PersistenciaTiposDocumentos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
-*/
-
+     */
     @Override
-    public void crear(EntityManager em, TiposDocumentos tiposDocumentos) {
+    public String crear(EntityManager em, TiposDocumentos tiposDocumentos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposDocumentos);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposDocumentos.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el Tipo Documento";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, TiposDocumentos tiposDocumentos) {
+    public String editar(EntityManager em, TiposDocumentos tiposDocumentos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(tiposDocumentos);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposDocumentos.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al editar el Tipo Documento";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, TiposDocumentos tiposDocumentos) {
+    public String borrar(EntityManager em, TiposDocumentos tiposDocumentos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(tiposDocumentos));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaTiposDocumentos.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar el Tipo Documento";
             }
         }
     }
@@ -124,7 +144,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             return retorno;
         }
     }
-    
+
     @Override
     public BigInteger contarPersonasTipoDocumento(EntityManager em, BigInteger secuencia) {
         BigInteger retorno = new BigInteger("-1");

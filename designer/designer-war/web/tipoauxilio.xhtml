@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+                    <f:loadBundle basename="Recursos.auxtipoauxilio" var="msg"/>
+                    <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+                       <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlTiposAuxilios.guardarTiposAuxilio()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlTiposAuxilios.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTiposAuxilios.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlTiposAuxilios.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlTiposAuxilios.limpiarNuevoTiposAuxilios()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoAuxilioExportar" fileName="TiposAuxilios" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlTiposAuxilios.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroTiposReemplazos').show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Insertar Registro"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlTiposAuxilios.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Borrar Registro"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlTiposAuxilios.duplicandoTiposAuxilios()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTiposAuxilios.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="Rastro"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposAuxilios.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTiposAuxilios.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="color: blue;"><strong>#{msg['titulo']}</strong></legend>
+
+                            <p:dataTable id="datosTipoAuxilio" widgetVar="datosTipoAuxilio" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 819px ;border: 1px;"                           
+                                         value="#{controlTiposAuxilios.listTiposAuxilios}" scrollable="true" scrollHeight="#{controlTiposAuxilios.altoTabla}" scrollWidth="835"
+                                         filteredValue="#{controlTiposAuxilios.filtrarTiposAuxilios}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25" selection="#{controlTiposAuxilios.tipoAuxilioTablaSeleccionado}">
+                                <p:ajax event="filter" listener="#{controlTiposAuxilios.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosTipoAuxilio').unselectAllRows();PF('datosTipoAuxilio').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlTiposAuxilios.modificandoTipoAuxilio(info)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion"  filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{info.descripcion}" id="editarNombre" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosTipoAuxilio').unselectAllRows();PF('datosTipoAuxilio').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposAuxilios.modificandoTipoAuxilio(info)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlTiposAuxilios.infoRegistro}" style="position: relative; left: 1px; top: 5px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <p:commandButton  id="ACEPTAR" value=""  class="cssBotonAceptar" disabled="#{controlTiposAuxilios.guardado}" actionListener="#{controlTiposAuxilios.revisarDialogoGuardar()}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTiposAuxilios.salir()}"  />
+
+                    </p:panel>
+                    <p:dialog header="¡Precaución!" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
+                              showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposAuxilios.guardarTiposAuxilio()}" style="position: absolute; top: 60px; left: 145px;" process="@this"
+                                         icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 205px;" process="@this"
+                                         icon="ui-icon-close"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlTiposAuxilios.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{controlTiposAuxilios.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposAuxilios.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="errorGuardadoBD" header="¡Error!" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlTiposAuxilios.msgError}"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'TIPOSAUXILIOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposAuxilios.tipoAuxilioTablaSeleccionado.secuencia,'TiposAuxilios','tipoauxilio')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="¡Información!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla TIPOSAUXILIOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposAuxilios','tipoauxilio')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="¡Información!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposAuxilios.tipoAuxilioTablaSeleccionado.secuencia,'TiposAuxilios','tipoauxilio')}" 
+                                         icon="ui-icon-check" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="¡Error!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'TIPOSAUXILIOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroTiposReemplazos" header="#{msg['nuevoregistro']}" widgetVar="nuevoRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="340" style="padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="nuevaTipoReemplazo" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 75px;"/></strong>
+                            <p:inputText autocomplete="off"  id="nuevoCodigo" value="#{controlTiposAuxilios.nuevoTipoAuxilios.codigo}" style="width: 135px; position: absolute; left: 160px; top: 70px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 105px;"/></strong>
+                            <p:inputText autocomplete="off"   id="nuevoNombre" value="#{controlTiposAuxilios.nuevoTipoAuxilios.descripcion}" style="width: 135px; position: absolute; left: 160px; top: 100px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: 10px; top: 140px;"  actionListener="#{controlTiposAuxilios.limpiarNuevoTiposAuxilios()}" update="nuevaTipoReemplazo" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="#{msg['agregar']}" style="position: absolute; left: 120px; top: 140px;" actionListener="#{controlTiposAuxilios.agregarNuevoTiposAuxilios() }" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="#{msg['cancelar']}" style="position: absolute; left: 220px; top: 140px;"  update="nuevaTipoReemplazo" onclick="PF('nuevoRegistroTiposReemplazos').hide();"  actionListener="#{controlTiposAuxilios.limpiarNuevoTiposAuxilios()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroTiposReemplazos" header="#{msg['duplicarregistro']}" widgetVar="duplicarRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="340" style="padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="duplicarTTR" style="border: none;">
+                            <strong><h:outputText value="*#{msg['codigoN']}"  style="position: absolute; top: 75px;"/></strong>
+                            <p:inputText autocomplete="off"  id="duplicarCodigo" value="#{controlTiposAuxilios.duplicarTipoAuxilio.codigo}" style="width: 135px; position: absolute; left: 160px; top: 70px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 105px;"/></strong>
+                            <p:inputText autocomplete="off"  id="duplicarNombre" value="#{controlTiposAuxilios.duplicarTipoAuxilio.descripcion}"  style="width: 135px; position: absolute; left: 160px; top: 100px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarD" value="#{msg['limpiar']}" style="position: absolute; left: 10px; top: 140px;"  actionListener="#{controlTiposAuxilios.limpiarDuplicarTiposAuxilios()}" update="duplicarTTR"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="#{msg['agregar']}" style="position: absolute; left: 120px; top: 140px;" actionListener="#{controlTiposAuxilios.confirmarDuplicar()}"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="#{msg['cancelar']}" style="position: absolute; left: 220px; top: 140px;"  update="duplicarTTR" onclick="PF('duplicarRegistroTiposReemplazos').hide();" actionListener="#{controlTiposAuxilios.limpiarDuplicarTiposAuxilios()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.codigo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosTipoAuxilioExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTiposAuxilios.listTiposAuxilios}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
+                            <h:outputText value="#{infoExp.codigo}"/>
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
+                            <h:outputText value="#{infoExp.descripcion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -24,105 +24,102 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarTiposIndices.class);
+    private static Logger log = Logger.getLogger(AdministrarTiposIndices.class);
 
-   @EJB
-   PersistenciaTiposIndicesInterface persistenciaTiposIndices;
-   /**
-    * Enterprise JavaBean.<br>
-    * Atributo que representa todo lo referente a la conexión del usuario que
-    * está usando el aplicativo.
-    */
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaTiposIndicesInterface persistenciaTiposIndices;
+    /**
+     * Enterprise JavaBean.<br>
+     * Atributo que representa todo lo referente a la conexión del usuario que
+     * está usando el aplicativo.
+     */
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
 
-   private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
+            } else {
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
 
-   @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
-   public void modificarTiposIndices(List<TiposIndices> listaTiposIndices) {
-      try {
-         for (int i = 0; i < listaTiposIndices.size(); i++) {
-            log.warn("Administrar Modificando...");
-            persistenciaTiposIndices.editar(getEm(), listaTiposIndices.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarTiposIndices() ERROR: " + e);
-      }
-   }
+    public String modificarTiposIndices(TiposIndices tiposIndice) {
+        try {
+            return persistenciaTiposIndices.editar(getEm(), tiposIndice);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarTiposIndices() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   public void borrarTiposIndices(List<TiposIndices> listaTiposIndices) {
-      try {
-         for (int i = 0; i < listaTiposIndices.size(); i++) {
-            log.warn("Administrar Borrando...");
-            persistenciaTiposIndices.borrar(getEm(), listaTiposIndices.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarTiposIndices() ERROR: " + e);
-      }
-   }
+    public String borrarTiposIndices(TiposIndices tiposIndice) {
+        try {
+            return persistenciaTiposIndices.borrar(getEm(), tiposIndice);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarTiposIndices() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   public void crearTiposIndices(List<TiposIndices> listaTiposIndices) {
-      try {
-         for (int i = 0; i < listaTiposIndices.size(); i++) {
-            log.warn("Administrar Creando...");
-            persistenciaTiposIndices.crear(getEm(), listaTiposIndices.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearTiposIndices() ERROR: " + e);
-      }
-   }
+    public String crearTiposIndices(TiposIndices tiposIndice) {
+        try {
+            return persistenciaTiposIndices.crear(getEm(), tiposIndice);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearTiposIndices() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   public List<TiposIndices> consultarTiposIndices() {
-      try {
-         return persistenciaTiposIndices.consultarTiposIndices(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarTiposIndices() ERROR: " + e);
-         return null;
-      }
-   }
+    public List<TiposIndices> consultarTiposIndices() {
+        try {
+            return persistenciaTiposIndices.consultarTiposIndices(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarTiposIndices() ERROR: " + e);
+            return null;
+        }
+    }
 
-   public TiposIndices consultarTipoIndice(BigInteger secTiposIndices) {
-      try {
-         return persistenciaTiposIndices.consultarTipoIndice(getEm(), secTiposIndices);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarTipoIndice() ERROR: " + e);
-         return null;
-      }
-   }
+    public TiposIndices consultarTipoIndice(BigInteger secTiposIndices) {
+        try {
+            return persistenciaTiposIndices.consultarTipoIndice(getEm(), secTiposIndices);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarTipoIndice() ERROR: " + e);
+            return null;
+        }
+    }
 
-   public BigInteger contarIndicesTipoIndice(BigInteger secTiposIndices) {
-      try {
-         return persistenciaTiposIndices.contarIndicesTipoIndice(getEm(), secTiposIndices);
-      } catch (Exception e) {
-         log.error("ERROR AdministrarTiposIndices contarIndicesTipoIndice ERROR : " + e);
-         return null;
-      }
-   }
+    public BigInteger contarIndicesTipoIndice(BigInteger secTiposIndices) {
+        try {
+            return persistenciaTiposIndices.contarIndicesTipoIndice(getEm(), secTiposIndices);
+        } catch (Exception e) {
+            log.error("ERROR AdministrarTiposIndices contarIndicesTipoIndice ERROR : " + e);
+            return null;
+        }
+    }
 
 }

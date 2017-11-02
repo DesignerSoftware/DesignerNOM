@@ -384,8 +384,9 @@ public class ControlEmplSolucionesNodos implements Serializable {
             l = BigInteger.valueOf(k);
             duplicarSn.setSecuencia(l);
             duplicarSn.setEmpleado(snSeleccionado.getEmpleado());
-            nuevoSn.setTipotrabajador(snSeleccionado.getTipotrabajador());
+            duplicarSn.setTipotrabajador(snSeleccionado.getTipotrabajador());
             duplicarSn.setConcepto(snSeleccionado.getConcepto());
+            duplicarSn.setCodigoconcepto(snSeleccionado.getCodigoconcepto());
             duplicarSn.setNombreconcepto(snSeleccionado.getNombreconcepto());
             duplicarSn.setFechadesde(snSeleccionado.getFechadesde());
             duplicarSn.setFechahasta(snSeleccionado.getFechahasta());
@@ -393,11 +394,15 @@ public class ControlEmplSolucionesNodos implements Serializable {
             duplicarSn.setSaldo(snSeleccionado.getSaldo());
             duplicarSn.setUnidades(snSeleccionado.getUnidades());
             duplicarSn.setEstado(snSeleccionado.getEstado());
-            duplicarSn.setPago(snSeleccionado.getPago());
+            duplicarSn.setFechapago(snSeleccionado.getFechapago());
             duplicarSn.setNittercero(snSeleccionado.getNittercero());
             duplicarSn.setNombretercero(snSeleccionado.getNombretercero());
             duplicarSn.setCentrocostod(snSeleccionado.getCentrocostod());
+            duplicarSn.setNombrecentrocostoc(snSeleccionado.getNombrecentrocostoc());
+            duplicarSn.setNombrecentrocostod(snSeleccionado.getNombrecentrocostod());
             duplicarSn.setCentrocostoc(snSeleccionado.getCentrocostoc());
+            duplicarSn.setCodigocuentac(snSeleccionado.getCodigocuentac());
+            duplicarSn.setCodigocuentad(snSeleccionado.getCodigocuentad());
             duplicarSn.setCuentac(snSeleccionado.getCuentac());
             duplicarSn.setCuentad(snSeleccionado.getCuentad());
             duplicarSn.setTipo(snSeleccionado.getTipo());
@@ -473,7 +478,7 @@ public class ControlEmplSolucionesNodos implements Serializable {
 
     //EXPORTAR
     public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosNovedadesExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosSolucionesNodosExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "SolucionesNodosPDF", false, false, "UTF-8", null, null);
@@ -481,7 +486,7 @@ public class ControlEmplSolucionesNodos implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosNovedadesExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosSolucionesNodosExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "SolucionesNodosXLS", false, false, "UTF-8", null, null);
@@ -1384,6 +1389,56 @@ public class ControlEmplSolucionesNodos implements Serializable {
             RequestContext.getCurrentInstance().update("formLovCuentaC:cuentacDialogo");
             RequestContext.getCurrentInstance().execute("PF('cuentacDialogo').show()");
         } else if (dlg == 6) {
+            lovProcesos = null;
+            cargarLovProcesos();
+            RequestContext.getCurrentInstance().update("formProceso:procesoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('procesoDialogo').show()");
+        }
+    }
+
+    public void listaValoresBoton() {
+        if (cualCelda == 0) {
+            lovConceptos = null;
+            cargarLovConceptos();
+            RequestContext.getCurrentInstance().update("formLovConcepto:conceptosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
+        } else if (cualCelda == 1) {
+            lovConceptos = null;
+            cargarLovConceptos();
+            RequestContext.getCurrentInstance().update("formLovConcepto:conceptosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
+        } else if (cualCelda == 9) {
+            lovTerceros = null;
+            cargarLovTerceros();
+            RequestContext.getCurrentInstance().update("formLovTercero:tercerosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
+
+        } else if (cualCelda == 10) {
+            lovTerceros = null;
+            cargarLovTerceros();
+            RequestContext.getCurrentInstance().update("formLovTercero:tercerosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
+        } else if (cualCelda == 11) {
+            lovCentrosCostos = null;
+            cargarLovCC();
+            RequestContext.getCurrentInstance().update("formLovCC:ccDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ccDialogo').show()");
+        } else if (cualCelda == 12) {
+            lovCentrosCostos = null;
+            cargarLovCCD();
+            RequestContext.getCurrentInstance().update("formLovCCD:ccdDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ccdDialogo').show()");
+        } else if (cualCelda == 13) {
+            lovCuentas = null;
+            cargarLovCuentaD();
+            RequestContext.getCurrentInstance().update("formLovCuentaD:cuentadDialogo");
+            RequestContext.getCurrentInstance().execute("PF('cuentadDialogo').show()");
+        } else if (cualCelda == 14) {
+            lovCuentas = null;
+            cargarLovCuentaD();
+            RequestContext.getCurrentInstance().update("formLovCuentaC:cuentacDialogo");
+            RequestContext.getCurrentInstance().execute("PF('cuentacDialogo').show()");
+        } else if (cualCelda == 16) {
             lovProcesos = null;
             cargarLovProcesos();
             RequestContext.getCurrentInstance().update("formProceso:procesoDialogo");

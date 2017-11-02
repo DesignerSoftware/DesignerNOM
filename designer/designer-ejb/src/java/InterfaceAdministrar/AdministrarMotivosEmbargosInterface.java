@@ -14,7 +14,6 @@ import javax.ejb.Local;
  *
  * @author user
  */
-@Local
 public interface AdministrarMotivosEmbargosInterface {
 	/**
      * Método encargado de obtener el Entity Manager el cual tiene
