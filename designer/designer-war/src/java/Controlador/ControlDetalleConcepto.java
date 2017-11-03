@@ -3291,6 +3291,10 @@ public class ControlDetalleConcepto implements Serializable {
       int cont = 0;
       for (VigenciasCuentas nuevaVigenciaCuenta : listVigCParaCrear) {
          if (nuevaVigenciaCuenta.getAcrear()) {
+            log.info("validarHayNuevos() nuevaVigenciaCuenta: " + nuevaVigenciaCuenta);
+            log.info("validarHayNuevos() nuevaVigenciaCuenta CodCuentac: " + nuevaVigenciaCuenta.getCodCuentac());
+            log.info("validarHayNuevos() nuevaVigenciaCuenta CodConsolidadorc: " + nuevaVigenciaCuenta.getCodConsolidadorc());
+            log.info("validarHayNuevos() nuevaVigenciaCuenta NombreTipocc: " + nuevaVigenciaCuenta.getNombreTipocc());
             cont++;
             break;
          }
@@ -3309,14 +3313,21 @@ public class ControlDetalleConcepto implements Serializable {
                int cont = 0;
                for (VigenciasCuentas nuevaVigenciaCuenta : listVigCParaCrear) {
                   if (nuevaVigenciaCuenta.getAcrear()) {
+                     log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta: " + nuevaVigenciaCuenta);
+                     log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta CodCuentac: " + nuevaVigenciaCuenta.getCodCuentac());
+                     log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta CodConsolidadorc: " + nuevaVigenciaCuenta.getCodConsolidadorc());
+                     log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta NombreTipocc: " + nuevaVigenciaCuenta.getNombreTipocc());
                      cont++;
                      nuevaVigenciaCuenta.setConcepto(conceptoActual);
                      listVigenciasCuentasCrear.add(nuevaVigenciaCuenta);
-                     listVigenciasCuentasConcepto.add(nuevaVigenciaCuenta);
+                     VigenciasCuentas vigCuenta = new VigenciasCuentas();
+                     vigCuenta.clonar(nuevaVigenciaCuenta);
+                     vigCuenta.setSecuencia(nuevaVigenciaCuenta.getSecuencia());
+                     listVigenciasCuentasConcepto.add(vigCuenta);
+                     vigenciaCuentaSeleccionada = listVigenciasCuentasConcepto.get(listVigenciasCuentasConcepto.indexOf(vigCuenta));
                   }
                }
                log.info("agregarNuevoVigenciaCuenta() cont: " + cont);
-//            vigenciaCuentaSeleccionada = listVigenciasCuentasConcepto.get(listVigenciasCuentasConcepto.indexOf(nuevaVigenciaCuenta));
                ////------////
 //            limpiarNuevoVigenciaCuenta();
                ////-----////
@@ -3329,10 +3340,11 @@ public class ControlDetalleConcepto implements Serializable {
                   RequestContext.getCurrentInstance().update("form:ACEPTAR");
                }
                cambiosVigenciaCuenta = true;
-//               if (tipoActualizacion == 2) {
                limpiarNuevoVigenciaCuenta();
                tipoActualizacion = 0;
-//               }
+               log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta vigenciaCuentaSeleccionada: " + vigenciaCuentaSeleccionada);
+               log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta vigenciaCuentaSeleccionada.getCodCuentac(): " + vigenciaCuentaSeleccionada.getCodCuentac());
+               log.info("agregarNuevoVigenciaCuenta() nuevaVigenciaCuenta vigenciaCuentaSeleccionada.getNombreTipocc(): " + vigenciaCuentaSeleccionada.getNombreTipocc());
             } else {
                RequestContext.getCurrentInstance().execute("PF('errorFechasVC').show()");
             }
