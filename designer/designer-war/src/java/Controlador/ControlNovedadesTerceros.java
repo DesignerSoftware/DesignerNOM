@@ -650,7 +650,8 @@ public class ControlNovedadesTerceros implements Serializable {
         }
     }
 
-    public void seleccionarTipo(String estadoTipo, int indice, int celda) {
+    public void seleccionarTipo(String estadoTipo, Novedades novedad, int celda) {
+        novedadSeleccionada = novedad;
         if (estadoTipo.equals("FIJA")) {
             novedadSeleccionada.setTipo("FIJA");
         } else if (estadoTipo.equals("OCASIONAL")) {

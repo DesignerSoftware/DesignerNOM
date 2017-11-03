@@ -414,8 +414,9 @@ public class ControlNovedadesConceptos implements Serializable {
         }
     }
 
-    public void seleccionarTipo(String estadoTipo, int indice, int celda) {
+    public void seleccionarTipo(Novedades novedad,String estadoTipo, int indice) {
         RequestContext context = RequestContext.getCurrentInstance();
+        novedadSeleccionada = novedad;
         anularBotonLOV();
         if (estadoTipo.equals("FIJA")) {
             novedadSeleccionada.setTipo("FIJA");

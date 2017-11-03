@@ -8620,7 +8620,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/nominaf.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>contrato</from-outcome>
@@ -8636,7 +8636,8 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-        <navigation-rule>
+    
+    <navigation-rule>
         <from-view-id>/nominaf.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tipoauxilio</from-outcome>
@@ -8646,6 +8647,23 @@
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/tipoauxilio.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>objetosbloques</from-outcome>
+            <to-view-id>/objetosbloques.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/objetosbloques.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>nominaf</from-outcome>
             <to-view-id>/nominaf.xhtml</to-view-id>

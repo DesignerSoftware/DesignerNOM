@@ -394,7 +394,7 @@
                                                 <f:selectItem itemLabel="#{msg['fija']}" itemValue="FIJA"/>  
                                                 <f:selectItem itemLabel="#{msg['ocasional']}" itemValue="OCASIONAL"/>  
                                                 <f:selectItem itemLabel="#{msg['porfuera']}" itemValue="PAGO POR FUERA"/>  
-                                                <p:ajax listener="#{controlNovedadesConceptos.seleccionarTipo(novedades.tipo , indice, 12)}" update="@this"/>
+                                                <p:ajax listener="#{controlNovedadesConceptos.seleccionarTipo(novedades,novedades.tipo , indice)}" update="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>  
                                     </p:cellEditor>

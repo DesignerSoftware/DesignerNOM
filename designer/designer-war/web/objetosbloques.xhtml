@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <p:panel  id="PanelTotal" header="ObjetosBloques" styleClass="panelTotal"> >  
+                        <p:growl id="growl" showDetail="true"/> 
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlObjetosBloques.guardarObjetosBD()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlObjetosBloques.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="Editar"/>
+                                <p:separator />
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlObjetosBloques.listaValoresBoton()}"   process="@this"
+                                                 disabled="#{controlObjetosBloques.activarLov}" />
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="Lista de Valores"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlObjetosBloques.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="Activar filtrado"/>
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlObjetosBloques.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlObjetosBloques.limpiarNuevoObjetosBloque()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosObjetosBloquesExportar" fileName="ObjetosBloques" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="Exportar a XML"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlObjetosBloques.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="Exportar a PDF"/>
+
+                                <p:separator /> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroObjetosBD').show()" update=":formularioDialogos:nuevoObj" process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="Insertar Registro"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlObjetosBloques.borrarObjetosBloques()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="Borrar Registro"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlObjetosBloques.duplicandoObjetosBloques()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="Duplicar Registro"/>
+                                <p:separator /> 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlObjetosBloques.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="Rastro"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
+                                                 actionListener="#{controlObjetosBloques.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 actionListener="#{controlObjetosBloques.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton class="cssBotonAceptar" icon="" id="ACEPTAR" value=""  disabled="#{controlObjetosBloques.guardado}" actionListener="#{controlObjetosBloques.revisarDialogoGuardar()}"     process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" icon="" id="ATRAS" value=""  actionListener="#{controlObjetosBloques.salir()}"   />
+
+                        <fieldset style="position: absolute; left: 10px; top: 75px; font-size: 10px; width: 835px; height: 400px; border-radius: 10px;">
+                            <legend style="font-size: 13px; color: blue;"><strong>ObjetosBloques</strong></legend>
+                            <p:dataTable id="datosObjetosBloques" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
+                                         value="#{controlObjetosBloques.listaObjetosBloques}" scrollable="true" scrollHeight="#{controlObjetosBloques.altoTabla}"  scrollWidth="830"
+                                         filteredValue="#{controlObjetosBloques.listaObjetosBloquesFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda" 
+                                         editable="true" editMode="cell" widgetVar="datosObjetosBloques" selectionMode="single" selection="#{controlObjetosBloques.objetoBloqueSeleccionado}">
+                                <p:ajax event="filter" listener="#{controlObjetosBloques.eventoFiltrar()}"/>
+                            
+
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre" width="150" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlObjetosBloques.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosObjetosBloques').unselectAllRows();PF('datosObjetosBloques').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlObjetosBloques.modificarObjetosBloques(info)}"  update="nombre"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Bloque" sortBy="#{info.bloque.nombre}" filterBy="#{info.bloque.nombre}" filterMatchMode="contains" id="bloque" width="140" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.bloque.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.bloque.nombre}"  style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlObjetosBloques.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosObjetosBloques').unselectAllRows();PF('datosObjetosBloques').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlObjetosBloques.modificarObjetosBloques(info)}" update="bloque"/>
+                                                <p:ajax event="dblclick"  listener="#{controlObjetosBloques.asignarIndex(info, 0, 0)}" update="bloque"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Comentario" sortBy="#{info.comentario}" filterBy="#{info.comentario}" filterMatchMode="contains" id="comentario" width="240" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.comentario}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.comentario}" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlObjetosBloques.cambiarIndice(info, 3)}" process="@this"
+                                                        onstart="PF('datosObjetosBloques').unselectAllRows();PF('datosObjetosBloques').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlObjetosBloques.modificarObjetosBloques(info)}" update="comentario"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlObjetosBloques.infoRegistro}" style="position: relative; left: 5px; top: 5px; font-weight: bold; font-size: 12px"/>
+                        </fieldset>
+
+                        <p:dialog header="¡Precaución!" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
+                                  showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlObjetosBloques.guardarObjetosBD()}" style="position: absolute; top: 60px; left: 145px;" process="@this"
+                                             icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 205px;" process="@this"
+                                             icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                             icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+                    </p:panel>
+
+                    <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlObjetosBloques.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{controlObjetosBloques.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlObjetosBloques.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="errorGuardadoBD" header="¡Error!" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlObjetosBloques.msgError}"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'OBJETOSBLOQUES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlObjetosBloques.objetoBloqueSeleccionado.secuencia,'ObjetosBloques', 'objetosbloques')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="¡Información!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla OBJETOSBLOQUES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ObjetosBloques', 'objetosbloques')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="¡Información!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlObjetosBloques.objetoBloqueSeleccionado.secuencia,'ObjetosBloques', 'objetosbloques')}" 
+                                         icon="ui-icon-check" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosBloques" header="¡Error!" widgetVar="errorObjetosBloques"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'OBJETOSBLOQUES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlObjetosBloques.editarObjetosBloque.nombre}" style="overflow: auto; text-transform: uppercase" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlObjetosBloques.editarObjetosBloque.comentario}" style="overflow: auto; text-transform: uppercase" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editModulo" header="Módulo" widgetVar="editModulo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlObjetosBloques.editarObjetosBloque.bloque.nombre}" style="overflow: auto; text-transform: uppercase" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog header="Bloques" widgetVar="bloquesDialogo" draggable="true" resizable="false" closable="false" id="bloquesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
+                        <p:dataTable id="lovBloquesPantallas"  var="bloque" value="#{controlObjetosBloques.lovBloquesPantallas}" rowKey="#{bloque.secuencia}"
+                                     selection="#{controlObjetosBloques.bloquePantallaSeleccionado}" selectionMode="single" widgetVar="lovBloquesPantallas" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlObjetosBloques.lovBloquesPantallasFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">   
+                            <p:ajax event="filter" listener="#{controlObjetosBloques.contarRegistrosModulos()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlObjetosBloques.activarAceptar()}" update=":formularioDialogos:aceptarM"/>
+                            <p:ajax event="rowDblselect" listener="#{controlObjetosBloques.actualizarBloque()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Módulo"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovBloquesPantallas').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{bloque.nombre}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Nombre"/>
+                                </f:facet>
+                                <h:outputText  value="#{bloque.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroModulos" value="Registros: #{controlObjetosBloques.infoRegistroPantallas}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarM" icon="ui-icon-check" class="cssAceptarLOV" value="Aceptar" disabled="#{controlObjetosBloques.aceptar}" 
+                                             actionListener="#{controlObjetosBloques.actualizarBloque()}"  process="@this"/>
+                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atrás" 
+                                             actionListener="#{controlObjetosBloques.cancelarCambioBloque()}" process="@this"/>
+                        </div>
+                    </p:dialog> 
+
+                    <p:dialog id="nuevoRegistroObjetosBD" header="Nuevo Registro" widgetVar="nuevoRegistroObjetosBD" closable="false" resizable="false"  draggable="true" modal="true" height="290" width="340" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Objeto Bloque" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevoObj" style="border: none;">
+
+
+                            <strong><h:outputText value="*Nombre: "  style="font-size: 12px; position: absolute; top: 65px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlObjetosBloques.nuevoObjetosBloque.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 60px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Módulo: "  style="font-size: 12px; position: absolute; top: 95px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlObjetosBloques.nuevoObjetosBloque.bloque.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 90px; top: 120px;">
+                                <p:ajax event="dblclick"  listener="#{controlObjetosBloques.asignarIndex(info, 0, 1)}" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                              <p:commandButton style="position: absolute; left: 260px; top: 122px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlObjetosBloques.asignarIndex(info, 0, 1)}"/>   
+
+                            <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 125px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlObjetosBloques.nuevoObjetosBloque.comentario}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 120px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiar" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 20px; top: 230px;"  actionListener="#{controlObjetosBloques.limpiarNuevoObjetosBloque()}" update="nuevoObj" process="@this"
+                                             icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarTE" value="Agregar" style="font-size: 11px; position: absolute; left: 140px; top: 230px;" actionListener="#{controlObjetosBloques.agregarNuevoObjetosBloque()}" process="@this"
+                                             icon="ui-icon-check" />
+                            <p:commandButton id="cancelarTE" value="Cancelar" style="font-size: 11px; position: absolute; left: 235px; top: 230px;"  update="nuevoObj" onclick="PF('nuevoRegistroObjetosBD').hide();"  actionListener="#{controlObjetosBloques.limpiarNuevoObjetosBloque()}"  process="@this"
+                                             icon="ui-icon-close" />
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroMotivosDefinitivas" header="Duplicar Registro" widgetVar="duplicarRegistroMotivosDefinitivas" closable="false" resizable="false"  draggable="true" modal="true" height="290" width="340" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Objeto Bloque" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarObj" style="border: none;">
+                            <strong><h:outputText value="*Nombre: "  style="font-size: 12px; position: absolute; top: 65px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlObjetosBloques.duplicarObjetosBloque.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 60px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Módulo: "  style="font-size: 12px; position: absolute; top: 95px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlObjetosBloques.duplicarObjetosBloque.bloque.nombre}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 90px;">
+                                <p:ajax event="dblclick"  listener="#{controlObjetosBloques.asignarIndex(info, 0, 2)}" update="@this"/>
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 260px; top: 122px;"  class="cssBotonLovDialogos" value="" process="@this" actionListener="#{controlObjetosBloques.asignarIndex(info, 0, 2)}"/>   
+
+                            <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 125px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlObjetosBloques.duplicarObjetosBloque.comentario}" style="font-size: 12px; width: 120px; position: absolute; left: 130px; top: 120px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarD" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 20px; top: 230px;"  actionListener="#{controlObjetosBloques.limpiarDuplicarObjetosBloques()}" update="duplicarObj"  process="@this"
+                                             icon="ui-icon-trash" />
+                            <p:commandButton id="duplicarVFP" value="Agregar" style="font-size: 11px; position: absolute; left: 140px; top: 230px;" actionListener="#{controlObjetosBloques.confirmarDuplicar()}"  process="@this"
+                                             icon="ui-icon-check" />
+                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" style="font-size: 11px; position: absolute; left: 235px; top: 230px;"  update="duplicarObj" onclick="PF('duplicarRegistroMotivosDefinitivas').hide();" actionListener="#{controlObjetosBloques.limpiarDuplicarObjetosBloques()}"  process="@this"
+                                             icon="ui-icon-close" />
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosObjetosBloquesExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlObjetosBloques.listaObjetosBloques}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Nombre"/></f:facet> 
+                            <h:outputText value="#{info.nombre}"/>
+                        </p:column>  
+
+                        <p:column >  
+                            <f:facet name="header"><h:outputText value="Modulo"/></f:facet>
+                            <h:outputText value="#{info.bloque.nombre}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
+                            <h:outputText value="#{info.comentario}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

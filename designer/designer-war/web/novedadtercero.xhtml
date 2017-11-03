@@ -409,7 +409,7 @@
                                                 <f:selectItem itemLabel="#{msg['fija']}" itemValue="FIJA"/>  
                                                 <f:selectItem itemLabel="#{msg['ocasional']}" itemValue="OCASIONAL"/>  
                                                 <f:selectItem itemLabel="#{msg['porfuera']}" itemValue="PAGO POR FUERA"/>  
-                                                <p:ajax listener="#{controlNovedadesTerceros.seleccionarTipo(novedades.tipo , indice, 15)}" update="@this" 
+                                                <p:ajax listener="#{controlNovedadesTerceros.seleccionarTipo(novedades.tipo , novedades, 15)}" update="@this" 
                                                         onstart="PF('datosNovedadesTercero').unselectAllRows(); PF('datosNovedadesTercero').selectRow(#{indice});" />
                                             </p:selectOneMenu>
                                         </f:facet>  

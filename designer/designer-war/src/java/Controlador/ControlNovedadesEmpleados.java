@@ -400,13 +400,13 @@ public class ControlNovedadesEmpleados implements Serializable {
 //        Empleados emp = new Empleados();
         if (guardado == false) {
             msgError = "";
-            getResultado();
-            if (resultado > 0) {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formularioDialogos:solucionesFormulas");
-                RequestContext.getCurrentInstance().execute("PF('solucionesFormulas').show()");
-                listaNovedadesBorrar.clear();
-            }
+//            getResultado();
+//            if (resultado > 0) {
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                RequestContext.getCurrentInstance().update("formularioDialogos:solucionesFormulas");
+//                RequestContext.getCurrentInstance().execute("PF('solucionesFormulas').show()");
+//                listaNovedadesBorrar.clear();
+//            }
 
             if (!listaNovedadesBorrar.isEmpty()) {
                 for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
