@@ -26,123 +26,121 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarValoresConceptos implements AdministrarValoresConceptosInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarValoresConceptos.class);
+    private static Logger log = Logger.getLogger(AdministrarValoresConceptos.class);
 
-   //--------------------------------------------------------------------------
-   //ATRIBUTOS
-   //--------------------------------------------------------------------------    
-   /**
-    * Enterprise JavaBeans.<br>
-    * Atributo que representa la comunicación con la persistencia
-    * 'persistenciaValoresConceptos'.
-    */
-   @EJB
-   PersistenciaValoresConceptosInterface persistenciaValoresConceptos;
-   @EJB
-   PersistenciaConceptosInterface persistenciaConceptos;
-   /**
-    * Enterprise JavaBean.<br>
-    * Atributo que representa todo lo referente a la conexión del usuario que
-    * está usando el aplicativo.
-    */
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
+    //--------------------------------------------------------------------------
+    //ATRIBUTOS
+    //--------------------------------------------------------------------------    
+    /**
+     * Enterprise JavaBeans.<br>
+     * Atributo que representa la comunicación con la persistencia
+     * 'persistenciaValoresConceptos'.
+     */
+    @EJB
+    PersistenciaValoresConceptosInterface persistenciaValoresConceptos;
+    @EJB
+    PersistenciaConceptosInterface persistenciaConceptos;
+    /**
+     * Enterprise JavaBean.<br>
+     * Atributo que representa todo lo referente a la conexión del usuario que
+     * está usando el aplicativo.
+     */
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
 
-   private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
+            } else {
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
-   //--------------------------------------------------------------------------
-   //MÉTODOS
-   //--------------------------------------------------------------------------
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
+    //--------------------------------------------------------------------------
+    //MÉTODOS
+    //--------------------------------------------------------------------------
 
-   @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
-   @Override
-   public void modificarValoresConceptos(List<ValoresConceptos> listaValoresConceptos) {
-      try {
-         for (int i = 0; i < listaValoresConceptos.size(); i++) {
-            log.warn("Administrar Modificando...");
-            persistenciaValoresConceptos.editar(getEm(), listaValoresConceptos.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarValoresConceptos() ERROR: " + e);
-      }
-   }
+    @Override
+    public String modificarValoresConceptos(ValoresConceptos valorConcepto) {
+        try {
+            return persistenciaValoresConceptos.editar(getEm(), valorConcepto);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarValoresConceptos() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void borrarValoresConceptos(List<ValoresConceptos> listaValoresConceptos) {
-      try {
-         for (int i = 0; i < listaValoresConceptos.size(); i++) {
-            log.warn("Administrar Borrando...");
-            persistenciaValoresConceptos.borrar(getEm(), listaValoresConceptos.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarValoresConceptos() ERROR: " + e);
-      }
-   }
+    @Override
+    public String borrarValoresConceptos(ValoresConceptos valorConcepto) {
+        try {
+            return persistenciaValoresConceptos.borrar(getEm(), valorConcepto);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarValoresConceptos() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void crearValoresConceptos(List<ValoresConceptos> listaValoresConceptos) {
-      try {
-         for (int i = 0; i < listaValoresConceptos.size(); i++) {
-            persistenciaValoresConceptos.crear(getEm(), listaValoresConceptos.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearValoresConceptos() ERROR: " + e);
-      }
-   }
+    @Override
+    public String crearValoresConceptos(ValoresConceptos valorConcepto) {
+        try {
+            return persistenciaValoresConceptos.crear(getEm(), valorConcepto);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearValoresConceptos() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public List<ValoresConceptos> consultarValoresConceptos() {
-      try {
-         return persistenciaValoresConceptos.consultarValoresConceptos(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarValoresConceptos() ERROR: " + e);
-         return null;
-      }
-   }
+    @Override
+    public List<ValoresConceptos> consultarValoresConceptos() {
+        try {
+            return persistenciaValoresConceptos.consultarValoresConceptos(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarValoresConceptos() ERROR: " + e);
+            return null;
+        }
+    }
 
-   @Override
-   public List<Conceptos> consultarLOVConceptos() {
-      try {
-         return persistenciaConceptos.buscarConceptos(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarLOVConceptos() ERROR: " + e);
-         return null;
-      }
-   }
+    @Override
+    public List<Conceptos> consultarLOVConceptos() {
+        try {
+            return persistenciaConceptos.buscarConceptos(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarLOVConceptos() ERROR: " + e);
+            return null;
+        }
+    }
 
-   @Override
-   public BigInteger contarConceptoValorConcepto(BigInteger concepto) {
-      try {
-         return persistenciaValoresConceptos.consultarConceptoValorConcepto(getEm(), concepto);
-      } catch (Exception e) {
-         log.error("ERROR ADMINISTRARVALORESCONCEPTOS CONSULTARCONCEPTOVALORCONCEPTO ERROR : " + e);
-         return null;
-      }
+    @Override
+    public BigInteger contarConceptoValorConcepto(BigInteger concepto) {
+        try {
+            return persistenciaValoresConceptos.consultarConceptoValorConcepto(getEm(), concepto);
+        } catch (Exception e) {
+            log.error("ERROR ADMINISTRARVALORESCONCEPTOS CONSULTARCONCEPTOVALORCONCEPTO ERROR : " + e);
+            return null;
+        }
 
-   }
+    }
 }

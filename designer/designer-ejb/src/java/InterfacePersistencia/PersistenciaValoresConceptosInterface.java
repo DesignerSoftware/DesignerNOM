@@ -15,14 +15,13 @@ import javax.persistence.EntityManager;
  *
  * @author user
  */
-@Local
 public interface PersistenciaValoresConceptosInterface {
 
-    public void crear(EntityManager em, ValoresConceptos valoresConceptos);
+    public String crear(EntityManager em, ValoresConceptos valoresConceptos);
 
-    public void editar(EntityManager em, ValoresConceptos valoresConceptos);
+    public String editar(EntityManager em, ValoresConceptos valoresConceptos);
 
-    public void borrar(EntityManager em, ValoresConceptos valoresConceptos);
+    public String borrar(EntityManager em, ValoresConceptos valoresConceptos);
 
     public List<ValoresConceptos> consultarValoresConceptos(EntityManager em );
 

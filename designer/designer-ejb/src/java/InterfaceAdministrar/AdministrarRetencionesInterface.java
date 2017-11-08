@@ -21,19 +21,19 @@ public interface AdministrarRetencionesInterface {
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
-    public void borrarVigenciaRetencion(VigenciasRetenciones vretenciones);
+    public String borrarVigenciaRetencion(VigenciasRetenciones vretenciones);
 
-    public void crearVigenciaRetencion(VigenciasRetenciones vretenciones);
+    public String crearVigenciaRetencion(VigenciasRetenciones vretenciones);
 
-    public void modificarVigenciaRetencion(List<VigenciasRetenciones> listaVigenciasRetencionesModificar);
+    public String modificarVigenciaRetencion(VigenciasRetenciones vretenciones);
 
     public List<VigenciasRetenciones> consultarVigenciasRetenciones();
 
-    public void borrarRetencion(Retenciones retenciones);
+    public String borrarRetencion(Retenciones retenciones);
 
-    public void crearRetencion(Retenciones retenciones);
+    public String crearRetencion(Retenciones retenciones);
 
-    public void modificarRetencion(List<Retenciones> listaRetencionesModificar);
+    public String modificarRetencion(Retenciones retenciones);
 
     public List<Retenciones> consultarRetenciones(BigInteger secRetencion);
 

@@ -15,7 +15,6 @@ import javax.ejb.Local;
  *
  * @author user
  */
-@Local
 public interface AdministrarValoresConceptosInterface {
 
     /**
@@ -25,11 +24,11 @@ public interface AdministrarValoresConceptosInterface {
      */
     public void obtenerConexion(String idSesion);
     
-    public void modificarValoresConceptos(List<ValoresConceptos> listaValoresConceptos);
+    public String modificarValoresConceptos(ValoresConceptos valorConcepto);
 
-    public void borrarValoresConceptos(List<ValoresConceptos> listaValoresConceptos);
+    public String borrarValoresConceptos(ValoresConceptos valorConcepto);
 
-    public void crearValoresConceptos(List<ValoresConceptos> listaValoresConceptos);
+    public String crearValoresConceptos(ValoresConceptos valorConcepto);
 
     public List<ValoresConceptos> consultarValoresConceptos();
 

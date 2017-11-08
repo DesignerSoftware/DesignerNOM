@@ -26,135 +26,132 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarRetenciones implements AdministrarRetencionesInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarRetenciones.class);
+    private static Logger log = Logger.getLogger(AdministrarRetenciones.class);
 
-   @EJB
-   PersistenciaRetencionesInterface persistenciaRetenciones;
-   @EJB
-   PersistenciaVigenciasRetencionesInterface persistenciaVigenciasRetenciones;
-   /**
-    * Enterprise JavaBean.<br>
-    * Atributo que representa todo lo referente a la conexión del usuario que
-    * está usando el aplicativo.
-    */
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaRetencionesInterface persistenciaRetenciones;
+    @EJB
+    PersistenciaVigenciasRetencionesInterface persistenciaVigenciasRetenciones;
+    /**
+     * Enterprise JavaBean.<br>
+     * Atributo que representa todo lo referente a la conexión del usuario que
+     * está usando el aplicativo.
+     */
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
 
-   private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
+            } else {
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
 
-   @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
 //VIGENCIAS RETENCIONES
-   @Override
-   public void borrarVigenciaRetencion(VigenciasRetenciones vretenciones) {
-      try {
-         persistenciaVigenciasRetenciones.borrar(getEm(), vretenciones);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarVigenciaRetencion() ERROR: " + e);
-      }
-   }
+    @Override
+    public String borrarVigenciaRetencion(VigenciasRetenciones vretenciones) {
+        try {
+            return persistenciaVigenciasRetenciones.borrar(getEm(), vretenciones);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarVigenciaRetencion() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void crearVigenciaRetencion(VigenciasRetenciones vretenciones) {
-      try {
-         persistenciaVigenciasRetenciones.crear(getEm(), vretenciones);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearVigenciaRetencion() ERROR: " + e);
-      }
-   }
+    @Override
+    public String crearVigenciaRetencion(VigenciasRetenciones vretenciones) {
+        try {
+            return persistenciaVigenciasRetenciones.crear(getEm(), vretenciones);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearVigenciaRetencion() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void modificarVigenciaRetencion(List<VigenciasRetenciones> listaVigenciasRetencionesModificar) {
-      try {
-         for (int i = 0; i < listaVigenciasRetencionesModificar.size(); i++) {
-            log.warn("Modificando...");
-            if (listaVigenciasRetencionesModificar.get(i).getUvt() == null) {
-               listaVigenciasRetencionesModificar.get(i).setUvt(null);
-            }
-            persistenciaVigenciasRetenciones.editar(getEm(), listaVigenciasRetencionesModificar.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarVigenciaRetencion() ERROR: " + e);
-      }
-   }
+    @Override
+    public String modificarVigenciaRetencion(VigenciasRetenciones vretenciones) {
+        try {
+            return persistenciaVigenciasRetenciones.editar(getEm(), vretenciones);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarVigenciaRetencion() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public List<VigenciasRetenciones> consultarVigenciasRetenciones() {
-      try {
-         return persistenciaVigenciasRetenciones.buscarVigenciasRetenciones(getEm());
-      } catch (Exception e) {
-         log.warn("Error consultarVigenciasRetenciones: " + e.toString());
-         return null;
-      }
-   }
+    @Override
+    public List<VigenciasRetenciones> consultarVigenciasRetenciones() {
+        try {
+            return persistenciaVigenciasRetenciones.buscarVigenciasRetenciones(getEm());
+        } catch (Exception e) {
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
+            return null;
+        }
+    }
 
 //RETENCIONES
-   @Override
-   public void borrarRetencion(Retenciones retenciones) {
-      try {
-         persistenciaRetenciones.borrar(getEm(), retenciones);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarRetencion() ERROR: " + e);
-      }
-   }
+    @Override
+    public String borrarRetencion(Retenciones retenciones) {
+        try {
+            return persistenciaRetenciones.borrar(getEm(), retenciones);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarRetencion() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void crearRetencion(Retenciones retenciones) {
-      try {
-         persistenciaRetenciones.crear(getEm(), retenciones);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearRetencion() ERROR: " + e);
-      }
-   }
+    @Override
+    public String crearRetencion(Retenciones retenciones) {
+        try {
+            return persistenciaRetenciones.crear(getEm(), retenciones);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearRetencion() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public void modificarRetencion(List<Retenciones> listaRetencionesModificar) {
-      try {
-         for (int i = 0; i < listaRetencionesModificar.size(); i++) {
-            log.warn("Modificando...");
-            if (listaRetencionesModificar.get(i).getAdicionauvt() == null) {
-               listaRetencionesModificar.get(i).setAdicionauvt(null);
-            }
-            persistenciaRetenciones.editar(getEm(), listaRetencionesModificar.get(i));
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarRetencion() ERROR: " + e);
-      }
-   }
+    @Override
+    public String modificarRetencion(Retenciones retenciones) {
+        try {
+            return persistenciaRetenciones.editar(getEm(), retenciones);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarRetencion() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
 
-   @Override
-   public List<Retenciones> consultarRetenciones(BigInteger secRetencion) {
-      try {
-         return persistenciaRetenciones.buscarRetencionesVig(getEm(), secRetencion);
-      } catch (Exception e) {
-         log.warn("Error conceptoActual Admi : " + e.toString());
-         return null;
-      }
-   }
+    @Override
+    public List<Retenciones> consultarRetenciones(BigInteger secRetencion) {
+        try {
+            return persistenciaRetenciones.buscarRetencionesVig(getEm(), secRetencion);
+        } catch (Exception e) {
+            log.warn("Error conceptoActual Admi : " + e.toString());
+            return null;
+        }
+    }
 
 }

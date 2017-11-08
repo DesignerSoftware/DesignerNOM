@@ -16,11 +16,11 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaRetencionesInterface {
 
-    public void crear(EntityManager em, Retenciones retenciones);
+    public String crear(EntityManager em, Retenciones retenciones);
 
-    public void editar(EntityManager em, Retenciones retenciones);
+    public String editar(EntityManager em, Retenciones retenciones);
 
-    public void borrar(EntityManager em, Retenciones retenciones);
+    public String borrar(EntityManager em, Retenciones retenciones);
 
     public List<Retenciones> buscarRetenciones(EntityManager em);
 

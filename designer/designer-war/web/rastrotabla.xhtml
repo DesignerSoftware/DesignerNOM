@@ -31,7 +31,7 @@
                                                  id="guardarRapido" value="" disabled="true"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" disabled="true" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator />
@@ -94,23 +94,23 @@
                         <h:outputText style="position: absolute; left: 690px; top: 40px; width: 15px; height: 15px; background-color: #C6FCD3;"/>
                         <h:outputText value="#{msg['modificados']}" style="position: absolute; left: 710px; top: 40px; font-weight: bold;"/>
 
-                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 380px; width: 830px; border-radius: 10px; text-align: left;">
+                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 405px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 12px; color: blue;"><strong>#{msg['permisos']}</strong></legend>
                            
                             <p:dataTable  id="datosRastro" style="border: 1px; font-size: 11px; width: 1100px; position: absolute;" var="rastro" value="#{controlRastro.listaRastros}"
                                           scrollable="true" scrollHeight="327" scrollWidth="826" widgetVar="datosRastro" selection="#{controlRastro.seleccionRastro}" selectionMode="single"
-                                          rowKey="#{rastro.secuencia}" filteredValue="#{controlRastro.filtradoListaRastros}" emptyMessage="#{msg['vacio']}"
+                                          rowKey="#{rastro.secuencia}" filteredValue="#{controlRastro.filtradoListaRastros}" emptyMessage="#{msg['vacio']}" rowIndexVar="indice"
                                           rowStyleClass="#{rastro.manipulacion eq 'I' ? 'registroInsertado' : rastro.manipulacion eq 'U' ? 'registroModificado': null}"
                                           liveScroll="true" scrollRows="20">
                                 
-                               <p:ajax event="rowSelect"/>
+                                <p:ajax event="rowSelect"/>
 
                                 <p:column id="btnDetalles" width="22" style="padding: 0px;">  
                                     <p:commandButton id="btn" value="" actionListener="#{controlRastro.detallesRastro(rastro)}" update="datosRastro" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 20px; height: 20px; margin: 0px !important;"/> 
                                 </p:column> 
                                
                                 <p:column id="nombreTabla" headerText="#{msg['nombredelatabla']}" sortBy="#{rastro.tabla}"  filterBy="#{rastro.tabla}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.tabla}"/>
+                                    <h:outputText value="#{rastro.tabla}" style="text-transform: uppercase"/>
                                 </p:column>  
                                
                                 <p:column id="fechaRastro" headerText="#{msg['fecharastro']}" width="160" filterBy="#{rastro.fecharastro}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
@@ -120,48 +120,48 @@
                                 </p:column>     
                                
                                 <p:column id="estacion" headerText="#{msg['estacion']}" width="100" sortBy="#{rastro.estacion}"  filterBy="#{rastro.estacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.estacion}"/>  
+                                    <h:outputText value="#{rastro.estacion}" style="text-transform: uppercase"/>  
                                 </p:column>
                                
                                <p:column id="usuarioSO" headerText="#{msg['usuarioso']}" width="100" sortBy="#{rastro.usuarioso}"  filterBy="#{rastro.usuarioso}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.usuarioso}"/>  
+                                    <h:outputText value="#{rastro.usuarioso}" style="text-transform: uppercase"/>  
                                 </p:column>
                                
                                <p:column id="direccionIP" headerText="#{msg['direccionip']}" width="90" sortBy="#{rastro.direccion}" filterBy="#{rastro.direccion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.direccion}"/>  
+                                    <h:outputText value="#{rastro.direccion}" style="text-transform: uppercase"/>  
                                 </p:column>
                                
                                <p:column id="usuarioID" headerText="#{msg['id']}" width="70" sortBy="#{rastro.usuarioid}" filterBy="#{rastro.usuarioid}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.usuarioid}"/>  
+                                    <h:outputText value="#{rastro.usuarioid}" style="text-transform: uppercase"/>  
                                 </p:column>
                                
                                <p:column id="usuarioBD" headerText="#{msg['usuariobd']}" width="100" sortBy="#{rastro.usuariobd}" filterBy="#{rastro.usuariobd}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.usuariobd}"/>  
+                                    <h:outputText value="#{rastro.usuariobd}" style="text-transform: uppercase"/>  
                                 </p:column>
                                
                                <p:column id="tipoManipulacion" headerText="#{msg['tipomanipulacion']}" sortBy="#{rastro.nombreManipulacion}" filterBy="#{rastro.nombreManipulacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                                    <h:outputText value="#{rastro.nombreManipulacion}"/>  
+                                   <h:outputText value="#{rastro.nombreManipulacion}" style="text-transform: uppercase"/>  
                                 </p:column>
                             </p:dataTable>  
                         </fieldset>
 
                         <p:commandButton icon="ui-icon-extlink" id="btnConsultarElim" value="#{msg['consultar']}"
-                                         style="position: relative; top: 415px;"
+                                         style="position: absolute; top: 455px;"
                                          class="cssBoton" process="@this" actionListener="#{controlRastro.btnConsultarDinamico()}"/>
                         <p:tooltip style="font-size: 12px;" for="btnConsultarElim" value="#{msg['consultarL']}"/>
                         <p:commandButton icon="ui-icon-extlink" id="btnBuscarF" value="#{msg['buscar']}"
-                                         style="left: 450px; position: relative; top: 415px;"
+                                         style="left: 590px; position: absolute; top: 455px;"
                                          class="cssBoton" process="@this" actionListener="#{controlRastro.lovFecha()}"/>
                         <p:tooltip style="font-size: 12px;" for="btnBuscarF" value="#{msg['buscarL']}"/>
                         <p:commandButton icon="ui-icon-extlink" id="btnMostrarT" value="#{msg['mostrar']}" disabled="#{controlRastro.btnMostrarTodos}"
-                                         style="left: 450px; position: relative; top: 415px;" class="cssBoton" process="@this" actionListener="#{controlRastro.mostrarTodos()}" update="datosRastro"/>
+                                         style="left: 720px; position: absolute; top: 455px;" class="cssBoton" process="@this" actionListener="#{controlRastro.mostrarTodos()}" update="datosRastro"/>
 
                         <p:commandButton id="btnAtras" value="" class="cssBotonCancelar" process="@this" actionListener="#{controlRastro.salir()}"/>
                     </p:panel>
 
                     <!-- DIALOGO L.O.V ESTATICO FECHA -->
                     <p:dialog header="#{msg['fechasF']}" widgetVar="fechaDialogo" draggable="true" resizable="false" closable="false" id="fechaDialogo"  
-                              showEffect="fade" hideEffect="fade" width="341" modal="true" style="font-size: 11px;">
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovFecha" style="font-size: 11px; width: 310px;" var="lovF" value="#{controlRastro.listaLOVRastros}" rowKey="#{lovF.secuencia}"
                                      selection="#{controlRastro.seleccionRastroLOV}" selectionMode="single" widgetVar="lovFecha" scrollable="true" scrollWidth="330" scrollHeight="250"
                                      filteredValue="#{controlRastro.filtradoListaLOVRastros}" emptyMessage="#{msg['lovvacio']}"
@@ -172,7 +172,7 @@
                           
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFecha').filter();" style="width:100px; position: relative; left: -40px;"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFecha').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{lovF.direccion}" width="100" filterMatchMode="contains" filterStyle="width: 70px">
                                 <f:facet name="header">
@@ -189,12 +189,21 @@
                                 </h:outputText>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarF" style="position: relative; left: 200px;" value="#{msg['aceptar']}" disabled="#{controlRastro.aceptar}" actionListener="#{controlRastro.seleccionarFecha()}" update="aceptarF" process="@this">
+                        
+                        <div class="cssBotonesLOV"> 
+
+                        <p:commandButton id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRastro.aceptar}" icon="ui-icon-check"
+                                         actionListener="#{controlRastro.seleccionarFecha()}" update="aceptarF" process="@this">
                             <p:resetInput target=":form:lovFecha:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasF" style="position: relative; left: 200px;" value="#{msg['atras']}" onclick="PF('fechaDialogo').hide(), PF('lovFecha').clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
+                        <p:commandButton id="atrasF" class="cssAtrasLOV" value="#{msg['atras']}"  icon="ui-icon-arrowreturnthick-1-w"
+                                         onclick="PF('fechaDialogo').hide(), PF('lovFecha').clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
                             <p:resetInput target=":form:lovFecha:globalFilter"/>
                         </p:commandButton>
+                        </div>
+                        
+                        
+                        
                     </p:dialog>
 
 
@@ -222,7 +231,6 @@
                                 <h:outputText  value="#{valor.valorposterior}"/>
                             </p:column>
                         </p:dataTable>
-
                         <p:commandButton id="volverVR" onclick="PF('valorRastroDialogo').hide();" style="position: relative; left: 460px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['volver']}" process="@this"/>
                     </p:dialog>
 

@@ -8670,5 +8670,39 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+       <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipodotacion</from-outcome>
+            <to-view-id>/tipodotacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipodotacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>retencion</from-outcome>
+            <to-view-id>/retencion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/retencion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
 

@@ -16,8 +16,63 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
-                  <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosEscalafonSalarial" process="@this"/>
-                  <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nominaf" process="@this"/>
+                   <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEscalafonSalarial.guardarGeneral()}" process="@this"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEscalafonSalarial.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlEscalafonSalarial.listaValoresBoton()}"  process="@this"/>
+                        <p:tooltip for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEscalafonSalarial.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlEscalafonSalarial.validarExportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
+                           <p:dataExporter type="xml"  target="#{controlEscalafonSalarial.exportXML()}" fileName="#{controlEscalafonSalarial.nombreXML}" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEscalafonSalarial.validarExportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlEscalafonSalarial.dialogoNuevoRegistro()}" process="@this"/> 
+                        <p:tooltip for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlEscalafonSalarial.verificarRegistroBorrar()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEscalafonSalarial.verificarRegistroDuplicar()}" process="@this"/>  
+                        <p:tooltip for="duplicar" value="#{msg['duplicar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEscalafonSalarial.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+                   
 
                   <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 220px; border-radius: 10px;">
                      <legend style="color: blue;"><strong>#{msg['escalafonSalarial']}</strong></legend>
@@ -85,62 +140,9 @@
                      </p:dataTable>  
                   </fieldset> 
 
-                  <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
-
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEscalafonSalarial.guardarGeneral()}" process="@this"/>
-                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
-
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEscalafonSalarial.editarCelda()}" process="@this"/>
-                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
-
-                        <p:separator style="position: relative; top: -9px;"/>
-
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlEscalafonSalarial.listaValoresBoton()}"  process="@this"/>
-                        <p:tooltip for="listaValores" value="#{msg['lista']}"/>
-
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEscalafonSalarial.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
-
-                        <p:separator style="position: relative; top: -9px;"/>
-
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlEscalafonSalarial.validarExportXLS()}"/>
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
-
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
-                           <p:dataExporter type="xml"  target="#{controlEscalafonSalarial.exportXML()}" fileName="#{controlEscalafonSalarial.nombreXML}" encoding="UTF-8"/> 
-                        </p:commandButton> 
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
-
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEscalafonSalarial.validarExportPDF()}" ajax="false"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
-
-                        <p:separator style="position: relative; top: -9px;"/>
-
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlEscalafonSalarial.dialogoNuevoRegistro()}" process="@this"/> 
-                        <p:tooltip for="insertar" value="#{msg['nuevo']}"/>
-
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlEscalafonSalarial.verificarRegistroBorrar()}" process="@this"/>  
-                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
-
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEscalafonSalarial.verificarRegistroDuplicar()}" process="@this"/>  
-                        <p:tooltip for="duplicar" value="#{msg['duplicar']}"/>
-
-                        <p:separator style="position: relative; top: -9px;"/>
-
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEscalafonSalarial.verificarRastro()}" process="@this"/>  
-                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-
-                        <p:separator style="position: relative; top: -9px;"/>
-
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" process="@this"/>  
-                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" process="@this"/>  
-                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                     </p:toolbarGroup>  
-                  </p:toolbar> 
+                  
+              <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosEscalafonSalarial" process="@this"/>
+              <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nominaf" process="@this"/>
 
                   <fieldset style="position: absolute; left: 10px; top: 305px; width: 830px; height: 160px; border-radius: 10px;">
                      <legend style=" color: blue;"><strong>#{msg['grupoSalarial']}</strong></legend>
