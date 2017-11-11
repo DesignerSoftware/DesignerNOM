@@ -10,13 +10,8 @@ import ClasesAyuda.ResultadoBorrarTodoNovedades;
 import ControlNavegacion.ControlListaNavegacion;
 import ControlNavegacion.ListasRecurrentes;
 import Entidades.ActualUsuario;
-import Entidades.Conceptos;
-import Entidades.Empleados;
 import Entidades.NombresEmpleadosAux;
 import Entidades.TempProrrateos;
-import Entidades.VWActualesReformasLaborales;
-import Entidades.VWActualesTiposContratos;
-import Entidades.VWActualesTiposTrabajadores;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarArchivoPlanoCentroCostoInterface;
@@ -93,7 +88,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    private boolean botones;
    private boolean cargue;
    //REVERSAR 
-   private String documentoSoporteReversar;
+   private String documentoSoporteReversar, errorNovedad;
    private List<NombresEmpleadosAux> lovNombresEmpleados;
    private List<String> lovdocumentosSoporteCargados;
    private List<String> filtradoDocumentosSoporteCargados;
@@ -135,6 +130,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
       cualCelda = -1;
       editarNovedad = new TempProrrateos();
       bandera = 0;
+      errorNovedad = "Sin error";
       tipoLista = 0;
       altoTabla = "140";
       tNovedades = new TempProrrateos();
@@ -172,6 +168,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          AdministrarArchivoPlanoCentroCosto.obtenerConexion(ses.getId());
+         administrarCargueArchivos.obtenerConexion(ses.getId());
       } catch (Exception e) {
          log.error("Error postconstruct CargarArchivoPlano:  ", e);
          log.error("Causa: " + e.getCause());
@@ -705,9 +702,9 @@ public class ControlArchivoPlanoCentroC implements Serializable {
             AdministrarArchivoPlanoCentroCosto.editar(recTempPror);
          }
          listErrores.add(errorNovedad);
-         errorNovedad = null;
-         erroresN = null;
       }
+//      errorNovedad = null;
+//      erroresN = null;
    }
 
    public void borrar() {
@@ -958,18 +955,26 @@ public class ControlArchivoPlanoCentroC implements Serializable {
 
    //CARGUE NOVEDADES
    public void cargarNovedades() {
+      log.info("ControlArchivoPlanoCentroC.cargarNovedades() 1");
       RequestContext context = RequestContext.getCurrentInstance();
       if (!listTempProrrateos.isEmpty() || listTempProrrateos != null) {
+         log.info("ControlArchivoPlanoCentroC.cargarNovedades() 2");
          int pasa = 0;
+         validarNovedades();
          for (int i = 0; i < listErrores.size(); i++) {
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 3");
             if (listErrores.get(i).getNumeroErrores() != 0) {
+               errorNovedad = listErrores.get(i).getMensajeError().toString();
                pasa++;
             }
          }
          if (pasa == 0) {
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 4");
             AdministrarArchivoPlanoCentroCosto.cargarTempProrrateos();
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 5");
             int registrosNAntes = listTempProrrateos.size();
             listTempProrrateos = AdministrarArchivoPlanoCentroCosto.obtenerTempProrrateos(UsuarioBD.getAlias());
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 6");
             int registrosNDespues = listTempProrrateos.size();
             diferenciaRegistrosN = registrosNAntes - registrosNDespues;
             context.update("form:tempNovedades");
@@ -977,16 +982,22 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                context.update("form:novedadesCargadas");
                context.execute("PF('novedadesCargadas').show()");
             }
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 7");
             listErrores.clear();
             erroresNovedad = null;
             cargue = true;
             nombreArchivoPlano = null;
             documentosSoportes = null;
-            context.update("form:pickListDocumentosSoporte");
             botones = false;
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 8");
+            context.update("form:pickListDocumentosSoporte");
             context.update("form:FileUp");
             context.update("form:nombreArchivo");
             context.update("form:cargar");
+            log.info("ControlArchivoPlanoCentroC.cargarNovedades() 9");
+         } else {
+            context.update("form:errorArchivo2");
+            context.execute("PF('errorArchivo2').show()");
          }
       }
    }
@@ -1333,6 +1344,14 @@ public class ControlArchivoPlanoCentroC implements Serializable {
 
    public void setLovNombresEmpleados(List<NombresEmpleadosAux> lovNombresEmpleados) {
       this.lovNombresEmpleados = lovNombresEmpleados;
+   }
+
+   public String getErrorNovedad() {
+      return errorNovedad;
+   }
+
+   public void setErrorNovedad(String errorNovedad) {
+      this.errorNovedad = errorNovedad;
    }
 
 }

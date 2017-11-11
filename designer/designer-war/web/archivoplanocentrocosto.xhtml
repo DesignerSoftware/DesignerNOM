@@ -361,6 +361,13 @@
                      <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                   </p:dialog>
 
+                  <p:dialog id="errorArchivo2" header="#{msg['error']}" widgetVar="errorArchivo2" resizable="false" draggable="true" modal="true" height="94" width="380">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorArchivo2']}" style="position: absolute; left: 60px; top: 4px; width: 310px; text-align: center;"/></strong>
+                     <strong><h:inputTextarea value="#{cargarArchivoPlano.errorNovedad}"
+                                              style="position: absolute; left: 70px; top: 26px; width: 290px; text-align: center; height: 60px;"/></strong>
+                  </p:dialog>
+
                   <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="true" modal="true" height="90" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/correcto.png" width="80" height="80" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['nce']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>

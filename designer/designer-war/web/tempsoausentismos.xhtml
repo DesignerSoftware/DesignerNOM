@@ -65,7 +65,8 @@
                                          process="@this" onclick="PF('nuevaTempNDialogo').show()"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlTempSoAusentismos.borrar()}" process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
@@ -168,7 +169,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.empleado}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
@@ -184,7 +187,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.tipo}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px;"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
@@ -200,7 +205,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.clase}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -216,7 +223,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.causa}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -232,7 +241,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.dias}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -250,7 +261,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.fecha}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -270,7 +283,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.fechafinaus}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -291,8 +305,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.fechaexpedicion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '7'}, {name: 't', value: '#{pos}'}]);"
-                                              >
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '7'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -312,7 +326,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.fechainipago}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '8'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '8'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -332,7 +347,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.fechafinpago}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '9'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '9'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -350,7 +366,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.porcentajeindividual}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '10'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '10'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -367,7 +384,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.baseliquidacion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '11'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '11'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -383,7 +401,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.formaliquidacion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"  
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '12'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '12'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -399,7 +418,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tNovedades.documentosoporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '13'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '13'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows(); PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -415,7 +435,7 @@
                   <p:commandButton id="borrarNoCargado" value="#{msg['borrarnocargado']}" actionListener="#{controlTempSoAusentismos.borrarRegistrosNoCargados()}"
                                    process="@this" style="position: absolute; top: 470px; height: 32px;" icon="ui-icon-extlink" class="cssBotonLargo"/>
 
-                  <!--<p:commandButton id="ACEPTAR" value="" disabled="#/{controlTempSoAusentismos.guardado}" process="@this" class="cssBotonAceptar"/>-->
+                  <p:commandButton id="ACEPTAR" value="" disabled="#{controlTempSoAusentismos.guardado}" process="@this" class="cssBotonAceptar"/>
                   <p:commandButton id="ATRAS" value="" actionListener="#{controlTempSoAusentismos.salir()}" process="@this" class="cssBotonCancelar"/>
 
                   <p:remoteCommand name="posicionTablaNovedad" actionListener="#{controlTempSoAusentismos.posicionTablaNovedad()}"/>
@@ -428,11 +448,18 @@
                      </p:dataGrid>                     
                   </p:dialog>
 
-                  <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295>  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                            <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
+                  <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                   </p:dialog>
-
+                  
+                  <p:dialog id="errorArchivo2" header="#{msg['error']}" widgetVar="errorArchivo2" resizable="false" draggable="true" modal="true" height="94" width="380">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorArchivo2']}" style="position: absolute; left: 60px; top: 4px; width: 310px; text-align: center;"/></strong>
+                     <strong><h:inputTextarea value="#{controlTempSoAusentismos.errorNov}"
+                                              style="position: absolute; left: 70px; top: 26px; width: 290px; text-align: center; height: 60px;"/></strong>
+                  </p:dialog>
+                  
                   <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="true" modal="true" height="90" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/correcto.png" width="80" height="80" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['nce']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
@@ -444,22 +471,22 @@
                      <strong><h:outputText value="#{msg['errorExtensionArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                   </p:dialog>
 
-                  <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                  <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['errorNombreArchivo']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                   </p:dialog>
 
-                  <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                  <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['documentoNoExiste']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                   </p:dialog>
 
-                  <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                  <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['reversarFallo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                   </p:dialog>
 
-                  <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                  <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['nre']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                      <strong><h:outputText value="#{msg['registrosreversados']} #{controlTempSoAusentismos.resultado})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;"/></strong>
@@ -478,14 +505,14 @@
                      </fieldset>
                   </p:dialog>
 
-                  <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355px;">
+                  <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355">
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['confirmarReversar']} #{controlTempSoAusentismos.documentoSoporteReversar}, Desea continuar?" style="position: absolute; left: 75px; top: 20px; width: 250px; text-align: center;"/></strong>
                      <p:commandButton id="aceptarC" icon="ui-icon-check" value="#{msg['continuar']}" style="position: absolute; top: 70px; left: 145px;" actionListener="#{controlTempSoAusentismos.reversar()}"/>
                      <p:commandButton id="atrasC" icon="ui-icon-close" value="#{msg['atras']}" style="position: absolute; top: 70px; left: 258px;" onclick="PF('confirmarReversar').hide();"/>
                   </p:dialog>
 
-                  <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="290" width="467px;">  
+                  <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="290" width="467">  
                      <p:pickList id="pickListDocumentosSoporte" value="#{controlTempSoAusentismos.documentosSoportes}" var="documento"   
                                  itemLabel="#{documento}" itemValue="#{documento}" style="position: relative; left: -3px;"
                                  showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
@@ -496,7 +523,7 @@
                      <p:commandButton value="#{msg['atras']}" icon="ui-icon-close" actionListener="#{controlTempSoAusentismos.cancelarBorrarTodo()}" style="position: relative; left: 180px"/>
                   </p:dialog>
 
-                  <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                  <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['novedadesborradasconexito']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                      <strong><h:outputText value="#{msg['registrosborrados']} #{controlTempSoAusentismos.resultadoProceso.registrosBorrados})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;"/></strong>

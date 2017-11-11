@@ -127,7 +127,7 @@ public class CargarArchivoPlano implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public CargarArchivoPlano() {
-      errorNovedad = "Sin novedad";
+      errorNovedad = "Sin error";
       tempNovedadSeleccionada = null;
       cualCelda = -1;
       editarNovedad = new TempNovedades();
@@ -419,13 +419,10 @@ public class CargarArchivoPlano implements Serializable {
          SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
          String sCadena;
          RequestContext context = RequestContext.getCurrentInstance();
-
          listTempNovedades.clear();
          listErrores.clear();
-
          while ((sCadena = bf.readLine()) != null) {
             tNovedades = new TempNovedades();
-
             //CONCEPTO
             String sConcepto = sCadena.substring(1, 8).trim();
             if (!sConcepto.equals("")) {
@@ -515,7 +512,6 @@ public class CargarArchivoPlano implements Serializable {
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
-
             } else {
                tNovedades.setDocumentosoporte(null);
             }
@@ -622,7 +618,6 @@ public class CargarArchivoPlano implements Serializable {
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
-
             } else {
                tNovedades.setTipo(null);
             }
@@ -659,13 +654,6 @@ public class CargarArchivoPlano implements Serializable {
          if (listTempNovedades != null) {
             botones = true;
             cargue = false;
-            /*context.update("form:tempNovedades");
-                 log.info("Actualizo tabla");
-                 context.update("form:FileUp");
-                 context.update("form:nombreArchivo");
-                 context.update("form:formula");
-                 context.update("form:usoFormulaC");
-                 context.update("form:cargar");*/
             elementosActualizar.add("form:tempNovedades");
             elementosActualizar.add("form:FileUp");
             elementosActualizar.add("form:nombreArchivo");
@@ -816,10 +804,6 @@ public class CargarArchivoPlano implements Serializable {
                }
             }
             //VALIDAR SALDO (DEBE SER MAYOR A CERO)
-            /*if (listTempNovedades.get(i).getSaldo() != null && (listTempNovedades.get(i).getSaldo().compareTo(BigDecimal.valueOf(0)) == -1 || listTempNovedades.get(i).getSaldo().compareTo(BigDecimal.valueOf(0)) == 0)) {
-                 errores++;
-                 erroresN.add("El Saldo deber ser mayor a cero.");
-                 }*/
          }
          //SEGUNDA ETAPA
          if (errores == 0) {
@@ -962,14 +946,12 @@ public class CargarArchivoPlano implements Serializable {
                if (duplicado > 0) {
                   errores++;
                   erroresN.add("El documento soporte (" + listTempNovedades.get(i).getDocumentosoporte() + ") ya existe, cambie el nombre del mismo.");
-
                }
             }
             if (listTempNovedades.get(i).getTipo().equalsIgnoreCase("OCASIONAL") || listTempNovedades.get(i).getTipo().equalsIgnoreCase("FIJA") || listTempNovedades.get(i).getTipo().equalsIgnoreCase("PAGO POR FUERA")) {
             } else {
                errores++;
                erroresN.add("El tipo de novedad debe ser Ocasional, Fija o Pago por Fuera.");
-
             }
             context.update("form:subtotal");
          } else {

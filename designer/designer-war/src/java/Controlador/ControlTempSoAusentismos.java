@@ -4,9 +4,15 @@ import ClasesAyuda.ErroresNovedades;
 import ClasesAyuda.ResultadoBorrarTodoNovedades;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.ActualUsuario;
+import Entidades.Conceptos;
+import Entidades.Empleados;
 import Entidades.TempSoAusentismos;
+import Entidades.VWActualesReformasLaborales;
+import Entidades.VWActualesTiposContratos;
+import Entidades.VWActualesTiposTrabajadores;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
+import InterfaceAdministrar.AdministrarCargueArchivosInterface;
 import InterfaceAdministrar.AdministrarTempSoAusentismosInterface;
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,7 +58,9 @@ public class ControlTempSoAusentismos implements Serializable {
    private static Logger log = Logger.getLogger(ControlTempSoAusentismos.class);
 
    @EJB
-   AdministrarTempSoAusentismosInterface administrarCargueArchivos;
+   AdministrarTempSoAusentismosInterface AdministrarTempSoAusentismos;
+   @EJB
+   AdministrarCargueArchivosInterface administrarCargueArchivos;
    private List<TempSoAusentismos> listTempSoAusentismos;
    private List<TempSoAusentismos> filtrarListTempSoAusentismos;
    private List<TempSoAusentismos> modificarTempSoAusentismos;
@@ -90,7 +98,7 @@ public class ControlTempSoAusentismos implements Serializable {
    //ACTUALIZAR COLLECTION
    private Collection<String> elementosActualizar;
    //
-   private String infoRegistroFormula, infoRegistroDocumento, infoRegistro;
+   private String infoRegistroDocumento, infoRegistro;
    //
    private String altoTabla;
    //
@@ -106,10 +114,13 @@ public class ControlTempSoAusentismos implements Serializable {
    private DataTable tabla;
    private int k;
    private BigInteger l;
-   private String paginaAnterior = "nominaf";
+   private ErroresNovedades errorNovedad;
+   private String paginaAnterior = "nominaf", errorNov;
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlTempSoAusentismos() {
+      errorNov = "Sin error";
+      errorNovedad = new ErroresNovedades();
       tempSoAusentismoSeleccionada = null;
       cualCelda = -1;
       editarNovedad = new TempSoAusentismos();
@@ -144,16 +155,17 @@ public class ControlTempSoAusentismos implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         AdministrarTempSoAusentismos.obtenerConexion(ses.getId());
          administrarCargueArchivos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct CargarArchivoPlano:  ", e);
+         log.error("Error postconstruct ControlTempSoAusentismos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -337,7 +349,7 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void modificarTempNovedad(TempSoAusentismos tempNovedad, int celda, String valor) {
-      log.info("Cargue.CargarArchivoPlano.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
+      log.info("ControlTempSoAusentismos.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
       tempSoAusentismoSeleccionada = tempNovedad;
       cualCelda = celda;
       if (cualCelda == 0) {
@@ -346,41 +358,187 @@ public class ControlTempSoAusentismos implements Serializable {
       modificarTempNovedad(tempSoAusentismoSeleccionada);
    }
 
+   public void validarNovedades() {
+      log.info(this.getClass().getSimpleName() + ".validarNovedades()");
+      boolean validacion = false;
+      List<String> erroresN;
+      documentosSoporteCargados = AdministrarTempSoAusentismos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      BigInteger secEmpresa = AdministrarTempSoAusentismos.consultarParametrosEmpresa(UsuarioBD.getAlias());
+      for (int i = 0; i < listTempSoAusentismos.size(); i++) {
+         listTempSoAusentismos.get(i).setEstado("I");
+         errorNovedad = new ErroresNovedades();
+         //NUMERO DE ERRORES EN LA FILA
+         int errores = 0;
+         //Validad Codigo Empleado TRUE = "EXITOSO"  - FALSE = "FALLO"
+         erroresN = new ArrayList<String>();
+         errorNovedad.setSecNovedad(listTempSoAusentismos.get(i).getSecuencia());
+         errorNovedad.setMensajeError(erroresN);
+         //PRIMERA ETAPA
+         if (errores == 0) {
+            //PRIMERA FASE (EXISTENCIA)
+            //VALIDACION EMPLEADO
+            if (listTempSoAusentismos.get(i).getEmpleado() != null) {
+               validacion = administrarCargueArchivos.verificarEmpleadoEmpresa(listTempSoAusentismos.get(i).getEmpleado(), secEmpresa);
+               if (!validacion) {
+                  errores++;
+                  erroresN.add("El código del empleado: " + listTempSoAusentismos.get(i).getEmpleado() + ", no existe.");
+               }
+            } else {
+               errores++;
+               erroresN.add("La Empleado es necesario, campo Vacio.");
+            }
+            //SEGUNDA FASE (CAMPOS NO NULOS)
+            //VALIDAR FECHA INICIAL
+            if (listTempSoAusentismos.get(i).getFechainipago() == null) {
+               errores++;
+               erroresN.add("La fecha de inicio pago es necesaria, campo vacio.");
+            }
+            if (listTempSoAusentismos.get(i).getFechafinpago() == null) {
+               errores++;
+               erroresN.add("La fecha final de pago es necesaria, campo vacio.");
+            }
+//            //VALIDAR FECHA REPORTE
+//            if (listTempSoAusentismos.get(i).getFechareporte() == null) {
+//               errores++;
+//               erroresN.add("La fecha de reporte es necesaria, campo vacio.");
+//            }
+            //VALIDAR DOCUMENTO SOPORTE
+            if (listTempSoAusentismos.get(i).getDocumentosoporte() == null) {
+               errores++;
+               erroresN.add("El documento soporte es necesario, campo vacio.");
+            }
+            //VALIDAR UNIDAD PARTE ENTERA
+            if (listTempSoAusentismos.get(i).getFecha() == null) {
+               errores++;
+               erroresN.add("La fecha del ausentismo es necesaria, campo vacio.");
+            }
+            //VALIDAR UNIDAD PARTE FRACCION
+            if (listTempSoAusentismos.get(i).getFechafinaus() == null) {
+               errores++;
+               erroresN.add("La fecha final del ausentismo es necesaria, campo vacio.");
+            }
+            //VALIDAR TIPO
+            if (listTempSoAusentismos.get(i).getTipo() == null) {
+               errores++;
+               erroresN.add("El tipo es necesario, campo vacio.");
+            }
+            //TERCERA FASE (CAMPOS CONDICIONADOS)
+            //VALIDAD FECHA FINAL (NO PUEDE SER MENOR QUE LA INICIAL)
+            if (listTempSoAusentismos.get(i).getFecha() != null && listTempSoAusentismos.get(i).getFechafinaus() != null && listTempSoAusentismos.get(i).getFecha().after(listTempSoAusentismos.get(i).getFechafinaus())) {
+               errores++;
+               erroresN.add("La fecha inicial no puede ser mayor que la fecha Final.");
+            }
+         }
+         //SEGUNDA ETAPA
+         if (errores == 0) {
+            validacion = administrarCargueArchivos.verificarTipoEmpleadoActivo(listTempSoAusentismos.get(i).getEmpleado(), secEmpresa);
+            if (validacion) {
+               log.warn("Va a consultar el empleado");
+               Empleados empleado = administrarCargueArchivos.consultarEmpleadoEmpresa(listTempSoAusentismos.get(i).getEmpleado(), secEmpresa);
+               log.warn("consulto el empleado: " + empleado);
+               VWActualesTiposTrabajadores vwActualTipoTrabajador = administrarCargueArchivos.consultarActualTipoTrabajadorEmpleado(empleado.getSecuencia());
+               log.warn("1");
+               VWActualesReformasLaborales vwActualReformaLaboral = administrarCargueArchivos.consultarActualReformaLaboralEmpleado(empleado.getSecuencia());
+               log.warn("2");
+               VWActualesTiposContratos vwActualTiposContratos = administrarCargueArchivos.consultarActualTipoContratoEmpleado(empleado.getSecuencia());
+               log.warn("3");
+            } else {
+               errores++;
+               erroresN.add("El Empleado: " + listTempSoAusentismos.get(i).getEmpleado() + ", debe ser Activo.");
+            }
+         } else {
+            //MARCAR EL REGISTRO EN LA BASE DE DATOS PARA ASBER QUE TIENE ERRORES
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+//            listTempSoAusentismos.get(i).setEstadovalidacion("I");
+            AdministrarTempSoAusentismos.modificarTempSoAusentismos(listTempSoAusentismos.get(i));
+         }
+         //TERCERA ETAPA
+         RequestContext context = RequestContext.getCurrentInstance();
+         if (errores == 0) {
+            if (listTempSoAusentismos.get(i).getDocumentosoporte().length() > 20) {
+               errores++;
+               erroresN.add("El documento soporte debe ser maximo de 20 caracteres.");
+            } else {
+               int duplicado = 0;
+               for (int j = 0; j < documentosSoporteCargados.size(); j++) {
+                  if (listTempSoAusentismos.get(i).getDocumentosoporte().equalsIgnoreCase(documentosSoporteCargados.get(j))) {
+                     duplicado++;
+                  }
+               }
+               if (duplicado > 0) {
+                  errores++;
+                  erroresN.add("El documento soporte (" + listTempSoAusentismos.get(i).getDocumentosoporte() + ") ya existe, cambie el nombre del mismo.");
+               }
+            }
+            context.update("form:subtotal");
+         } else {
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            listTempSoAusentismos.get(i).setEstado("I");
+            AdministrarTempSoAusentismos.modificarTempSoAusentismos(listTempSoAusentismos.get(i));
+            context.update("form:subtotal");
+         }
+         //FINAL
+         if (errores == 0) {
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            listTempSoAusentismos.get(i).setEstado("C");
+            AdministrarTempSoAusentismos.modificarTempSoAusentismos(listTempSoAusentismos.get(i));
+            context.update("form:subtotal");
+         } else {
+            errorNovedad.setNumeroErrores(errores);
+            errorNovedad.setMensajeError(erroresN);
+            listTempSoAusentismos.get(i).setEstado("I");
+            AdministrarTempSoAusentismos.modificarTempSoAusentismos(listTempSoAusentismos.get(i));
+            context.update("form:subtotal");
+         }
+         listErrores.add(errorNovedad);
+         errorNovedad = null;
+         erroresN = null;
+      }
+   }
+
    //CARGUE NOVEDADES
    public void cargarNovedades() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (!listTempSoAusentismos.isEmpty() || listTempSoAusentismos != null) {
-         int pasa = 0;
-         for (int i = 0; i < listErrores.size(); i++) {
-            if (listErrores.get(i).getNumeroErrores() != 0) {
-               pasa++;
+      if (listTempSoAusentismos != null) {
+         if (!listTempSoAusentismos.isEmpty()) {
+            int pasa = 0;
+            validarNovedades();
+            for (int i = 0; i < listErrores.size(); i++) {
+               if (listErrores.get(i).getNumeroErrores() != 0) {
+                  errorNov = listErrores.get(i).getMensajeError().toString();
+                  pasa++;
+               }
             }
-         }
-         if (pasa == 0) {
-//            administrarCargueArchivos.carg(listTempSoAusentismos.get(0).getFechareporte(), formulaUsada.getNombrecorto(), usarFormulaConcepto);
-            int registrosNAntes = listTempSoAusentismos.size();
-            listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
-            int registrosNDespues = listTempSoAusentismos.size();
-            diferenciaRegistrosN = registrosNAntes - registrosNDespues;
-            context.update("form:tempNovedades");
-            if (diferenciaRegistrosN == registrosNAntes) {
-               context.update("form:novedadesCargadas");
-               context.execute("PF('novedadesCargadas').show()");
+            if (pasa == 0) {
+//            AdministrarTempSoAusentismos.carg(listTempSoAusentismos.get(0).getFechareporte(), formulaUsada.getNombrecorto(), usarFormulaConcepto);
+               int registrosNAntes = listTempSoAusentismos.size();
+               listTempSoAusentismos = AdministrarTempSoAusentismos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+               int registrosNDespues = listTempSoAusentismos.size();
+               diferenciaRegistrosN = registrosNAntes - registrosNDespues;
+               context.update("form:tempNovedades");
+               if (diferenciaRegistrosN == registrosNAntes) {
+                  context.update("form:novedadesCargadas");
+                  context.execute("PF('novedadesCargadas').show()");
+               }
+               subTotal = new BigDecimal(0);
+               context.update("form:subtotal");
+               listErrores.clear();
+               erroresNovedad = null;
+               botones = false;
+               cargue = true;
+               nombreArchivoPlano = null;
+               documentosSoportes = null;
+               context.update("form:pickListDocumentosSoporte");
+               context.update("form:FileUp");
+               context.update("form:nombreArchivo");
+               context.update("form:cargar");
+            } else {
+               context.update("form:errorArchivo2");
+               context.execute("PF('errorArchivo2').show()");
             }
-            subTotal = new BigDecimal(0);
-            context.update("form:subtotal");
-            listErrores.clear();
-            erroresNovedad = null;
-            botones = false;
-            cargue = true;
-            nombreArchivoPlano = null;
-            documentosSoportes = null;
-            context.update("form:pickListDocumentosSoporte");
-            context.update("form:FileUp");
-            context.update("form:nombreArchivo");
-            context.update("form:formula");
-            context.update("form:usoFormulaC");
-            context.update("form:cargar");
          }
       }
    }
@@ -388,7 +546,7 @@ public class ControlTempSoAusentismos implements Serializable {
    public void cargarArchivo(FileUploadEvent event) throws IOException {
       if (event.getFile().getFileName().substring(event.getFile().getFileName().lastIndexOf(".") + 1).equalsIgnoreCase("prn")) {
          nombreArchivoPlano = event.getFile().getFileName();
-         log.info("CargarArchivoPlano.cargarArchivo()");
+         log.info("ControlTempSoAusentismos.cargarArchivo()");
          log.info("event.getFile().getSize() : " + event.getFile().getSize());
          log.info("event.getFile().getContentType() : " + event.getFile().getContentType());
          log.info("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
@@ -408,7 +566,7 @@ public class ControlTempSoAusentismos implements Serializable {
       try {
          if (nombreArchivo.length() <= 30) {
 //            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
-            String destino = administrarCargueArchivos.consultarRuta() + nombreArchivo;
+            String destino = AdministrarTempSoAusentismos.consultarRuta() + nombreArchivo;
             log.info("transformarArchivo() destino : _" + destino + "_");
             OutputStream out = new FileOutputStream(new File(destino));
             int reader = 0;
@@ -431,7 +589,6 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
-      log.info("Cargue.CargarArchivoPlano.leerTxt()");
       try {
          File archivo = new File(locArchivo);
          FileReader fr = new FileReader(archivo);
@@ -444,7 +601,7 @@ public class ControlTempSoAusentismos implements Serializable {
          while ((sCadena = bf.readLine()) != null) {
             tNovedades = new TempSoAusentismos();
             //LEER EMPLEADO
-            String sEmpleado = sCadena.substring(1, 16).trim();
+            String sEmpleado = sCadena.substring(1, 15).trim();
             if (!sEmpleado.equals("")) {
                try {
                   BigInteger empleado = new BigInteger(sEmpleado);
@@ -458,7 +615,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setEmpleado(null);
             }
             //LEER TIPO AUSENTISMO
-            String sTipo = sCadena.substring(17, 21).trim();
+            String sTipo = sCadena.substring(15, 20).trim();
             if (!sTipo.equals("")) {
                try {
                   BigInteger tipo = new BigInteger(sTipo);
@@ -472,7 +629,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setTipo(null);
             }
             //LEER CLASE AUSENTISMO
-            String sClase = sCadena.substring(22, 26).trim();
+            String sClase = sCadena.substring(20, 25).trim();
             if (!sClase.equals("")) {
                try {
                   BigInteger clase = new BigInteger(sClase);
@@ -486,7 +643,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setClase(null);
             }
             //LEER CAUSA AUSENTIMO
-            String sCausa = sCadena.substring(27, 31).trim();
+            String sCausa = sCadena.substring(25, 30).trim();
             if (!sCausa.equals("")) {
                try {
                   BigInteger causa = new BigInteger(sCausa);
@@ -500,7 +657,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setCausa(null);
             }
             // LEER DIAS AUSENTISMO
-            String sDias = sCadena.substring(32, 46).trim();
+            String sDias = sCadena.substring(30, 36).trim();
             if (!sDias.equals("")) {
                try {
                   BigInteger dias = new BigInteger(sDias);
@@ -514,7 +671,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setDias(null);
             }
             // LEER FECHA INICIAL AUSENTISMO
-            String fechaInicial = sCadena.substring(47, 59).trim();
+            String fechaInicial = sCadena.substring(36, 49).trim();
             if (!fechaInicial.equals("")) {
                if (fechaInicial.indexOf("-") > 0) {
                   fechaInicial = fechaInicial.replaceAll("-", "/");
@@ -530,9 +687,8 @@ public class ControlTempSoAusentismos implements Serializable {
             } else {
                tNovedades.setFecha(null);
             }
-
             //LEER FECHA FINAL AUSENTISMO
-            String fechaFinal = sCadena.substring(60, 72).trim();
+            String fechaFinal = sCadena.substring(49, 62).trim();
             if (!fechaFinal.equals("")) {
                if (fechaFinal.indexOf("-") > 0) {
                   fechaFinal = fechaFinal.replaceAll("-", "/");
@@ -549,7 +705,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setFechafinaus(null);
             }
             // LEER FECHA EXPEDICION
-            String fechaExp = sCadena.substring(73, 86).trim();
+            String fechaExp = sCadena.substring(62, 75).trim();
             if (!fechaExp.equals("")) {
                if (fechaExp.indexOf("-") > 0) {
                   fechaExp = fechaExp.replaceAll("-", "/");
@@ -566,7 +722,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setFechaexpedicion(null);
             }
             //LEER FECHA INICIO PAGO
-            String fechaIniPago = sCadena.substring(87, 101).trim();
+            String fechaIniPago = sCadena.substring(75, 88).trim();
             if (!fechaIniPago.equals("")) {
                if (fechaIniPago.indexOf("-") > 0) {
                   fechaIniPago = fechaIniPago.replaceAll("-", "/");
@@ -583,7 +739,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setFechainipago(null);
             }
             //LEER FECHA FIN PAGO
-            String fechaFinPago = sCadena.substring(102, 115).trim();
+            String fechaFinPago = sCadena.substring(88, 101).trim();
             if (!fechaFinPago.equals("")) {
                if (fechaFinPago.indexOf("-") > 0) {
                   fechaFinPago = fechaFinPago.replaceAll("-", "/");
@@ -600,7 +756,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setFechafinpago(null);
             }
             // LEER PORCENTAJE AUSENTISMO
-            String sPorcentaje = sCadena.substring(116, 140).trim();
+            String sPorcentaje = sCadena.substring(101, 111).trim();
             if (!sPorcentaje.equals("")) {
                try {
                   BigInteger porcentaje = new BigInteger(sPorcentaje);
@@ -614,7 +770,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setPorcentajeindividual(null);
             }
             // LEER BASE LIQUIDACION
-            String sBaseL = sCadena.substring(123, 132).trim();
+            String sBaseL = sCadena.substring(111, 121).trim();
             if (!sBaseL.equals("")) {
                try {
                   BigInteger baseliq = new BigInteger(sBaseL);
@@ -628,7 +784,7 @@ public class ControlTempSoAusentismos implements Serializable {
                tNovedades.setBaseliquidacion(null);
             }
             // LEER FORMA LIQUIDACION
-            String sFormaL = sCadena.substring(134, 183).trim();
+            String sFormaL = sCadena.substring(121, 136).trim();
             if (!sFormaL.equals("")) {
                try {
                   tNovedades.setFormaliquidacion(sFormaL);
@@ -640,6 +796,32 @@ public class ControlTempSoAusentismos implements Serializable {
             } else {
                tNovedades.setFormaliquidacion(null);
             }
+            // LEER DIAGNOSTICO LIQUIDACION
+            String sDocSop = sCadena.substring(136, 156).trim();
+            if (!sDocSop.equals("") || !sDocSop.isEmpty()) {
+               try {
+                  tNovedades.setDocumentosoporte(sDocSop);
+               } catch (Exception e) {
+                  context.update("form:errorArchivo");
+                  context.execute("PF('errorArchivo').show()");
+                  break;
+               }
+            } else {
+               tNovedades.setDocumentosoporte(null);
+            }
+//            // LEER DIAGNOSTICO LIQUIDACION
+//            String sDiagn = sCadena.substring(151, 155).trim();
+//            if (!sDiagn.equals("") || !sDiagn.isEmpty()) {
+//               try {
+//                  tNovedades.setDiagnostico(sFormaL);
+//               } catch (Exception e) {
+//                  context.update("form:errorArchivo");
+//                  context.execute("PF('errorArchivo').show()");
+//                  break;
+//               }
+//            } else {
+//               tNovedades.setDiagnostico(null);
+//            }
             tNovedades.setUsuariobd(UsuarioBD.getAlias());
             //NOMBRE ARCHIVO
             tNovedades.setArchivo(nombreArchivo);
@@ -647,10 +829,10 @@ public class ControlTempSoAusentismos implements Serializable {
             listTempSoAusentismos.add(tNovedades);
             tNovedades = null;
          }
-         administrarCargueArchivos.borrarRegistrosTempSoAusentismos(UsuarioBD.getAlias());
+         AdministrarTempSoAusentismos.borrarRegistrosTempSoAusentismos(UsuarioBD.getAlias());
          insertarNovedadTempSoAusentismos();
-         listTempSoAusentismos = null;
-         listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+         listTempSoAusentismos.clear();
+         listTempSoAusentismos = AdministrarTempSoAusentismos.consultarTempSoAusentismos(UsuarioBD.getAlias());
          subTotal = new BigDecimal(0);
          if (listTempSoAusentismos != null) {
             botones = true;
@@ -708,7 +890,7 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void revisarNovedad(BigInteger secnovedad) {
-      log.info("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
+      log.info("revisarNovedad() secnovedad : " + secnovedad);
       erroresNovedad = null;
       for (int i = 0; i < listErrores.size(); i++) {
          BigInteger secuencia = listErrores.get(i).getSecNovedad();
@@ -727,6 +909,7 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void borrar() {
+      log.info("Controlador.ControlTempSoAusentismos.borrar()");
       if (tempSoAusentismoSeleccionada != null) {
          if (!modificarTempSoAusentismos.isEmpty() && modificarTempSoAusentismos.contains(tempSoAusentismoSeleccionada)) {
             modificarTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
@@ -736,17 +919,22 @@ public class ControlTempSoAusentismos implements Serializable {
          } else {
             borrarTempSoAusentismos.add(tempSoAusentismoSeleccionada);
          }
+         log.info("Controlador.ControlTempSoAusentismos.borrar() 2");
          listTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
          if (tipoLista == 1) {
             filtrarListTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
          }
+         log.info("Controlador.ControlTempSoAusentismos.borrar() 3");
          contarRegistros();
+         log.info("Controlador.ControlTempSoAusentismos.borrar() 4");
          RequestContext.getCurrentInstance().update("form:tempNovedades");
          tempSoAusentismoSeleccionada = null;
+         log.info("Controlador.ControlTempSoAusentismos.borrar() 5");
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
+         log.info("Controlador.ControlTempSoAusentismos.borrar() 6");
       } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
@@ -834,7 +1022,11 @@ public class ControlTempSoAusentismos implements Serializable {
 
    public void insertarNovedadTempSoAusentismos() {
       if (!listTempSoAusentismos.isEmpty()) {
-         administrarCargueArchivos.crearTempSoAusentismos(listTempSoAusentismos);
+         for (TempSoAusentismos recTSA : listTempSoAusentismos) {
+            recTSA.setEstado("I");
+         }
+         log.info("ControlTempSoAusentismos.insertarNovedadTempSoAusentismos()");
+         AdministrarTempSoAusentismos.crearTempSoAusentismos(listTempSoAusentismos);
       }
    }
 
@@ -843,16 +1035,16 @@ public class ControlTempSoAusentismos implements Serializable {
          guardado = true;
          if (!modificarTempSoAusentismos.isEmpty()) {
             for (int i = 0; i < modificarTempSoAusentismos.size(); i++) {
-               administrarCargueArchivos.modificarTempSoAusentismos(modificarTempSoAusentismos.get(i));
+               AdministrarTempSoAusentismos.modificarTempSoAusentismos(modificarTempSoAusentismos.get(i));
             }
          }
          if (!borrarTempSoAusentismos.isEmpty()) {
             for (int i = 0; i < borrarTempSoAusentismos.size(); i++) {
-               administrarCargueArchivos.borrarTempSoAusentismos(borrarTempSoAusentismos.get(i));
+               AdministrarTempSoAusentismos.borrarTempSoAusentismos(borrarTempSoAusentismos.get(i));
             }
          }
          if (!crearTempSoAusentismos.isEmpty()) {
-            administrarCargueArchivos.crearTempSoAusentismos(crearTempSoAusentismos);
+            AdministrarTempSoAusentismos.crearTempSoAusentismos(crearTempSoAusentismos);
          }
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -863,12 +1055,6 @@ public class ControlTempSoAusentismos implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }
-   }
-
-   public void botonListaValores() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.update("formDialogos:formulasDialogo");
-      context.execute("PF('formulasDialogo').show()");
    }
 
    public void restaurarTabla() {
@@ -970,8 +1156,8 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void borrarRegistrosNoCargados() {
-      administrarCargueArchivos.borrarRegistrosTempSoAusentismos(UsuarioBD.getAlias());
-      listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+      AdministrarTempSoAusentismos.borrarRegistrosTempSoAusentismos(UsuarioBD.getAlias());
+      listTempSoAusentismos = AdministrarTempSoAusentismos.consultarTempSoAusentismos(UsuarioBD.getAlias());
       contarRegistros();
       nombreArchivoPlano = null;
       subTotal = new BigDecimal(0);
@@ -980,8 +1166,6 @@ public class ControlTempSoAusentismos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:subtotal");
       context.update("form:FileUp");
-      context.update("form:formula");
-      context.update("form:usoFormulaC");
       context.update("form:cargar");
       context.update("form:tempNovedades");
       context.update("form:nombreArchivo");
@@ -991,7 +1175,7 @@ public class ControlTempSoAusentismos implements Serializable {
 
    public void reversar() {
       RequestContext context = RequestContext.getCurrentInstance();
-      resultado = administrarCargueArchivos.reversarNovedades(UsuarioBD, documentoSoporteReversar);
+      resultado = AdministrarTempSoAusentismos.reversarNovedades(UsuarioBD, documentoSoporteReversar);
       documentoSoporteReversar = null;
       context.update("form:documentoR");
       context.execute("PF('reversarDialogo').hide()");
@@ -1014,7 +1198,7 @@ public class ControlTempSoAusentismos implements Serializable {
 
    public void confirmarReversar() {
       RequestContext context = RequestContext.getCurrentInstance();
-      documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      documentosSoporteCargados = AdministrarTempSoAusentismos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
       hs.addAll(documentosSoporteCargados);
       documentosSoporteCargados.clear();
       documentosSoporteCargados.addAll(hs);
@@ -1034,7 +1218,7 @@ public class ControlTempSoAusentismos implements Serializable {
    public void confirmarBorrarTodo() {
       if (!documentosSoportes.getTarget().isEmpty()) {
          RequestContext context = RequestContext.getCurrentInstance();
-//         resultadoProceso = administrarCargueArchivos.borrarTodo(UsuarioBD, documentosSoportes.getTarget());
+//         resultadoProceso = AdministrarTempSoAusentismos.borrarTodo(UsuarioBD, documentosSoportes.getTarget());
          log.info("NO ESTA BORRANDO TODO");
          documentosSoportes = null;
          context.execute("PF('borrarTodoDialogo').hide()");
@@ -1086,10 +1270,6 @@ public class ControlTempSoAusentismos implements Serializable {
       tempSoAusentismoSeleccionada = null;
    }
 
-   public void contarRegistrosFormulas() {
-      RequestContext.getCurrentInstance().update("formDialogos:infoRegistroFormula");
-   }
-
    public void contarRegistrosDocumentos() {
       RequestContext.getCurrentInstance().update("formDialogos:infoRegistroDocumento");
    }
@@ -1101,10 +1281,10 @@ public class ControlTempSoAusentismos implements Serializable {
    //GETTER AND SETTER
    public List<TempSoAusentismos> getListTempSoAusentismos() {
       if (UsuarioBD == null) {
-         UsuarioBD = administrarCargueArchivos.actualUsuario();
+         UsuarioBD = AdministrarTempSoAusentismos.actualUsuario();
       }
       if (UsuarioBD.getAlias() != null && listTempSoAusentismos == null) {
-         listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+         listTempSoAusentismos = AdministrarTempSoAusentismos.consultarTempSoAusentismos(UsuarioBD.getAlias());
       }
       return listTempSoAusentismos;
    }
@@ -1158,7 +1338,9 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public List<String> getDocumentosSoporteCargados() {
-      documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      if (documentosSoporteCargados == null) {
+         documentosSoporteCargados = AdministrarTempSoAusentismos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      }
       if (documentosSoporteCargados != null) {
          hs.addAll(documentosSoporteCargados);
          documentosSoporteCargados.clear();
@@ -1232,17 +1414,6 @@ public class ControlTempSoAusentismos implements Serializable {
       this.tempSoAusentismoSeleccionada = tempSoAusentismoSeleccionada;
    }
 
-   public String getInfoRegistroFormula() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovFormulas");
-      infoRegistroFormula = String.valueOf(tabla.getRowCount());
-      return infoRegistroFormula;
-   }
-
-   public void setInfoRegistroFormula(String infoRegistroFormula) {
-      this.infoRegistroFormula = infoRegistroFormula;
-   }
-
    public String getInfoRegistroDocumento() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovDocumentoSoporte");
@@ -1304,4 +1475,13 @@ public class ControlTempSoAusentismos implements Serializable {
    public void setNuevaTempSoAusentismos(TempSoAusentismos nuevaTempSoAusentismos) {
       this.nuevaTempSoAusentismos = nuevaTempSoAusentismos;
    }
+
+   public String getErrorNov() {
+      return errorNov;
+   }
+
+   public void setErrorNov(String errorNov) {
+      this.errorNov = errorNov;
+   }
+
 }

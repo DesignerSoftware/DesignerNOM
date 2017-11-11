@@ -234,7 +234,8 @@
                            <h:outputText  value="*#{msg['nombreCargo']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="cargoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_cargo}"
                                         style="position: absolute; top: 15px; left: 220px; width: 160px; text-transform: uppercase;">
-                              <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
+                              <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(0)}" process="@this"
+                                      immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(0,'CARGO', controlPersonaIndividual.txt_cargo)}" process="@this" update="cargoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado(0)}" process="@this"/>
                               <p:commandButton value="" id="btncargoModCargoDesempeñado" widgetVar="btncargoModCargoDesempeñado" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 367px; z-index: 5;"

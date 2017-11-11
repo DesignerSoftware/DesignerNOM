@@ -8,6 +8,7 @@ package Persistencia;
 import Entidades.TempProrrateos;
 import Entidades.TempProrrateosAux;
 import InterfacePersistencia.PersistenciaTempProrrateosInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -162,12 +163,14 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
    @Override
 //   public void cargarTempProrrateos(EntityManager em, String fechaInicial, BigInteger secEmpresa) {
    public void cargarTempProrrateos(EntityManager em) {
+      log.info("PersistenciaTempProrrateos.cargarTempProrrateos()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
          StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("PRODUCCION.TEMPPRORRATEOS_PKG.CARGAR_PRORRATEOS");
          queryProcedure.execute();
+         log.info("PersistenciaTempProrrateos.cargarTempProrrateos() Ya ejecuto PRODUCCION.TEMPPRORRATEOS_PKG.CARGAR_PRORRATEOS");
          tx.commit();
       } catch (Exception e) {
          log.error("PersistenciaTempProrrateos.cargarTempProrrateos():  ", e);
@@ -222,8 +225,8 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          Query query = em.createNativeQuery("SELECT COUNT(*) FROM CENTROSCOSTOS C WHERE C.codigo = ? AND C.empresa = ?");
          query.setParameter(1, codigoCC);
          query.setParameter(2, secEmpresa);
-         Long resultado = (Long) query.getSingleResult();
-         return resultado > 0;
+         BigDecimal n = (BigDecimal) query.getSingleResult();
+         return n.intValue() > 0;
       } catch (Exception e) {
          log.error("PersistenciaEmpleados.verificarCodigoCentroCosto_Empresa() e:  ", e);
          return false;
@@ -237,8 +240,8 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          Query query = em.createNativeQuery("SELECT COUNT(*) FROM PROYECTOS C WHERE C.codigo = ? AND C.empresa = ?");
          query.setParameter(1, codigoProy);
          query.setParameter(2, secEmpresa);
-         Long resultado = (Long) query.getSingleResult();
-         return resultado > 0;
+         BigDecimal n = (BigDecimal) query.getSingleResult();
+         return n.intValue() > 0;
       } catch (Exception e) {
          log.error("PersistenciaEmpleados.verificarCodigoProyecto_Empresa() e:  ", e);
          return false;

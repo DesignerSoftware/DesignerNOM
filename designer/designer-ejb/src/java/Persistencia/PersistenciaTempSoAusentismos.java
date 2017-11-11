@@ -89,11 +89,11 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
 
    @Override
    public List<String> obtenerDocumentosSoporteCargados(EntityManager em, String usuarioBD) {
-
       try {
+         log.info("obtenerDocumentosSoporteCargados() usuarioBD: " + usuarioBD);
          em.clear();
          String sql = "SELECT T.DOCUMENTOSOPORTE FROM TEMPSOAUSENTISMOS T WHERE T.USUARIOBD = ? AND T.ESTADO = 'C'";
-         Query query = em.createNativeQuery(sql, TempSoAusentismos.class);
+         Query query = em.createNativeQuery(sql);
          query.setParameter(1, usuarioBD);
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
