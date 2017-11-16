@@ -55,11 +55,8 @@ public class TiposDias implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        if (descripcion != null) {
-            this.descripcion = descripcion.toUpperCase();
-        } else {
             this.descripcion = descripcion;
-        }
+
     }
 
     public String getTipo() {

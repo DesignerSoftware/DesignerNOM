@@ -8671,7 +8671,7 @@
         </navigation-case>
     </navigation-rule>
     
-       <navigation-rule>
+    <navigation-rule>
         <from-view-id>/nominaf.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tipodotacion</from-outcome>
@@ -8704,5 +8704,71 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoanexo</from-outcome>
+            <to-view-id>/tipoanexo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipoanexo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>    
+    
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipodia</from-outcome>
+            <to-view-id>/tipodia.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipodia.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/error.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/nominaf.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipojornada</from-outcome>
+            <to-view-id>/tipojornada.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipojornada.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nominaf</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule> 
 </faces-config>
 

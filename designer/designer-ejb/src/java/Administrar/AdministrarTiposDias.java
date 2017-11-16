@@ -69,7 +69,6 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
    public void modificarTiposDias(List<TiposDias> listaTiposDias) {
       try {
          for (int i = 0; i < listaTiposDias.size(); i++) {
-            log.warn("Administrar Modificando...");
             persistenciaTiposDias.editar(getEm(), listaTiposDias.get(i));
          }
       } catch (Exception e) {
@@ -81,7 +80,6 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
    public void borrarTiposDias(List<TiposDias> listaTiposDias) {
       try {
          for (int i = 0; i < listaTiposDias.size(); i++) {
-            log.warn("Administrar Borrar...");
             persistenciaTiposDias.borrar(getEm(), listaTiposDias.get(i));
          }
       } catch (Exception e) {
@@ -92,7 +90,6 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
    @Override
    public void crearTiposDias(List<TiposDias> listaTiposDias) {
       for (int i = 0; i < listaTiposDias.size(); i++) {
-         log.warn("Administrar Creando...");
          persistenciaTiposDias.crear(getEm(), listaTiposDias.get(i));
       }
       try {

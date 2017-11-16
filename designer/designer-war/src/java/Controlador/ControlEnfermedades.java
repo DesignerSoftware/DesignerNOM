@@ -393,7 +393,6 @@ public class ControlEnfermedades implements Serializable {
         a = null;
         mensajeValidacion = " ";
         if (nuevaEnfermedad.getCodigo() == a) {
-            mensajeValidacion = " *Debe Tener Un Codigo \n";
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios ";
         } else {
             for (int x = 0; x < listEnfermedades.size(); x++) {

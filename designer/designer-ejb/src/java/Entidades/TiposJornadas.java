@@ -1,7 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,40 +19,43 @@ public class TiposJornadas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SECUENCIA")
-    private BigDecimal secuencia;
+    private BigInteger secuencia;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CODIGO")
+    private Integer codigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @Column(name = "CODIGO")
-    private Short codigo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MINUTOINICIAL")
-    private short minutoinicial;
+    private Integer minutoinicial;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORAFINAL")
-    private short horafinal;
+    private Integer horafinal;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MINUTOFINAL")
-    private short minutofinal;
+    private Integer minutofinal;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORAINICIAL")
-    private short horainicial;
+    private Integer horainicial;
 
     public TiposJornadas() {
     }
 
-    public TiposJornadas(BigDecimal secuencia) {
+    public TiposJornadas(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
-    public TiposJornadas(BigDecimal secuencia, String descripcion, short minutoinicial, short horafinal, short minutofinal, short horainicial) {
+    public TiposJornadas(BigInteger secuencia, Integer codigo, String descripcion, Integer minutoinicial, Integer horafinal, Integer minutofinal, Integer horainicial) {
         this.secuencia = secuencia;
+        this.codigo = codigo;
         this.descripcion = descripcion;
         this.minutoinicial = minutoinicial;
         this.horafinal = horafinal;
@@ -60,18 +63,23 @@ public class TiposJornadas implements Serializable {
         this.horainicial = horainicial;
     }
 
-    public BigDecimal getSecuencia() {
+    public BigInteger getSecuencia() {
         return secuencia;
     }
 
-    public void setSecuencia(BigDecimal secuencia) {
+    public void setSecuencia(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     public String getDescripcion() {
-        if (descripcion == null) {
-            descripcion = " ";
-        }
         return descripcion;
     }
 
@@ -79,45 +87,39 @@ public class TiposJornadas implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Short getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Short codigo) {
-        this.codigo = codigo;
-    }
-
-    public short getMinutoinicial() {
+    public Integer getMinutoinicial() {
         return minutoinicial;
     }
 
-    public void setMinutoinicial(short minutoinicial) {
+    public void setMinutoinicial(Integer minutoinicial) {
         this.minutoinicial = minutoinicial;
     }
 
-    public short getHorafinal() {
+    public Integer getHorafinal() {
         return horafinal;
     }
 
-    public void setHorafinal(short horafinal) {
+    public void setHorafinal(Integer horafinal) {
         this.horafinal = horafinal;
     }
 
-    public short getMinutofinal() {
+    public Integer getMinutofinal() {
         return minutofinal;
     }
 
-    public void setMinutofinal(short minutofinal) {
+    public void setMinutofinal(Integer minutofinal) {
         this.minutofinal = minutofinal;
     }
 
-    public short getHorainicial() {
+    public Integer getHorainicial() {
         return horainicial;
     }
 
-    public void setHorainicial(short horainicial) {
+    public void setHorainicial(Integer horainicial) {
         this.horainicial = horainicial;
     }
+
+   
 
     @Override
     public int hashCode() {

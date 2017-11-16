@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Tipos Anexos" styleClass="panelTotal"> 
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlErrores.guardarErrores()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlErrores.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="Editar"/>
+
+                                <p:separator />
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="Lista de Valores"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlErrores.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="Activar filtrado"/>
+
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlErrores.exportXLS()}"  ajax="false"/>
+                                <p:tooltip  for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlErrores.limpiarNuevoErrores()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosErroresExportar" fileName="Errores" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="Exportar a XML"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlErrores.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="Exportar a PDF"/>
+
+                                <p:separator /> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroErrores').show()" update=":formularioDialogos:nuevoError" process="@this"/> 
+                                <p:tooltip  for="insertar" value="Insertar Registro"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlErrores.borrarErrores()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="Borrar Registro"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlErrores.duplicarErrores()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="Duplicar Registro"/>
+                                <p:separator /> 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlErrores.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="Rastro"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlErrores.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlErrores.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; left: 10px; top: 75px; font-size: 10px; width: 835px; height: 410px; border-radius: 10px;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Tipos Anexos</strong></legend>
+                            <p:dataTable id="datosErrores" widgetVar="datosErrores" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
+                                         value="#{controlErrores.listErrores}" scrollable="true" scrollHeight="#{controlErrores.tamano}"  scrollWidth="830"
+                                         filteredValue="#{controlErrores.filtrarErrores}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell"  selectionMode="single" paginator="false" 
+                                         selection="#{controlErrores.errorSeleccionado}"> 
+
+                                <p:ajax event="filter" listener="#{controlErrores.eventoFiltrar()}"/>
+
+                                <p:column id="codigo" headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  width="50" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigo"  style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlErrores.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosErrores').unselectAllRows();PF('datosErrores').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlErrores.modificarError(indice, 'N', info.codigo)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="codigoOracle" headerText="Código Oracle" sortBy="#{info.codigooracle}" filterBy="#{info.codigooracle}" filterMatchMode="contains"  width="90" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigooracle}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigooracle}" id="editarCodigoOracle"  style="font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlErrores.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosErrores').unselectAllRows();PF('datosErrores').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlErrores.modificarError(indice, 'N', info.codigooracle)}" update="codigoOracle"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="descripcion" headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editarDescripcion" autocomplete="off" value="#{info.descripcion}" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlErrores.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosErrores').unselectAllRows();PF('datosErrores').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlErrores.modificarError(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column id="solucion" headerText="Descripción" sortBy="#{info.solucion}" filterBy="#{info.solucion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.solucion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editarSolucion" autocomplete="off" value="#{info.solucion}" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlErrores.cambiarIndice(info, 3)}" process="@this"
+                                                        onstart="PF('datosErrores').unselectAllRows();PF('datosErrores').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlErrores.modificarError(indice, 'N', info.solucion)}" update="solucion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlErrores.infoRegistro}" style="position: relative; left: 5px; top: 5px; font-weight: bold; font-size: 12px"/>
+                        </fieldset>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlErrores.guardado}"  actionListener="#{controlErrores.revisarDialogoGuardar()}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlErrores.salir()}" process="@this"/>
+
+                        <p:dialog header="¡Precaución!" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
+                                  showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlErrores.guardarErrores()}" style="position: absolute; top: 60px; left: 145px;" process="@this"
+                                             icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 205px;" process="@this"
+                                             icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                             icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+                    </p:panel>
+
+                    <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlErrores.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{controlErrores.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value=" #{controlErrores.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="mostrarBorrados" header="¡Precaución!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Se han borrado #{controlErrores.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 170px;" process="@this" icon="ui-icon-check" />
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlErrores.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="nuevoRegistroErrores" header="Nuevo Registro" widgetVar="nuevoRegistroErrores" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="355" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Tipo Anexo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="nuevoError" style="border: none;">
+
+                            <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;"/></strong>
+                            <p:inputText autocomplete="off"  id="nuevoCodigo" maxlength="10" value="#{controlErrores.nuevoError.codigo}" style=" width: 200px; position: absolute; left: 115px; top: 55px; text-transform: uppercase;">
+                                <p:ajax event="change" update="nuevoCodigo" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Código Oracle: "  style="left: 10px; position: absolute; top: 90px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoCodigoOracle" maxlength="10" value="#{controlErrores.nuevoError.codigooracle}" style=" width: 200px; position: absolute; left: 115px; top: 85px; text-transform: uppercase;">
+                                <p:ajax event="change" update="nuevoCodigoOracle" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Descripción: "  style="left: 10px; position: absolute; top: 120px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevaDescripcion" value="#{controlErrores.nuevoError.descripcion}" style=" width: 200px; position: absolute; left: 115px; top: 115px; text-transform: uppercase;">
+                                <p:ajax event="change" update="nuevaDescripcion" />
+                            </p:inputText>
+                            <strong><h:outputText value="Solución: "  style="left: 17px; position: absolute; top: 150px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevaSolucion" value="#{controlErrores.nuevoError.solucion}" style=" width: 200px; position: absolute; left: 115px; top: 145px; text-transform: uppercase;">
+                                <p:ajax event="change" update="nuevaSolucion" />
+                            </p:inputText>
+
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 195px;"  actionListener="#{controlErrores.limpiarNuevoErrores()}" update="nuevoError" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 195px;" actionListener="#{controlErrores.agregarNuevoErrores()}" process="@this"/>
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 195px;"  update="nuevoError" onclick="PF('nuevoRegistroErrores').hide();"  actionListener="#{controlErrores.limpiarNuevoErrores()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroError" header="duplicar Registro" widgetVar="duplicarRegistroError" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="355" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Anexo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="duplicarError" style="border: none;">
+                            <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="5" value="#{controlErrores.duplicarError.codigo}" style=" width: 200px; position: absolute; left: 115px; top: 55px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Código Oracle: "  style="left: 10px; position: absolute; top: 90px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarCodigoOracle" maxlength="5" value="#{controlErrores.duplicarError.codigooracle}" style=" width: 200px; position: absolute; left: 115px; top: 85px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Descripción: "  style="left: 10px; position: absolute; top: 120px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarDescripcion" value="#{controlErrores.duplicarError.descripcion}" style=" width: 200px; position: absolute; left: 115px; top: 115px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this" />
+                            </p:inputText>
+                            <strong><h:outputText value="Solución: "  style="left: 17px; position: absolute; top: 150px; left: 17px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarSolucion" value="#{controlErrores.duplicarError.solucion}" style=" width: 200px; position: absolute; left: 115px; top: 145px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 195px;" actionListener="#{controlErrores.limpiarDuplicarErrores()}" update="duplicarError"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 195px;" actionListener="#{controlErrores.confirmarDuplicar()}"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 195px;"    update="duplicarError" onclick="PF('duplicarRegistroError').hide();" actionListener="#{controlErrores.limpiarDuplicarErrores()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="errorGuardadoBD" header="#{msg['error']}" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlErrores.msgError}"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'TIPOSANEXOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlErrores.errorSeleccionado.secuencia,'Errores', 'error')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastroHistorico" header="¡Información!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla TIPOSANEXOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Errores', 'error')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="¡Información!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlErrores.errorSeleccionado.secuencia,'Errores', 'error')}" 
+                                         icon="ui-icon-check" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlErrores.editarError.codigo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editCodigoOracle" header="Código Oracle" widgetVar="editCodigoOracle" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlErrores.editarError.codigooracle}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlErrores.editarError.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editSolucion" header="Descripción" widgetVar="editSolucion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlErrores.editarError.solucion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosErroresExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlErrores.listErrores}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
+                            <h:outputText value="#{info.codigo}"/>
+                        </p:column>  
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Codigo Oracle"/></f:facet>
+                            <h:outputText value="#{info.codigooracle}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
+                            <h:outputText value="#{info.descripcion}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Solucion"/></f:facet>
+                            <h:outputText value="#{info.solucion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
+
