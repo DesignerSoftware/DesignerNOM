@@ -16,8 +16,8 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaPermisosPantallasInterface {
 
-    public void crear(EntityManager em, PermisosPantallas permisosp);
-    public void editar(EntityManager em, PermisosPantallas permisosp);
-    public void borrar(EntityManager em, PermisosPantallas permisosp);
+    public String crear(EntityManager em, PermisosPantallas permisosp);
+    public String editar(EntityManager em, PermisosPantallas permisosp);
+    public String borrar(EntityManager em, PermisosPantallas permisosp);
     public List<PermisosPantallas> consultarPermisosPorPerfil(EntityManager em, BigInteger secPerfil);
 }

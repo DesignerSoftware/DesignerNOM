@@ -8,12 +8,15 @@ package Persistencia;
 import Entidades.PermisosPantallas;
 import InterfacePersistencia.PersistenciaPermisosPantallasInterface;
 import java.math.BigInteger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  *
@@ -25,49 +28,68 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
    private static Logger log = Logger.getLogger(PersistenciaPermisosPantallas.class);
 
     @Override
-    public void crear(EntityManager em, PermisosPantallas permisosp) {
+    public String crear(EntityManager em, PermisosPantallas permisosp) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(permisosp);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosPantallas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+            log.error("Error PersistenciaPermisosPantallas.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear el Permiso Pantalla";
             }
         }
     }
 
     @Override
-    public void editar(EntityManager em, PermisosPantallas permisosp) {
+    public String editar(EntityManager em, PermisosPantallas permisosp) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(permisosp);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaPermisosPantallas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaPermisosPantallas.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar el Permiso Pantalla";
+            }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, PermisosPantallas permisosp) {
+    public String borrar(EntityManager em, PermisosPantallas permisosp) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(permisosp));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosPantallas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+            log.error("Error PersistenciaPermisosPantallas.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Borrar el Permiso Pantalla";
             }
         }
     }
