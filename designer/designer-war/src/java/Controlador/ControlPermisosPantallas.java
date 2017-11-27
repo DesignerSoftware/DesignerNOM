@@ -7,6 +7,8 @@
 //
 //import ControlNavegacion.ControlListaNavegacion;
 //import Entidades.ObjetosBloques;
+//import Entidades.ObjetosBloques;
+//import Entidades.ObjetosBloques;
 //import Entidades.Perfiles;
 //import Entidades.PermisosPantallas;
 //import InterfaceAdministrar.AdministrarPerfilesInterface;
@@ -107,7 +109,7 @@
 //    public void navegar(String pag) {
 //        FacesContext fc = FacesContext.getCurrentInstance();
 //        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-//        String pagActual = "permisospantallas";
+//        String pagActual = "objetosdb";
 //        if (pag.equals("atras")) {
 //            pag = paginaAnterior;
 //            paginaAnterior = "nominaf";
