@@ -73,8 +73,7 @@
                                          value="#{controlTiposDias.listTiposDias}" scrollHeight="#{controlTiposDias.tamano}"  
                                          filteredValue="#{controlTiposDias.filtrarTiposDias}" emptyMessage="#{msg['vacio']}"
                                          selection="#{controlTiposDias.tipoDiaSeleccionado}" selectionMode="single"
-                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"
-                             >
+                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830" >
                                 <p:ajax event="filter" listener="#{controlTiposDias.eventoFiltrar()}"/>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;">                                  

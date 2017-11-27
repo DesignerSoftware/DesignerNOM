@@ -49,7 +49,7 @@
                                                  actionListener="#{controlConcepto.exportXLS()}" process="@this" ajax="false">
                                 </p:commandButton>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
-                                
+
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
                                                  actionListener="#{controlConcepto.limpiarNuevoConcepto()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosConceptosExportar" fileName="Conceptos" encoding="UTF-8"/> 
@@ -60,7 +60,7 @@
                                                  actionListener="#{controlConcepto.exportPDF()}" process="@this" ajax="false">
                                 </p:commandButton>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
@@ -395,6 +395,10 @@
 
                         </fieldset>
                         <br/><br/><br/><br/><br/>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" 
+                                         disabled="#{controlConcepto.guardado}" process="@this"/>
+
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlConcepto.salir()}" process="@this"/>
                     </p:panel>
                 </h:form>
                 <h:form id="formB">
@@ -422,7 +426,9 @@
 
                             <!--<p:inputText autocomplete="off" id="codigoConceptoClon" value="#/{controlConcepto.conceptoClon.codigo}"
                                  style="position: absolute; height: 14px; margin-top: 0px; width: 55px; margin: 1px; left: 15px">-->
-                            <p:inputText autocomplete="off" id="codigoConceptoClon" value="#{controlConcepto.conceptoClon.codigo}" style="position: absolute; height: 14px; margin-top: 0px; width: 55px; margin: 1px; left: 15px">
+                            <p:inputText autocomplete="off" id="codigoConceptoClon" value="#{controlConcepto.conceptoClon.codigo}" 
+                                         style="position: absolute; height: 14px; margin-top: 0px; width: 55px; margin: 1px; left: 15px"
+                                         size="8">
                                 <p:ajax event="change" update="@this"/>
                                 <p:keyFilter for="codigoConceptoClon" mask="num"/>
                             </p:inputText>
@@ -443,10 +449,7 @@
                         <p:tooltip for="botonClonar" value="#{msg['clonar']}"/>
                     </fieldset>
 
-                    <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" 
-                                     disabled="#{controlConcepto.guardado}" process="@this"/>
 
-                    <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlConcepto.salir()}" process="@this"/>
                     <!--</p:panel>-->
                 </h:form>
 
@@ -468,7 +471,8 @@
 
                         <p:panel id="nuevoConcepto" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 75px;"/></strong>
-                            <p:inputText autocomplete="off" id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" style=" width: 122px; position: absolute; top: 70px; left: 180px;">
+                            <p:inputText autocomplete="off" id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" maxlength="8"
+                                         style=" width: 122px; position: absolute; top: 70px; left: 180px;">
                                 <!--                     <p:inputMask id="codNu" value="#/{controlConcepto.nuevoConcepto.codigo}" mask="99999999" style="position: absolute; top: 70px; left: 180px; width: 122px;">-->
                                 <p:ajax event="change" update="@this"/>
                                 <p:keyFilter for="codNu" mask="num"/>
@@ -589,7 +593,8 @@
 
                         <p:panel id="duplicarConcepto" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 75px;"/></strong>
-                            <p:inputText autocomplete="off" value="#{controlConcepto.duplicarConcepto.codigo}" style="position: absolute; top: 70px; left: 180px; width: 122px; width: 122px;">
+                            <p:inputText autocomplete="off" value="#{controlConcepto.duplicarConcepto.codigo}" 
+                                         style="position: absolute; top: 70px; left: 180px; width: 122px; width: 122px;" maxlength="8">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
