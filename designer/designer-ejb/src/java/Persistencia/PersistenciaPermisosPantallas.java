@@ -5,6 +5,8 @@
  */
 package Persistencia;
 
+import Entidades.ObjetosBloques;
+import Entidades.Perfiles;
 import Entidades.PermisosPantallas;
 import InterfacePersistencia.PersistenciaPermisosPantallasInterface;
 import java.math.BigInteger;
@@ -25,7 +27,7 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 @Stateless
 public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantallasInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaPermisosPantallas.class);
+    private static Logger log = Logger.getLogger(PersistenciaPermisosPantallas.class);
 
     @Override
     public String crear(EntityManager em, PermisosPantallas permisosp) {
@@ -41,7 +43,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
                 tx.rollback();
             }
             if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
-            log.error("Error PersistenciaPermisosPantallas.crear:  ", e);
+                log.error("Error PersistenciaPermisosPantallas.crear:  ", e);
                 return e.toString();
             } else {
                 return "Ha ocurrido un error al Crear el Permiso Pantalla";
@@ -86,7 +88,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
                 tx.rollback();
             }
             if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
-            log.error("Error PersistenciaPermisosPantallas.borrar:  ", e);
+                log.error("Error PersistenciaPermisosPantallas.borrar:  ", e);
                 return e.toString();
             } else {
                 return "Ha ocurrido un error al Borrar el Permiso Pantalla";
@@ -113,4 +115,31 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    @Override
+    public List<PermisosPantallas> consultarPermisosPorPerfil(EntityManager em) {
+        try {
+            em.clear();
+            String sql = "SELECT * FROM PERMISOSPANTALLAS";
+            Query query = em.createNativeQuery(sql, PermisosPantallas.class);
+            List<PermisosPantallas> permisoPantallas = query.getResultList();
+            return permisoPantallas;
+        } catch (Exception e) {
+            log.error("Error: PersistenciaPermisosPantallas consultarObjetosBloques ERROR  ", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Integer conteo(EntityManager em, BigInteger secPerfil, BigInteger secObjeto) {
+        try {
+            em.clear();
+            String sql = "SELECT COUNT(PP.*) FROM PERMISOSPANTALLAS PP WHERE EXISTS PP.PERFIL = " + secPerfil + "PP.OBJETOFRM = " + secObjeto;
+            Query query = em.createNativeQuery(sql, PermisosPantallas.class);
+            Integer cont = (Integer) query.getSingleResult();
+            return cont;
+        } catch (Exception e) {
+            log.error("Error: PersistenciaPermisosPantallas consultarObjetosBloques ERROR  ", e);
+            return null;
+        }
+    }
 }

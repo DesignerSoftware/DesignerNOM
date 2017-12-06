@@ -361,7 +361,7 @@
 
                   </p:dialog>
 
-                  <p:dialog id="validacionNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="true" modal="true" height="110" width="400" style="" closable="false">  
+                  <p:dialog id="validacioNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="true" modal="true" height="110" width="400" style="" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 20px;"/>
                      <h:outputText value="#{msg['validacioNuevaVigencia']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                      <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioNuevaVigencia').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this"/>

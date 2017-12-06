@@ -182,7 +182,7 @@ public class ControlFormula implements Serializable {
          }
       }
    }
-
+   
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
@@ -235,8 +235,11 @@ public class ControlFormula implements Serializable {
 
    //OBTENER FORMULA POR SECUENCIA
    public void obtenerFormulaSecuencia(BigInteger secuencia) {
+       System.out.println("Controlador.ControlFormula.obtenerFormulaSecuencia()");
+       System.out.println("secuencia: " + secuencia);
       if (secuencia != null) {
          Formulas actual = administrarFormula.buscarFormulaSecuencia(secuencia);
+          System.out.println("actual:  " + actual);
          listaFormulas = new ArrayList<Formulas>();
          listaFormulas.add(actual);
          activoBuscarTodos = true;

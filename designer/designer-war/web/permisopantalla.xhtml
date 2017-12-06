@@ -1,0 +1,534 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    }
+                    ;
+                </script>
+                <h:form id="form"> 
+                    <p:panel  id="PanelTotal" header="Permisos Pantallas" styleClass="panelTotal"> 
+                        <p:growl id="growl" showDetail="true"/> 
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPermisosPantallas.guardarPermisoPantalla()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPermisosPantallas.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="Editar"/>
+                                <p:separator />
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPermisosPantallas.listaValoresBoton()}"   process="@this"
+                                                 disabled="#{controlPermisosPantallas.activarLov}" />
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="Lista de Valores"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPermisosPantallas.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="Activar filtrado"/>
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlPermisosPantallas.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="Exportar a XLS"/>
+
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlPermisosPantallas.limpiarNuevoPermisoPantalla()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosPermisosPantallasExportar" fileName="PermisosPantallas" encoding="UTF-8"/> 
+                                </p:commandButton> 
+
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="Exportar a XML"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPermisosPantallas.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="Exportar a PDF"/>
+                                <p:separator /> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroPermiso').show()" update=":formularioDialogos:nuevoPermiso" process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="Insertar Registro"/>
+
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlPermisosPantallas.borrarPermisosPantallas()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="Borrar Registro"/>
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png);" id="duplicar" value="" actionListener="#{controlPermisosPantallas.duplicandoPermisoPantalla()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="Duplicar"/>
+
+                                <p:separator /> 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPermisosPantallas.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="Rastro"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
+                                                 actionListener="#{controlPermisosPantallas.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 actionListener="#{controlPermisosPantallas.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+
+                        <fieldset style="position: absolute; left: 10px; top: 75px; font-size: 10px; width: 835px; height: 400px; border-radius: 10px;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Permisos Pantallas</strong></legend>
+
+                            <p:dataTable id="datosPermisosPantallas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 200px; position: absolute;"                           
+                                         value="#{controlPermisosPantallas.listaPermisosPantallas}" scrollHeight="#{controlPermisosPantallas.altoTabla}" 
+                                         filteredValue="#{controlPermisosPantallas.listaPermisosPantallasFiltrar}" emptyMessage="#{msg['vacio']}"
+                                         selection="#{controlPermisosPantallas.permisoPantallaSeleccionado}" selectionMode="single" rows="13"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" widgetVar="datosPermisosPantallas" lazy="true"
+                                         paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}">
+
+                                <p:ajax event="filter" listener="#{controlPermisosPantallas.eventoFiltrar()}"/>
+
+                                <p:column id="descripcion" headerText="Descripcion" sortBy="#{info.perfil.descripcion}" filterBy="#{info.perfil.descripcion}" 
+                                          filterMatchMode="contains" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.perfil.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.perfil.descripcion}"  style=" font-size: 10px; border-radius: 0px;text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlPermisosPantallas.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" update="nombre"/>
+                                                <p:ajax event="dblclick"  listener="#{controlPermisosPantallas.asignarIndex(info, 0, 0)}" update="nombre"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  id="nombre" headerText="Nombre" sortBy="#{info.objetofrm.nombre}" filterBy="#{info.objetofrm.nombre}"
+                                           filterMatchMode="contains" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.objetofrm.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.objetofrm.nombre}"  style=" font-size: 10px; border-radius: 0px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlPermisosPantallas.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" update="nombre"/>
+                                                <p:ajax event="dblclick"  listener="#{controlPermisosPantallas.asignarIndex(info, 1, 0)}" update="nombre"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column id="tipo" headerText="TIPO" width="35" style="padding: 0px; width: 60px;" sortBy="#{info.tipo}" filterBy="#{info.tipo}" footerText=""
+                                          filterMatchMode="in" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="filter">
+                                        <p:selectCheckboxMenu label="TIPO" id="tipo1" rendered="false" onchange="PF('datosPermisosPantallas').filter()">
+                                            <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                            <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/>  
+                                            <f:selectItem itemLabel="MOSTRADO" itemValue="MOSTRADO"/>  
+                                            <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                            <f:selectItem itemLabel=" " itemValue=" "/>  
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu value="#{info.tipo}" style="width: 60px; font-weight: bold;"
+                                                             onblur="PF('datosPermisosPantallas').unselectAllRows(); PF('datosPermisosPantallas').selectRow(#{indice});"
+                                                             onfocus="PF('datosPermisosPantallas').unselectAllRows(); PF('datosPermisosPantallas').selectRow(#{indice});">  
+                                                <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                                <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/>  
+                                                <f:selectItem itemLabel="MOSTRADO" itemValue="MOSTRADO"/>  
+                                                <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                                <f:selectItem itemLabel=" " itemValue=" "/>  
+                                                <p:ajax event="change" listener="#{controlPermisosPantallas.modificacionTipo(info, info.tipo)}"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="s" style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="10" headerText="S" sortBy="#{info.strS}" filterBy="#{info.strS}" filterMatchMode="contains" 
+                                          filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
+
+                                    <p:selectBooleanCheckbox id="checkS" value="#{info.checkS}" style="alignment-adjust: central;">  
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                                oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style=" width: 40px;"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="d" style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="10" headerText="D" sortBy="#{info.strD}" filterBy="#{info.strD}" filterMatchMode="contains" 
+                                          filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
+
+                                    <p:selectBooleanCheckbox id="checkD" value="#{info.checkD}" style="alignment-adjust: central;">  
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                                oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style=" width: 40px;"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="e" style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="10" headerText="E" sortBy="#{info.strE}" filterBy="#{info.strE}" filterMatchMode="contains" 
+                                          filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
+
+                                    <p:selectBooleanCheckbox id="checkE" value="#{info.checkE}" style="alignment-adjust: central;">  
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                                oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style=" width: 40px;"/>
+                                    </f:facet>
+                                </p:column>                            
+
+                                <p:column id="i" style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="10" headerText="I" sortBy="#{info.strI}" filterBy="#{info.strI}" filterMatchMode="contains" 
+                                          filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
+
+                                    <p:selectBooleanCheckbox id="checkI" value="#{info.checkI}" style="alignment-adjust: central;">  
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                                oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style=" width: 40px;"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="u" style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="10" headerText="U" sortBy="#{info.strU}" filterBy="#{info.strU}" filterMatchMode="contains" 
+                                          filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
+
+                                    <p:selectBooleanCheckbox id="checkU" value="#{info.checkU}" style="alignment-adjust: central;">  
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                                oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style=" width: 40px;"/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlPermisosPantallas.infoRegistro}" style="position: relative; left: 5px; top: 345px; font-weight: bold; font-size: 12px"/>
+                        </fieldset>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlPermisosPantallas.guardado}"  actionListener="#{controlPermisosPantallas.revisarDialogoGuardar()}" process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlPermisosPantallas.salir()}" process="@this"/>
+
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <p:dialog id="nuevoRegistroPermiso" header="Nuevo Registro Permisos Pantallas" widgetVar="nuevoRegistroPermiso" closable="false" resizable="false"  
+                              draggable="true" modal="true" height="340" width="380" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva información" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="nuevoPermiso" style="border: none;">
+
+                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 60px; left: 20px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoDescripcion" onclick="select();" value="#{controlPermisosPantallas.nuevoPermisoPantalla.perfil.descripcion}"
+                                         style="font-size: 12px; width: 210px; position: absolute; left: 110px; top: 55px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlPermisosPantallas.asignarIndex(null,0,1)}" process="@this" update="nuevoDescripcion"/>
+                                <p:ajax event="click" listener="#{controlPermisosPantallas.valoresBackupAutocompletarGeneral(1, 'PERFIL')}"/>
+                                <p:ajax event="change" listener="#{controlPermisosPantallas.autocompletarNuevoyDuplicadoPermiso('PERFIL', controlPermisosPantallas.nuevoPermisoPantalla.perfil.descripcion, 1)}"/>
+                            </p:inputText>
+
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;
+                                             position: absolute; left: 331px; top: 56px;" 
+                                             value="" id="btnNuevoDescripcion" process="@this"  actionListener="#{controlPermisosPantallas.asignarIndex(null,0,1)}"/>   
+
+                            <strong><h:outputText value="*Nombre" style="position: absolute; top: 90px; left: 20px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoNombre" onclick="select();" value="#{controlPermisosPantallas.nuevoPermisoPantalla.objetofrm.nombre}" 
+                                         style="font-size: 12px; width: 210px; position: absolute; left: 110px; top: 85px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlPermisosPantallas.asignarIndex(null,1,1)}" process="@this" update="nuevoDescripcion"/>
+                                <p:ajax event="click" listener="#{controlPermisosPantallas.valoresBackupAutocompletarGeneral(1, 'OBJETOFRM')}"/>
+                                <p:ajax event="change" listener="#{controlPermisosPantallas.autocompletarNuevoyDuplicadoPermiso('OBJETOFRM', controlPermisosPantallas.nuevoPermisoPantalla.objetofrm.nombre, 1)}"/>
+                            </p:inputText>
+
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;
+                                             position: absolute; left: 331px; top: 86px;" 
+                                             value="" id="btnNuevoNombre" process="@this"  actionListener="#{controlPermisosPantallas.asignarIndex(null,1,1)}"/>   
+
+                            <strong><h:outputText value="TIPO" style="position: absolute; top: 120px;"/></strong>
+                            <p:selectOneMenu value="#{controlPermisosPantallas.nuevoPermisoPantalla.tipo}" style="width: 122px; font-weight: bold; position: absolute; top: 115px; left: 110px;" panelStyle="width: 115px;">  
+                                <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/>  
+                                <f:selectItem itemLabel="MOSTRADO" itemValue="MOSTRADO"/>  
+                                <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                <f:selectItem itemLabel=" " itemValue=" "/>  
+                                <p:ajax update="@this"/>
+                            </p:selectOneMenu>
+
+
+                            <strong><h:outputText value="S" style="position: absolute; top: 150px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="nuevoS"  value="#{controlPermisosPantallas.nuevoPermisoPantalla.checkS}"
+                                                     style="alignment-adjust: central;position: absolute; top: 145px; left: 110px">  
+                                <p:ajax event="change" update="nuevoS"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="D" style="position: absolute; top: 180px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="nuevoD"  value="#{controlPermisosPantallas.nuevoPermisoPantalla.checkD}" style="alignment-adjust: central;position: absolute; top: 175px; left: 110px">  
+                                <p:ajax event="change" update="nuevoD"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="E" style="position: absolute; top: 210px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="nuevoE"  value="#{controlPermisosPantallas.nuevoPermisoPantalla.checkE}" style="alignment-adjust: central;position: absolute; top: 205px; left: 110px">  
+                                <p:ajax event="change" update="nuevoE"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="I" style="position: absolute; top: 240px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="nuevoI"  value="#{controlPermisosPantallas.nuevoPermisoPantalla.checkI}" style="alignment-adjust: central;position: absolute; top: 235px; left: 110px">  
+                                <p:ajax event="change" update="nuevoI"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="U" style="position: absolute; top: 270px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="nuevoU"  value="#{controlPermisosPantallas.nuevoPermisoPantalla.checkU}" style="alignment-adjust: central;position: absolute; top: 265px; left: 110px">  
+                                <p:ajax event="change" update="nuevoU"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style="position: absolute; left: 20px; top: 305px; width: 100px; height: 30px;" 
+                                             actionListener="#{controlPermisosPantallas.limpiarListasValor()}" update="nuevoPermiso" process="@this"/>
+                            <p:commandButton id="agregar" icon="ui-icon-circle-check" value="Aceptar" style="position: absolute; left: 150px; top: 305px; height: 30px; width: 100px;"  
+                                             process="@this" actionListener="#{controlPermisosPantallas.agregarNuevoPermisoPantalla()}" update=":form:datosPermisosPantallas"/>
+                            <p:commandButton id="cancelar" icon="ui-icon-circle-close" value="Cancelar" style="position: absolute; left: 255px; top: 305px; height: 30px; width: 100px;"  
+                                             actionListener="#{controlPermisosPantallas.limpiarNuevoPermisoPantalla()}" update="nuevoPermiso" onclick="PF('nuevoRegistroPermiso').hide();" process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <p:dialog id="duplicarRegistroPermiso" header="Duplicar Permiso Pantalla" widgetVar="duplicarRegistroPermiso" closable="false" resizable="false"  
+                              draggable="true" modal="true" height="340" width="380" style="font-size: 12px; padding: 0px">  
+
+                        <center><strong><h:outputText value="Duplicar Información" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="duplicarpp" style="border: none;">
+
+                            <strong><h:outputText value="*Descripción:" style="position: absolute; top: 60px; left: 20px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarDescripcion" onclick="select();" value="#{controlPermisosPantallas.duplicarPermisoPantalla.perfil.descripcion}" style="font-size: 12px; width: 210px; position: absolute; left: 110px; top: 55px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlPermisosPantallas.asignarIndex(null,0,2)}" process="@this" update="duplicarDescripcion"/>
+                                <p:ajax event="click" listener="#{controlPermisosPantallas.valoresBackupAutocompletarGeneral(2, 'PERFIL')}"/>
+                                <p:ajax event="change" listener="#{controlPermisosPantallas.autocompletarNuevoyDuplicadoPermiso('PERFIL', controlPermisosPantallas.duplicarPermisoPantalla.perfil.descripcion, 2)}"/>
+                            </p:inputText>
+
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;    position: absolute; left: 331px; top: 56px;" 
+                                             id="btnDuplicarDescripcion" value="" process="@this"  actionListener="#{controlCargo.asignarIndexCargos(null,0,2)}"/>   
+
+                            <strong><h:outputText value="*Nombre:" style="position: absolute; top: 90px; left: 20px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarNombre" onclick="select();" value="#{controlPermisosPantallas.duplicarPermisoPantalla.objetofrm.nombre}" style="font-size: 12px; width: 210px; position: absolute; left: 110px; top: 85px; text-transform: uppercase;">
+                                <p:ajax event="dblclick" listener="#{controlPermisosPantallas.asignarIndex(null,0,2)}" process="@this" update="duplicarNombre"/>
+                                <p:ajax event="click" listener="#{controlPermisosPantallas.valoresBackupAutocompletarGeneral(2, 'OBJETOFRM')}"/>
+                                <p:ajax event="change" listener="#{controlPermisosPantallas.autocompletarNuevoyDuplicadoPermiso('OBJETOFRM', controlPermisosPantallas.duplicarPermisoPantalla.objetofrm.nombre, 2)}"/>
+                            </p:inputText>
+
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;
+                                             position: absolute; left: 331px; top: 86px;" 
+                                             id="btnDuplicarNombre" value="" process="@this"  actionListener="#{controlPermisosPantallas.asignarIndex(null,0,2)}"/>   
+
+                            <strong><h:outputText value="Tipo" style="position: absolute; top: 120px;"/></strong>
+                            <p:selectOneMenu value="#{controlPermisosPantallas.duplicarPermisoPantalla.tipo}" panelStyle="width: 115px"
+                                             style="width: 122px; font-weight: bold; position: absolute; top: 115px; left: 110px;">  
+                                <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/>  
+                                <f:selectItem itemLabel="MOSTRADO" itemValue="MOSTRADO"/>  
+                                <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                <f:selectItem itemLabel=" " itemValue=" "/>  
+                                <p:ajax update="@this"/>
+                            </p:selectOneMenu>				 
+
+
+                            <strong><h:outputText value="S" style="position: absolute; top: 150px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="duplicarS"  value="#{controlPermisosPantallas.duplicarPermisoPantalla.checkS}" style="alignment-adjust: central;position: absolute; top: 145px; left: 110px">  
+                                <p:ajax event="change" update="duplicarS"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="D" style="position: absolute; top: 180px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="duplicarD"  value="#{controlPermisosPantallas.duplicarPermisoPantalla.checkD}" style="alignment-adjust: central;position: absolute; top: 175px; left: 110px">  
+                                <p:ajax event="change" update="duplicarD"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="E" style="position: absolute; top: 210px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="duplicarE"  value="#{controlPermisosPantallas.duplicarPermisoPantalla.checkE}" style="alignment-adjust: central;position: absolute; top: 205px; left: 110px">  
+                                <p:ajax event="change" update="duplicarE"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="I" style="position: absolute; top: 240px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="duplicarI"  value="#{controlPermisosPantallas.duplicarPermisoPantalla.checkI}" style="alignment-adjust: central;position: absolute; top: 235px; left: 110px">  
+                                <p:ajax event="change" update="duplicarI"/>
+                            </p:selectBooleanCheckbox>  
+
+                            <strong><h:outputText value="U" style="position: absolute; top: 270px; left: 26px;"/></strong>
+                            <p:selectBooleanCheckbox id="duplicarU"  value="#{controlPermisosPantallas.duplicarPermisoPantalla.checkU}" style="alignment-adjust: central;position: absolute; top: 265px; left: 110px">  
+                                <p:ajax event="change" update="duplicarU"/>
+                            </p:selectBooleanCheckbox>  
+
+
+                            <p:commandButton id="limpiarDP" icon="ui-icon-trash" value="Limpiar" style="position: absolute; left: 20px; top: 305px; width: 100px; height: 30px;" 
+                                             actionListener="#{controlPermisosPantallas.limpiarDuplicarPermisosPantallas()}" update="duplicarpp" process="@this"/>
+
+                            <p:commandButton id="agregarDP" icon="ui-icon-circle-check" value="Aceptar" style="position: absolute; left: 150px; top: 305px; height: 30px; width: 100px;"  
+                                             actionListener="#{controlPermisosPantallas.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="cancelarDP" icon="ui-icon-circle-close" value="Cancelar" style="position: absolute; left: 255px; top: 305px; height: 30px; width: 100px;" 
+                                             actionListener="#{controlPermisosPantallas.limpiarDuplicarPermisosPantallas()}" update="duplicarpp" onclick="PF('duplicarRegistroPermiso').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="perfilesDialogo" header="Perfiles" widgetVar="perfilesDialogo" draggable="true" resizable="false" closable="false"
+                              showEffect="fade" hideEffect="fade" width="430" modal="true">
+                        <p:dataTable id="lovPerfiles" var="perfil" value="#{controlPermisosPantallas.lovPerfiles}" rowKey="#{perfil.secuencia}"
+                                     selection="#{controlPermisosPantallas.perfilesSeleccionado}" selectionMode="single" widgetVar="lovPerfiles" scrollable="true" 
+                                     scrollWidth="410" scrollHeight="250" filteredValue="#{controlPermisosPantallas.lovPerfilesFiltrar}" emptyMessage="No se encontraron Datos">              
+
+                            <p:ajax event="filter" listener="#{controlPermisosPantallas.contarRegistrosPerfil()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlPermisosPantallas.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPermisosPantallas.actualizarPerfil()}" 
+                                    oncomplete="PF('perfilesDialogo').hide(), PF('lovPerfiles').clearFilters()" update=":formularioDialogos:perfilesDialogo" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Perfil"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPerfiles').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{perfil.descripcion}" filterValue="" width="100" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Descripcion"/>
+                                </f:facet>
+                                <h:outputText  value="#{perfil.descripcion}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroPerfil" value="Registros: #{controlPermisosPantallas.infoRegistroPerfiles}" class="cssinfoRegistroLOV"/>
+
+                            <p:commandButton id="aceptarP" class="cssAceptarLOV" value="Aceptar" disabled="#{controlPermisosPantallas.aceptar}" icon="ui-icon-check"
+                                             oncomplete="PF('perfilesDialogo').hide(), PF('lovPerfiles').clearFilters()" update="formularioDialogos:perfilesDialogo" 
+                                             actionListener="#{controlPermisosPantallas.actualizarPerfil()}" process="@this" onclick="PF('perfilesDialogo').hide()"/>
+
+                            <p:commandButton id="atrasP" class="cssAtrasLOV" value="Cancelar" icon="ui-icon-arrowreturnthick-1-w" 
+                                             oncomplete="PF('perfilesDialogo').hide(), PF('lovPerfiles').clearFilters()" update="formularioDialogos:perfilesDialogo" 
+                                             actionListener="#{controlPermisosPantallas.cancelarPerfil()}"  process="@this" onclick="PF('perfilesDialogo').hide()"/>    
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="Objetos DB" widgetVar="objetosBloquesDialogo" draggable="true" resizable="false" closable="false" id="objetosBloquesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="430" modal="true">
+                        <p:dataTable id="lovObjetosFRM" var="obj" value="#{controlPermisosPantallas.lovObjetosBloques}" rowKey="#{obj.secuencia}"
+                                     selection="#{controlPermisosPantallas.objetoBloqueSeleccionado}" selectionMode="single" widgetVar="lovObjetosFRM" scrollable="true" scrollWidth="410" scrollHeight="250"
+                                     filteredValue="#{controlPermisosPantallas.lovObjetosBloquesFiltrar}" emptyMessage="No se encontrarón datos">              
+
+                            <p:ajax event="filter" listener="#{controlPermisosPantallas.contarRegistrosObjetosFRM()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlPermisosPantallas.activarAceptar()}" update=":formularioDialogos:aceptarO"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPermisosPantallas.actualizarObjetoFRM()}" 
+                                    oncomplete="PF('objetosBloquesDialogo').hide(), PF('lovObjetosFRM').clearFilters()" update=":formularioDialogos:objetosBloquesDialogo" process="@this"/> 
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Nombre"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovObjetosFRM').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{obj.nombre}" filterValue="" filterStyle="width: 80% !important" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{obj.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroObjetosFRM" value="Registros: #{controlPermisosPantallas.infoRegistroObjetosBloques}" class="cssinfoRegistroLOV"/>
+
+                            <p:commandButton id="aceptarO" class="cssAceptarLOV" value="Aceptar" disabled="#{controlPermisosPantallas.aceptar}" icon="ui-icon-check"
+                                             oncomplete="PF('objetosBloquesDialogo').hide(), PF('lovObjetosFRM').clearFilters()" update=":formularioDialogos:objetosBloquesDialogo" 
+                                             actionListener="#{controlPermisosPantallas.actualizarObjetosFRM()}" process="@this" onclick="PF('objetosBloquesDialogo').hide()"/>
+
+                            <p:commandButton id="atrasO" class="cssAtrasLOV" value="Cancelar"  icon="ui-icon-arrowreturnthick-1-w" 
+                                             oncomplete="PF('objetosBloquesDialogo').hide(), PF('lovObjetosFRM').clearFilters()" update=":formularioDialogos:objetosBloquesDialogo" 
+                                             actionListener="#{controlPermisosPantallas.cancelarObjetosFRM()}"  process="@this" onclick="PF('objetosBloquesDialogo').hide()"/>    
+                        </div>
+                    </p:dialog>                 
+
+
+
+
+                    <p:dialog id="errorGuardadoBD" header="#{msg['error']}" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlPermisosPantallas.msgError}"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'PERMISOSPANTALLAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPermisosPantallas.permisoPantallaSeleccionado.secuencia,'PermisosPantallas', 'permisopantalla')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{controlPermisosPantallas.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="¡Información!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla PERMISOSPANTALLAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('PermisosPantallas', 'permisopantalla')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="¡Información!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPermisosPantallas.permisoPantallaSeleccionado.secuencia,'PermisosPantallas', 'permisopantalla')}" 
+                                         icon="ui-icon-check" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlPermisosPantallas.editarPermisoPantalla.perfil.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlPermisosPantallas.editarPermisoPantalla.objetofrm.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportar">
+                    <h:dataTable id="datosPermisosPantallasExportar">
+
+                    </h:dataTable>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

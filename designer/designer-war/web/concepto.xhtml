@@ -400,6 +400,10 @@
 
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlConcepto.salir()}" process="@this"/>
                     </p:panel>
+                    <p:commandButton style="position: absolute; left: 685px; top: 399px;" class="cssBotonBuscar"
+                                     id="buscarConcepto" value="" actionListener="#{controlConcepto.lovConcepto(0)}" process="@this"/>
+                    <p:commandButton style="position: absolute; left: 775px; top: 399px;" class="cssBotonMostrarTodos"
+                                     disabled="#{controlConcepto.mostrarTodos}" id="mostrarTodos" actionListener="#{controlConcepto.mostrarTodosConceptos()}" value="" process="@this"/>
                 </h:form>
                 <h:form id="formB">
                     <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
@@ -411,10 +415,6 @@
                     <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                      width: 130px; height: 30px; position: absolute; left: 270px; top: 397px; color: white;" value="#{msg['unidadconcepto']}" id="unidadesConcepto" 
                                      immediate="#{controlConcepto.activarSelec()}" actionListener="#{controlConcepto.navegar('conceptosoporte')}" process="@this" update="@this"/>
-                    <p:commandButton style="position: absolute; left: 685px; top: 399px;" class="cssBotonBuscar"
-                                     id="buscarConcepto" value="" actionListener="#{controlConcepto.lovConcepto(0)}" process="@this"/>
-                    <p:commandButton style="position: absolute; left: 775px; top: 399px;" class="cssBotonMostrarTodos"
-                                     disabled="#{controlConcepto.mostrarTodos}" id="mostrarTodos" actionListener="#{controlConcepto.mostrarTodosConceptos()}" value="" process="@this"/>
 
                     <fieldset style="position: absolute; left: 5px; top: 432px; width: 835px; height: 60px; border-radius: 10px; padding-bottom: 0px; padding-top: 0px;">
                         <legend style="color: blue;"><strong>#{msg['cconcepto']}</strong></legend>
@@ -459,7 +459,7 @@
                 </h:form>
 
                 <h:form id="formularioDialogos">
-                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size:12" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>

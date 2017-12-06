@@ -10,6 +10,7 @@ import Entidades.ObjetosDB;
 import Entidades.PermisosPantallas;
 import java.math.BigInteger;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -27,6 +28,10 @@ public interface AdministrarPermisosPantallasInterface {
 
     public List<ObjetosBloques> lovObjetosBloques();
 
-    public List<PermisosPantallas> consultarPermisosPantallas(BigInteger secPerfil);
+    public List<PermisosPantallas> consultarPermisosPantallas(EntityManager em, BigInteger secPerfil);
+
+    public List<PermisosPantallas> consultarPermisosPantallas();
+
+    public Integer conteoPantallas(BigInteger secPerfil, BigInteger seObjetos);
 
 }

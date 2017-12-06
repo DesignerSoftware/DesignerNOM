@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarPermisosPantallas implements AdministrarPermisosPantallasInterface {
 
-        private static Logger log = Logger.getLogger(AdministrarPermisosPantallas.class);
+    private static Logger log = Logger.getLogger(AdministrarPermisosPantallas.class);
 
     @EJB
     PersistenciaObjetosBloquesInterface persistenciaObjetosBloques;
@@ -38,8 +38,8 @@ public class AdministrarPermisosPantallas implements AdministrarPermisosPantalla
     private EntityManagerFactory emf;
     private EntityManager em;
     private String idSesionBck;
-    
-   private EntityManager getEm() {
+
+    private EntityManager getEm() {
         try {
             if (this.emf != null) {
                 if (this.em != null) {
@@ -67,7 +67,6 @@ public class AdministrarPermisosPantallas implements AdministrarPermisosPantalla
         }
     }
 
-
     @Override
     public String modificarPermiso(PermisosPantallas permiso) {
         try {
@@ -80,17 +79,17 @@ public class AdministrarPermisosPantallas implements AdministrarPermisosPantalla
 
     @Override
     public String crearPermiso(PermisosPantallas permiso) {
-    try {
-        return persistenciaPermisos.crear(getEm(), permiso);
-    } catch (Exception e) {
-        log.error("Error AdministrarPermisosPantallas.crearPermiso : ", e);
-        return e.getMessage();
-    }
+        try {
+            return persistenciaPermisos.crear(getEm(), permiso);
+        } catch (Exception e) {
+            log.error("Error AdministrarPermisosPantallas.crearPermiso : ", e);
+            return e.getMessage();
+        }
     }
 
     @Override
     public String borrarPermiso(PermisosPantallas permiso) {
-         try {
+        try {
             return persistenciaPermisos.borrar(getEm(), permiso);
         } catch (Exception e) {
             log.error("Error AdministrarPermisosPantallas.borrarPermiso : ", e);
@@ -100,7 +99,7 @@ public class AdministrarPermisosPantallas implements AdministrarPermisosPantalla
 
     @Override
     public List<ObjetosBloques> lovObjetosBloques() {
-         try {
+        try {
             return persistenciaObjetosBloques.consultarObjetosBloques(em);
         } catch (Exception e) {
             log.error("Error AdministrarPermisosPantallas.borrarPermiso : ", e);
@@ -109,14 +108,33 @@ public class AdministrarPermisosPantallas implements AdministrarPermisosPantalla
     }
 
     @Override
-    public List<PermisosPantallas> consultarPermisosPantallas(BigInteger secPerfil) {
-         try {
-            return persistenciaPermisos.consultarPermisosPorPerfil(em,secPerfil);
+    public List<PermisosPantallas> consultarPermisosPantallas(EntityManager em, BigInteger secPerfil) {
+        try {
+            return persistenciaPermisos.consultarPermisosPorPerfil(em, secPerfil);
         } catch (Exception e) {
-            log.error("Error AdministrarPermisosPantallas.borrarPermiso : ", e);
+            log.error("Error AdministrarPermisosPantallas.consultarPermisosPantallas : ", e);
             return null;
         }
     }
-    
+
+    @Override
+    public List<PermisosPantallas> consultarPermisosPantallas() {
+        try {
+            return persistenciaPermisos.consultarPermisosPorPerfil(getEm());
+        } catch (Exception e) {
+            log.error("Error AdministrarPermisosPantallas.consultarPermisosPantallas : ", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Integer conteoPantallas(BigInteger secPerfil, BigInteger secObjetos) {
+       try {
+            return persistenciaPermisos.conteo(getEm(), secPerfil, secObjetos);
+        } catch (Exception e) {
+            log.error("Error AdministrarPermisosPantallas.consultarPermisosPantallas : ", e);
+            return null;
+        }
+    }
 
 }

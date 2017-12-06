@@ -458,6 +458,7 @@ public class ControlDetalleConcepto implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else if (pag.equals("formula")) {
+          System.out.println("Controlador.ControlDetalleConcepto.navegar(): Entre a formula" );
          Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          mapParaEnviar.put("paginaAnterior", pagActual);
          mapParaEnviar.put("secFormula", vigFormulaConceptoSeleccionada.getFormula());
