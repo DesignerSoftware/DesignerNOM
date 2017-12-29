@@ -131,15 +131,20 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
 
     @Override
     public Integer conteo(EntityManager em, BigInteger secPerfil, BigInteger secObjeto) {
+        Integer retorno = new Integer("-1");
         try {
             em.clear();
-            String sql = "SELECT COUNT(PP.*) FROM PERMISOSPANTALLAS PP WHERE EXISTS PP.PERFIL = " + secPerfil + "PP.OBJETOFRM = " + secObjeto;
-            Query query = em.createNativeQuery(sql, PermisosPantallas.class);
-            Integer cont = (Integer) query.getSingleResult();
-            return cont;
+            String sql = "SELECT COUNT(*) FROM PermisosPantallas pp WHERE Perfil = ? and Objetofrm = ?";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secPerfil);
+            query.setParameter(2, secObjeto);
+            retorno = new Integer(query.getSingleResult().toString());
+            return retorno;
+
         } catch (Exception e) {
             log.error("Error: PersistenciaPermisosPantallas consultarObjetosBloques ERROR  ", e);
             return null;
         }
+
     }
 }

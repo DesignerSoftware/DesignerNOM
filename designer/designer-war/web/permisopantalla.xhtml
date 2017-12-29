@@ -98,8 +98,8 @@
                                             <p:inputText autocomplete="off" value="#{info.perfil.descripcion}"  style=" font-size: 10px; border-radius: 0px;text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlPermisosPantallas.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});" /> 
-                                                <p:ajax event="change"  listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" update="nombre"/>
-                                                <p:ajax event="dblclick"  listener="#{controlPermisosPantallas.asignarIndex(info, 0, 0)}" update="nombre"/>
+                                                <p:ajax event="change"  listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.perfil)}" update="descripcion"/>
+                                                <p:ajax event="dblclick"  listener="#{controlPermisosPantallas.asignarIndex(info, 0, 0)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -116,7 +116,7 @@
                                             <p:inputText autocomplete="off" value="#{info.objetofrm.nombre}"  style=" font-size: 10px; border-radius: 0px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlPermisosPantallas.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});" /> 
-                                                <p:ajax event="change"  listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" update="nombre"/>
+                                                <p:ajax event="change"  listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.objetofrm)}" update="nombre"/>
                                                 <p:ajax event="dblclick"  listener="#{controlPermisosPantallas.asignarIndex(info, 1, 0)}" update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -160,7 +160,7 @@
                                           filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
 
                                     <p:selectBooleanCheckbox id="checkS" value="#{info.checkS}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.checkS)}" process="@this"
                                                 oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
@@ -172,7 +172,7 @@
                                           filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
 
                                     <p:selectBooleanCheckbox id="checkD" value="#{info.checkD}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.checkD)}" process="@this"
                                                 oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
@@ -184,7 +184,7 @@
                                           filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
 
                                     <p:selectBooleanCheckbox id="checkE" value="#{info.checkE}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.checkE)}" process="@this"
                                                 oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
@@ -196,7 +196,7 @@
                                           filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
 
                                     <p:selectBooleanCheckbox id="checkI" value="#{info.checkI}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.checkI)}" process="@this"
                                                 oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
@@ -208,7 +208,7 @@
                                           filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
 
                                     <p:selectBooleanCheckbox id="checkU" value="#{info.checkU}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarPermisosPantallas(info)}" process="@this"
+                                        <p:ajax event="change" listener="#{controlPermisosPantallas.modificarTipoAnexo(indice, 'N', info.checkU)}" process="@this"
                                                 oncomplete="PF('datosPermisosPantallas').unselectAllRows();PF('datosPermisosPantallas').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
@@ -458,7 +458,7 @@
                     <p:dialog id="errorGuardadoBD" header="#{msg['error']}" widgetVar="errorGuardadoBD"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlPermisosPantallas.msgError}"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardadoBD').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="¡Información!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
@@ -473,6 +473,13 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{controlPermisosPantallas.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
+                                         icon="ui-icon-check" />
+                    </p:dialog>
+                    
+                    <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{controlPermisosPantallas.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"
                                          icon="ui-icon-check" />
                     </p:dialog>
 

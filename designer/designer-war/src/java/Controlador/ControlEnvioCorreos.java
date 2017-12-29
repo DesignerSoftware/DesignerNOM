@@ -232,6 +232,7 @@ public class ControlEnvioCorreos implements Serializable {
             email = "";
             String tipoRespCorreo = "D";
             String mensaje = "";
+            System.out.println("listCorreoCodigos: " + listCorreoCodigos);
             if (listCorreoCodigos != null) {
                 if (!listCorreoCodigos.isEmpty()) {
                     for (int i = 0; i < listCorreoCodigos.size(); i++) {
@@ -241,10 +242,13 @@ public class ControlEnvioCorreos implements Serializable {
 //                        email = listCorreoCodigos.get(i).getEmailPersona();
                         if (validarCorreo()) {
                             Map paramEmpl = new HashMap();
+                            System.out.println("empleadoDesde: " + listCorreoCodigos.get(i).getCodigoempleado());
+                            System.out.println("empleadoHasta: " + listCorreoCodigos.get(i).getCodigoempleado());
                             paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
                             paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
                             pathReporteGenerado = generaReporte(paramEmpl);
 //                            generaReporte(paramEmpl);
+                            System.out.println("email: " + email);
                             if (enviarReporteCorreo(secEmpresa, email, asunto, "Mensaje enviado automáticamente, por favor no responda a este correo.", pathReporteGenerado, msjResul)) {
                                 mensaje = mensaje + " " + msjResul[0];
                                 if (!tipoRespCorreo.equalsIgnoreCase("E")) {

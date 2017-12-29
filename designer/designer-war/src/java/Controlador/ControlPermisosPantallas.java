@@ -75,7 +75,9 @@ public class ControlPermisosPantallas implements Serializable {
     private List<Perfiles> lovPerfilesFiltrar;
     private Perfiles perfilesSeleccionado;
     //
-    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+    private String backUpPerfil, backUPObjetofrm;
+    //
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera, index;
     private BigInteger l;
     private boolean aceptar, guardado;
     private Column descripcion, nombre, tipoC, select, delete, enable, insert, update;
@@ -266,7 +268,7 @@ public class ControlPermisosPantallas implements Serializable {
                     lovPerfiles = null;
                     getLovPerfiles();
                 } else {
-                    RequestContext.getCurrentInstance().update("form:PerfilesDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:PerfilesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('PerfilesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
@@ -311,7 +313,7 @@ public class ControlPermisosPantallas implements Serializable {
                     lovObjetosBloques = null;
                     getLovObjetosBloques();
                 } else {
-                    RequestContext.getCurrentInstance().update("form:ObjetoFRMDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:ObjetoFRMDialogo");
                     RequestContext.getCurrentInstance().execute("PF('ObjetoFRMDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
@@ -397,14 +399,22 @@ public class ControlPermisosPantallas implements Serializable {
     }
 
     public void activarCtrlF11() {
+        System.out.println("Controlador.ControlPermisosPantallas.activarCtrlF11()");
         if (bandera == 0) {
+            System.out.println("Bandera: " + bandera);
             altoTabla = "295";
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
-            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
-            nombre.setFilterStyle("width: 85% !important;");
-            tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
-            tipoC.setFilterStyle("width: 85% !important;");
+//            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
+//            nombre.setFilterStyle("width: 85% !important;");
+//            tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
+//            tipoC.setFilterStyle("width: 85% !important;");
+//codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposAnexos:codigo");
+//            codigo.setFilterStyle("width: 85% !important");
+//            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposAnexos:descripcion");
+//            descripcion.setFilterStyle("width: 85% !important");
+//            RequestContext.getCurrentInstance().update("form:datosTiposAnexos");
+//            bandera = 1;
             RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
             bandera = 1;
         } else if (bandera == 1) {
@@ -436,10 +446,14 @@ public class ControlPermisosPantallas implements Serializable {
     }
 
     public void modificarPermisosPantallas(PermisosPantallas objeto) {
+        int count = 0;
         permisoPantallaSeleccionado = objeto;
         if (!listaPermisosPantallasCrear.contains(permisoPantallaSeleccionado)) {
             if (listaPermisosPantallasModificar.isEmpty()) {
-                listaPermisosPantallasModificar.add(permisoPantallaSeleccionado);
+                count = administrarPermisos.conteoPantallas(nuevoPermisoPantalla.getPerfil().getSecuencia(), nuevoPermisoPantalla.getObjetofrm().getSecuencia());
+                if (count == 0) {
+                    listaPermisosPantallasModificar.add(permisoPantallaSeleccionado);
+                }
             } else if (!listaPermisosPantallasModificar.contains(permisoPantallaSeleccionado)) {
                 listaPermisosPantallasModificar.add(permisoPantallaSeleccionado);
             }
@@ -449,7 +463,7 @@ public class ControlPermisosPantallas implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
     }
 
-    public void borrarPermisosPantallas() {
+public void borrarPermisosPantallas() {
         if (permisoPantallaSeleccionado != null) {
             if (!listaPermisosPantallasModificar.isEmpty() && listaPermisosPantallasModificar.contains(permisoPantallaSeleccionado)) {
                 int modIndex = listaPermisosPantallasModificar.indexOf(permisoPantallaSeleccionado);
@@ -574,6 +588,7 @@ public class ControlPermisosPantallas implements Serializable {
 
     public void agregarNuevoPermisoPantalla() {
         int contador = 0;
+        int count = 0;
         int duplicados = 0;
 
         Integer a = 0;
@@ -595,75 +610,44 @@ public class ControlPermisosPantallas implements Serializable {
         if (nuevoPermisoPantalla.getTipo() == null) {
             nuevoPermisoPantalla.setTipo("");
         }
-        Integer cont = administrarPermisos.conteoPantallas(nuevoPermisoPantalla.getPerfil().getSecuencia(), nuevoPermisoPantalla.getObjetofrm().getSecuencia());
-        System.out.println("cont: " + cont);
-        if (cont > 0) {
-            mensajeValidacion="El dato ya esta registrado. por favor ingrese uno nuevo";
-        }else{
-            contador++;
-            
-        }
-
-        if (contador == 3) {
-            if (bandera == 1) {
-                tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
-                tipoC.setFilterStyle("display: none; visibility: hidden;");
-                nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
-                nombre.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:descripcion");
-                descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
-                bandera = 0;
-                listaPermisosPantallasFiltrar = null;
-                tipoLista = 0;
+        if (contador == 2) {
+            count = administrarPermisos.conteoPantallas(nuevoPermisoPantalla.getPerfil().getSecuencia(), nuevoPermisoPantalla.getObjetofrm().getSecuencia());
+            if (count == 0) {
+                if (bandera == 1) {
+                    tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
+                    tipoC.setFilterStyle("display: none; visibility: hidden;");
+                    nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
+                    nombre.setFilterStyle("display: none; visibility: hidden;");
+                    descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:descripcion");
+                    descripcion.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
+                    bandera = 0;
+                    listaPermisosPantallasFiltrar = null;
+                    tipoLista = 0;
 //                altoTabla = "315";
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevoPermisoPantalla.setSecuencia(l);
+                listaPermisosPantallasCrear.add(nuevoPermisoPantalla);
+                listaPermisosPantallas.add(0, nuevoPermisoPantalla);
+                permisoPantallaSeleccionado = nuevoPermisoPantalla;
+                RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPermiso').hide()");
+                nuevoPermisoPantalla = new PermisosPantallas();
+            } else {
+                mensajeValidacion = "El dato ya esta registrado en la base de datos";
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaCentroCosto");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
+                contador = 0;
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoPermisoPantalla.setSecuencia(l);
-            listaPermisosPantallasCrear.add(nuevoPermisoPantalla);
-            listaPermisosPantallas.add(0, nuevoPermisoPantalla);
-//            
-//            for (int i = 0; i < listaPermisosPantallasCrear.size(); i++) {
-//                msgError = administrarPermisos.crearPermiso(listaPermisosPantallasCrear.get(i));
-//            }
-//
-//            if (msgError.equals("EXITO")) {
-//                   duplicados++;
-//                } else {
-//                    mensajeValidacion = "El dato ya esta registrado. Por favor ingrese uno nuevo";
-//                }
-//            
-//            if (duplicados == 1) {
-//                if (bandera == 1) {
-//                    tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
-//                    tipoC.setFilterStyle("display: none; visibility: hidden;");
-//                    nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
-//                    nombre.setFilterStyle("display: none; visibility: hidden;");
-//                    descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:descripcion");
-//                    descripcion.setFilterStyle("display: none; visibility: hidden;");
-//                    RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
-//                    bandera = 0;
-//                    listaPermisosPantallasFiltrar = null;
-//                    tipoLista = 0;
-////                altoTabla = "315";
-//                }
-            permisoPantallaSeleccionado = nuevoPermisoPantalla;
-            RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPermiso').hide()");
-            nuevoPermisoPantalla = new PermisosPantallas();
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaCentroCosto");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
-//        } else {
-//            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaCentroCosto");
-//            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-//            contador = 0;
-//        }
     }
 
     public void limpiarNuevoPermisoPantalla() {
@@ -695,8 +679,8 @@ public class ControlPermisosPantallas implements Serializable {
 
     public void confirmarDuplicar() {
         int contador = 0;
+        int count = 0;
         mensajeValidacion = " ";
-        int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
@@ -713,31 +697,38 @@ public class ControlPermisosPantallas implements Serializable {
         }
 
         if (contador == 2) {
-            listaPermisosPantallas.add(0, duplicarPermisoPantalla);
-            listaPermisosPantallasCrear.add(duplicarPermisoPantalla);
-            permisoPantallaSeleccionado = duplicarPermisoPantalla;
-            RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            if (bandera == 1) {
-                tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
-                tipoC.setFilterStyle("display: none; visibility: hidden;");
-                nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
-                nombre.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:descripcion");
-                descripcion.setFilterStyle("display: none; visibility: hidden;");
+            count = administrarPermisos.conteoPantallas(nuevoPermisoPantalla.getPerfil().getSecuencia(), nuevoPermisoPantalla.getObjetofrm().getSecuencia());
+            if (count == 0) {
+                listaPermisosPantallas.add(0, duplicarPermisoPantalla);
+                listaPermisosPantallasCrear.add(duplicarPermisoPantalla);
+                permisoPantallaSeleccionado = duplicarPermisoPantalla;
                 RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
-                bandera = 0;
-                listaPermisosPantallasFiltrar = null;
-                tipoLista = 0;
-                altoTabla = "270";
-            }
-            duplicarPermisoPantalla = new PermisosPantallas();
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPermiso').hide()");
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                if (bandera == 1) {
+                    tipoC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:tipo");
+                    tipoC.setFilterStyle("display: none; visibility: hidden;");
+                    nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:nombre");
+                    nombre.setFilterStyle("display: none; visibility: hidden;");
+                    descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosPermisosPantallas:descripcion");
+                    descripcion.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosPermisosPantallas");
+                    bandera = 0;
+                    listaPermisosPantallasFiltrar = null;
+                    tipoLista = 0;
+                    altoTabla = "270";
+                }
+                duplicarPermisoPantalla = new PermisosPantallas();
+                RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPermiso').hide()");
 
+            } else {
+                contador = 0;
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarVigencia");
+                RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+            }
         } else {
             contador = 0;
-            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarVigencia");
             RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
